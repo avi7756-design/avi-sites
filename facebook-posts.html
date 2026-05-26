@@ -188,8 +188,10 @@ function showToast(msg) {
   setTimeout(() => t.classList.remove('show'), 2200);
 }
 
+const apartmentLink = '\n\n🔗 כל הפרטים על הדירה:\nhttps://avi7756-design.github.io/avi-sites/apartment-eilat5.html';
+
 function copyPost(index, btn) {
-  const text = posts[index].text;
+  const text = posts[index].text + apartmentLink;
   navigator.clipboard.writeText(text).then(() => {
     btn.classList.add('copied');
     btn.innerHTML = '<svg viewBox="0 0 24 24"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg> הועתק!';
@@ -202,7 +204,7 @@ function copyPost(index, btn) {
 }
 
 function copyAll() {
-  const allText = posts.map(p => `=== ${p.file} ===\n\n${p.text}`).join('\n\n' + '='.repeat(50) + '\n\n');
+  const allText = posts.map(p => `=== ${p.file} ===\n\n${p.text}${apartmentLink}`).join('\n\n' + '='.repeat(50) + '\n\n');
   navigator.clipboard.writeText(allText).then(() => {
     showToast('כל 9 הפוסטים הועתקו בהצלחה!');
   });
