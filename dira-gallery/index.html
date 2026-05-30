@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דירה מרוהטת להשכרה | אחי אילת 5 קריית חיים</title>
+<meta name="description" content="דירה מרוהטת קומפלט להשכרה בקריית חיים מזרחית. 2 חדרים + מרפסת 20 מ״ר. 3,700 ₪ כולל הכל. כניסה מיידית.">
+<meta property="og:title" content="🏠 דירה מרוהטת להשכרה - 3,700₪ כולל הכל">
+<meta property="og:description" content="2 חדרים + מרפסת 20 מ״ר | קומה 2 עם מעלית | חניה פרטית | כניסה מיידית | ללא תיווך">
+<meta property="og:type" content="website">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI',Tahoma,Arial,sans-serif;background:#f5f5f5;color:#333;direction:rtl}
+
+/* HEADER */
+.header{background:linear-gradient(135deg,#1a5276,#2e86c1);color:#fff;padding:20px 16px;text-align:center}
+.header h1{font-size:1.4rem;margin-bottom:6px}
+.header .subtitle{font-size:0.95rem;opacity:0.9}
+.price-badge{display:inline-block;background:#f39c12;color:#fff;font-size:1.3rem;font-weight:bold;padding:8px 24px;border-radius:30px;margin-top:10px}
+
+/* GALLERY */
+.gallery{position:relative;width:100%;max-width:700px;margin:0 auto;overflow:hidden;background:#000}
+.gallery-track{display:flex;transition:transform 0.5s ease}
+.gallery-track img{width:100%;min-width:100%;height:400px;object-fit:cover}
+@media(max-width:600px){.gallery-track img{height:260px}}
+.gallery-btn{position:absolute;top:50%;transform:translateY(-50%);background:rgba(0,0,0,0.5);color:#fff;border:none;font-size:2rem;padding:8px 14px;cursor:pointer;border-radius:50%;z-index:2}
+.gallery-btn.prev{right:10px}
+.gallery-btn.next{left:10px}
+.gallery-dots{text-align:center;padding:10px;background:#000}
+.gallery-dots span{display:inline-block;width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.4);margin:0 4px;cursor:pointer;transition:background 0.3s}
+.gallery-dots span.active{background:#f39c12}
+.gallery-counter{position:absolute;bottom:50px;left:16px;background:rgba(0,0,0,0.6);color:#fff;padding:4px 10px;border-radius:12px;font-size:0.85rem;z-index:2}
+.img-label{position:absolute;bottom:50px;right:16px;background:rgba(0,0,0,0.6);color:#fff;padding:4px 12px;border-radius:12px;font-size:0.85rem;z-index:2}
+
+/* INFO GRID */
+.info-section{max-width:700px;margin:0 auto;padding:16px}
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:16px 0}
+.info-card{background:#fff;border-radius:12px;padding:14px 10px;text-align:center;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.info-card .icon{font-size:1.6rem;margin-bottom:4px}
+.info-card .label{font-size:0.75rem;color:#888;margin-bottom:2px}
+.info-card .value{font-size:0.95rem;font-weight:bold;color:#1a5276}
+
+/* INCLUDED */
+.included{background:#fff;border-radius:12px;padding:16px;margin:16px 0;box-shadow:0 2px 8px rgba(0,0,0,0.08)}
+.included h3{font-size:1.1rem;color:#1a5276;margin-bottom:12px;text-align:center}
+.included-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px}
+.included-item{display:flex;align-items:center;gap:8px;font-size:0.9rem}
+.included-item .check{color:#27ae60;font-weight:bold}
+.excluded{color:#e74c3c;font-size:0.85rem;text-align:center;margin-top:10px;padding-top:10px;border-top:1px solid #eee}
+
+/* FAQ */
+.faq-section{max-width:700px;margin:0 auto;padding:0 16px 16px}
+.faq-title{font-size:1.2rem;color:#1a5276;text-align:center;margin:20px 0 12px;padding-top:16px;border-top:3px solid #f39c12}
+.faq-item{background:#fff;border-radius:10px;margin-bottom:8px;box-shadow:0 1px 4px rgba(0,0,0,0.06);overflow:hidden}
+.faq-q{padding:14px 16px;cursor:pointer;display:flex;justify-content:space-between;align-items:center;font-weight:bold;font-size:0.95rem;color:#1a5276;user-select:none;transition:background 0.2s}
+.faq-q:hover{background:#f0f7ff}
+.faq-q .arrow{transition:transform 0.3s;font-size:1.2rem}
+.faq-q.open .arrow{transform:rotate(180deg)}
+.faq-a{max-height:0;overflow:hidden;transition:max-height 0.4s ease,padding 0.3s;padding:0 16px;font-size:0.9rem;line-height:1.7;color:#555}
+.faq-a.open{max-height:300px;padding:0 16px 14px}
+
+/* CTA */
+.cta-section{max-width:700px;margin:0 auto;padding:16px;text-align:center}
+.cta-section p{margin-bottom:12px;font-size:0.95rem;color:#666}
+.cta-buttons{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+.cta-btn{display:inline-flex;align-items:center;gap:8px;padding:14px 28px;border-radius:30px;font-size:1.05rem;font-weight:bold;text-decoration:none;color:#fff;transition:transform 0.2s,box-shadow 0.2s}
+.cta-btn:active{transform:scale(0.96)}
+.cta-whatsapp{background:#25D366;box-shadow:0 4px 15px rgba(37,211,102,0.4)}
+.cta-phone{background:#2e86c1;box-shadow:0 4px 15px rgba(46,134,193,0.4)}
+
+/* URGENCY */
+.urgency{background:linear-gradient(90deg,#e74c3c,#c0392b);color:#fff;text-align:center;padding:12px;font-size:0.95rem;font-weight:bold;max-width:700px;margin:0 auto}
+
+/* FOOTER */
+.footer{max-width:700px;margin:0 auto;padding:20px 16px;text-align:center;color:#999;font-size:0.8rem}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <h1>🏠 דירה מרוהטת קומפלט להשכרה</h1>
+  <div class="subtitle">שדרות אחי אילת 5, קריית חיים מזרחית</div>
+  <div class="price-badge">💰 3,700 ₪/חודש כולל הכל</div>
+</div>
+
+<!-- GALLERY -->
+<div class="gallery" id="gallery">
+  <div class="gallery-track" id="track">
+    <img src="images/01_salon.jpg" alt="סלון מרוהט">
+    <img src="images/03_salon3.jpg" alt="סלון זווית נוספת">
+    <img src="images/02_salon2.jpg" alt="סלון">
+    <img src="images/04_bedroom.jpg" alt="חדר שינה">
+    <img src="images/05_kitchen.jpg" alt="מטבח מאובזר">
+    <img src="images/06_balcony.png" alt="מרפסת 20 מ״ר">
+    <img src="images/07_bathroom.jpg" alt="מקלחת">
+    <img src="images/08_building.jpg" alt="בניין ונוף">
+    <img src="images/09_entrance.jpg" alt="כניסה לבניין">
+    <img src="images/10_street.jpg" alt="מבט על השדרה">
+  </div>
+  <button class="gallery-btn prev" onclick="moveSlide(1)">&#8250;</button>
+  <button class="gallery-btn next" onclick="moveSlide(-1)">&#8249;</button>
+  <div class="gallery-counter" id="counter">1 / 10</div>
+  <div class="img-label" id="imgLabel">סלון מרוהט</div>
+  <div class="gallery-dots" id="dots"></div>
+</div>
+
+<!-- INFO -->
+<div class="info-section">
+  <div class="info-grid">
+    <div class="info-card"><div class="icon">🛏️</div><div class="label">חדרים</div><div class="value">2</div></div>
+    <div class="info-card"><div class="icon">📐</div><div class="label">שטח</div><div class="value">40 מ"ר</div></div>
+    <div class="info-card"><div class="icon">☀️</div><div class="label">מרפסת</div><div class="value">20 מ"ר</div></div>
+    <div class="info-card"><div class="icon">🛗</div><div class="label">קומה</div><div class="value">2 + מעלית</div></div>
+    <div class="info-card"><div class="icon">🅿️</div><div class="label">חניה</div><div class="value">פרטית</div></div>
+    <div class="info-card"><div class="icon">🛋️</div><div class="label">ריהוט</div><div class="value">מלא</div></div>
+  </div>
+
+  <div class="included">
+    <h3>✅ מה כלול ב-3,700 ₪?</h3>
+    <div class="included-grid">
+      <div class="included-item"><span class="check">✓</span> שכר דירה</div>
+      <div class="included-item"><span class="check">✓</span> ארנונה</div>
+      <div class="included-item"><span class="check">✓</span> ועד בית (411₪)</div>
+      <div class="included-item"><span class="check">✓</span> מים</div>
+      <div class="included-item"><span class="check">✓</span> כבלים</div>
+      <div class="included-item"><span class="check">✓</span> אינטרנט</div>
+    </div>
+    <div class="excluded">⚡ רק חשמל משולם בנפרד</div>
+  </div>
+</div>
+
+<!-- URGENCY -->
+<div class="urgency">🚀 כניסה מיידית | ללא תיווך - ישירות מהבעלים</div>
+
+<!-- CTA -->
+<div class="cta-section">
+  <p>רוצה לקבוע ביקור? אני גמיש בשעות 😊</p>
+  <div class="cta-buttons">
+    <a href="https://wa.me/972525944424?text=%D7%94%D7%99%D7%99%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%93%D7%99%D7%A8%D7%94%20%D7%91%D7%90%D7%97%D7%99%20%D7%90%D7%99%D7%9C%D7%AA%205" class="cta-btn cta-whatsapp">💬 WhatsApp</a>
+    <a href="tel:0525944424" class="cta-btn cta-phone">📞 חייגו עכשיו</a>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-section">
+  <div class="faq-title">❓ שאלות ותשובות</div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">🔹 מה בדיוק כלול ב-3,700 ₪?<span class="arrow">▼</span></div><div class="faq-a">הכל חוץ מחשמל: שכר דירה, ארנונה, ועד בית (411₪), מים, כבלים ואינטרנט. תשלום אחד קבוע בחודש, בלי הפתעות.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">🔹 מה הריהוט שיש בדירה?<span class="arrow">▼</span></div><div class="faq-a">מקרר, תנור, מכונת כביסה, ספה, מיטה, ארון, וילונות - הכל מוכן. רק להביא מזוודה.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">🔹 יש מרפסת?<span class="arrow">▼</span></div><div class="faq-a">כן! מרפסת ענקית של 20 מ"ר - שטח כמעט כמו חצי דירה נוספת. מושלם לישיבה בחוץ, ארוחות, או פינת עבודה.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">🔹 מתי אפשר להיכנס?<span class="arrow">▼</span></div><div class="faq-a">מיידי. אפשר לתאם כניסה כבר השבוע.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">🔹 יש מעלית וחניה?<span class="arrow">▼</span></div><div class="faq-a">כן לשניהם - קומה 2 עם מעלית, וחניה פרטית צמודה לבניין.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">🔹 יש מחסן?<span class="arrow">▼</span></div><div class="faq-a">לא, אין מחסן. אבל יש שטח אחסון נוח בתוך הדירה.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">🔹 כמה זמן חוזה?<span class="arrow">▼</span></div><div class="faq-a">בוא נדבר על זה בביקור - אני גמיש ופתוח להתאים לצרכים שלך.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">🔹 מתאים לחיות מחמד / זוג / יחיד?<span class="arrow">▼</span></div><div class="faq-a">בוא נדבר! אשמח לשמוע מה אתה מחפש ולראות אם מתאים.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">🔹 צריך לשלם דמי תיווך?<span class="arrow">▼</span></div><div class="faq-a">לא! הדירה מושכרת ישירות ממני, בעל הדירה. אין תיווך ואין דמי תיווך.</div></div>
+
+  <div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">🔹 איך קובעים ביקור?<span class="arrow">▼</span></div><div class="faq-a">פשוט שלח הודעה בוואטסאפ או התקשר: 052-594-4424. אני גמיש בשעות ואשמח להראות לך את הדירה.</div></div>
+</div>
+
+<!-- SECOND CTA -->
+<div class="cta-section">
+  <div class="cta-buttons">
+    <a href="https://wa.me/972525944424?text=%D7%94%D7%99%D7%99%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%93%D7%99%D7%A8%D7%94%20%D7%91%D7%90%D7%97%D7%99%20%D7%90%D7%99%D7%9C%D7%AA%205" class="cta-btn cta-whatsapp">💬 שלח הודעה בוואטסאפ</a>
+    <a href="tel:0525944424" class="cta-btn cta-phone">📞 052-594-4424</a>
+  </div>
+</div>
+
+<div class="footer">
+  דירה להשכרה בקריית חיים מזרחית | ישירות מהבעלים | ללא תיווך<br>
+  שדרות אחי אילת 5, קומה 2
+</div>
+
+<script>
+const labels = ['סלון מרוהט','סלון - זווית נוספת','סלון','חדר שינה','מטבח מאובזר','מרפסת 20 מ״ר','מקלחת','בניין ונוף','כניסה לבניין','מבט על השדרה'];
+let idx = 0, total = 10, auto;
+const track = document.getElementById('track');
+const counter = document.getElementById('counter');
+const imgLabel = document.getElementById('imgLabel');
+const dotsEl = document.getElementById('dots');
+
+// Create dots
+for(let i=0;i<total;i++){const d=document.createElement('span');d.onclick=()=>goTo(i);dotsEl.appendChild(d)}
+updateUI();
+
+function goTo(i){idx=i;track.style.transform=`translateX(${idx*100}%)`;updateUI();resetAuto()}
+function moveSlide(dir){idx=(idx-dir+total)%total;track.style.transform=`translateX(${idx*100}%)`;updateUI();resetAuto()}
+function updateUI(){counter.textContent=`${idx+1} / ${total}`;imgLabel.textContent=labels[idx];[...dotsEl.children].forEach((d,i)=>d.classList.toggle('active',i===idx))}
+function resetAuto(){clearInterval(auto);auto=setInterval(()=>moveSlide(-1),4000)}
+
+// Touch swipe
+let startX;
+const g=document.getElementById('gallery');
+g.addEventListener('touchstart',e=>startX=e.touches[0].clientX);
+g.addEventListener('touchend',e=>{const diff=startX-e.changedTouches[0].clientX;if(Math.abs(diff)>50){diff>0?moveSlide(-1):moveSlide(1)}});
+
+resetAuto();
+
+// FAQ accordion
+function toggleFaq(el){
+  const wasOpen=el.classList.contains('open');
+  document.querySelectorAll('.faq-q').forEach(q=>q.classList.remove('open'));
+  document.querySelectorAll('.faq-a').forEach(a=>a.classList.remove('open'));
+  if(!wasOpen){el.classList.add('open');el.nextElementSibling.classList.add('open')}
+}
+</script>
+</body>
+</html>
