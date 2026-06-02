@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>📊 דשבורד לידים חי - אחי אילת 5</title>
+<style>
+  :root{--bg:#f4f1ea;--card:#fff;--ink:#2c2c2a;--muted:#6b6b66;--accent:#c1764c;--green:#2e7d32;--red:#c0392b;--gold:#c9a25a;--blue:#2c6ca5;--line:#e3ddd0;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--ink);padding:14px;line-height:1.5;}
+  .wrap{max-width:1000px;margin:0 auto;}
+  header{text-align:center;margin-bottom:14px;}
+  header h1{font-size:22px;color:var(--accent);}
+  header .sub{color:var(--muted);font-size:12px;margin-top:2px;}
+  .bar{display:flex;gap:8px;justify-content:center;margin-bottom:16px;flex-wrap:wrap;}
+  .btn{padding:9px 18px;border:none;border-radius:10px;font-size:14px;font-weight:bold;cursor:pointer;font-family:inherit;}
+  .btn.refresh{background:var(--accent);color:#fff;}
+  .btn.add{background:var(--green);color:#fff;text-decoration:none;display:inline-block;}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(110px,1fr));gap:10px;margin-bottom:18px;}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 8px;text-align:center;}
+  .kpi .num{font-size:26px;font-weight:bold;color:var(--accent);}
+  .kpi .lbl{font-size:12px;color:var(--muted);margin-top:2px;}
+  .panel{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:16px;}
+  .panel h2{font-size:16px;color:var(--accent);margin-bottom:10px;}
+  table{width:100%;border-collapse:collapse;font-size:13px;}
+  th,td{text-align:right;padding:8px 6px;border-bottom:1px solid var(--line);}
+  th{color:var(--muted);font-size:11px;background:#faf7f0;}
+  .pill{display:inline-block;padding:2px 9px;border-radius:12px;font-size:11px;font-weight:bold;}
+  .s-new{background:#e7f0fa;color:var(--blue);} .s-talk{background:#fcf3e0;color:#a87d1d;}
+  .s-visit{background:#eef0ff;color:#5a4ab7;} .s-want{background:#e6f4ea;color:var(--green);}
+  .s-closed{background:var(--green);color:#fff;} .s-no{background:#f0eee8;color:var(--muted);}
+  .p-high{color:var(--green);font-weight:bold;} .p-mid{color:#a87d1d;} .p-low{color:var(--muted);}
+  .src-bar-row{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:13px;}
+  .src-bar{height:18px;background:var(--accent);border-radius:5px;min-width:4px;}
+  .loading{text-align:center;color:var(--muted);padding:30px;}
+  .err{text-align:center;color:var(--red);padding:20px;background:#fdeaea;border-radius:10px;}
+  .note{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;}
+  a.tel{color:var(--blue);text-decoration:none;font-weight:bold;}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>📊 דשבורד לידים חי</h1>
+    <div class="sub">דירה אחי אילת 5 · מתעדכן אוטומטית מהמערכת · <span id="ts">טוען...</span></div>
+  </header>
+
+  <div class="bar">
+    <button class="btn refresh" onclick="load()">🔄 רענן נתונים</button>
+    <a class="btn add" href="https://avi7756-design.github.io/avi-sites/lead-entry.html" target="_blank">📥 רשום ליד חדש</a>
+  </div>
+
+  <div class="kpis" id="kpis"></div>
+
+  <div class="panel">
+    <h2>📍 לידים לפי מקור</h2>
+    <div id="sources"><div class="loading">טוען...</div></div>
+  </div>
+
+  <div class="panel">
+    <h2>📋 כל הלידים (היסטוריה מלאה)</h2>
+    <div id="table"><div class="loading">טוען לידים...</div></div>
+  </div>
+
+  <div class="note">המערכת מושכת ישירות מטבלת הלידים. כל ליד שנרשם דרך הממשק מופיע כאן אוטומטית.</div>
+</div>
+
+<script>
+const API = 'https://avi-hazan.app.n8n.cloud/webhook/leads-data-eilat5';
+
+const statusClass = s => ({
+  'פנייה חדשה':'s-new','דיברנו':'s-talk','ביקור נקבע':'s-visit','ביקר':'s-visit',
+  'מעוניין':'s-want','סגרנו חוזה':'s-closed','לא מתאים':'s-no'
+}[s]||'s-new');
+const potClass = p => ({'גבוה':'p-high','בינוני':'p-mid','נמוך':'p-low'}[p]||'p-mid');
+
+function fmtDate(d){ if(!d) return '-'; const x=new Date(d); return x.toLocaleDateString('he-IL')+' '+x.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'}); }
+
+function load(){
+  document.getElementById('ts').textContent='מרענן...';
+  fetch(API).then(r=>r.json()).then(rows=>{
+    if(!Array.isArray(rows)) rows=[];
+    render(rows);
+    document.getElementById('ts').textContent='עודכן '+new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
+  }).catch(e=>{
+    document.getElementById('table').innerHTML='<div class="err">❌ שגיאה בטעינה. בדוק חיבור אינטרנט.</div>';
+    document.getElementById('ts').textContent='שגיאה';
+  });
+}
+
+function render(rows){
+  const total=rows.length;
+  const closed=rows.filter(r=>r.status==='סגרנו חוזה').length;
+  const visited=rows.filter(r=>['ביקר','מעוניין','סגרנו חוזה'].includes(r.status)).length;
+  const high=rows.filter(r=>r.potential==='גבוה').length;
+  const active=rows.filter(r=>!['לא מתאים','סגרנו חוזה'].includes(r.status)).length;
+
+  document.getElementById('kpis').innerHTML=
+    kpi(total,'סה"כ לידים')+kpi(active,'פעילים')+kpi(high,'פוטנציאל גבוה')+kpi(visited,'ביקרו/מעוניינים')+kpi(closed,'נסגרו');
+
+  // sources
+  const bySrc={};
+  rows.forEach(r=>{const s=r.source||'לא ידוע'; bySrc[s]=(bySrc[s]||0)+1;});
+  const max=Math.max(1,...Object.values(bySrc));
+  let sh='';
+  Object.entries(bySrc).sort((a,b)=>b[1]-a[1]).forEach(([s,n])=>{
+    sh+=`<div class="src-bar-row"><span style="min-width:120px;">${s}</span><div class="src-bar" style="width:${(n/max)*180}px;"></div><b>${n}</b></div>`;
+  });
+  document.getElementById('sources').innerHTML=sh||'<div class="loading">אין נתונים עדיין</div>';
+
+  // table
+  if(!rows.length){ document.getElementById('table').innerHTML='<div class="loading">אין לידים עדיין. רשום את הראשון! 📥</div>'; return; }
+  let t='<table><tr><th>תאריך</th><th>שם</th><th>טלפון</th><th>מקור</th><th>סטטוס</th><th>פוטנציאל</th><th>הערה</th></tr>';
+  rows.forEach(r=>{
+    t+=`<tr>
+      <td>${fmtDate(r.createdAt)}</td>
+      <td>${r.name||'-'}</td>
+      <td><a class="tel" href="tel:${(r.phone||'').replace(/\s/g,'')}">${r.phone||'-'}</a></td>
+      <td>${r.source||'-'}</td>
+      <td><span class="pill ${statusClass(r.status)}">${r.status||'-'}</span></td>
+      <td class="${potClass(r.potential)}">${r.potential||'-'}</td>
+      <td style="max-width:200px;font-size:12px;color:#6b6b66;">${r.notes||''}</td>
+    </tr>`;
+  });
+  t+='</table>';
+  document.getElementById('table').innerHTML=t;
+}
+
+function kpi(n,l){ return `<div class="kpi"><div class="num">${n}</div><div class="lbl">${l}</div></div>`; }
+
+load();
+setInterval(load, 60000);
+</script>
+</body>
+</html>
