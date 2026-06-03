@@ -17,7 +17,6 @@
   *{margin:0;padding:0;box-sizing:border-box;}
   body{font-family:'Segoe UI',Arial,sans-serif;background:var(--cream);color:var(--brown);line-height:1.6;}
   .wrap{max-width:680px;margin:0 auto;background:var(--cream);}
-  /* HERO */
   .hero{text-align:center;padding:28px 20px 10px;}
   .hero h1{font-size:30px;color:var(--brown);margin-bottom:6px;}
   .hero .addr{font-size:18px;color:var(--brown-s);}
@@ -28,7 +27,6 @@
   .status .dot{width:11px;height:11px;background:#2e7d32;border-radius:50%;
     animation:pulse 1.6s infinite;}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,125,50,.5);}70%{box-shadow:0 0 0 9px rgba(46,125,50,0);}100%{box-shadow:0 0 0 0 rgba(46,125,50,0);}}
-  /* GALLERY */
   .gallery{position:relative;margin:14px 0;}
   .slides img{width:100%;height:380px;object-fit:cover;display:none;}
   .slides img.active{display:block;}
@@ -37,35 +35,29 @@
   .nav.prev{right:12px;} .nav.next{left:12px;}
   .counter{position:absolute;bottom:12px;right:12px;background:rgba(74,56,43,.7);color:#fff;
     padding:4px 12px;border-radius:20px;font-size:14px;}
-  /* VALUE TEASER */
   .value{background:var(--card);border:2px solid var(--gold);border-radius:16px;
     margin:18px 20px;padding:18px 20px;text-align:center;}
   .value b{color:var(--terra-d);font-size:19px;}
   .value p{font-size:16px;color:var(--brown-s);margin-top:6px;}
-  /* SPECS */
   .specs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:8px 20px 4px;}
   .spec{background:var(--card);border-radius:14px;text-align:center;padding:14px 6px;}
   .spec .ico{font-size:26px;} .spec .lbl{font-size:13px;color:var(--brown-s);}
   .spec .val{font-size:17px;font-weight:bold;color:var(--brown);}
-  /* INCLUDED */
   .sec{padding:8px 20px;}
   .sec h2{font-size:22px;color:var(--terra-d);margin:18px 0 12px;}
   .incl{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
   .incl div{font-size:16px;} .incl .full{grid-column:1/-1;color:var(--terra-d);font-weight:bold;}
-  /* CTA */
   .cta{text-align:center;padding:20px;}
   .cta p{font-size:17px;margin-bottom:14px;}
   .btn{display:inline-block;text-decoration:none;font-size:18px;font-weight:bold;
     padding:14px 26px;border-radius:40px;margin:6px;color:#fff;}
   .btn.wa{background:#25d366;} .btn.tel{background:var(--terra);}
-  /* FAQ */
   .faq details{background:var(--card);border-radius:12px;margin-bottom:8px;padding:2px 16px;}
   .faq summary{font-size:16px;font-weight:bold;cursor:pointer;padding:12px 0;color:var(--brown);list-style:none;}
   .faq summary::-webkit-details-marker{display:none;}
   .faq summary::after{content:"▼";float:left;font-size:12px;color:var(--terra);}
   .faq details[open] summary::after{content:"▲";}
   .faq p{padding:0 0 14px;color:var(--brown-s);font-size:15px;}
-  /* FOOTER */
   footer{text-align:center;background:var(--terra);color:#fff;padding:22px;font-size:14px;margin-top:20px;}
   .sticky{position:fixed;bottom:0;left:0;right:0;background:#25d366;text-align:center;padding:14px;
     z-index:99;box-shadow:0 -2px 12px rgba(0,0,0,.2);}
@@ -81,7 +73,7 @@
     <div class="addr">שדרות אחי אילת 5, קריית חיים מזרחית</div>
     <div class="price-pill">💰 3,700 ₪/חודש כולל הכל</div>
     <br>
-    <span class="status"><span class="dot"></span>פנוי לכניסה מיידית · עודכן 30/05</span>
+    <span class="status"><span class="dot"></span>פנוי לכניסה מיידית · עודכן 03/06</span>
   </div>
 
   <div class="gallery">
@@ -142,12 +134,40 @@
     <h2>❓ שאלות ותשובות</h2>
     <details><summary>🔹 יש חניה?</summary><p>כן - חניון תת-קרקעי שמור בבניין. שקט נפשי לרכב שלך.</p></details>
     <details><summary>🔹 יש ממ"ד / מקלט?</summary><p>כן - ממ"ד (ממ"ק) קומתי בבניין, בקומה הראשונה.</p></details>
-    <details><summary>🔹 למי הדירה מתאימה?</summary><p>הדירה מתאימה במיוחד ליחיד - אלמן / פרוד / רווק - שמחפש פתרון איכותי, שקט ומיידי. מתאימה גם למבוגרים ולאנשים עם מוגבלות: הבניין נבנה במתכונת דיור מוגן, עם מעלית רחבה מקומת החניון, מעברים רחבים ומקלחת מותאמת.</p></details>
-    <details><summary>🔹 הבניין נגיש למבוגרים ולנכים?</summary><p>כן, לחלוטין. הבניין נבנה במתכונת דיור מוגן ונגיש: ♿ מעלית רחבה ישירות מקומת החניון · 🚿 מקלחת מותאמת עם ידיות אחיזה וללא מדרגה · 🚶 מעברים רחבים · 🅿️ חניון נגיש.</p></details>
+    <details><summary>🔹 למי הדירה מתאימה?</summary><p>הדירה מתאימה במיוחד ליחיד - אלמן / פרוד / רווק - שמחפש פתרון איכותי, שקט ומיידי. מתאימה גם למבוגרים ולאנשים עם מוגבלות: הבניין נבנה במתכונת דיור מוגן, עם מעלית רחבה מקומת החניון, מעברים רחבים ומקלחת מותאמת. רוב הבניינים באזור לא נגישים - כאן דאגנו לזה מראש.</p></details>
+    <details><summary>🔹 הבניין נגיש למבוגרים ולנכים?</summary><p>כן, לחלוטין. הבניין נבנה במתכונת דיור מוגן ונגיש: ♿ מעלית רחבה ישירות מקומת החניון · 🚿 מקלחת מותאמת עם ידיות אחיזה וללא מדרגה · 🚶 מעברים רחבים · 🅿️ חניון נגיש. מתאים גם למי שמשתמש בהליכון או בכיסא גלגלים - יתרון שרוב הדירות באזור לא מציעות.</p></details>
     <details><summary>🔹 אפשר לבשל?</summary><p>כן - יש כיריים חשמליות, טוסטר אובן ומיקרוגל. שימו לב: המטבח קומפקטי, מתאים לבישול יומיומי - לא לארוחות גדולות.</p></details>
     <details><summary>🔹 יש תחבורה ציבורית?</summary><p>כן, מצוינת - רכבת ומטרונית בקרבת מקום, וגישה נוחה לצירי התנועה המרכזיים.</p></details>
     <details><summary>🔹 קרוב לים?</summary><p>כן! 6 דקות הליכה ברגל לים.</p></details>
     <details><summary>🔹 מה בדיוק כלול ב-3,700 ₪?</summary><p>הכל חוץ מחשמל: שכר דירה, ארנונה, ועד בית (411₪), מים, כבלים ואינטרנט. תשלום אחד קבוע בחודש, בלי הפתעות.</p></details>
     <details><summary>🔹 מה הריהוט? אפשר להחליף?</summary><p>הדירה מרוהטת קומפלט: מקרר, מיקרוגל, מכשירי חשמל, ספה, מיטה, ארון, וילונות. ניתן להחליף או להתאים רהיטים - בתיאום מראש.</p></details>
     <details><summary>🔹 יש מרפסת?</summary><p>כן! מרפסת שמש ענקית של 20 מ"ר - שטח כמעט כמו חצי דירה נוספת. מושלם לישיבה בחוץ עם קפה.</p></details>
-    <details><summary>🔹 מתי אפשר להיכ�
+    <details><summary>🔹 מתי אפשר להיכנס?</summary><p>מיידי. אפשר לתאם כניסה כבר השבוע.</p></details>
+    <details><summary>🔹 אפשר לשכור לחודש?</summary><p>השכרה מינימלית ל-3 חודשים. לתקופה קצרה יותר - התעריף משתנה. נדבר.</p></details>
+    <details><summary>🔹 צריך לשלם דמי תיווך?</summary><p>לא! הדירה מושכרת ישירות ממני, בעל הדירה. אין תיווך ואין דמי תיווך.</p></details>
+    <details><summary>🔹 איך קובעים ביקור?</summary><p>פשוט שלח הודעה בוואטסאפ או התקשר: 052-594-4424. אני גמיש בשעות ואשמח להראות לך את הדירה.</p></details>
+  </div>
+
+  <div class="cta">
+    <a class="btn wa" href="https://wa.me/972525944424?text=%D7%94%D7%99%D7%99%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%93%D7%99%D7%A8%D7%94%20%D7%91%D7%90%D7%97%D7%99%20%D7%90%D7%99%D7%9C%D7%AA%205">💬 שלח הודעה בוואטסאפ</a>
+    <a class="btn tel" href="tel:0525944424">📞 052-594-4424</a>
+  </div>
+
+  <footer>
+    דירה להשכרה בקריית חיים מזרחית | ישירות מהבעלים | ללא תיווך<br>
+    שדרות אחי אילת 5, קומה 2
+  </footer>
+
+</div>
+
+<div class="sticky"><a href="https://wa.me/972525944424?text=%D7%94%D7%99%D7%99%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%93%D7%99%D7%A8%D7%94%20%D7%91%D7%90%D7%97%D7%99%20%D7%90%D7%99%D7%9C%D7%AA%205">💬 דברו איתי עכשיו בוואטסאפ</a></div>
+
+<script>
+  let i=0;const imgs=document.querySelectorAll('.slides img');
+  function show(n){imgs[i].classList.remove('active');i=(n+imgs.length)%imgs.length;
+    imgs[i].classList.add('active');document.getElementById('cur').textContent=i+1;}
+  function move(d){show(i+d);}
+  setInterval(()=>move(1),4500);
+</script>
+</body>
+</html>
