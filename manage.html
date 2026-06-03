@@ -331,6 +331,9 @@ const DEF_DONE=['שלחתי חומר פרסומי','דיברנו בטלפון','
 const DEF_TODO=['להתקשר','לשלוח מידע','לשלוח תמונות','לתזכר','לקבוע ביקור'];
 function getList(k,def){try{var v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)&&v.length?v:def;}catch(e){return def;}}
 function setList(k,a){localStorage.setItem(k,JSON.stringify(a));}
+function objTypes(){return getList('eilat_objtypes',DEF_OBJ);}
+function doneTypes(){return getList('eilat_donetypes',DEF_DONE);}
+function todoTypes(){return getList('eilat_todotypes',DEF_TODO);}
 function editList(k,def,title){var cur=getList(k,def);var v=prompt('ערוך '+title+'\nרשימה מופרדת בפסיקים - הוסף או מחק לפי הצורך:',cur.join(', '));if(v===null)return;setList(k,v.split(',').map(s=>s.trim()).filter(Boolean));toast('הרשימה עודכנה ✓');if(window._curLead>-1&&LEADS[window._curLead])openLead(window._curLead);}
 function recOf(k){var o=getLog();o[k]=o[k]||{};o[k].log=o[k].log||[];o[k].obj=o[k].obj||[];o[k].todos=o[k].todos||[];return o;}
 function toggleObj(k,o,on){var d=recOf(k),r=d[k];var i=r.obj.indexOf(o);if(on&&i<0){r.obj.push(o);r.log.push({d:nowTS(),t:'🏷️ התנגדות סומנה: '+o});}if(!on&&i>-1){r.obj.splice(i,1);r.log.push({d:nowTS(),t:'🏷️ התנגדות הוסרה: '+o});}saveLog(d);if(window._curLead>-1)openLead(window._curLead);}
