@@ -324,6 +324,20 @@ let LEADS=[];
 function key(l){return (l.phone||l.name||'').replace(/[^0-9a-zא-ת]/gi,'');}
 function getLog(){try{return JSON.parse(localStorage.getItem('eilat_leadlog')||'{}');}catch(e){return {};}}
 function saveLog(o){localStorage.setItem('eilat_leadlog',JSON.stringify(o));}
+function nowTS(){return new Date().toLocaleString('he-IL');}
+// editable category lists
+const DEF_OBJ=['מחיר','דירה קטנה / גודל','בעל חיים','מאוחר יותר','לא בשל / חושב','לא מתאים','בטחונות','דירה מפוצלת'];
+const DEF_DONE=['שלחתי חומר פרסומי','דיברנו בטלפון','לא עונה','שלחתי תזכורת','שלחתי תמונות','קבעתי ביקור'];
+const DEF_TODO=['להתקשר','לשלוח מידע','לשלוח תמונות','לתזכר','לקבוע ביקור'];
+function getList(k,def){try{var v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)&&v.length?v:def;}catch(e){return def;}}
+function setList(k,a){localStorage.setItem(k,JSON.stringify(a));}
+function editList(k,def,title){var cur=getList(k,def);var v=prompt('ערוך '+title+'\nרשימה מופרדת בפסיקים - הוסף או מחק לפי הצורך:',cur.join(', '));if(v===null)return;setList(k,v.split(',').map(s=>s.trim()).filter(Boolean));toast('הרשימה עודכנה ✓');if(window._curLead>-1&&LEADS[window._curLead])openLead(window._curLead);}
+function recOf(k){var o=getLog();o[k]=o[k]||{};o[k].log=o[k].log||[];o[k].obj=o[k].obj||[];o[k].todos=o[k].todos||[];return o;}
+function toggleObj(k,o,on){var d=recOf(k),r=d[k];var i=r.obj.indexOf(o);if(on&&i<0){r.obj.push(o);r.log.push({d:nowTS(),t:'🏷️ התנגדות סומנה: '+o});}if(!on&&i>-1){r.obj.splice(i,1);r.log.push({d:nowTS(),t:'🏷️ התנגדות הוסרה: '+o});}saveLog(d);if(window._curLead>-1)openLead(window._curLead);}
+function addDone(k){var t=document.getElementById('done_sel').value;var d=recOf(k);d[k].log.push({d:nowTS(),t:'✅ בוצע: '+t});saveLog(d);toast('נרשם עם חותמת זמן ✓');if(window._curLead>-1)openLead(window._curLead);}
+function addTodo(k){var a=document.getElementById('todo_sel').value;var due=document.getElementById('todo_due').value;var d=recOf(k);d[k].todos.push({d:nowTS(),action:a,due:due,done:false});d[k].log.push({d:nowTS(),t:'📌 משימה נקבעה: '+a+(due?(' · יעד '+due):'')});saveLog(d);toast('משימה נוספה ✓');if(window._curLead>-1)openLead(window._curLead);}
+function doneTodo(k,ti){var d=recOf(k),t=d[k].todos[ti];if(!t)return;t.done=true;t.doneAt=nowTS();d[k].log.push({d:nowTS(),t:'✅ משימה הושלמה: '+t.action});saveLog(d);if(window._curLead>-1)openLead(window._curLead);}
+function delTodo(k,ti){var d=recOf(k);d[k].todos.splice(ti,1);saveLog(d);if(window._curLead>-1)openLead(window._curLead);}
 function temp(l){
  var o=getLog()[key(l)];if(o&&o.temp)return o.temp;
  var s=(l.status||'').trim(),p=(l.potential||'');
@@ -358,15 +372,21 @@ const SRCS=['יד2','Meta Ads','פייסבוק','פייסבוק קבוצות','�
 const STATS=['חדש','דיברנו','ביקור נקבע','ביקר','מעוניין','לא מתאים','סגרנו חוזה'];
 const POTS=['גבוה','בינוני','נמוך'];
 function openLead(i){
- var l=LEADS[i],k=key(l),log=getLog(),rec=log[k]||{temp:null,next:'',log:[]};
+ window._curLead=i;
+ var l=LEADS[i],k=key(l),log=getLog(),rec=log[k]||{temp:null,obj:[],todos:[],log:[]};
+ rec.obj=rec.obj||[];rec.todos=rec.todos||[];rec.log=rec.log||[];
  var tel=(l.phone||'').replace(/[^0-9]/g,'');var wa=tel.replace(/^0/,'972');
  var t=temp(l),tb2=TEMPB[t];
  var nm=(l.name||'').replace(/'/g,'’');
- var hist=(rec.log||[]).slice().reverse().map(e=>'<div class="tl">'+esc(e.t)+'<br><small>'+e.d+'</small></div>').join('')||'<p style="color:#888;font-size:13px">אין רשומות מעקב עדיין.</p>';
+ var objBoxes=objTypes().map(o=>'<label style="display:inline-flex;align-items:center;gap:4px;font-size:12px;margin:3px 4px 3px 0;background:#fff;border:1px solid #e6d9c2;border-radius:14px;padding:3px 9px;cursor:pointer"><input type="checkbox" style="width:auto" '+(rec.obj.indexOf(o)>-1?'checked':'')+' onchange="toggleObj(\''+k+'\',\''+o.replace(/'/g,'’')+'\',this.checked)">'+esc(o)+'</label>').join('');
+ var doneOpts=doneTypes().map(o=>'<option>'+esc(o)+'</option>').join('');
+ var todoOpts=todoTypes().map(o=>'<option>'+esc(o)+'</option>').join('');
+ var todoHtml=rec.todos.length?rec.todos.map((td,ti)=>'<div class="tl">'+(td.done?'✅ ':'⬜ ')+esc(td.action)+(td.due?' · יעד: <b>'+td.due+'</b>':'')+' <small>(נקבע '+td.d+(td.done&&td.doneAt?' · בוצע '+td.doneAt:'')+')</small> '+(td.done?'':'<button class="btn ok sm" onclick="doneTodo(\''+k+'\','+ti+')">בוצע</button> ')+'<button class="btn red sm" onclick="delTodo(\''+k+'\','+ti+')">✕</button></div>').join(''):'<p style="color:#888;font-size:13px">אין משימות פתוחות.</p>';
+ var hist=rec.log.slice().reverse().map(e=>'<div class="tl">'+esc(e.t)+'<br><small>🕒 '+e.d+'</small></div>').join('')||'<p style="color:#888;font-size:13px">אין רשומות מעקב עדיין.</p>';
  document.getElementById('leadModal').innerHTML=
   '<button class="x" onclick="closeLeadModal()">✕</button>'+
   '<h2>'+esc(l.name||'ליד')+' <span class="badge '+tb2[1]+'">'+tb2[0]+'</span></h2>'+
-  '<p style="font-size:12px;color:var(--brown-s)">נכנס: '+(l.createdAt?new Date(l.createdAt).toLocaleString('he-IL'):'')+' · מזהה #'+l.id+'</p>'+
+  '<p style="font-size:12px;color:var(--brown-s)">🕒 נכנס: '+(l.createdAt?new Date(l.createdAt).toLocaleString('he-IL'):'')+' · מזהה #'+l.id+'</p>'+
   '<div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0">'+
    (tel?'<a class="btn sm" href="tel:'+tel+'">📞 חייג</a><a class="btn wa sm" href="https://wa.me/'+wa+'" target="_blank">💬 וואטסאפ</a>':'')+
    '<button class="btn red sm" onclick="deleteLead('+l.id+',\''+nm+'\')">🗑️ מחק ליד</button>'+
@@ -381,23 +401,29 @@ function openLead(i){
   '</div>'+
   '<textarea id="ed_notes" placeholder="הערה" style="min-height:50px;margin-bottom:6px">'+esc(l.notes||'')+'</textarea>'+
   '<button class="btn ok sm" onclick="saveLead('+l.id+')">💾 שמור שינויים</button>'+
-  '<h2 class="sec" style="font-size:15px">🌡️ חום (תצוגה אישית)</h2>'+
+  '<h2 class="sec" style="font-size:15px">🌡️ חום</h2>'+
   '<div style="display:flex;gap:6px;margin-bottom:8px">'+
    '<button class="btn red sm" onclick="setTemp(\''+k+'\',\'hot\')">🔥 חם</button>'+
    '<button class="btn sm" style="background:#fb8c00" onclick="setTemp(\''+k+'\',\'warm\')">🟠 בינוני</button>'+
    '<button class="btn gray sm" onclick="setTemp(\''+k+'\',\'cold\')">🧊 קר</button>'+
    '<button class="btn gray sm" onclick="setTemp(\''+k+'\',null)">אוטומטי</button>'+
   '</div>'+
-  '<h2 class="sec" style="font-size:15px">📌 פעולה הבאה</h2>'+
-  '<input id="ld_next" value="'+esc(rec.next||'')+'" placeholder="לדוגמה: לקבוע ביקור ביום ג׳" style="margin-bottom:6px"><button class="btn ok sm" onclick="setNext(\''+k+'\')">שמור פעולה</button>'+
-  '<h2 class="sec" style="font-size:15px">🕒 היסטוריית מעקב</h2>'+
-  '<textarea id="ld_note" placeholder="מה קרה בשיחה? (יתועד עם תאריך)" style="margin-bottom:6px;min-height:60px"></textarea>'+
+  '<h2 class="sec" style="font-size:15px">🏷️ סוג התנגדות <button class="btn gray sm" onclick="editList(\'eilat_objtypes\',DEF_OBJ,\'סוגי התנגדות\')">✏️ ערוך רשימה</button></h2>'+
+  '<div style="margin-bottom:8px">'+objBoxes+'</div>'+
+  '<h2 class="sec" style="font-size:15px">✅ מה בוצע <button class="btn gray sm" onclick="editList(\'eilat_donetypes\',DEF_DONE,\'פעולות שבוצעו\')">✏️ ערוך רשימה</button></h2>'+
+  '<div style="display:flex;gap:6px;margin-bottom:8px"><select id="done_sel" style="flex:1">'+doneOpts+'</select><button class="btn ok sm" onclick="addDone(\''+k+'\')">סמן בוצע (עם זמן)</button></div>'+
+  '<h2 class="sec" style="font-size:15px">📌 פעולה לבצע <button class="btn gray sm" onclick="editList(\'eilat_todotypes\',DEF_TODO,\'פעולות לביצוע\')">✏️ ערוך רשימה</button></h2>'+
+  '<div style="display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap"><select id="todo_sel" style="flex:1;min-width:120px">'+todoOpts+'</select><input type="date" id="todo_due" style="max-width:150px"><button class="btn ok sm" onclick="addTodo(\''+k+'\')">➕ הוסף משימה</button></div>'+
+  '<div style="margin-bottom:8px">'+todoHtml+'</div>'+
+  '<h2 class="sec" style="font-size:15px">🕒 היסטוריית מעקב (עם חותמת זמן)</h2>'+
+  '<textarea id="ld_note" placeholder="מה קרה בשיחה? (יתועד עם תאריך ושעה)" style="margin-bottom:6px;min-height:55px"></textarea>'+
   '<button class="btn ok sm" onclick="addNote(\''+k+'\')">➕ הוסף רשומה</button>'+
   '<div style="margin-top:10px">'+hist+'</div>';
  document.getElementById('leadOv').classList.add('show');
 }
 function saveLead(id){
  var p={id:id,name:val('ed_name'),phone:val('ed_phone'),source:val('ed_source'),status:val('ed_status'),potential:val('ed_potential'),notes:val('ed_notes')};
+ var lk=(p.phone||p.name||'').replace(/[^0-9a-zא-ת]/gi,'');var d=recOf(lk);d[lk].log.push({d:nowTS(),t:'✏️ עודכנו פרטים · סטטוס: '+p.status+' · פוטנציאל: '+p.potential});saveLog(d);
  toast('שומר...');
  fetch(UPD_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
   .then(()=>{setTimeout(()=>{fetchLeads();closeLeadModal();toast('נשמר ועודכן בכל המסכים ✓');},1200);})
@@ -410,7 +436,7 @@ function deleteLead(id,name){
   .then(()=>{setTimeout(()=>{fetchLeads();closeLeadModal();toast('הליד נמחק ✓');},1200);})
   .catch(()=>toast('שגיאה במחיקה - בדוק אינטרנט'));
 }
-function setTemp(k,t){var o=getLog();o[k]=o[k]||{log:[]};o[k].temp=t;saveLog(o);fetchLeads();toast('עודכן ✓');var idx=LEADS.findIndex(l=>key(l)===k);if(idx>-1)openLead(idx);}
+function setTemp(k,t){var d=recOf(k);d[k].temp=t;d[k].log.push({d:nowTS(),t:'🌡️ חום שונה ל: '+(t?({hot:'🔥 חם',warm:'🟠 בינוני',cold:'🧊 קר'}[t]):'אוטומטי')});saveLog(d);fetchLeads();toast('עודכן ✓');if(window._curLead>-1)openLead(window._curLead);}
 function setNext(k){var o=getLog();o[k]=o[k]||{log:[]};o[k].next=document.getElementById('ld_next').value;saveLog(o);toast('נשמר ✓');}
 function addNote(k){var v=document.getElementById('ld_note').value.trim();if(!v){toast('כתוב משהו');return;}var o=getLog();o[k]=o[k]||{log:[]};o[k].log=o[k].log||[];o[k].log.push({d:new Date().toLocaleString('he-IL'),t:v});saveLog(o);var idx=LEADS.findIndex(l=>key(l)===k);if(idx>-1)openLead(idx);toast('רשומה נוספה ✓');}
 
