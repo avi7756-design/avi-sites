@@ -317,6 +317,8 @@ document.addEventListener('keydown',function(e){
 
 // LEADS LIVE + tracking
 const LEAD_API='https://avi-hazan.app.n8n.cloud/webhook/leads-data-eilat5';
+const UPD_API='https://avi-hazan.app.n8n.cloud/webhook/lead-update-eilat5';
+const DEL_API='https://avi-hazan.app.n8n.cloud/webhook/lead-delete-eilat5';
 const ACTIVE=['חדש','דיברנו','ביקור נקבע','מעוניין'];
 let LEADS=[];
 function key(l){return (l.phone||l.name||'').replace(/[^0-9a-zא-ת]/gi,'');}
@@ -349,20 +351,37 @@ function fetchLeads(){
   tb.innerHTML='<tr><td colspan="6" style="color:#c0392b;text-align:center;padding:18px;">שגיאה. ודא אינטרנט, או פתח את <a href="https://avi7756-design.github.io/avi-sites/dashboard.html" target="_blank">הדשבורד המלא</a>.</td></tr>';
  });
 }
+function closeLeadModal(){document.getElementById('leadOv').classList.remove('show');}
+function val(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+function opts(arr,cur){return arr.map(o=>'<option'+(o===(cur||'').trim()?' selected':'')+'>'+o+'</option>').join('');}
+const SRCS=['יד2','Meta Ads','פייסבוק','פייסבוק קבוצות','עמוד נחיתה','לוחות','המלצה','אחר'];
+const STATS=['חדש','דיברנו','ביקור נקבע','ביקר','מעוניין','לא מתאים','סגרנו חוזה'];
+const POTS=['גבוה','בינוני','נמוך'];
 function openLead(i){
  var l=LEADS[i],k=key(l),log=getLog(),rec=log[k]||{temp:null,next:'',log:[]};
  var tel=(l.phone||'').replace(/[^0-9]/g,'');var wa=tel.replace(/^0/,'972');
  var t=temp(l),tb2=TEMPB[t];
+ var nm=(l.name||'').replace(/'/g,'’');
  var hist=(rec.log||[]).slice().reverse().map(e=>'<div class="tl">'+esc(e.t)+'<br><small>'+e.d+'</small></div>').join('')||'<p style="color:#888;font-size:13px">אין רשומות מעקב עדיין.</p>';
  document.getElementById('leadModal').innerHTML=
-  '<button class="x" onclick="document.getElementById(\'leadOv\').classList.remove(\'show\')">✕</button>'+
+  '<button class="x" onclick="closeLeadModal()">✕</button>'+
   '<h2>'+esc(l.name||'ליד')+' <span class="badge '+tb2[1]+'">'+tb2[0]+'</span></h2>'+
-  '<p style="font-size:13px;color:var(--brown-s)">מקור: '+esc(l.source)+' · סטטוס: '+esc(l.status)+' · פוטנציאל: '+esc(l.potential||'-')+'</p>'+
-  '<p style="margin:6px 0">📞 '+esc(l.phone)+(l.notes?' · הערת מערכת: '+esc(l.notes):'')+'</p>'+
+  '<p style="font-size:12px;color:var(--brown-s)">נכנס: '+(l.createdAt?new Date(l.createdAt).toLocaleString('he-IL'):'')+' · מזהה #'+l.id+'</p>'+
   '<div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0">'+
    (tel?'<a class="btn sm" href="tel:'+tel+'">📞 חייג</a><a class="btn wa sm" href="https://wa.me/'+wa+'" target="_blank">💬 וואטסאפ</a>':'')+
+   '<button class="btn red sm" onclick="deleteLead('+l.id+',\''+nm+'\')">🗑️ מחק ליד</button>'+
   '</div>'+
-  '<h2 class="sec" style="font-size:15px">🌡️ קבע חום</h2>'+
+  '<h2 class="sec" style="font-size:15px">✏️ עריכת פרטים</h2>'+
+  '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px">'+
+   '<input id="ed_name" value="'+esc(l.name||'')+'" placeholder="שם">'+
+   '<input id="ed_phone" value="'+esc(l.phone||'')+'" placeholder="טלפון">'+
+   '<select id="ed_source">'+opts(SRCS,l.source)+'</select>'+
+   '<select id="ed_status">'+opts(STATS,l.status)+'</select>'+
+   '<select id="ed_potential">'+opts(POTS,l.potential)+'</select>'+
+  '</div>'+
+  '<textarea id="ed_notes" placeholder="הערה" style="min-height:50px;margin-bottom:6px">'+esc(l.notes||'')+'</textarea>'+
+  '<button class="btn ok sm" onclick="saveLead('+l.id+')">💾 שמור שינויים</button>'+
+  '<h2 class="sec" style="font-size:15px">🌡️ חום (תצוגה אישית)</h2>'+
   '<div style="display:flex;gap:6px;margin-bottom:8px">'+
    '<button class="btn red sm" onclick="setTemp(\''+k+'\',\'hot\')">🔥 חם</button>'+
    '<button class="btn sm" style="background:#fb8c00" onclick="setTemp(\''+k+'\',\'warm\')">🟠 בינוני</button>'+
@@ -370,12 +389,26 @@ function openLead(i){
    '<button class="btn gray sm" onclick="setTemp(\''+k+'\',null)">אוטומטי</button>'+
   '</div>'+
   '<h2 class="sec" style="font-size:15px">📌 פעולה הבאה</h2>'+
-  '<input id="ld_next" value="'+esc(rec.next||'')+'" placeholder="לדוגמה: לקבוע ביקור ביום ג\'" style="margin-bottom:6px"><button class="btn ok sm" onclick="setNext(\''+k+'\')">שמור פעולה</button>'+
+  '<input id="ld_next" value="'+esc(rec.next||'')+'" placeholder="לדוגמה: לקבוע ביקור ביום ג׳" style="margin-bottom:6px"><button class="btn ok sm" onclick="setNext(\''+k+'\')">שמור פעולה</button>'+
   '<h2 class="sec" style="font-size:15px">🕒 היסטוריית מעקב</h2>'+
   '<textarea id="ld_note" placeholder="מה קרה בשיחה? (יתועד עם תאריך)" style="margin-bottom:6px;min-height:60px"></textarea>'+
   '<button class="btn ok sm" onclick="addNote(\''+k+'\')">➕ הוסף רשומה</button>'+
   '<div style="margin-top:10px">'+hist+'</div>';
  document.getElementById('leadOv').classList.add('show');
+}
+function saveLead(id){
+ var p={id:id,name:val('ed_name'),phone:val('ed_phone'),source:val('ed_source'),status:val('ed_status'),potential:val('ed_potential'),notes:val('ed_notes')};
+ toast('שומר...');
+ fetch(UPD_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
+  .then(()=>{setTimeout(()=>{fetchLeads();closeLeadModal();toast('נשמר ועודכן בכל המסכים ✓');},1200);})
+  .catch(()=>toast('שגיאה בשמירה - בדוק אינטרנט'));
+}
+function deleteLead(id,name){
+ if(!confirm('למחוק את הליד "'+name+'"?\nהפעולה בלתי הפיכה ותעדכן את כל המסכים.'))return;
+ toast('מוחק...');
+ fetch(DEL_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id})})
+  .then(()=>{setTimeout(()=>{fetchLeads();closeLeadModal();toast('הליד נמחק ✓');},1200);})
+  .catch(()=>toast('שגיאה במחיקה - בדוק אינטרנט'));
 }
 function setTemp(k,t){var o=getLog();o[k]=o[k]||{log:[]};o[k].temp=t;saveLog(o);fetchLeads();toast('עודכן ✓');var idx=LEADS.findIndex(l=>key(l)===k);if(idx>-1)openLead(idx);}
 function setNext(k){var o=getLog();o[k]=o[k]||{log:[]};o[k].next=document.getElementById('ld_next').value;saveLog(o);toast('נשמר ✓');}
