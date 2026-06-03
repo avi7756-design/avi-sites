@@ -2,8 +2,15 @@
 <html lang="he" dir="rtl">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>מרכז ניהול שיווק - דירה אחי אילת 5</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#c1764c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="מרכז שיווק">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="apple-touch-icon.png">
 <style>
   :root{
     --terra:#c1764c; --terra-d:#a05c3a; --brown:#4a382b; --brown-s:#78624f;
@@ -159,6 +166,17 @@
         <a class="btn copy sm" href="https://avi7756-design.github.io/avi-sites/lead-entry.html" target="_blank">➕ רשום ליד חדש</a>
         <a class="btn gray sm" href="https://avi7756-design.github.io/avi-sites/dashboard.html" target="_blank">📊 דשבורד מלא</a>
       </div>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap">
+      <input id="leadSearch" placeholder="🔍 חיפוש לפי שם / טלפון / הערה" oninput="renderLeadRows()" style="flex:1;min-width:160px">
+      <select id="leadFilter" onchange="renderLeadRows()" style="max-width:170px">
+        <option value="">כל הלידים</option>
+        <option value="hot">🔥 חמים בלבד</option>
+        <option value="active">פעילים בלבד</option>
+        <option value="פנייה חדשה">חדשים</option>
+        <option value="מעוניין">מעוניינים</option>
+        <option value="לא מתאים">לא מתאים</option>
+      </select>
     </div>
     <table>
       <thead><tr><th>חום</th><th>שם</th><th>טלפון</th><th>מקור</th><th>סטטוס</th><th>הערה</th></tr></thead>
@@ -367,6 +385,21 @@ function fetchLeads(){
   document.getElementById('leadStats').textContent='לא הצלחתי לטעון לידים';
   tb.innerHTML='<tr><td colspan="6" style="color:#c0392b;text-align:center;padding:18px;">שגיאה. ודא אינטרנט, או פתח את <a href="https://avi7756-design.github.io/avi-sites/dashboard.html" target="_blank">הדשבורד המלא</a>.</td></tr>';
  });
+}
+function renderLeadRows(){
+ var qe=document.getElementById('leadSearch'),fe=document.getElementById('leadFilter');
+ var q=(qe?qe.value:'').trim().toLowerCase(),f=(fe?fe.value:'');
+ var tb=document.getElementById('leadRows');if(!tb||typeof LEADS==='undefined')return;
+ var html=LEADS.map(function(l,i){
+  var t=temp(l),st=(l.status||'').trim();
+  if(f==='hot'&&t!=='hot')return '';
+  if(f==='active'&&ACTIVE.indexOf(st)<0)return '';
+  if(f&&f!=='hot'&&f!=='active'&&st!==f)return '';
+  if(q){var hay=((l.name||'')+' '+(l.phone||'')+' '+(l.notes||'')+' '+(l.source||'')).toLowerCase();if(hay.indexOf(q)<0)return '';}
+  var tb2=TEMPB[t];
+  return '<tr class="clk" onclick="openLead('+i+')"><td><span class="badge '+tb2[1]+'">'+tb2[0]+'</span></td><td>'+esc(l.name)+'</td><td>'+esc(l.phone)+'</td><td>'+esc(l.source)+'</td><td>'+esc(l.status)+'</td><td style="font-size:12px">'+esc((l.notes||'').slice(0,30))+'</td></tr>';
+ }).join('');
+ tb.innerHTML=html||'<tr><td colspan="6" style="text-align:center;padding:18px;color:#888">לא נמצאו לידים תואמים.</td></tr>';
 }
 function closeLeadModal(){document.getElementById('leadOv').classList.remove('show');}
 function val(id){var e=document.getElementById(id);return e?e.value.trim():'';}

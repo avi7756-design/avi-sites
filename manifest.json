@@ -1,0 +1,14 @@
+{
+  "name": "מרכז ניהול שיווק - אחי אילת 5",
+  "short_name": "מרכז שיווק",
+  "lang": "he",
+  "dir": "rtl",
+  "start_url": "manage.html",
+  "display": "standalone",
+  "background_color": "#fbf4e9",
+  "theme_color": "#c1764c",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}
