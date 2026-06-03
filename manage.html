@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מרכז ניהול שיווק - דירה אחי אילת 5</title>
+<style>
+  :root{
+    --terra:#c1764c; --terra-d:#a05c3a; --brown:#4a382b; --brown-s:#78624f;
+    --gold:#c9a25a; --cream:#fbf4e9; --card:#f5ecd9; --white:#fff;
+    --green:#25d366; --blue:#2563eb; --ok:#2e7d32; --red:#c0392b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;}
+  body{background:var(--cream);color:var(--brown);line-height:1.6;padding:0 0 40px;}
+  header{background:var(--terra);color:#fff;padding:18px 20px;text-align:center;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.2);}
+  header h1{font-size:22px;}
+  header p{font-size:13px;opacity:.9;}
+  .wrap{max-width:1000px;margin:0 auto;padding:16px;}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:14px 0;}
+  .tab{background:var(--card);border:1px solid var(--gold);border-radius:30px;padding:8px 16px;font-size:14px;font-weight:bold;color:var(--terra-d);cursor:pointer;}
+  .tab.active{background:var(--terra);color:#fff;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .grid-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px;}
+  .action{display:block;text-decoration:none;background:var(--white);border:1px solid #e6d9c2;border-radius:14px;padding:16px;text-align:center;color:var(--brown);box-shadow:0 1px 4px rgba(0,0,0,.05);}
+  .action:hover{border-color:var(--terra);}
+  .action .ico{font-size:30px;}
+  .action b{display:block;font-size:15px;margin-top:6px;color:var(--terra-d);}
+  .action small{color:var(--brown-s);font-size:12px;}
+  .msgcard{background:var(--white);border:1px solid #e6d9c2;border-radius:14px;padding:14px 16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+  .msgcard h3{font-size:15px;color:var(--terra-d);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;}
+  .msgbody{background:var(--cream);border-radius:10px;padding:12px;font-size:14px;white-space:pre-wrap;border:1px dashed #ddc9a8;}
+  .btn{border:none;border-radius:30px;padding:8px 16px;font-size:13px;font-weight:bold;cursor:pointer;color:#fff;background:var(--terra);text-decoration:none;display:inline-block;}
+  .btn.copy{background:var(--blue);}
+  .btn.ok{background:var(--ok);}
+  .btn.sm{padding:5px 12px;font-size:12px;}
+  .btn.gray{background:#8a7a68;}
+  .btn.red{background:var(--red);}
+  .photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;}
+  .photos figure{background:var(--white);border:1px solid #e6d9c2;border-radius:10px;overflow:hidden;text-align:center;}
+  .photos img{width:100%;height:110px;object-fit:cover;display:block;cursor:pointer;}
+  .photos figcaption{font-size:11px;padding:5px 4px;color:var(--brown-s);}
+  .photos .pbtns{display:flex;gap:4px;padding:0 6px 8px;justify-content:center;}
+  table{width:100%;border-collapse:collapse;background:var(--white);border-radius:12px;overflow:hidden;font-size:13px;}
+  th,td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;}
+  th{background:var(--card);color:var(--terra-d);}
+  select,input,textarea{font-family:inherit;font-size:13px;padding:7px;border:1px solid #ccc;border-radius:8px;width:100%;}
+  .badge{padding:3px 9px;border-radius:20px;font-size:11px;font-weight:bold;color:#fff;display:inline-block;}
+  .b-new{background:#2563eb;} .b-contacted{background:#c9a25a;} .b-visit{background:#7e57c2;}
+  .b-closed{background:#2e7d32;} .b-lost{background:#9e9e9e;}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2e7d32;color:#fff;padding:12px 24px;border-radius:30px;font-weight:bold;opacity:0;transition:.3s;z-index:99;}
+  .toast.show{opacity:1;}
+  .hint{font-size:12px;color:var(--brown-s);background:#fff7e8;border:1px solid #f0e0bf;border-radius:10px;padding:10px;margin-bottom:14px;}
+  h2.sec{font-size:18px;color:var(--terra-d);margin:6px 0 12px;}
+  .setlink{display:flex;gap:6px;align-items:center;margin-bottom:8px;}
+  .setlink label{min-width:120px;font-size:13px;font-weight:bold;}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎯 מרכז ניהול שיווק - דירה אחי אילת 5</h1>
+  <p>קריית חיים מזרחית · 3,700 ₪ כולל הכל · 052-594-4424</p>
+</header>
+
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab active" data-p="msgs">💬 הודעות מוכנות</div>
+    <div class="tab" data-p="qa">❓ שאלות ותשובות</div>
+    <div class="tab" data-p="photos">📸 תמונות</div>
+    <div class="tab" data-p="leads">👥 לידים (חי)</div>
+    <div class="tab" data-p="channels">📢 ערוצי פרסום</div>
+    <div class="tab" data-p="links">🔗 קישורים</div>
+  </div>
+
+  <!-- ===== MESSAGES ===== -->
+  <div class="panel active" id="msgs">
+    <div class="hint">לחץ "העתק" וההודעה נכנסת ללוח. עבור לוואטסאפ והדבק (Ctrl+V). הכוכביות *...* הופכות למודגש אוטומטית בוואטסאפ.</div>
+    <div class="msgcard">
+      <h3>⚡ פתיח מהיר (פנייה ראשונה / ליד 2) <button class="btn copy sm" onclick="cp('m_quick')">📋 העתק</button></h3>
+      <div class="msgbody" id="m_quick">היי! 😊 הדירה עדיין פנויה.
+2 חד' מרוהטת קומפלט + מרפסת 20 מ"ר, שדרות אחי אילת 5 קריית חיים.
+3,700 ₪ כולל הכל (חוץ מחשמל), כניסה מיידית, ללא תיווך, חניון תת-קרקעי שמור.
+רוצה לקבוע ביקור? אני גמיש בשעות 📞 052-594-4424
+🔗 כל התמונות: https://avi7756-design.github.io/avi-sites/dira-gallery/</div>
+    </div>
+    <div class="msgcard">
+      <h3>📄 מידע מלא (למתעניין רציני) <button class="btn copy sm" onclick="cp('m_full')">📋 העתק</button></h3>
+      <div class="msgbody" id="m_full">🏠 *דירה מרוהטת קומפלט להשכרה - קריית חיים מזרחית*
+
+היי 😊 תודה על ההתעניינות! הנה כל המידע:
+
+📍 *כתובת:* שדרות אחי אילת 5, קריית חיים מזרחית, חיפה
+🛏️ *גודל:* 2 חדרים, 40 מ"ר + מרפסת ענקית 20 מ"ר
+🛗 *קומה:* 2 עם מעלית
+🅿️ *חניה:* חניון תת-קרקעי שמור
+🛡️ *ממ"ד:* קומתי בבניין
+♿ *נגישות:* מלאה - מתאים גם למבוגרים ולאנשים עם מוגבלות
+🛋️ *ריהוט:* מרוהטת קומפלט - נכנסים עם מזוודה בלבד
+
+💰 *מחיר: 3,700 ₪ לחודש - כולל הכל:*
+✅ ארנונה ✅ ועד בית (411₪) ✅ מים ✅ כבלים ✅ אינטרנט
+👈 רק חשמל בנפרד
+
+📅 *כניסה:* מיידית
+🤝 *ללא תיווך* - ישירות מהבעלים
+🔗 *כל התמונות:* https://avi7756-design.github.io/avi-sites/dira-gallery/
+📞 052-594-4424</div>
+    </div>
+    <div class="msgcard">
+      <h3>🌅 תזכורת / מעקב (אם לא ענה) <button class="btn copy sm" onclick="cp('m_follow')">📋 העתק</button></h3>
+      <div class="msgbody" id="m_follow">היי 😊 רק לוודא שראית - הדירה באחי אילת 5 עדיין פנויה לכניסה מיידית.
+אם זה רלוונטי, אשמח לתאם ביקור קצר השבוע. 📞 052-594-4424</div>
+    </div>
+  </div>
+
+  <!-- ===== Q&A ===== -->
+  <div class="panel" id="qa">
+    <div class="hint">תשובות מדויקות ומאומתות. כל תשובה עם כפתור העתקה. <button class="btn ok sm" onclick="cpAllQA()">📋 העתק את כל השו"ת</button></div>
+    <div id="qaList"></div>
+  </div>
+
+  <!-- ===== PHOTOS ===== -->
+  <div class="panel" id="photos">
+    <div class="hint">לחיצה על תמונה פותחת אותה בגדול (לשמירה/שליחה). "קישור" מעתיק כתובת ישירה לתמונה.</div>
+    <div class="photos" id="photoGrid"></div>
+  </div>
+
+  <!-- ===== LEADS (LIVE) ===== -->
+  <div class="panel" id="leads">
+    <div class="hint">לידים <b>חיים מהמערכת (n8n)</b> - מתעדכן אוטומטית. כל ליד שנרשם בטופס מופיע כאן. 🔥 = פוטנציאל גבוה (יחיד/זוג, צריך מיידי).</div>
+    <div style="background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin-bottom:14px;">
+      <b id="leadStats" style="color:var(--terra-d);font-size:16px;">טוען לידים...</b>
+      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="btn ok sm" onclick="fetchLeads()">🔄 רענן</button>
+        <a class="btn copy sm" href="https://avi7756-design.github.io/avi-sites/lead-entry.html" target="_blank">➕ רשום ליד חדש</a>
+        <a class="btn gray sm" href="https://avi7756-design.github.io/avi-sites/dashboard.html" target="_blank">📊 דשבורד מלא</a>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>תאריך</th><th>שם</th><th>טלפון</th><th>מקור</th><th>סטטוס</th><th>פוטנציאל</th><th>הערה</th></tr></thead>
+      <tbody id="leadRows"><tr><td colspan="7" style="text-align:center;padding:18px;">טוען...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- ===== CHANNELS ===== -->
+  <div class="panel" id="channels">
+    <div class="hint">כל ערוצי הפרסום שלך במקום אחד. לחץ <b>"סמן"</b> אחרי שפרסמת - הסימון <b>מתאפס אוטומטית כל בוקר</b>, כך שכל יום אתה רואה מה נשאר. ⚠️ פרסום בקבוצות פייסבוק ובוואטסאפ - ידני בלבד (סיכון חסימה). חסר קישור לקבוצה? לחץ ✏️ והדבק פעם אחת.</div>
+    <div style="background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin-bottom:14px;">
+      <b id="chProg" style="color:var(--terra-d);font-size:16px;"></b>
+      <div style="background:#eee;border-radius:20px;height:14px;margin-top:8px;overflow:hidden;"><div id="chBar" style="height:100%;background:var(--ok);width:0;transition:.3s;"></div></div>
+      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="btn copy sm" onclick="cp('m_full')">📋 העתק הודעת פרסום</button>
+        <button class="btn gray sm" onclick="resetDay()">🔄 אפס יום ידנית</button>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>ערוץ</th><th>סוג</th><th>עדיפות</th><th>פעולה</th><th>פורסם היום</th><th>אחרון</th></tr></thead>
+      <tbody id="chRows"></tbody>
+    </table>
+  </div>
+
+  <!-- ===== LINKS ===== -->
+  <div class="panel" id="links">
+    <div class="grid-actions">
+      <a class="action" href="https://avi7756-design.github.io/avi-sites/dira-gallery/" target="_blank"><div class="ico">🏠</div><b>דף הנחיתה</b><small>הקישור הראשי ללקוחות</small></a>
+      <a class="action" href="https://avi7756-design.github.io/avi-sites/dashboard.html" target="_blank"><div class="ico">📊</div><b>דשבורד לידים</b><small>תצוגה מלאה</small></a>
+      <a class="action" href="https://avi7756-design.github.io/avi-sites/lead-entry.html" target="_blank"><div class="ico">📥</div><b>רישום ליד</b><small>טופס מהיר</small></a>
+      <a class="action" href="https://wa.me/972525944424" target="_blank"><div class="ico">💬</div><b>וואטסאפ שלי</b><small>פתיחת צ'אט</small></a>
+      <a class="action" id="lnk_form" href="#" target="_blank"><div class="ico">📝</div><b>טופס סינון לידים</b><small>הגדר קישור למטה</small></a>
+      <a class="action" id="lnk_sheet" href="#" target="_blank"><div class="ico">📈</div><b>גיליון לידים (Sheets)</b><small>הגדר קישור למטה</small></a>
+    </div>
+    <h2 class="sec">⚙️ הגדרת קישורים (פעם אחת)</h2>
+    <div class="hint">הדבק כאן את הקישורים שלך לטופס Google ולגיליון, לחץ שמור, והכפתורים למעלה יעבדו. נשמר בדפדפן.</div>
+    <div class="setlink"><label>קישור לטופס:</label><input id="set_form" placeholder="https://docs.google.com/forms/..."></div>
+    <div class="setlink"><label>קישור לגיליון:</label><input id="set_sheet" placeholder="https://docs.google.com/spreadsheets/..."></div>
+    <button class="btn ok" onclick="saveLinks()">💾 שמור קישורים</button>
+  </div>
+</div>
+
+<div class="toast" id="toast">הועתק! ✓</div>
+
+<script>
+const QA=[
+ ["יש חניה?","כן - חניון תת-קרקעי שמור בבניין. שקט נפשי לרכב שלך."],
+ ["יש ממ\"ד / מקלט?","כן - ממ\"ד (ממ\"ק) קומתי בבניין, בקומה הראשונה."],
+ ["למי הדירה מתאימה?","מתאימה במיוחד ליחיד - אלמן/פרוד/רווק שמחפש פתרון איכותי, שקט ומיידי. מתאימה גם למבוגרים ולאנשים עם מוגבלות (בניין נגיש - מעלית רחבה מהחניון, מעברים רחבים, מקלחת מותאמת)."],
+ ["הבניין נגיש?","כן, לחלוטין. נבנה במתכונת דיור מוגן: מעלית רחבה מקומת החניון, מקלחת מותאמת עם ידיות אחיזה וללא מדרגה, מעברים רחבים, חניון נגיש. מתאים גם להליכון/כיסא גלגלים."],
+ ["אפשר לבשל?","כן - כיריים חשמליות, טוסטר אובן ומיקרוגל. המטבח קומפקטי, מתאים לבישול יומיומי (לא לארוחות גדולות)."],
+ ["יש תחבורה ציבורית?","כן, מצוינת - רכבת ומטרונית קרובות, וגישה נוחה לצירי התנועה המרכזיים."],
+ ["קרוב לים?","כן! 6 דקות הליכה ברגל לים."],
+ ["מה כלול ב-3,700 ₪?","הכל חוץ מחשמל: שכר דירה, ארנונה, ועד בית (411₪), מים, כבלים ואינטרנט. תשלום אחד קבוע, בלי הפתעות."],
+ ["מה הריהוט? אפשר להחליף?","מרוהטת קומפלט: מקרר, מיקרוגל, מכשירי חשמל, ספה, מיטה, ארון, וילונות. ניתן להחליף/להתאים רהיטים בתיאום מראש."],
+ ["יש מרפסת?","כן! מרפסת שמש ענקית 20 מ\"ר - כמעט כמו חצי דירה נוספת. מושלם לישיבה בחוץ."],
+ ["מתי אפשר להיכנס?","מיידי. אפשר לתאם כניסה כבר השבוע."],
+ ["אפשר לשכור לחודש?","מינימום 3 חודשים. לתקופה קצרה יותר - התעריף משתנה. נדבר."],
+ ["צריך לשלם דמי תיווך?","לא! ישירות מהבעלים. אין תיווך ואין דמי תיווך."],
+ ["איך קובעים ביקור?","שלח הודעה בוואטסאפ או התקשר: 052-594-4424. גמיש בשעות."]
+];
+const BASE="https://avi7756-design.github.io/avi-sites/dira-gallery/images/";
+const PHOTOS=[
+ ["11_street_view.jpg","הבניין מבחוץ"],["08_building.jpg","הבניין ונוף"],
+ ["01_salon.jpg","סלון"],["12_salon_yellow.jpg","פינת ישיבה"],
+ ["06_balcony.jpg","מרפסת 20 מ\"ר"],["05_kitchen.jpg","מטבח"],
+ ["04_bedroom.jpg","חדר שינה"],["07_bathroom.jpg","חדר רחצה"],
+ ["09_entrance.jpg","כניסה"],["10_street.jpg","השדרה"]
+];
+function toast(t){var e=document.getElementById('toast');e.textContent=t||'הועתק! ✓';e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1400);}
+function cp(id){var t=document.getElementById(id).innerText;navigator.clipboard.writeText(t).then(()=>toast());}
+function cpText(t){navigator.clipboard.writeText(t).then(()=>toast());}
+function cpAllQA(){var s=QA.map(q=>"*"+q[0]+"*\n"+q[1]).join("\n\n");cpText(s);}
+function esc(s){return (s||'').replace(/[<>&]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;'}[c]));}
+document.getElementById('qaList').innerHTML=QA.map((q,idx)=>
+ '<div class="msgcard"><h3>🔹 '+q[0]+' <button class="btn copy sm" onclick="cpText(QA['+idx+'][1])">📋 העתק</button></h3><div class="msgbody">'+q[1]+'</div></div>'
+).join('');
+document.getElementById('photoGrid').innerHTML=PHOTOS.map(p=>
+ '<figure><img src="'+BASE+p[0]+'" alt="'+p[1]+'" onclick="window.open(this.src)"><figcaption>'+p[1]+'</figcaption><div class="pbtns"><button class="btn copy sm" onclick="cpText(\''+BASE+p[0]+'\')">קישור</button></div></figure>'
+).join('');
+document.querySelectorAll('.tab').forEach(t=>t.onclick=function(){
+ document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));
+ document.querySelectorAll('.panel').forEach(x=>x.classList.remove('active'));
+ this.classList.add('active');document.getElementById(this.dataset.p).classList.add('active');
+});
+// ---------- Leads (LIVE from n8n) ----------
+const LEAD_API='https://avi-hazan.app.n8n.cloud/webhook/leads-data-eilat5';
+const ACTIVE=['חדש','דיברנו','ביקור נקבע','מעוניין'];
+function fetchLeads(){
+ var tb=document.getElementById('leadRows');tb.innerHTML='<tr><td colspan="7" style="text-align:center;padding:18px;">טוען...</td></tr>';
+ fetch(LEAD_API,{cache:'no-store'}).then(r=>r.json()).then(rows=>{
+  if(!Array.isArray(rows))throw new Error('format');
+  rows.sort((a,b)=>new Date(b.createdAt||b.date)-new Date(a.createdAt||a.date));
+  var active=rows.filter(l=>ACTIVE.indexOf((l.status||'').trim())>-1).length;
+  var high=rows.filter(l=>(l.potential||'').indexOf('גבוה')>-1).length;
+  document.getElementById('leadStats').textContent='סה"כ '+rows.length+' לידים · '+active+' פעילים · '+high+' פוטנציאל גבוה';
+  tb.innerHTML=rows.map(l=>{
+   var d=l.createdAt?new Date(l.createdAt).toLocaleDateString('he-IL'):'';
+   var tel=(l.phone||'').replace(/[^0-9]/g,'');
+   var ph=tel?'<a href="tel:'+tel+'">'+esc(l.phone)+'</a>':esc(l.phone);
+   var hi=(l.potential||'').indexOf('גבוה')>-1?'🔥 ':'';
+   return '<tr><td style="font-size:12px">'+d+'</td><td>'+esc(l.name)+'</td><td>'+ph+'</td><td>'+esc(l.source)+'</td><td>'+esc(l.status)+'</td><td>'+hi+esc(l.potential)+'</td><td style="font-size:12px">'+esc(l.notes)+'</td></tr>';
+  }).join('')||'<tr><td colspan="7" style="text-align:center;padding:18px;">אין לידים עדיין</td></tr>';
+ }).catch(e=>{
+  document.getElementById('leadStats').textContent='לא הצלחתי לטעון לידים';
+  tb.innerHTML='<tr><td colspan="7" style="color:#c0392b;text-align:center;padding:18px;">שגיאה בטעינה. ודא חיבור אינטרנט, או פתח את <a href="https://avi7756-design.github.io/avi-sites/dashboard.html" target="_blank">הדשבורד המלא</a>.</td></tr>';
+ });
+}
+// ---------- Links settings ----------
+function loadLinks(){
+ var f=localStorage.getItem('eilat_form')||'';var s=localStorage.getItem('eilat_sheet')||'';
+ document.getElementById('set_form').value=f;document.getElementById('set_sheet').value=s;
+ if(f){document.getElementById('lnk_form').href=f;}
+ if(s){document.getElementById('lnk_sheet').href=s;}
+}
+function saveLinks(){
+ var f=document.getElementById('set_form').value.trim();var s=document.getElementById('set_sheet').value.trim();
+ localStorage.setItem('eilat_form',f);localStorage.setItem('eilat_sheet',s);loadLinks();toast('נשמר ✓');
+}
+// ---------- Channels ----------
+const CHANNELS=[
+ {n:"יד2 - פרסום מודעה",t:"paid",p:3,l:"https://www.yad2.co.il/realestate/rent"},
+ {n:"מדלן",t:"site",p:3,l:"https://www.madlan.co.il"},
+ {n:"הומלס (Homeless)",t:"site",p:3,l:"https://www.homeless.co.il"},
+ {n:"דף עסקי פייסבוק - דירות להשכרה בקריות",t:"fbpage",p:3,l:""},
+ {n:"קבוצה: דירות להשכרה בקריות ללא תיווך",t:"fb",p:3,l:""},
+ {n:"קבוצה: להשכרה דירות בקריות ללא תיווך",t:"fb",p:3,l:""},
+ {n:"קבוצה: דירות/יחידות חיפה-קריות - לא למתווכים",t:"fb",p:3,l:""},
+ {n:"קבוצה: דירות להשכרה בחיפה ללא תיווך",t:"fb",p:3,l:""},
+ {n:"קבוצה: דירות להשכרה בקריות",t:"fb",p:3,l:""},
+ {n:"OnMap",t:"site",p:2,l:"https://www.onmap.co.il"},
+ {n:"קומו (Komo)",t:"site",p:2,l:"https://www.komo.co.il"},
+ {n:"BipBip",t:"site",p:2,l:"https://www.bipbip.co.il"},
+ {n:"זה כאן (Zehcan)",t:"site",p:2,l:"https://www.zehcan.co.il"},
+ {n:"WinWin",t:"site",p:2,l:"https://www.winwin.co.il"},
+ {n:"כל ישראל (Callil)",t:"site",p:2,l:"https://www.callil.co.il"},
+ {n:"נדל\"ן מרקט",t:"site",p:2,l:"https://www.nadlan-market.com"},
+ {n:"iRoom (חדרים חיפה)",t:"site",p:2,l:"https://www.iroom.co.il"},
+ {n:"קבוצה: דירות להשכרה בחיפה",t:"fb",p:2,l:""},
+ {n:"קבוצה: יד2 דירות בקריות בלבד",t:"fb",p:2,l:""},
+ {n:"קבוצה: חיפה-קריות-נשר (אזורי)",t:"fb",p:2,l:""},
+ {n:"קבוצה: תושבי קריית ביאליק",t:"fb",p:2,l:""},
+ {n:"ImmoIsrael (קהל בינ\"ל)",t:"site",p:1,l:"https://www.immoisrael.com"},
+ {n:"fb-nadlan.com (אגרגטור קבוצות)",t:"forum",p:1,l:"https://www.fb-nadlan.com"},
+ {n:"וואטסאפ: krayotrent + אינדקסים",t:"wa",p:1,l:""}
+];
+const CT={site:["אתר לוח","#2563eb"],paid:["לוח (תשלום)","#a05c3a"],fb:["קבוצת פייסבוק","#7e57c2"],fbpage:["דף עסקי","#7e57c2"],forum:["פורום/אגרגטור","#8a7a68"],wa:["וואטסאפ","#25d366"]};
+const PRIO={3:["גבוה","b-closed"],2:["בינוני","b-contacted"],1:["נמוך","b-lost"]};
+function today(){return new Date().toISOString().slice(0,10);}
+function getCh(){try{return JSON.parse(localStorage.getItem('eilat_ch')||'{}');}catch(e){return {};}}
+function saveCh(o){localStorage.setItem('eilat_ch',JSON.stringify(o));}
+function chLink(i){var o=getCh();return (o[i]&&o[i].link)||CHANNELS[i].l||"";}
+function setLink(i){var cur=chLink(i);var v=prompt("הדבק קישור לערוץ:\n"+CHANNELS[i].n,cur);if(v===null)return;var o=getCh();o[i]=o[i]||{};o[i].link=v.trim();saveCh(o);renderCh();toast('קישור נשמר ✓');}
+function togglePub(i){var o=getCh();o[i]=o[i]||{};if(o[i].lastPub===today()){o[i].lastPub='';}else{o[i].lastPub=today();o[i].count=(o[i].count||0)+1;}saveCh(o);renderCh();}
+function resetDay(){if(!confirm('לאפס את כל הסימונים של היום?'))return;var o=getCh();Object.keys(o).forEach(k=>{if(o[k])o[k].lastPub='';});saveCh(o);renderCh();toast('אופס ✓');}
+function renderCh(){
+ var o=getCh();var td=today();var doneHigh=0,totHigh=0,doneAll=0;
+ var rows=CHANNELS.map((c,i)=>{
+  var rec=o[i]||{};var done=rec.lastPub===td;if(done)doneAll++;
+  if(c.p===3){totHigh++;if(done)doneHigh++;}
+  var link=chLink(i);var ct=CT[c.t],pr=PRIO[c.p];
+  var open=link?'<a class="btn sm" style="background:#2563eb" href="'+link+'" target="_blank">פתח</a>':'<span style="color:#bbb;font-size:12px">אין קישור</span>';
+  var edit='<button class="btn gray sm" onclick="setLink('+i+')">✏️</button>';
+  var pubBtn='<button class="btn sm '+(done?'ok':'gray')+'" onclick="togglePub('+i+')">'+(done?'✓ פורסם':'סמן')+'</button>';
+  var last=rec.lastPub?rec.lastPub:(rec.count?'—':'');
+  return '<tr style="'+(done?'opacity:.55':'')+'"><td>'+esc(c.n)+'</td><td><span class="badge" style="background:'+ct[1]+'">'+ct[0]+'</span></td><td><span class="badge '+pr[1]+'">'+pr[0]+'</span></td><td style="white-space:nowrap">'+open+' '+edit+'</td><td>'+pubBtn+'</td><td style="font-size:12px">'+last+'</td></tr>';
+ }).join('');
+ document.getElementById('chRows').innerHTML=rows;
+ document.getElementById('chProg').textContent='היום פורסמו '+doneAll+'/'+CHANNELS.length+' ערוצים · עדיפות גבוהה: '+doneHigh+'/'+totHigh;
+ document.getElementById('chBar').style.width=(totHigh?Math.round(doneHigh/totHigh*100):0)+'%';
+}
+renderCh();fetchLeads();loadLinks();
+</script>
+</body>
+</html>
