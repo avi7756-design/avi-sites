@@ -39,6 +39,14 @@
     margin:18px 20px;padding:18px 20px;text-align:center;}
   .value b{color:var(--terra-d);font-size:19px;}
   .value p{font-size:16px;color:var(--brown-s);margin-top:6px;}
+  .leadform{background:#fff;border:2px solid #25d366;border-radius:16px;margin:18px 20px;padding:18px 20px;text-align:center;}
+  .leadform b{color:var(--terra-d);font-size:19px;}
+  .leadform p{font-size:15px;color:var(--brown-s);margin:6px 0 12px;}
+  .lf-row{display:flex;gap:8px;flex-wrap:wrap;}
+  .lf-row input{flex:1;min-width:150px;padding:13px;border:1.5px solid #ccc;border-radius:12px;font-size:16px;font-family:inherit;text-align:center;}
+  .lf-row button{background:#25d366;color:#fff;border:none;border-radius:12px;padding:13px 22px;font-size:16px;font-weight:bold;cursor:pointer;font-family:inherit;}
+  .leadform small{display:block;margin-top:10px;color:var(--brown-s);font-size:12px;}
+  .lf-ok{margin-top:6px;background:#e8f5e9;color:#2e7d32;border-radius:12px;padding:14px;font-weight:bold;font-size:15px;}
   .specs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:8px 20px 4px;}
   .spec{background:var(--card);border-radius:14px;text-align:center;padding:14px 6px;}
   .spec .ico{font-size:26px;} .spec .lbl{font-size:13px;color:var(--brown-s);}
@@ -73,7 +81,7 @@
     <div class="addr">שדרות אחי אילת 5, קריית חיים מזרחית</div>
     <div class="price-pill">💰 3,700 ₪/חודש כולל הכל</div>
     <br>
-    <span class="status"><span class="dot"></span>פנוי לכניסה מיידית · עודכן 03/06</span>
+    <span class="status"><span class="dot"></span>פנוי לכניסה מיידית · עודכן 04/06</span>
   </div>
 
   <div class="gallery">
@@ -98,6 +106,17 @@
     <b>⭐ מה מייחד את הדירה</b>
     <p>🅿️ חניון תת-קרקעי שמור · 🛡️ ממ"ד קומתי · ☀️ מרפסת ענקית · 🌊 6 דק' הליכה לים · 🚆 רכבת ומטרונית קרובות · ♿ בניין נגיש</p>
   </div>
+
+  <form class="leadform" onsubmit="return submitLead(event)">
+    <b>📲 רוצה את כל הפרטים מיד?</b>
+    <p>השאר טלפון - אשלח לך בוואטסאפ את כל התמונות, סרטון הדירה וזמינות לביקור. בלי התחייבות.</p>
+    <div class="lf-row">
+      <input id="lf_phone" type="tel" inputmode="tel" placeholder="הטלפון שלך" required>
+      <button type="submit">שלחו לי את הפרטים</button>
+    </div>
+    <small>🔒 הפרטים נשארים אצלי בלבד · ללא תיווך, ישירות מהבעלים</small>
+    <div id="lf_ok" class="lf-ok" style="display:none">✅ תודה! קיבלתי את הפרטים. ממשיכים בוואטסאפ - שולח לך הכל עכשיו 🙏</div>
+  </form>
 
   <div class="value">
     <b>💡 חשבון פשוט: כאן 3,700 ₪ - וזה הכל.</b>
@@ -168,6 +187,21 @@
     imgs[i].classList.add('active');document.getElementById('cur').textContent=i+1;}
   function move(d){show(i+d);}
   setInterval(()=>move(1),4500);
+  function submitLead(e){
+    e.preventDefault();
+    var raw=document.getElementById('lf_phone').value;
+    var digits=raw.replace(/[^0-9]/g,'');
+    if(digits.length<9){alert('נא להזין מספר טלפון תקין');return false;}
+    var btn=e.target.querySelector('button');btn.textContent='שולח...';btn.disabled=true;
+    var wa='https://wa.me/972525944424?text='+encodeURIComponent('היי, השארתי פרטים בדף הדירה באחי אילת 5. אשמח לקבל את כל התמונות והזמינות לביקור 🙏');
+    fetch('https://avi-hazan.app.n8n.cloud/webhook/new-lead-eilat5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:'(השאיר טלפון בדף)',phone:raw,source:'דף נחיתה',status:'פנייה חדשה',potential:'בינוני',notes:'השאיר טלפון בטופס דף הנחיתה'})}).catch(function(){}).finally(function(){
+      e.target.querySelector('.lf-row').style.display='none';
+      e.target.querySelector('small').style.display='none';
+      document.getElementById('lf_ok').style.display='block';
+      setTimeout(function(){window.location.href=wa;},1600);
+    });
+    return false;
+  }
 </script>
 </body>
 </html>
