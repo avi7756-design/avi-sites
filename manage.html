@@ -164,8 +164,15 @@
       <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
         <button class="btn ok sm" onclick="fetchLeads()">🔄 רענן</button>
         <a class="btn copy sm" href="https://avi7756-design.github.io/avi-sites/lead-entry.html" target="_blank">➕ רשום ליד חדש</a>
+        <button class="btn sm" style="background:#25d366" onclick="toggleImport()">📥 ייבוא מרשימה</button>
         <a class="btn gray sm" href="https://avi7756-design.github.io/avi-sites/dashboard.html" target="_blank">📊 דשבורד מלא</a>
       </div>
+    </div>
+    <div id="importBox" style="display:none;background:#fff;border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin-bottom:14px;">
+      <div class="hint" style="margin-bottom:8px">הדבק רשימה - שורה לכל ליד. כל שורה צריכה להכיל <b>טלפון</b>, ואפשר גם שם והערה. דוגמאות:<br>ישראל ישראלי 052-1234567 מחפש מיידי<br>0501112233 - דנה - בעלת כלב<br>המערכת תזהה את הטלפון, תבדוק כפילויות מול הקיים, ותכניס רק חדשים (מקור: וואטסאפ).</div>
+      <textarea id="importText" placeholder="הדבק כאן את הרשימה..." style="width:100%;min-height:120px;margin-bottom:8px"></textarea>
+      <button class="btn ok sm" onclick="runImport()">🔎 בדוק וייבא</button>
+      <div id="importResult" style="margin-top:8px;font-size:13px;font-weight:bold;color:var(--terra-d)"></div>
     </div>
     <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap">
       <input id="leadSearch" placeholder="🔍 חיפוש לפי שם / טלפון / הערה" oninput="renderLeadRows()" style="flex:1;min-width:160px">
@@ -385,6 +392,37 @@ function fetchLeads(){
   document.getElementById('leadStats').textContent='לא הצלחתי לטעון לידים';
   tb.innerHTML='<tr><td colspan="6" style="color:#c0392b;text-align:center;padding:18px;">שגיאה. ודא אינטרנט, או פתח את <a href="https://avi7756-design.github.io/avi-sites/dashboard.html" target="_blank">הדשבורד המלא</a>.</td></tr>';
  });
+}
+function toggleImport(){var b=document.getElementById('importBox');b.style.display=(b.style.display==='none'||!b.style.display)?'block':'none';}
+async function runImport(){
+ var raw=document.getElementById('importText').value;var res=document.getElementById('importResult');
+ var lines=(raw||'').split(/\r?\n/).map(function(s){return s.trim();}).filter(Boolean);
+ if(!lines.length){res.textContent='הדבק רשימה קודם.';return;}
+ res.textContent='בודק מול המערכת...';
+ var existing=[];try{existing=await fetch(LEAD_API,{cache:'no-store'}).then(function(r){return r.json();});}catch(e){res.textContent='שגיאה בחיבור. נסה שוב.';return;}
+ function norm(p){var d=(p||'').replace(/\D/g,'');if(d.indexOf('972')===0)d='0'+d.slice(3);return d;}
+ var have={};existing.forEach(function(l){var n=norm(l.phone);if(n.length>=9)have[n]=1;});
+ var add=[],dup=0,bad=0,seen={};
+ lines.forEach(function(line){
+  var m=line.match(/(?:\+?972[\s\-]?|0)\d[\d\s\-]{7,11}/);
+  if(!m){bad++;return;}
+  var np=norm(m[0]);
+  if(np.length<9||np.length>11){bad++;return;}
+  if(have[np]||seen[np]){dup++;return;}
+  seen[np]=1;
+  var rest=line.replace(m[0],' ').replace(/[,\|\-–:]/g,' ').replace(/\s+/g,' ').trim();
+  var name=rest.split(' ').slice(0,3).join(' ')||'(ללא שם)';
+  add.push({name:name,phone:np,note:rest});
+ });
+ if(!add.length){res.innerHTML='לא נמצאו לידים חדשים לייבוא.<br>כפילויות: '+dup+' · שורות ללא טלפון תקין: '+bad;return;}
+ res.textContent='מייבא '+add.length+' לידים חדשים...';
+ var ok=0;
+ for(var i=0;i<add.length;i++){
+  try{await fetch('https://avi-hazan.app.n8n.cloud/webhook/new-lead-eilat5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:add[i].name,phone:add[i].phone,source:'וואטסאפ',status:'פנייה חדשה',potential:'בינוני',notes:add[i].note})});ok++;}catch(e){}
+ }
+ res.innerHTML='✅ יובאו '+ok+' לידים חדשים · דילגתי על '+dup+' כפילויות · '+bad+' ללא טלפון.';
+ document.getElementById('importText').value='';
+ fetchLeads();
 }
 function renderLeadRows(){
  var qe=document.getElementById('leadSearch'),fe=document.getElementById('leadFilter');
