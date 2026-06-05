@@ -1,0 +1,9 @@
+{
+  "base": "https://avi7756-design.github.io/avi-sites/dira-gallery/",
+  "galleryUrl": "https://avi7756-design.github.io/avi-sites/dira-gallery/",
+  "videos": [
+    { "title": "🎬 ריל ראשי — כתובת ומחיר", "file": "tour-quick-24s.mp4", "dur": "0:24" },
+    { "title": "⚡ טיזר קצר", "file": "reel-15s.mp4", "dur": "0:15" },
+    { "title": "📹 פרומו מלא", "file": "promo-50s.mp4", "dur": "0:50" }
+  ]
+}
