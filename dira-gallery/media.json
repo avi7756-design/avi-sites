@@ -1,9 +1,14 @@
 {
   "base": "https://avi7756-design.github.io/avi-sites/dira-gallery/",
   "galleryUrl": "https://avi7756-design.github.io/avi-sites/dira-gallery/",
+  "waText": "🏠 דירה 2 חד׳ מרוהטת קומפלט להשכרה — שדרות אחי אילת 5, קריית חיים מזרחית. 3,700 ₪ כולל הכל, כניסה מיידית, ללא תיווך. 📞 052-594-4424",
   "videos": [
     { "title": "🎬 ריל ראשי — כתובת ומחיר", "file": "tour-quick-24s.mp4", "dur": "0:24" },
     { "title": "⚡ טיזר קצר", "file": "reel-15s.mp4", "dur": "0:15" },
     { "title": "📹 פרומו מלא", "file": "promo-50s.mp4", "dur": "0:50" }
+  ],
+  "files": [
+    { "title": "עלון הדירה (תמונה)", "file": "flyer.png", "type": "image" },
+    { "title": "עלון הדירה (PDF)", "file": "flyer.pdf", "type": "pdf" }
   ]
 }
