@@ -322,6 +322,7 @@ document.getElementById('objList').innerHTML=OBJS.map(o=>'<div class="obj"><b>'+
 function activate(p){
  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.p===p));
  document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===p));
+ if(p==='leads'){startLeadAuto();}else{stopLeadAuto();}
 }
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>activate(t.dataset.p));
 function goHome(){activate('msgs');window.scrollTo(0,0);closeHelp();}
@@ -377,7 +378,7 @@ const TEMPB={hot:['🔥 חם','t-hot'],warm:['🟠 בינוני','t-warm'],cold:
 const TORD={hot:0,warm:1,cold:2};
 function fetchLeads(){
  var tb=document.getElementById('leadRows');tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:18px;">טוען...</td></tr>';
- fetch(LEAD_API,{cache:'no-store'}).then(r=>r.json()).then(rows=>{
+ fetch(LEAD_API+'?t='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(rows=>{
   if(!Array.isArray(rows))throw new Error('format');
   LEADS=rows;
   rows.sort((a,b)=>{var d=TORD[temp(a)]-TORD[temp(b)];return d!==0?d:new Date(b.createdAt||b.date)-new Date(a.createdAt||a.date);});
@@ -393,13 +394,16 @@ function fetchLeads(){
   tb.innerHTML='<tr><td colspan="6" style="color:#c0392b;text-align:center;padding:18px;">שגיאה. ודא אינטרנט, או פתח את <a href="https://avi7756-design.github.io/avi-sites/dashboard.html" target="_blank">הדשבורד המלא</a>.</td></tr>';
  });
 }
+let _leadTimer=null;
+function startLeadAuto(){fetchLeads();if(_leadTimer)clearInterval(_leadTimer);_leadTimer=setInterval(function(){var el=document.getElementById('leads');if(el&&el.classList.contains('active'))fetchLeads();},60000);}
+function stopLeadAuto(){if(_leadTimer){clearInterval(_leadTimer);_leadTimer=null;}}
 function toggleImport(){var b=document.getElementById('importBox');b.style.display=(b.style.display==='none'||!b.style.display)?'block':'none';}
 async function runImport(){
  var raw=document.getElementById('importText').value;var res=document.getElementById('importResult');
  var lines=(raw||'').split(/\r?\n/).map(function(s){return s.trim();}).filter(Boolean);
  if(!lines.length){res.textContent='הדבק רשימה קודם.';return;}
  res.textContent='בודק מול המערכת...';
- var existing=[];try{existing=await fetch(LEAD_API,{cache:'no-store'}).then(function(r){return r.json();});}catch(e){res.textContent='שגיאה בחיבור. נסה שוב.';return;}
+ var existing=[];try{existing=await fetch(LEAD_API+'?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();});}catch(e){res.textContent='שגיאה בחיבור. נסה שוב.';return;}
  function norm(p){var d=(p||'').replace(/\D/g,'');if(d.indexOf('972')===0)d='0'+d.slice(3);return d;}
  var have={};existing.forEach(function(l){var n=norm(l.phone);if(n.length>=9)have[n]=1;});
  var add=[],dup=0,bad=0,seen={};
