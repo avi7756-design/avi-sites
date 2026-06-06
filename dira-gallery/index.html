@@ -39,6 +39,13 @@
     margin:18px 20px;padding:18px 20px;text-align:center;}
   .value b{color:var(--terra-d);font-size:19px;}
   .value p{font-size:16px;color:var(--brown-s);margin-top:6px;}
+  .transparency{background:var(--card);border:2px solid var(--gold);border-right:6px solid var(--terra);
+    border-radius:16px;margin:18px 20px;padding:18px 22px;}
+  .transparency b{display:block;color:var(--terra-d);font-size:18px;margin-bottom:10px;}
+  .transparency ul{margin:0 18px 0 0;padding:0;list-style:none;}
+  .transparency li{font-size:15.5px;color:var(--brown);margin-bottom:8px;position:relative;padding-right:22px;}
+  .transparency li::before{content:"•";position:absolute;right:0;color:var(--terra);font-weight:bold;font-size:18px;}
+  .transparency p{font-size:15.5px;color:var(--brown-s);margin-top:12px;padding-top:12px;border-top:1px solid var(--gold);font-weight:600;}
   .leadform{background:#fff;border:2px solid #25d366;border-radius:16px;margin:18px 20px;padding:18px 20px;text-align:center;}
   .leadform b{color:var(--terra-d);font-size:19px;}
   .leadform p{font-size:15px;color:var(--brown-s);margin:6px 0 12px;}
@@ -86,20 +93,31 @@
 
   <div class="gallery">
     <div class="slides">
-      <img class="active" src="images/11_street_view.jpg" alt="הבניין מבחוץ - שדרות אחי אילת 5">
-      <img src="images/08_building.jpg" alt="הבניין ונוף">
+      <img class="active" src="images/06_balcony.jpg" alt="מרפסת שמש 20 מ״ר">
       <img src="images/01_salon.jpg" alt="סלון מרוהט">
-      <img src="images/12_salon_yellow.jpg" alt="פינת ישיבה נעימה">
-      <img src="images/06_balcony.jpg" alt="מרפסת 20 מ״ר">
-      <img src="images/05_kitchen.jpg" alt="מטבח מאובזר">
       <img src="images/04_bedroom.jpg" alt="חדר שינה">
-      <img src="images/07_bathroom.jpg" alt="חדר רחצה">
-      <img src="images/09_entrance.jpg" alt="כניסה לבניין">
+      <img src="images/05_kitchen.jpg" alt="מטבח מאובזר">
+      <img src="images/09_entrance.jpg" alt="כניסה לבניין - פרחים">
+      <img src="images/07_bathroom.jpg" alt="חדר רחצה / מקלחת">
+      <img src="images/02_salon2.jpg" alt="סלון - זווית נוספת">
+      <img src="images/03_salon3.jpg" alt="סלון - זווית נוספת">
+      <img src="images/11_street_view.jpg" alt="הבניין מבחוץ - שדרות אחי אילת 5">
+      <img src="images/08_building.jpg" alt="הבניין ונוף">
       <img src="images/10_street.jpg" alt="מבט על השדרה">
     </div>
     <button class="nav prev" onclick="move(-1)">›</button>
     <button class="nav next" onclick="move(1)">‹</button>
-    <div class="counter"><span id="cur">1</span> / 10</div>
+    <div class="counter"><span id="cur">1</span> / 11</div>
+  </div>
+
+  <div class="transparency">
+    <b>🔎 שקיפות מלאה – חשוב לדעת לפני ביקור:</b>
+    <ul>
+      <li>דירה מחולקת, 2 חדרים, כ-40 מ"ר – מתאימה ליחיד או זוג בלבד</li>
+      <li>מטבחון מאובזר (פלטה, מיקרוגל, מקרר) – אידיאלי למי שמבשל קל</li>
+      <li>נדרש ערב או שיקי ביטחון</li>
+    </ul>
+    <p>מי שזה מתאים לו מקבל: מרוהטת קומפלט, חניון תת-קרקעי שמור, ממ"ד, מרפסת 20 מ"ר – הכל כלול ב-3,700 ש"ח.</p>
   </div>
 
   <div class="value">
