@@ -80,6 +80,29 @@
   .obj{background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:12px 14px;margin-bottom:10px;}
   .obj b{color:var(--terra-d);font-size:15px;}
   .obj p{font-size:14px;margin-top:5px;}
+  /* bottom navigation (mobile PWA) */
+  .bottomnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:90;
+    background:var(--terra);box-shadow:0 -2px 12px rgba(0,0,0,.25);
+    padding-bottom:env(safe-area-inset-bottom);
+    grid-template-columns:repeat(4,1fr);}
+  .bottomnav button{background:none;border:none;color:rgba(255,255,255,.85);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    padding:8px 4px 6px;font-size:11px;font-weight:bold;cursor:pointer;min-height:56px;}
+  .bottomnav button .bico{font-size:22px;line-height:1;}
+  .bottomnav button.active{color:#fff;}
+  .bottomnav button.active .bico{transform:scale(1.12);}
+  @media(max-width:768px){
+    body{padding-bottom:calc(72px + env(safe-area-inset-bottom));}
+    .bottomnav{display:grid;}
+    header h1{font-size:17px;}
+    header p{font-size:12px;}
+    .hbtns{flex-wrap:wrap;}
+    .hbtn{padding:5px 10px;font-size:12px;}
+    .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;
+      justify-content:flex-start;padding-bottom:4px;scrollbar-width:none;}
+    .tabs::-webkit-scrollbar{display:none;}
+    .tab{flex:0 0 auto;white-space:nowrap;}
+  }
 </style>
 </head>
 <body>
@@ -269,6 +292,14 @@
   <div class="modal" id="leadModal"></div>
 </div>
 
+<!-- BOTTOM NAV (mobile) -->
+<nav class="bottomnav" id="bottomnav">
+  <button data-nav="msgs" onclick="goHome()"><span class="bico">🏠</span>ראשי</button>
+  <button data-nav="leads" onclick="activate('leads')"><span class="bico">👥</span>לידים</button>
+  <button data-nav="msgs" onclick="activate('msgs')"><span class="bico">💬</span>הודעות</button>
+  <button data-nav="links" onclick="activate('links')"><span class="bico">🔗</span>קישורים</button>
+</nav>
+
 <div class="toast" id="toast">הועתק! ✓</div>
 
 <script>
@@ -332,6 +363,7 @@ document.getElementById('objList').innerHTML=OBJS.map(o=>'<div class="obj"><b>'+
 function activate(p){
  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.p===p));
  document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===p));
+ document.querySelectorAll('.bottomnav button').forEach(x=>x.classList.toggle('active',x.dataset.nav===p));
  if(p==='leads'){startLeadAuto();}else{stopLeadAuto();}
 }
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>activate(t.dataset.p));
@@ -602,6 +634,7 @@ function waShare(){var g='https://avi7756-design.github.io/avi-sites/dira-galler
 function cpShareKit(){var u=MEDIAV[0]?MEDIAV[0].url:'';cpText((WAT||'')+NLx+'🎬 סרטון: '+u);}
 function loadMedia(){fetch('dira-gallery/media.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(m){var base=m.base||'https://avi7756-design.github.io/avi-sites/dira-gallery/';WAT=m.waText||'';MEDIAV=(m.videos||[]).map(function(v){return {title:v.title,url:base+v.file,dur:v.dur||''};});MEDIAF=(m.files||[]).map(function(f){return {title:f.title,url:base+f.file,type:f.type||''};});var g=document.getElementById('videoGrid');if(g)g.innerHTML=MEDIAV.map(function(v){return '<figure><video src="'+v.url+'#t=0.1" preload="metadata" controls style="width:100%;height:150px;object-fit:cover;background:#000"></video><figcaption>'+v.title+' · '+v.dur+'</figcaption><div class="pbtns" style="flex-wrap:wrap;gap:4px"><button class="btn copy sm" onclick="cpText('+q+v.url+q+')">📋 קישור</button><button class="btn sm" style="background:#25d366" onclick="waOpen('+q+v.url+q+')">📤 וואטסאפ</button><a class="btn sm" href="'+v.url+'" target="_blank">פתח</a></div></figure>';}).join('')||'<div style="color:#888">אין סרטונים.</div>';var fg=document.getElementById('fileGrid');if(fg)fg.innerHTML=MEDIAF.map(function(f){var prev=f.type==='image'?'<img src="'+f.url+'" style="width:100%;height:150px;object-fit:cover;cursor:pointer" onclick="window.open('+q+f.url+q+')">':'<div onclick="window.open('+q+f.url+q+')" style="height:150px;display:flex;align-items:center;justify-content:center;font-size:46px;background:#f5ecd9;cursor:pointer">📄</div>';return '<figure>'+prev+'<figcaption>'+f.title+'</figcaption><div class="pbtns" style="flex-wrap:wrap;gap:4px"><button class="btn copy sm" onclick="cpText('+q+f.url+q+')">📋 קישור</button><button class="btn sm" style="background:#25d366" onclick="waOpen('+q+f.url+q+')">📤 וואטסאפ</button><a class="btn sm" href="'+f.url+'" download target="_blank">הורד</a></div></figure>';}).join('')||'<div style="color:#888">אין קבצים.</div>';}).catch(function(e){var g=document.getElementById('videoGrid');if(g)g.innerHTML='<div style="color:#c0392b;font-size:13px;padding:8px">לא ניתן לטעון מדיה כרגע.</div>';});}
 renderCh();fetchLeads();loadLinks();renderObjLog();loadMedia();
+document.querySelectorAll('.bottomnav button[data-nav="msgs"]').forEach(x=>x.classList.add('active'));
 </script>
 </body>
 </html>
