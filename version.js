@@ -1,1 +1,1 @@
-const SITE_VERSION={num:"v2.4",date:"07/06/2026",time:"14:45"};
+const SITE_VERSION={num:"v2.5",date:"07/06/2026",time:"17:15"};

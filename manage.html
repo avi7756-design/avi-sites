@@ -80,6 +80,30 @@
   .obj{background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:12px 14px;margin-bottom:10px;}
   .obj b{color:var(--terra-d);font-size:15px;}
   .obj p{font-size:14px;margin-top:5px;}
+  /* TODAY - daily mission wizard */
+  .todaywrap{max-width:600px;margin:0 auto;}
+  .dayprog{background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:12px 14px;margin-bottom:14px;text-align:center;}
+  .dayprog .pt{color:var(--terra-d);font-size:16px;font-weight:bold;}
+  .dayprog .pbar{background:#eee;border-radius:20px;height:14px;margin-top:8px;overflow:hidden;}
+  .dayprog .pbar>div{height:100%;background:var(--ok);width:0;transition:.3s;}
+  .mcard{background:var(--white);border:2px solid var(--gold);border-radius:18px;padding:18px;box-shadow:0 4px 16px rgba(0,0,0,.08);text-align:center;}
+  .mcard .step{display:inline-block;font-size:13px;color:#fff;background:var(--terra);border-radius:20px;padding:3px 14px;font-weight:bold;margin-bottom:8px;}
+  .mcard .mtitle{font-size:22px;color:var(--terra-d);margin:4px 0;font-weight:bold;}
+  .mcard .mexp{font-size:14px;color:var(--brown-s);margin-bottom:14px;}
+  .mtext{background:var(--cream);border:1px dashed #ddc9a8;border-radius:10px;padding:12px;font-size:14px;white-space:pre-wrap;text-align:right;margin-bottom:12px;line-height:1.5;}
+  .bigcopy{font-size:17px;padding:14px 20px;width:100%;margin-bottom:10px;}
+  .mphotos{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0;align-items:start;}
+  .mphotos img{width:100%;height:58px;object-fit:cover;border-radius:8px;border:1px solid #e6d9c2;cursor:pointer;}
+  .mphotos .cap{grid-column:1/-1;font-size:12px;color:var(--brown-s);font-weight:bold;text-align:right;}
+  .bigdone{background:var(--green);color:#fff;font-size:20px;font-weight:bold;border:none;border-radius:16px;padding:18px;width:100%;cursor:pointer;box-shadow:0 4px 12px rgba(37,211,102,.4);margin-top:8px;}
+  .bigdone:active{transform:scale(.98);}
+  .skiptoday{background:none;border:none;color:#aaa;font-size:13px;cursor:pointer;margin-top:10px;text-decoration:underline;}
+  .timerbox{font-size:46px;font-weight:bold;color:var(--terra-d);font-variant-numeric:tabular-nums;margin:10px 0;}
+  .donescreen{text-align:center;padding:24px 12px;}
+  .donescreen .trophy{font-size:64px;}
+  .hist h2.sec{margin-top:20px;}
+  .histrow{display:flex;justify-content:space-between;background:var(--white);border:1px solid #e6d9c2;border-radius:8px;padding:8px 12px;margin-bottom:6px;font-size:13px;}
+  .histrow.istoday{border-color:var(--terra);background:#fff7e8;}
   /* bottom navigation (mobile PWA) */
   .bottomnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:90;
     background:var(--terra);box-shadow:0 -2px 12px rgba(0,0,0,.25);
@@ -117,7 +141,8 @@
 
 <div class="wrap">
   <div class="tabs">
-    <div class="tab active" data-p="msgs">💬 הודעות</div>
+    <div class="tab active" data-p="today">🎯 היום</div>
+    <div class="tab" data-p="msgs">💬 הודעות</div>
     <div class="tab" data-p="qa">❓ שו"ת</div>
     <div class="tab" data-p="photos">📸 מדיה ופרסום</div>
     <div class="tab" data-p="leads">👥 לידים (חי)</div>
@@ -126,8 +151,17 @@
     <div class="tab" data-p="links">🔗 קישורים</div>
   </div>
 
+  <!-- TODAY (daily mission wizard) -->
+  <div class="panel active" id="today">
+    <div class="todaywrap">
+      <div class="dayprog" id="todayProg"></div>
+      <div id="todayCard"></div>
+      <div class="hist" id="todayHist"></div>
+    </div>
+  </div>
+
   <!-- MESSAGES -->
-  <div class="panel active" id="msgs">
+  <div class="panel" id="msgs">
     <div class="hint">לחץ "העתק" וההודעה נכנסת ללוח. עבור לוואטסאפ והדבק (Ctrl+V). הכוכביות *...* הופכות למודגש בוואטסאפ.</div>
     <div class="msgcard">
       <h3>⚡ פתיח מהיר (פנייה ראשונה / ליד 2) <button class="btn copy sm" onclick="cp('m_quick')">📋 העתק</button></h3>
@@ -294,9 +328,9 @@
 
 <!-- BOTTOM NAV (mobile) -->
 <nav class="bottomnav" id="bottomnav">
-  <button data-nav="msgs" onclick="goHome()"><span class="bico">🏠</span>ראשי</button>
+  <button data-nav="today" onclick="goHome()"><span class="bico">🏠</span>ראשי</button>
   <button data-nav="leads" onclick="activate('leads')"><span class="bico">👥</span>לידים</button>
-  <button data-nav="msgs" onclick="activate('msgs')"><span class="bico">💬</span>הודעות</button>
+  <button data-nav="today" onclick="activate('today')"><span class="bico">🎯</span>היום</button>
   <button data-nav="links" onclick="activate('links')"><span class="bico">🔗</span>קישורים</button>
 </nav>
 
@@ -329,7 +363,8 @@ const PHOTOS=[
  ["10_street.jpg","מבט על השדרה"]
 ];
 const HELP=[
- ["מסכים וניווט","6 לשוניות: הודעות, שו\"ת, תמונות, לידים, התנגדויות, ערוצי פרסום, קישורים. F2 או 🏠 מחזיר למסך הראשי. F1 או ❓ פותח עזרה."],
+ ["מסכים וניווט","הלשונית 🎯 היום היא ברירת המחדל. בנוסף: הודעות, שו\"ת, תמונות, לידים, התנגדויות, ערוצי פרסום, קישורים. F2 או 🏠 מחזיר ללשונית היום. F1 או ❓ פותח עזרה."],
+ ["🎯 היום - מסך משימות יומי","מציג משימה אחת בכל פעם: פרסום בשתי קבוצות היום (מתחלפות אוטומטית לפי רוטציה), המתנה 7 דק' עם טיימר, סטטוס וואטסאפ, ובימים מסוימים פוסט בפרופיל/תזמון שבועי. לכל משימה: 'העתק טקסט', צירוף 5 תמונות לפי הסדר, ו'פתח קבוצה'. 'בוצע' שומר התקדמות (מתאפס כל בוקר) ומסנכרן עם ערוצי פרסום. בתחתית - היסטוריית 7 ימים."],
  ["הודעות מוכנות","3 הודעות לוואטסאפ (פתיח מהיר, מידע מלא, תזכורת). 'העתק' מעתיק ללוח - הדבק בוואטסאפ ב-Ctrl+V. הכוכביות הופכות למודגש."],
  ["שאלות ותשובות","14 תשובות מדויקות. 'העתק' לכל אחת או 'העתק הכל' למענה מהיר ללקוחות."],
  ["תמונות","11 תמונות נבחרות. לחיצה פותחת בגדול לשמירה/שליחה. 'קישור' מעתיק כתובת ישירה."],
@@ -365,9 +400,10 @@ function activate(p){
  document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===p));
  document.querySelectorAll('.bottomnav button').forEach(x=>x.classList.toggle('active',x.dataset.nav===p));
  if(p==='leads'){startLeadAuto();}else{stopLeadAuto();}
+ if(p==='today'){renderToday();}else{clearTimer();}
 }
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>activate(t.dataset.p));
-function goHome(){activate('msgs');window.scrollTo(0,0);closeHelp();}
+function goHome(){activate('today');window.scrollTo(0,0);closeHelp();}
 
 // HELP
 function openHelp(){document.getElementById('helpOv').classList.add('show');renderHelp();}
@@ -635,8 +671,167 @@ function waOpen(t){window.open('https://wa.me/?text='+encodeURIComponent(t),'_bl
 function waShare(){var g='https://avi7756-design.github.io/avi-sites/dira-gallery/';waOpen((WAT||'')+NLx+'📸 גלריה: '+g);}
 function cpShareKit(){var u=MEDIAV[0]?MEDIAV[0].url:'';cpText((WAT||'')+NLx+'🎬 סרטון: '+u);}
 function loadMedia(){fetch('dira-gallery/media.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(m){var base=m.base||'https://avi7756-design.github.io/avi-sites/dira-gallery/';WAT=m.waText||'';MEDIAV=(m.videos||[]).map(function(v){return {title:v.title,url:base+v.file,dur:v.dur||''};});MEDIAF=(m.files||[]).map(function(f){return {title:f.title,url:base+f.file,type:f.type||''};});var g=document.getElementById('videoGrid');if(g)g.innerHTML=MEDIAV.map(function(v){return '<figure><video src="'+v.url+'#t=0.1" preload="metadata" controls style="width:100%;height:150px;object-fit:cover;background:#000"></video><figcaption>'+v.title+' · '+v.dur+'</figcaption><div class="pbtns" style="flex-wrap:wrap;gap:4px"><button class="btn copy sm" onclick="cpText('+q+v.url+q+')">📋 קישור</button><button class="btn sm" style="background:#25d366" onclick="waOpen('+q+v.url+q+')">📤 וואטסאפ</button><a class="btn sm" href="'+v.url+'" target="_blank">פתח</a></div></figure>';}).join('')||'<div style="color:#888">אין סרטונים.</div>';var fg=document.getElementById('fileGrid');if(fg)fg.innerHTML=MEDIAF.map(function(f){var prev=f.type==='image'?'<img src="'+f.url+'" style="width:100%;height:150px;object-fit:cover;cursor:pointer" onclick="window.open('+q+f.url+q+')">':'<div onclick="window.open('+q+f.url+q+')" style="height:150px;display:flex;align-items:center;justify-content:center;font-size:46px;background:#f5ecd9;cursor:pointer">📄</div>';return '<figure>'+prev+'<figcaption>'+f.title+'</figcaption><div class="pbtns" style="flex-wrap:wrap;gap:4px"><button class="btn copy sm" onclick="cpText('+q+f.url+q+')">📋 קישור</button><button class="btn sm" style="background:#25d366" onclick="waOpen('+q+f.url+q+')">📤 וואטסאפ</button><a class="btn sm" href="'+f.url+'" download target="_blank">הורד</a></div></figure>';}).join('')||'<div style="color:#888">אין קבצים.</div>';}).catch(function(e){var g=document.getElementById('videoGrid');if(g)g.innerHTML='<div style="color:#c0392b;font-size:13px;padding:8px">לא ניתן לטעון מדיה כרגע.</div>';});}
-renderCh();fetchLeads();loadLinks();renderObjLog();loadMedia();
-document.querySelectorAll('.bottomnav button[data-nav="msgs"]').forEach(x=>x.classList.add('active'));
+// ===== TODAY - daily mission wizard (matches Telegram bot logic) =====
+const POST_END='\n\n👈 כל התמונות, סרטון ושקיפות מלאה: https://avi7756-design.github.io/avi-sites/dira-gallery/\n📞 אבי: 052-594-4424';
+const POSTS=[
+ {v:'A',name:'קטנה וחכמה',body:`🏠 דירה קטנה וחכמה - בדיוק בשביל מי שמחפש בדיוק את זה.
+
+40 מ"ר של 2 חדרים מרוהטים קומפלט + מרפסת שמש 20 מ"ר - שדרות אחי אילת 5, קריית חיים מזרחית.
+
+נכון, היא קומפקטית. בכוונה. כי מי שגר לבד או בזוג לא צריך לשלם על מטרים שהוא לא משתמש בהם - הוא צריך שהכל יהיה מסודר, מאובזר וכלול במחיר:
+
+💰 3,700 ₪ בתשלום אחד - ארנונה, ועד, מים, כבלים, אינטרנט (רק חשמל בנפרד)
+🅿️ חניון תת-קרקעי שמור · 🛡️ ממ"ד קומתי · ♿ נגישות מלאה · 🌊 6 דק' מהים
+🔑 כניסה מיידית · ללא תיווך
+
+❗ חשוב והוגן לדעת מראש: הדירה מתאימה ליחיד או זוג בלבד. המטבח קומפקטי (כיריים, טוסטר אובן, מיקרו - לא תנור מלא). למשפחות או למי שצריך 3 חדרים - זו לא הדירה.`+POST_END},
+ {v:'B',name:'נכנסים עם מזוודה',body:`📍 להשכרה: 2 חד' מרוהטת קומפלט, 40 מ"ר + מרפסת 20 מ"ר - אחי אילת 5, קריית חיים מזרחית
+
+✅ מרוהטת עד הפרט האחרון - נכנסים עם מזוודה
+✅ 3,700 ₪ כולל הכל: ארנונה, ועד, מים, כבלים, אינטרנט (חשמל בנפרד)
+✅ חניון תת-קרקעי שמור · ממ"ד · מעלית · נגישות מלאה
+✅ כניסה מיידית · ללא תיווך · 6 דק' הליכה מהים
+
+🎯 למי זה מושלם: יחיד/ה או זוג שרוצים פתרון איכותי ומיידי בלי כאב ראש.
+🚫 למי זה לא: משפחות עם ילדים, מי שצריך מטבח גדול לבישולים כבדים.
+החיסכון האמיתי: בדירה "זולה יותר" תשלמו ארנונה+ועד+חשבונות+ריהוט - וזה ייצא יותר.`+POST_END},
+ {v:'C',name:'החשבון הפשוט',body:`🧮 בואו נעשה חשבון אמיתי לרגע.
+
+דירה "רגילה" ב-3,200 ₪: + ארנונה ~250 + ועד 411 + מים + כבלים + אינטרנט ~150 = מעל 4,200 ₪. ועוד לקנות מקרר, מיטה, ספה, ארון...
+
+הדירה שלי באחי אילת 5: 3,700 ₪. נקודה. הכל בפנים - גם החשבונות וגם הריהוט המלא (רק חשמל בנפרד).
+
+2 חדרים, 40 מ"ר קומפקטיים ומסודרים + מרפסת שמש ענקית, חניון שמור, ממ"ד, 6 דק' מהים. כניסה מיידית, בלי תיווך.
+
+מתאים ליחיד או זוג. לא מתאים למשפחות - והמטבח קומפקטי (בלי תנור מלא). אומר את זה מראש כי אני מעדיף שתבואו לראות רק אם זה באמת בשבילכם 🤝`+POST_END},
+ {v:'D',name:'שקיפות מלאה',body:`💬 אני אגיד לכם בדיוק מה יש ומה אין - ואתם תחליטו.
+
+מה יש: 2 חד' מרוהטים קומפלט (40 מ"ר), מרפסת שמש 20 מ"ר עם כיוון מעולה, חניון תת-קרקעי שמור, ממ"ד בקומה, מעלית רחבה, נגישות מלאה, 6 דק' הליכה מהים. 3,700 ₪ שכוללים ארנונה, ועד, מים, כבלים ואינטרנט.
+
+מה אין: חדר שלישי. מטבח גדול עם תנור בילט-אין. מקום למשפחה עם ילדים.
+
+מי שזה מתאים לו - מקבל דירה שאפשר להיכנס אליה מחר עם מזוודה ולחיות בשקט.
+לפני ביקור אני שולח סרטון מלא של הדירה - שתדעו בדיוק מה אתם באים לראות.`+POST_END}
+];
+const GROUPS=[
+ {n:'דירות להשכרה בקריות ללא תיווך',l:'https://www.facebook.com/groups/1591401697779759'},
+ {n:'להשכרה דירות בקריות ללא תיווך',l:'https://www.facebook.com/groups/3035567756713270'},
+ {n:'דירות/יחידות חיפה-קריות - לא למתווכים',l:''},
+ {n:'דירות להשכרה בחיפה ללא תיווך',l:''},
+ {n:'דירות להשכרה בקריות',l:''},
+ {n:'דירות להשכרה בחיפה',l:''},
+ {n:'יד2 דירות בקריות בלבד',l:''},
+ {n:'חיפה-קריות-נשר (אזורי)',l:''}
+];
+const GCHIDX=[4,5,6,7,8,17,18,19]; // GROUPS index -> CHANNELS index (for togglePub sync)
+const MPHOTOS=[['06_balcony.jpg','מרפסת'],['01_salon.jpg','סלון'],['04_bedroom.jpg','חדר שינה'],['05_kitchen.jpg','מטבח'],['11_street_view.jpg','הבניין']];
+function todayTasks(){
+ var day=Math.floor(Date.now()/86400000);
+ var gi1=(day*2)%8,gi2=(day*2+1)%8,pi1=day%4,pi2=(day+2)%4,dow=new Date().getDay();
+ var t=[{kind:'pub',gi:gi1,pi:pi1,num:1},{kind:'wait',num:2},{kind:'pub',gi:gi2,pi:pi2,num:3},{kind:'wa',num:4}];
+ if(dow===0)t.push({kind:'profile',pi:0,num:5});
+ if(dow===1)t.push({kind:'meta',num:6});
+ return t;
+}
+function dKey(){return 'eilat_daily_'+today();}
+function getDaily(){try{var o=JSON.parse(localStorage.getItem(dKey()));return (o&&typeof o==='object')?o:{done:{},skip:{}};}catch(e){return {done:{},skip:{}};}}
+function saveDaily(o){localStorage.setItem(dKey(),JSON.stringify(o));}
+function markChannelPub(ci){var o=getCh();o[ci]=o[ci]||{};if(o[ci].lastPub!==today()){o[ci].lastPub=today();o[ci].count=(o[ci].count||0)+1;saveCh(o);}if(document.getElementById('channels').classList.contains('active'))renderCh();}
+function copyPost(pi){cpText(POSTS[pi].body);}
+function copyQuick(){cpText(document.getElementById('m_quick').textContent);}
+function openGroup(gi){var g=GROUPS[gi];if(g.l){window.open(g.l,'_blank');}else{navigator.clipboard.writeText(g.n).then(()=>toast('שם הקבוצה הועתק 📋 חפש בפייסבוק'));}}
+function mphotosHtml(){return '<div class="mphotos"><span class="cap">📎 צרף 5 תמונות לפי הסדר:</span>'+MPHOTOS.map(p=>'<img src="'+BASE+p[0]+'" title="'+p[1]+'" onclick="window.open(this.src)">').join('')+'</div>';}
+// timer (7 min countdown)
+var _timerInt=null,_timerLeft=420;
+function clearTimer(){if(_timerInt){clearInterval(_timerInt);_timerInt=null;}}
+function updTimer(){var d=document.getElementById('timerDisp');if(!d)return;var m=Math.floor(_timerLeft/60),s=_timerLeft%60;d.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+function startTimer(){clearTimer();_timerLeft=420;updTimer();_timerInt=setInterval(function(){_timerLeft--;updTimer();if(_timerLeft<=0){clearTimer();var d=document.getElementById('timerDisp');if(d)d.textContent='00:00';toast('✅ עברו 7 דקות - אפשר להמשיך לקבוצה הבאה');}},1000);}
+function taskCard(t,cur,total){
+ var head='<div class="step">משימה '+(cur+1)+' מתוך '+total+'</div>';
+ var foot='<button class="bigdone" onclick="doneTask('+cur+')">✅ בוצע - למשימה הבאה</button>'+
+          '<button class="skiptoday" onclick="skipTask('+cur+')">דלג היום</button>';
+ if(t.kind==='pub'){
+  var g=GROUPS[t.gi],p=POSTS[t.pi];
+  var openBtn=g.l?'<button class="btn bigcopy" style="background:#7e57c2" onclick="openGroup('+t.gi+')">🔗 פתח את הקבוצה</button>'
+                 :'<button class="btn bigcopy gray" onclick="openGroup('+t.gi+')">🔍 העתק שם הקבוצה לחיפוש בפייסבוק</button>';
+  return head+
+   '<div class="mtitle">📢 פרסום בקבוצה '+(t.num===1?'1':'2')+'</div>'+
+   '<div class="mexp">קבוצה: <b>'+esc(g.n)+'</b><br>גרסה '+p.v+' · '+esc(p.name)+'</div>'+
+   '<div class="mtext">'+esc(p.body)+'</div>'+
+   '<button class="btn copy bigcopy" onclick="copyPost('+t.pi+')">📋 העתק טקסט</button>'+
+   openBtn+mphotosHtml()+foot;
+ }
+ if(t.kind==='wait'){
+  return head+
+   '<div class="mtitle">⏳ סימון והשהיה 7 דקות</div>'+
+   '<div class="mexp">סמן שפרסמת בקבוצה הראשונה, והמתן 7 דקות לפני הקבוצה הבאה - כדי להימנע מחסימה.</div>'+
+   '<div class="timerbox" id="timerDisp">07:00</div>'+
+   '<button class="btn bigcopy" onclick="startTimer()">▶️ התחל טיימר 7 דקות</button>'+foot;
+ }
+ if(t.kind==='wa'){
+  return head+
+   '<div class="mtitle">📱 סטטוס וואטסאפ</div>'+
+   '<div class="mexp">פרסם סטטוס וואטסאפ עם הפתיח המהיר.</div>'+
+   '<div class="mtext">'+esc(document.getElementById('m_quick').textContent)+'</div>'+
+   '<button class="btn copy bigcopy" onclick="copyQuick()">📋 העתק טקסט</button>'+foot;
+ }
+ if(t.kind==='profile'){
+  var pp=POSTS[0];
+  return head+
+   '<div class="mtitle">👤 פוסט בפרופיל האישי</div>'+
+   '<div class="mexp">פרסם בפרופיל האישי שלך (1,200 חברים) - גרסה A.</div>'+
+   '<div class="mtext">'+esc(pp.body)+'</div>'+
+   '<button class="btn copy bigcopy" onclick="copyPost(0)">📋 העתק טקסט</button>'+
+   '<button class="btn bigcopy" style="background:#7e57c2" onclick="window.open(\'https://www.facebook.com\',\'_blank\')">🔗 פתח פייסבוק</button>'+
+   mphotosHtml()+foot;
+ }
+ if(t.kind==='meta'){
+  return head+
+   '<div class="mtitle">🗓️ תזמון שבועי בדף העסקי</div>'+
+   '<div class="mexp">דרך Meta Business Suite: תזמן 7 פוסטים, אחד לכל יום, לסירוגין A/B/C/D.</div>'+
+   '<div class="hint" style="text-align:right">פתח את הקומפוזר, בחר את הדף העסקי, והעלה 7 פוסטים מתוזמנים (יום אחרי יום). העתק כל גרסה בכפתורים:</div>'+
+   '<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:10px">'+
+    POSTS.map((p,i)=>'<button class="btn copy sm" onclick="copyPost('+i+')">📋 גרסה '+p.v+'</button>').join('')+'</div>'+
+   '<button class="btn bigcopy" style="background:#7e57c2" onclick="window.open(\'https://business.facebook.com/latest/composer\',\'_blank\')">🔗 פתח Meta Business Suite</button>'+foot;
+ }
+ return head;
+}
+function renderToday(){
+ var tasks=todayTasks(),total=tasks.length,d=getDaily();
+ d.done=d.done||{};d.skip=d.skip||{};
+ if(d.total!==total){d.total=total;saveDaily(d);}
+ var doneCount=0;for(var i=0;i<total;i++){if(d.done[i])doneCount++;}
+ var pct=total?Math.round(doneCount/total*100):0;
+ var pe=document.getElementById('todayProg');
+ if(pe)pe.innerHTML='<div class="pt">היום: '+doneCount+'/'+total+' בוצעו</div><div class="pbar"><div style="width:'+pct+'%"></div></div>';
+ var cur=-1;for(var j=0;j<total;j++){if(!d.done[j]&&!d.skip[j]){cur=j;break;}}
+ var card=document.getElementById('todayCard');
+ if(card){
+  if(cur===-1){
+   card.innerHTML='<div class="mcard donescreen"><div class="trophy">🏆</div><h2 style="color:var(--terra-d);font-size:24px">סיימת את היום!</h2><p style="font-size:18px;margin:10px 0"><b>'+doneCount+'/'+total+'</b> משימות בוצעו</p><div class="hint" style="text-align:right">💡 אל תשכח לרשום כל פנייה שקיבלת בבוט הטלגרם - כדי שלא יאבד אף ליד.</div><a class="btn copy" href="https://t.me/Avi_eilat5_bot" target="_blank" style="margin-top:8px">🤖 פתח את בוט הטלגרם</a></div>';
+   clearTimer();
+  }else{
+   card.innerHTML='<div class="mcard">'+taskCard(tasks[cur],cur,total)+'</div>';
+   if(tasks[cur].kind!=='wait')clearTimer();
+  }
+ }
+ renderHist();
+}
+function doneTask(i){
+ var tasks=todayTasks(),t=tasks[i],d=getDaily();d.done=d.done||{};d.done[i]=true;d.total=tasks.length;saveDaily(d);
+ if(t&&t.kind==='pub')markChannelPub(GCHIDX[t.gi]);
+ clearTimer();toast('בוצע ✓');renderToday();
+}
+function skipTask(i){var d=getDaily();d.skip=d.skip||{};d.skip[i]=true;d.total=todayTasks().length;saveDaily(d);clearTimer();renderToday();}
+function fmtD(iso){var p=(iso||'').split('-');return p.length===3?p[2]+'/'+p[1]:iso;}
+function renderHist(){
+ var el=document.getElementById('todayHist');if(!el)return;
+ var arr=[];
+ for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('eilat_daily_')===0){try{var v=JSON.parse(localStorage.getItem(k));var dc=0;if(v&&v.done)Object.keys(v.done).forEach(x=>{if(v.done[x])dc++;});arr.push({date:k.replace('eilat_daily_',''),done:dc,total:(v&&v.total)||'?'});}catch(e){}}}
+ arr.sort((a,b)=>a.date<b.date?1:-1);arr=arr.slice(0,7);
+ el.innerHTML='<h2 class="sec" style="font-size:15px">📅 7 הימים האחרונים</h2>'+(arr.length?arr.map(r=>'<div class="histrow'+(r.date===today()?' istoday':'')+'"><span>'+fmtD(r.date)+(r.date===today()?' (היום)':'')+'</span><span><b>'+r.done+'/'+r.total+'</b> בוצעו</span></div>').join(''):'<p style="color:#888;font-size:13px">אין היסטוריה עדיין.</p>');
+}
+renderCh();fetchLeads();loadLinks();renderObjLog();loadMedia();renderToday();activate('today');
 </script>
 <footer style="font-size:10px;color:#999;text-align:center;padding:10px 0;margin-bottom:8px;">גרסה <span id="siteVer"></span></footer>
 <script src="version.js"></script>
