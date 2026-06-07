@@ -420,7 +420,7 @@ const TEMPB={hot:['🔥 חם','t-hot'],warm:['🟠 בינוני','t-warm'],cold:
 const TORD={hot:0,warm:1,cold:2};
 function fetchLeads(){
  var tb=document.getElementById('leadRows');tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:18px;">טוען...</td></tr>';
- fetch(LEAD_API+'?t='+Date.now(),{cache:'no-store'}).then(r=>r.json()).then(rows=>{
+ fetch(LEAD_API+'?t='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(rows=>{
   if(!Array.isArray(rows))throw new Error('format');
   LEADS=rows;
   rows.sort((a,b)=>{var d=TORD[temp(a)]-TORD[temp(b)];return d!==0?d:new Date(b.createdAt||b.date)-new Date(a.createdAt||a.date);});
@@ -433,7 +433,7 @@ function fetchLeads(){
   }).join('')||'<tr><td colspan="6" style="text-align:center;padding:18px;">אין לידים עדיין</td></tr>';
  }).catch(e=>{
   document.getElementById('leadStats').textContent='לא הצלחתי לטעון לידים';
-  tb.innerHTML='<tr><td colspan="6" style="color:#c0392b;text-align:center;padding:18px;">שגיאה. ודא אינטרנט, או פתח את <a href="https://avi7756-design.github.io/avi-sites/dashboard.html" target="_blank">הדשבורד המלא</a>.</td></tr>';
+  tb.innerHTML='<tr><td colspan="6" style="color:#c0392b;text-align:center;padding:18px;">❌ לא ניתן לטעון לידים. סיבות אפשריות: (1) מכסת ההרצות ב-n8n נגמרה - בדוק ב-app.n8n.cloud, (2) אין אינטרנט. הנתונים עצמם שמורים ולא נמחקו.</td></tr>';
  });
 }
 let _leadTimer=null;

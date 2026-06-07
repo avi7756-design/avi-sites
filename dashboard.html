@@ -101,12 +101,13 @@ document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
 
 function load(){
   document.getElementById('ts').textContent='מרענן...';
-  fetch(API,{cache:'no-store'}).then(r=>r.json()).then(rows=>{
+  fetch(API,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(rows=>{
     if(!Array.isArray(rows)) rows=[];
     ROWS=rows; render(rows);
+    lastLoad=Date.now();
     document.getElementById('ts').textContent='עודכן '+new Date().toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});
   }).catch(e=>{
-    document.getElementById('table').innerHTML='<div class="err">❌ שגיאה בטעינה. בדוק חיבור אינטרנט.</div>';
+    document.getElementById('table').innerHTML='<div class="err">❌ לא ניתן לטעון לידים. סיבות אפשריות: (1) מכסת ההרצות ב-n8n נגמרה - בדוק ב-app.n8n.cloud, (2) אין אינטרנט. הנתונים עצמם שמורים ולא נמחקו.</div>';
     document.getElementById('ts').textContent='שגיאה';
   });
 }
@@ -173,8 +174,9 @@ function del(id,name){
    .then(()=>{setTimeout(()=>{load();closeModal();toast('נמחק ✓');},1200);})
    .catch(()=>toast('שגיאה במחיקה'));
 }
+let lastLoad=Date.now();
 load();
-setInterval(load,60000);
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-lastLoad>600000){load();}});
 </script>
 </body>
 </html>
