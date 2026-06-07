@@ -423,6 +423,7 @@ function fetchLeads(){
  fetch(LEAD_API+'?t='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(rows=>{
   if(!Array.isArray(rows))throw new Error('format');
   LEADS=rows;
+  lastLeadLoad=Date.now();
   rows.sort((a,b)=>{var d=TORD[temp(a)]-TORD[temp(b)];return d!==0?d:new Date(b.createdAt||b.date)-new Date(a.createdAt||a.date);});
   var hot=rows.filter(l=>temp(l)==='hot').length;
   var active=rows.filter(l=>ACTIVE.indexOf((l.status||'').trim())>-1).length;
@@ -436,9 +437,10 @@ function fetchLeads(){
   tb.innerHTML='<tr><td colspan="6" style="color:#c0392b;text-align:center;padding:18px;">❌ לא ניתן לטעון לידים. סיבות אפשריות: (1) מכסת ההרצות ב-n8n נגמרה - בדוק ב-app.n8n.cloud, (2) אין אינטרנט. הנתונים עצמם שמורים ולא נמחקו.</td></tr>';
  });
 }
-let _leadTimer=null;
-function startLeadAuto(){fetchLeads();if(_leadTimer)clearInterval(_leadTimer);_leadTimer=setInterval(function(){var el=document.getElementById('leads');if(el&&el.classList.contains('active'))fetchLeads();},60000);}
-function stopLeadAuto(){if(_leadTimer){clearInterval(_leadTimer);_leadTimer=null;}}
+let lastLeadLoad=Date.now();
+function startLeadAuto(){fetchLeads();}
+function stopLeadAuto(){}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-lastLeadLoad>600000){var el=document.getElementById('leads');if(el&&el.classList.contains('active'))fetchLeads();}});
 function toggleImport(){var b=document.getElementById('importBox');b.style.display=(b.style.display==='none'||!b.style.display)?'block':'none';}
 async function runImport(){
  var raw=document.getElementById('importText').value;var res=document.getElementById('importResult');
