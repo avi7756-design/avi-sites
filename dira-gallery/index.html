@@ -5,223 +5,424 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>דירה מרוהטת להשכרה | אחי אילת 5 קריית חיים</title>
 <meta name="description" content="דירה מרוהטת קומפלט להשכרה בקריית חיים מזרחית. 2 חדרים + מרפסת 20 מ״ר, חניון תת-קרקעי שמור, ממ״ד. 6 דק' מהים. 3,700 ₪ כולל הכל.">
-<meta property="og:title" content="🏠 דירה מרוהטת להשכרה - אחי אילת 5, חניון שמור + מרפסת">
-<meta property="og:description" content="2 חד' מרוהטת | מרפסת 20 מ״ר | חניון תת-קרקעי שמור | ממ״ד | 6 דק' מהים | 3,700₪ כולל הכל | ללא תיווך">
+<meta property="og:title" content="דירה מרוהטת להשכרה - אחי אילת 5, חניון שמור + מרפסת">
+<meta property="og:description" content="2 חד' מרוהטת | מרפסת 20 מ״ר | חניון תת-קרקעי שמור | ממ״ד | 6 דק' מהים | 3,700 כולל הכל | ללא תיווך">
 <meta property="og:type" content="website">
 <meta property="og:image" content="https://avi7756-design.github.io/avi-sites/dira-gallery/images/11_street_view.jpg">
 <style>
-  :root{
-    --terra:#c1764c; --terra-d:#a05c3a; --brown:#4a382b; --brown-s:#78624f;
-    --gold:#c9a25a; --cream:#fbf4e9; --card:#f5ecd9; --white:#fff;
-  }
-  *{margin:0;padding:0;box-sizing:border-box;}
-  body{font-family:'Segoe UI',Arial,sans-serif;background:var(--cream);color:var(--brown);line-height:1.6;}
-  .wrap{max-width:680px;margin:0 auto;background:var(--cream);}
-  .hero{text-align:center;padding:28px 20px 10px;}
-  .hero h1{font-size:30px;color:var(--brown);margin-bottom:6px;}
-  .hero .addr{font-size:18px;color:var(--brown-s);}
-  .price-pill{display:inline-block;background:var(--terra);color:#fff;font-size:24px;font-weight:bold;
-    padding:10px 28px;border-radius:40px;margin:14px 0 6px;}
-  .status{display:inline-flex;align-items:center;gap:8px;background:#e8f5e9;color:#2e7d32;
-    font-weight:bold;font-size:15px;padding:7px 18px;border-radius:30px;margin:6px auto 4px;}
-  .status .dot{width:11px;height:11px;background:#2e7d32;border-radius:50%;
-    animation:pulse 1.6s infinite;}
-  @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(46,125,50,.5);}70%{box-shadow:0 0 0 9px rgba(46,125,50,0);}100%{box-shadow:0 0 0 0 rgba(46,125,50,0);}}
-  .gallery{position:relative;margin:14px 0;}
-  .slides img{width:100%;height:380px;object-fit:cover;display:none;}
-  .slides img.active{display:block;}
-  .nav{position:absolute;top:50%;transform:translateY(-50%);background:rgba(74,56,43,.6);
-    color:#fff;border:none;font-size:30px;width:46px;height:46px;border-radius:50%;cursor:pointer;}
-  .nav.prev{right:12px;} .nav.next{left:12px;}
-  .counter{position:absolute;bottom:12px;right:12px;background:rgba(74,56,43,.7);color:#fff;
-    padding:4px 12px;border-radius:20px;font-size:14px;}
-  .value{background:var(--card);border:2px solid var(--gold);border-radius:16px;
-    margin:18px 20px;padding:18px 20px;text-align:center;}
-  .value b{color:var(--terra-d);font-size:19px;}
-  .value p{font-size:16px;color:var(--brown-s);margin-top:6px;}
-  .transparency{background:var(--card);border:2px solid var(--gold);border-right:6px solid var(--terra);
-    border-radius:16px;margin:18px 20px;padding:18px 22px;}
-  .transparency b{display:block;color:var(--terra-d);font-size:18px;margin-bottom:10px;}
-  .transparency ul{margin:0 18px 0 0;padding:0;list-style:none;}
-  .transparency li{font-size:15.5px;color:var(--brown);margin-bottom:8px;position:relative;padding-right:22px;}
-  .transparency li::before{content:"•";position:absolute;right:0;color:var(--terra);font-weight:bold;font-size:18px;}
-  .transparency p{font-size:15.5px;color:var(--brown-s);margin-top:12px;padding-top:12px;border-top:1px solid var(--gold);font-weight:600;}
-  .leadform{background:#fff;border:2px solid #25d366;border-radius:16px;margin:18px 20px;padding:18px 20px;text-align:center;}
-  .leadform b{color:var(--terra-d);font-size:19px;}
-  .leadform p{font-size:15px;color:var(--brown-s);margin:6px 0 12px;}
-  .lf-row{display:flex;gap:8px;flex-wrap:wrap;}
-  .lf-row input{flex:1;min-width:150px;padding:13px;border:1.5px solid #ccc;border-radius:12px;font-size:16px;font-family:inherit;text-align:center;}
-  .lf-row button{background:#25d366;color:#fff;border:none;border-radius:12px;padding:13px 22px;font-size:16px;font-weight:bold;cursor:pointer;font-family:inherit;}
-  .leadform small{display:block;margin-top:10px;color:var(--brown-s);font-size:12px;}
-  .lf-ok{margin-top:6px;background:#e8f5e9;color:#2e7d32;border-radius:12px;padding:14px;font-weight:bold;font-size:15px;}
-  .specs{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;padding:8px 20px 4px;}
-  .spec{background:var(--card);border-radius:14px;text-align:center;padding:14px 6px;}
-  .spec .ico{font-size:26px;} .spec .lbl{font-size:13px;color:var(--brown-s);}
-  .spec .val{font-size:17px;font-weight:bold;color:var(--brown);}
-  .sec{padding:8px 20px;}
-  .sec h2{font-size:22px;color:var(--terra-d);margin:18px 0 12px;}
-  .incl{display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;}
-  .incl div{font-size:16px;} .incl .full{grid-column:1/-1;color:var(--terra-d);font-weight:bold;}
-  .cta{text-align:center;padding:20px;}
-  .cta p{font-size:17px;margin-bottom:14px;}
-  .btn{display:inline-block;text-decoration:none;font-size:18px;font-weight:bold;
-    padding:14px 26px;border-radius:40px;margin:6px;color:#fff;}
-  .btn.wa{background:#25d366;} .btn.tel{background:var(--terra);}
-  .faq details{background:var(--card);border-radius:12px;margin-bottom:8px;padding:2px 16px;}
-  .faq summary{font-size:16px;font-weight:bold;cursor:pointer;padding:12px 0;color:var(--brown);list-style:none;}
-  .faq summary::-webkit-details-marker{display:none;}
-  .faq summary::after{content:"▼";float:left;font-size:12px;color:var(--terra);}
-  .faq details[open] summary::after{content:"▲";}
-  .faq p{padding:0 0 14px;color:var(--brown-s);font-size:15px;}
-  footer{text-align:center;background:var(--terra);color:#fff;padding:22px;font-size:14px;margin-top:20px;}
-  .sticky{position:fixed;bottom:0;left:0;right:0;background:#25d366;text-align:center;padding:14px;
-    z-index:99;box-shadow:0 -2px 12px rgba(0,0,0,.2);}
-  .sticky a{color:#fff;text-decoration:none;font-size:18px;font-weight:bold;}
-  body{padding-bottom:64px;}
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{
+  --bg:#0a0d14;--s1:#111827;--s2:#1e2a3d;--border:#2a3a52;
+  --primary:#6366f1;--green:#22c55e;--gold:#f59e0b;--red:#ef4444;
+  --text:#e2e8f0;--muted:#94a3b8;--white:#fff;
+}
+body{font-family:'Segoe UI',Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6;min-height:100vh;padding-bottom:68px;}
+
+/* HERO */
+.hero{
+  background:linear-gradient(135deg,#0f1729 0%,#1a1040 40%,#0d2135 100%);
+  padding:32px 20px 28px;text-align:center;border-bottom:1px solid var(--border);
+  position:relative;overflow:hidden;
+}
+.hero::before{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse at 50% 0%,rgba(99,102,241,.15) 0%,transparent 70%);
+}
+.hero *{position:relative;}
+.hero-badge{
+  display:inline-flex;align-items:center;gap:8px;
+  background:#22c55e18;color:#22c55e;border:1px solid #22c55e40;
+  font-size:.8em;padding:6px 18px;border-radius:24px;font-weight:700;margin-bottom:16px;
+}
+.hero-badge .pulse{width:10px;height:10px;background:#22c55e;border-radius:50%;animation:pulse 1.6s infinite;}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(34,197,94,.5);}70%{box-shadow:0 0 0 10px rgba(34,197,94,0);}100%{box-shadow:0 0 0 0 rgba(34,197,94,0);}}
+.hero h1{font-size:1.9em;font-weight:900;color:var(--white);margin-bottom:6px;text-shadow:0 2px 20px rgba(99,102,241,.4);}
+.hero .sub{font-size:1em;color:#a5b4fc;margin-bottom:20px;}
+.hero-specs{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:22px;}
+.hspec{
+  background:rgba(255,255,255,.07);backdrop-filter:blur(10px);
+  border:1px solid rgba(255,255,255,.12);border-radius:12px;
+  padding:12px 18px;text-align:center;min-width:90px;
+}
+.hspec-val{font-size:1.5em;font-weight:800;color:var(--white);}
+.hspec-lbl{font-size:.7em;color:var(--muted);margin-top:2px;}
+.hero-cta{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+
+/* BUTTONS */
+.btn{
+  padding:12px 22px;border-radius:10px;font-size:.88em;font-weight:700;
+  text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+  border:none;cursor:pointer;font-family:inherit;transition:all .2s;
+}
+.btn-wa{background:#25d366;color:var(--white);} .btn-wa:hover{background:#22bf5c;}
+.btn-call{background:var(--primary);color:var(--white);} .btn-call:hover{background:#4f46e5;}
+.btn-copy{background:rgba(255,255,255,.1);color:var(--white);border:1px solid rgba(255,255,255,.2);}
+.btn-copy:hover{background:rgba(255,255,255,.18);}
+.btn-copy.ok{background:rgba(34,197,94,.15);border-color:#22c55e;color:#22c55e;}
+
+/* WRAP */
+.wrap{max-width:780px;margin:0 auto;padding:0 16px;}
+
+/* GALLERY */
+.sec-title{font-size:1.15em;font-weight:800;color:var(--white);margin:28px 0 16px;display:flex;align-items:center;gap:8px;}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:16px;}
+.tab{padding:7px 15px;border-radius:8px;font-size:.78em;font-weight:700;cursor:pointer;border:none;font-family:inherit;transition:all .2s;background:var(--s2);color:var(--muted);}
+.tab.active{background:var(--primary);color:var(--white);}
+
+.gallery-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:28px;}
+.gallery-grid img{width:100%;height:220px;object-fit:cover;border-radius:12px;cursor:pointer;transition:all .2s;border:2px solid transparent;}
+.gallery-grid img:hover{border-color:var(--primary);transform:scale(1.01);}
+.gallery-grid img.hero-img{grid-column:1/-1;height:320px;}
+@media(max-width:600px){
+  .gallery-grid{grid-template-columns:1fr;}
+  .gallery-grid img.hero-img{height:240px;}
+  .gallery-grid img{height:200px;}
+}
+
+/* LIGHTBOX */
+.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:999;align-items:center;justify-content:center;flex-direction:column;}
+.lb.open{display:flex;}
+.lb img{max-width:92vw;max-height:80vh;border-radius:12px;object-fit:contain;}
+.lb-cap{text-align:center;color:var(--white);margin-top:10px;font-size:.9em;font-weight:600;}
+.lb-close{position:fixed;top:18px;left:18px;background:rgba(255,255,255,.15);border:none;color:var(--white);width:42px;height:42px;border-radius:50%;cursor:pointer;font-size:1.4em;z-index:1000;}
+.lb-prev,.lb-next{position:fixed;top:50%;transform:translateY(-50%);background:rgba(255,255,255,.15);border:none;color:var(--white);width:46px;height:46px;border-radius:50%;cursor:pointer;font-size:1.3em;z-index:1000;}
+.lb-prev{right:14px;} .lb-next{left:14px;}
+
+/* VALUE / TRANSPARENCY CARDS */
+.card{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px;}
+.card-highlight{border-right:4px solid var(--primary);}
+.card b,.card-title{display:block;font-size:1.05em;font-weight:800;color:var(--white);margin-bottom:10px;}
+.card p{font-size:.88em;color:var(--muted);line-height:1.7;}
+.card ul{margin:0 18px 0 0;padding:0;list-style:none;}
+.card li{font-size:.88em;color:var(--text);margin-bottom:8px;position:relative;padding-right:22px;}
+.card li::before{content:"";position:absolute;right:0;top:8px;width:8px;height:8px;background:var(--primary);border-radius:50%;}
+.card .note{font-size:.88em;color:var(--gold);margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-weight:600;}
+
+/* INFO CARDS */
+.info-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:20px;}
+.info-card{background:var(--s1);border:1px solid var(--border);border-radius:14px;padding:16px 10px;text-align:center;}
+.info-icon{font-size:1.8em;margin-bottom:6px;}
+.info-val{font-size:1.15em;font-weight:800;color:var(--white);margin-bottom:2px;}
+.info-lbl{font-size:.7em;color:var(--muted);}
+@media(max-width:500px){.info-grid{grid-template-columns:repeat(2,1fr);}}
+
+/* FEATURES */
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-bottom:24px;}
+.feat{display:flex;align-items:center;gap:8px;font-size:.82em;padding:10px 12px;background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.18);border-radius:10px;color:#4ade80;font-weight:600;}
+
+/* LEAD FORM */
+.leadform{background:var(--s1);border:2px solid #25d366;border-radius:14px;padding:22px;margin-bottom:20px;text-align:center;}
+.leadform b{color:var(--white);font-size:1.1em;}
+.leadform p{font-size:.85em;color:var(--muted);margin:8px 0 14px;}
+.lf-row{display:flex;gap:8px;flex-wrap:wrap;}
+.lf-row input{flex:1;min-width:150px;padding:13px;border:1px solid var(--border);border-radius:10px;font-size:1em;font-family:inherit;text-align:center;background:var(--s2);color:var(--text);}
+.lf-row input::placeholder{color:var(--muted);}
+.lf-row button{background:#25d366;color:var(--white);border:none;border-radius:10px;padding:13px 20px;font-size:.95em;font-weight:700;cursor:pointer;font-family:inherit;transition:all .2s;}
+.lf-row button:hover{background:#22bf5c;}
+.leadform small{display:block;margin-top:10px;color:var(--muted);font-size:.72em;}
+.lf-ok{margin-top:8px;background:rgba(34,197,94,.12);color:#22c55e;border-radius:10px;padding:14px;font-weight:700;font-size:.92em;border:1px solid rgba(34,197,94,.3);}
+
+/* INCLUDED */
+.incl-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px 14px;margin-bottom:12px;}
+.incl-item{font-size:.88em;color:var(--text);display:flex;align-items:center;gap:6px;}
+.incl-item .ck{color:#22c55e;font-weight:bold;}
+.incl-full{grid-column:1/-1;color:var(--gold);font-weight:700;font-size:.9em;padding-top:6px;border-top:1px solid var(--border);}
+
+/* CTA */
+.cta-box{text-align:center;padding:24px 0;margin-bottom:20px;}
+.cta-box p{font-size:.95em;color:var(--muted);margin-bottom:16px;line-height:1.7;}
+.cta-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+
+/* FAQ */
+.faq details{background:var(--s1);border:1px solid var(--border);border-radius:12px;margin-bottom:8px;padding:2px 18px;}
+.faq summary{font-size:.9em;font-weight:700;cursor:pointer;padding:14px 0;color:var(--white);list-style:none;display:flex;justify-content:space-between;align-items:center;}
+.faq summary::-webkit-details-marker{display:none;}
+.faq summary::after{content:"\25BC";font-size:.65em;color:var(--primary);transition:transform .2s;}
+.faq details[open] summary::after{transform:rotate(180deg);}
+.faq p{padding:0 0 14px;color:var(--muted);font-size:.84em;line-height:1.7;}
+
+/* FOOTER */
+footer{background:var(--s1);border-top:1px solid var(--border);text-align:center;color:var(--muted);padding:22px;font-size:.78em;margin-top:24px;}
+
+/* STICKY BAR */
+.sticky{position:fixed;bottom:0;left:0;right:0;background:linear-gradient(135deg,#128c7e,#25d366);text-align:center;padding:14px;z-index:99;box-shadow:0 -2px 16px rgba(0,0,0,.4);}
+.sticky a{color:var(--white);text-decoration:none;font-size:1.05em;font-weight:700;display:flex;align-items:center;justify-content:center;gap:8px;}
 </style>
 </head>
 <body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge"><span class="pulse"></span> פנוי לכניסה מיידית</div>
+  <h1>דירה מרוהטת קומפלט להשכרה</h1>
+  <div class="sub">שדרות אחי אילת 5 | קריית חיים מזרחית</div>
+  <div class="hero-specs">
+    <div class="hspec"><div class="hspec-val">2</div><div class="hspec-lbl">חדרים</div></div>
+    <div class="hspec"><div class="hspec-val">40</div><div class="hspec-lbl">מ״ר דירה</div></div>
+    <div class="hspec"><div class="hspec-val">20</div><div class="hspec-lbl">מ״ר מרפסת</div></div>
+    <div class="hspec"><div class="hspec-val">2/4</div><div class="hspec-lbl">קומה</div></div>
+    <div class="hspec"><div class="hspec-val" style="color:#f59e0b">3,700&#8362;</div><div class="hspec-lbl">לחודש · כולל הכל</div></div>
+  </div>
+  <div class="hero-cta">
+    <a href="https://wa.me/972525944424?text=%D7%94%D7%99%D7%99%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%93%D7%99%D7%A8%D7%94%20%D7%91%D7%90%D7%97%D7%99%20%D7%90%D7%99%D7%9C%D7%AA%205" target="_blank" class="btn btn-wa">&#x1F4AC; שלח WhatsApp</a>
+    <a href="tel:0525944424" class="btn btn-call">&#x1F4DE; 052-594-4424</a>
+    <button class="btn btn-copy" onclick="cpLink()">&#x1F517; העתק קישור</button>
+  </div>
+</div>
+
 <div class="wrap">
 
-  <div class="hero">
-    <h1>🏠 דירה מרוהטת קומפלט להשכרה</h1>
-    <div class="addr">שדרות אחי אילת 5, קריית חיים מזרחית</div>
-    <div class="price-pill">💰 3,700 ₪/חודש כולל הכל</div>
-    <br>
-    <span class="status"><span class="dot"></span>פנוי לכניסה מיידית · עודכן 04/06</span>
+  <!-- GALLERY -->
+  <div class="sec-title">&#x1F4F8; גלריית תמונות</div>
+  <div class="tabs" id="tabs">
+    <button class="tab active" onclick="filterRoom('all',this)">הכל</button>
+    <button class="tab" onclick="filterRoom('סלון',this)">&#x1F6CB;&#xFE0F; סלון</button>
+    <button class="tab" onclick="filterRoom('מרפסת',this)">&#x2600;&#xFE0F; מרפסת</button>
+    <button class="tab" onclick="filterRoom('שינה',this)">&#x1F6CF;&#xFE0F; חדר שינה</button>
+    <button class="tab" onclick="filterRoom('מטבח',this)">&#x1F373; מטבח</button>
+    <button class="tab" onclick="filterRoom('מקלחת',this)">&#x1F6BF; מקלחת</button>
+    <button class="tab" onclick="filterRoom('סביבה',this)">&#x1F3D9;&#xFE0F; בניין וסביבה</button>
+  </div>
+  <div class="gallery-grid" id="gallery"></div>
+
+  <!-- LIGHTBOX -->
+  <div class="lb" id="lb">
+    <button class="lb-close" onclick="closeLb()">&#x2715;</button>
+    <button class="lb-prev" onclick="lbNav(-1)">&#x203A;</button>
+    <button class="lb-next" onclick="lbNav(1)">&#x2039;</button>
+    <img id="lb-img" src="" alt="">
+    <div class="lb-cap" id="lb-cap"></div>
   </div>
 
-  <div class="gallery">
-    <div class="slides">
-      <img class="active" src="images/06_balcony.jpg" alt="מרפסת שמש 20 מ״ר">
-      <img src="images/01_salon.jpg" alt="סלון מרוהט">
-      <img src="images/04_bedroom.jpg" alt="חדר שינה">
-      <img src="images/05_kitchen.jpg" alt="מטבח מאובזר">
-      <img src="images/09_entrance.jpg" alt="כניסה לבניין - פרחים">
-      <img src="images/07_bathroom.jpg" alt="חדר רחצה / מקלחת">
-      <img src="images/02_salon2.jpg" alt="סלון - זווית נוספת">
-      <img src="images/03_salon3.jpg" alt="סלון - זווית נוספת">
-      <img src="images/11_street_view.jpg" alt="הבניין מבחוץ - שדרות אחי אילת 5">
-      <img src="images/08_building.jpg" alt="הבניין ונוף">
-      <img src="images/10_street.jpg" alt="מבט על השדרה">
-    </div>
-    <button class="nav prev" onclick="move(-1)">›</button>
-    <button class="nav next" onclick="move(1)">‹</button>
-    <div class="counter"><span id="cur">1</span> / 11</div>
-  </div>
-
-  <div class="transparency">
-    <b>🔎 שקיפות מלאה – חשוב לדעת לפני ביקור:</b>
+  <!-- TRANSPARENCY -->
+  <div class="card card-highlight">
+    <b>&#x1F50E; שקיפות מלאה - חשוב לדעת לפני ביקור:</b>
     <ul>
-      <li>דירה מחולקת, 2 חדרים, כ-40 מ"ר – מתאימה ליחיד או זוג בלבד</li>
-      <li>מטבחון מאובזר (פלטה, מיקרוגל, מקרר) – אידיאלי למי שמבשל קל</li>
+      <li>דירה מחולקת, 2 חדרים, כ-40 מ"ר - מתאימה ליחיד או זוג בלבד</li>
+      <li>מטבחון מאובזר (פלטה, מיקרוגל, מקרר) - אידיאלי למי שמבשל קל</li>
       <li>נדרש ערב או שיקי ביטחון</li>
     </ul>
-    <p>מי שזה מתאים לו מקבל: מרוהטת קומפלט, חניון תת-קרקעי שמור, ממ"ד, מרפסת 20 מ"ר – הכל כלול ב-3,700 ש"ח.</p>
+    <p class="note">מי שזה מתאים לו מקבל: מרוהטת קומפלט, חניון תת-קרקעי שמור, ממ"ד, מרפסת 20 מ"ר - הכל כלול ב-3,700 &#8362;.</p>
   </div>
 
-  <div class="value">
-    <b>⭐ מה מייחד את הדירה</b>
-    <p>🅿️ חניון תת-קרקעי שמור · 🛡️ ממ"ד קומתי · ☀️ מרפסת ענקית · 🌊 6 דק' הליכה לים · 🚆 רכבת ומטרונית קרובות · ♿ בניין נגיש</p>
+  <!-- VALUE PROP -->
+  <div class="card" style="text-align:center;">
+    <b>&#x2B50; מה מייחד את הדירה</b>
+    <p>&#x1F17F;&#xFE0F; חניון תת-קרקעי שמור &middot; &#x1F6E1;&#xFE0F; ממ"ד קומתי &middot; &#x2600;&#xFE0F; מרפסת ענקית &middot; &#x1F30A; 6 דק' הליכה לים &middot; &#x1F686; רכבת ומטרונית קרובות &middot; &#x267F; בניין נגיש</p>
   </div>
 
+  <!-- LEAD FORM -->
   <form class="leadform" onsubmit="return submitLead(event)">
-    <b>📲 רוצה את כל הפרטים מיד?</b>
+    <b>&#x1F4F2; רוצה את כל הפרטים מיד?</b>
     <p>השאר טלפון - אשלח לך בוואטסאפ את כל התמונות, סרטון הדירה וזמינות לביקור. בלי התחייבות.</p>
     <div class="lf-row">
       <input id="lf_phone" type="tel" inputmode="tel" placeholder="הטלפון שלך" required>
       <button type="submit">שלחו לי את הפרטים</button>
     </div>
-    <small>🔒 הפרטים נשארים אצלי בלבד · ללא תיווך, ישירות מהבעלים</small>
-    <div id="lf_ok" class="lf-ok" style="display:none">✅ תודה! קיבלתי את הפרטים. ממשיכים בוואטסאפ - שולח לך הכל עכשיו 🙏</div>
+    <small>&#x1F512; הפרטים נשארים אצלי בלבד &middot; ללא תיווך, ישירות מהבעלים</small>
+    <div id="lf_ok" class="lf-ok" style="display:none">&#x2705; תודה! קיבלתי את הפרטים. ממשיכים בוואטסאפ - שולח לך הכל עכשיו</div>
   </form>
 
-  <div class="value">
-    <b>💡 חשבון פשוט: כאן 3,700 ₪ - וזה הכל.</b>
-    <p>דירה ריקה דומה: ~3,200 ₪ + 800 ₪ תשלומים = 4,000 ₪+ בפועל. כאן הכל כלול, והדירה כבר מרוהטת - בלי לקנות רהיט אחד.</p>
+  <!-- PRICE COMPARISON -->
+  <div class="card" style="text-align:center;">
+    <b>&#x1F4A1; חשבון פשוט: כאן 3,700 &#8362; - וזה הכל.</b>
+    <p>דירה ריקה דומה: ~3,200 &#8362; + 800 &#8362; תשלומים = 4,000 &#8362;+ בפועל. כאן הכל כלול, והדירה כבר מרוהטת - בלי לקנות רהיט אחד.</p>
   </div>
 
-  <div class="specs">
-    <div class="spec"><div class="ico">🛏️</div><div class="lbl">חדרים</div><div class="val">2</div></div>
-    <div class="spec"><div class="ico">📐</div><div class="lbl">שטח</div><div class="val">40 מ"ר</div></div>
-    <div class="spec"><div class="ico">☀️</div><div class="lbl">מרפסת</div><div class="val">20 מ"ר</div></div>
-    <div class="spec"><div class="ico">🛗</div><div class="lbl">קומה</div><div class="val">2 + מעלית</div></div>
-    <div class="spec"><div class="ico">🅿️</div><div class="lbl">חניה</div><div class="val">חניון תת-קרקעי</div></div>
-    <div class="spec"><div class="ico">🛡️</div><div class="lbl">ממ"ד</div><div class="val">קומתי בבניין</div></div>
-    <div class="spec"><div class="ico">♿</div><div class="lbl">נגישות</div><div class="val">מלאה</div></div>
+  <!-- INFO CARDS -->
+  <div class="info-grid">
+    <div class="info-card"><div class="info-icon">&#x1F6CF;&#xFE0F;</div><div class="info-val">2</div><div class="info-lbl">חדרים</div></div>
+    <div class="info-card"><div class="info-icon">&#x1F4D0;</div><div class="info-val">40 מ"ר</div><div class="info-lbl">שטח דירה</div></div>
+    <div class="info-card"><div class="info-icon">&#x2600;&#xFE0F;</div><div class="info-val">20 מ"ר</div><div class="info-lbl">מרפסת שמש</div></div>
+    <div class="info-card"><div class="info-icon">&#x1F6D7;</div><div class="info-val">קומה 2</div><div class="info-lbl">+ מעלית</div></div>
+    <div class="info-card"><div class="info-icon">&#x1F17F;&#xFE0F;</div><div class="info-val">חניון</div><div class="info-lbl">תת-קרקעי שמור</div></div>
+    <div class="info-card"><div class="info-icon">&#x1F6E1;&#xFE0F;</div><div class="info-val">ממ"ד</div><div class="info-lbl">קומתי בבניין</div></div>
+    <div class="info-card"><div class="info-icon">&#x267F;</div><div class="info-val">נגישות</div><div class="info-lbl">מלאה</div></div>
   </div>
 
-  <div class="sec">
-    <h2>✅ מה כלול ב-3,700 ₪?</h2>
-    <div class="incl">
-      <div>✓ שכר דירה</div><div>✓ ארנונה</div>
-      <div>✓ ועד בית (411₪)</div><div>✓ מים</div>
-      <div>✓ כבלים</div><div>✓ אינטרנט</div>
-      <div class="full">⚡ רק חשמל משולם בנפרד</div>
+  <!-- INCLUDED -->
+  <div class="sec-title">&#x2705; מה כלול ב-3,700 &#8362;?</div>
+  <div class="card">
+    <div class="incl-grid">
+      <div class="incl-item"><span class="ck">&#x2713;</span> שכר דירה</div>
+      <div class="incl-item"><span class="ck">&#x2713;</span> ארנונה</div>
+      <div class="incl-item"><span class="ck">&#x2713;</span> ועד בית (411&#8362;)</div>
+      <div class="incl-item"><span class="ck">&#x2713;</span> מים</div>
+      <div class="incl-item"><span class="ck">&#x2713;</span> כבלים</div>
+      <div class="incl-item"><span class="ck">&#x2713;</span> אינטרנט</div>
+      <div class="incl-full">&#x26A1; רק חשמל משולם בנפרד</div>
     </div>
   </div>
 
-  <div class="cta">
-    <p>🚀 כניסה מיידית | ללא תיווך - ישירות מהבעלים<br>רוצה לקבוע ביקור? אני גמיש בשעות 😊</p>
-    <a class="btn wa" href="https://wa.me/972525944424?text=%D7%94%D7%99%D7%99%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%93%D7%99%D7%A8%D7%94%20%D7%91%D7%90%D7%97%D7%99%20%D7%90%D7%99%D7%9C%D7%AA%205">💬 WhatsApp</a>
-    <a class="btn tel" href="tel:0525944424">📞 חייגו עכשיו</a>
+  <!-- FEATURES -->
+  <div class="sec-title">&#x1F3E0; מאפייני הדירה</div>
+  <div class="feat-grid">
+    <div class="feat">&#x1F373; מטבח מאובזר</div>
+    <div class="feat">&#x1F321;&#xFE0F; מיזוג אוויר</div>
+    <div class="feat">&#x2600;&#xFE0F; דוד שמש</div>
+    <div class="feat">&#x1F697; חניה תת-קרקעית</div>
+    <div class="feat">&#x1F6D7; מעלית רחבה</div>
+    <div class="feat">&#x1F305; נוף פתוח</div>
+    <div class="feat">&#x1F3D6;&#xFE0F; מרפסת 20 מ"ר</div>
+    <div class="feat">&#x1F30A; 6 דק' לים</div>
+    <div class="feat">&#x1F68C; תחבורה ציבורית</div>
+    <div class="feat">&#x1F6D2; קרוב למסחר</div>
+    <div class="feat">&#x267F; בניין נגיש מלא</div>
+    <div class="feat">&#x1F6BF; מקלחת מותאמת</div>
   </div>
 
-  <div class="sec faq">
-    <h2>❓ שאלות ותשובות</h2>
-    <details><summary>🔹 יש חניה?</summary><p>כן - חניון תת-קרקעי שמור בבניין. שקט נפשי לרכב שלך.</p></details>
-    <details><summary>🔹 יש ממ"ד / מקלט?</summary><p>כן - ממ"ד (ממ"ק) קומתי בבניין, בקומה הראשונה.</p></details>
-    <details><summary>🔹 למי הדירה מתאימה?</summary><p>הדירה מתאימה במיוחד ליחיד - אלמן / פרוד / רווק - שמחפש פתרון איכותי, שקט ומיידי. מתאימה גם למבוגרים ולאנשים עם מוגבלות: הבניין נבנה במתכונת דיור מוגן, עם מעלית רחבה מקומת החניון, מעברים רחבים ומקלחת מותאמת. רוב הבניינים באזור לא נגישים - כאן דאגנו לזה מראש.</p></details>
-    <details><summary>🔹 הבניין נגיש למבוגרים ולנכים?</summary><p>כן, לחלוטין. הבניין נבנה במתכונת דיור מוגן ונגיש: ♿ מעלית רחבה ישירות מקומת החניון · 🚿 מקלחת מותאמת עם ידיות אחיזה וללא מדרגה · 🚶 מעברים רחבים · 🅿️ חניון נגיש. מתאים גם למי שמשתמש בהליכון או בכיסא גלגלים - יתרון שרוב הדירות באזור לא מציעות.</p></details>
-    <details><summary>🔹 אפשר לבשל?</summary><p>כן - יש כיריים חשמליות, טוסטר אובן ומיקרוגל. שימו לב: המטבח קומפקטי, מתאים לבישול יומיומי - לא לארוחות גדולות.</p></details>
-    <details><summary>🔹 יש תחבורה ציבורית?</summary><p>כן, מצוינת - רכבת ומטרונית בקרבת מקום, וגישה נוחה לצירי התנועה המרכזיים.</p></details>
-    <details><summary>🔹 קרוב לים?</summary><p>כן! 6 דקות הליכה ברגל לים.</p></details>
-    <details><summary>🔹 מה בדיוק כלול ב-3,700 ₪?</summary><p>הכל חוץ מחשמל: שכר דירה, ארנונה, ועד בית (411₪), מים, כבלים ואינטרנט. תשלום אחד קבוע בחודש, בלי הפתעות.</p></details>
-    <details><summary>🔹 מה הריהוט? אפשר להחליף?</summary><p>הדירה מרוהטת קומפלט: מקרר, מיקרוגל, מכשירי חשמל, ספה, מיטה, ארון, וילונות. ניתן להחליף או להתאים רהיטים - בתיאום מראש.</p></details>
-    <details><summary>🔹 יש מרפסת?</summary><p>כן! מרפסת שמש ענקית של 20 מ"ר - שטח כמעט כמו חצי דירה נוספת. מושלם לישיבה בחוץ עם קפה.</p></details>
-    <details><summary>🔹 מתי אפשר להיכנס?</summary><p>מיידי. אפשר לתאם כניסה כבר השבוע.</p></details>
-    <details><summary>🔹 אפשר לשכור לחודש?</summary><p>השכרה מינימלית ל-3 חודשים. לתקופה קצרה יותר - התעריף משתנה. נדבר.</p></details>
-    <details><summary>🔹 צריך לשלם דמי תיווך?</summary><p>לא! הדירה מושכרת ישירות ממני, בעל הדירה. אין תיווך ואין דמי תיווך.</p></details>
-    <details><summary>🔹 איך קובעים ביקור?</summary><p>פשוט שלח הודעה בוואטסאפ או התקשר: 052-594-4424. אני גמיש בשעות ואשמח להראות לך את הדירה.</p></details>
+  <!-- CTA -->
+  <div class="cta-box">
+    <p>&#x1F680; כניסה מיידית | ללא תיווך - ישירות מהבעלים<br>רוצה לקבוע ביקור? אני גמיש בשעות</p>
+    <div class="cta-btns">
+      <a class="btn btn-wa" href="https://wa.me/972525944424?text=%D7%94%D7%99%D7%99%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%93%D7%99%D7%A8%D7%94%20%D7%91%D7%90%D7%97%D7%99%20%D7%90%D7%99%D7%9C%D7%AA%205" target="_blank">&#x1F4AC; WhatsApp</a>
+      <a class="btn btn-call" href="tel:0525944424">&#x1F4DE; חייגו עכשיו</a>
+    </div>
   </div>
 
-  <div class="cta">
-    <a class="btn wa" href="https://wa.me/972525944424?text=%D7%94%D7%99%D7%99%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%93%D7%99%D7%A8%D7%94%20%D7%91%D7%90%D7%97%D7%99%20%D7%90%D7%99%D7%9C%D7%AA%205">💬 שלח הודעה בוואטסאפ</a>
-    <a class="btn tel" href="tel:0525944424">📞 052-594-4424</a>
+  <!-- FAQ -->
+  <div class="sec-title">&#x2753; שאלות ותשובות</div>
+  <div class="faq">
+    <details><summary>יש חניה?</summary><p>כן - חניון תת-קרקעי שמור בבניין. שקט נפשי לרכב שלך.</p></details>
+    <details><summary>יש ממ"ד / מקלט?</summary><p>כן - ממ"ד (ממ"ק) קומתי בבניין, בקומה הראשונה.</p></details>
+    <details><summary>למי הדירה מתאימה?</summary><p>הדירה מתאימה במיוחד ליחיד - אלמן / פרוד / רווק - שמחפש פתרון איכותי, שקט ומיידי. מתאימה גם למבוגרים ולאנשים עם מוגבלות: הבניין נבנה במתכונת דיור מוגן, עם מעלית רחבה מקומת החניון, מעברים רחבים ומקלחת מותאמת. רוב הבניינים באזור לא נגישים - כאן דאגנו לזה מראש.</p></details>
+    <details><summary>הבניין נגיש למבוגרים ולנכים?</summary><p>כן, לחלוטין. הבניין נבנה במתכונת דיור מוגן ונגיש:<br>&#x267F; מעלית רחבה ישירות מקומת החניון<br>&#x1F6BF; מקלחת מותאמת עם ידיות אחיזה וללא מדרגה<br>&#x1F6B6; מעברים רחבים<br>&#x1F17F;&#xFE0F; חניון נגיש<br>מתאים גם למי שמשתמש בהליכון או בכיסא גלגלים - יתרון שרוב הדירות באזור לא מציעות.</p></details>
+    <details><summary>אפשר לבשל?</summary><p>כן - יש כיריים חשמליות, טוסטר אובן ומיקרוגל. שימו לב: המטבח קומפקטי, מתאים לבישול יומיומי - לא לארוחות גדולות.</p></details>
+    <details><summary>יש תחבורה ציבורית?</summary><p>כן, מצוינת - רכבת ומטרונית בקרבת מקום, וגישה נוחה לצירי התנועה המרכזיים.</p></details>
+    <details><summary>קרוב לים?</summary><p>כן! 6 דקות הליכה ברגל לים.</p></details>
+    <details><summary>מה בדיוק כלול ב-3,700 &#8362;?</summary><p>הכל חוץ מחשמל: שכר דירה, ארנונה, ועד בית (411&#8362;), מים, כבלים ואינטרנט. תשלום אחד קבוע בחודש, בלי הפתעות.</p></details>
+    <details><summary>מה הריהוט? אפשר להחליף?</summary><p>הדירה מרוהטת קומפלט: מקרר, מיקרוגל, מכשירי חשמל, ספה, מיטה, ארון, וילונות. ניתן להחליף או להתאים רהיטים - בתיאום מראש.</p></details>
+    <details><summary>יש מרפסת?</summary><p>כן! מרפסת שמש ענקית של 20 מ"ר - שטח כמעט כמו חצי דירה נוספת. מושלם לישיבה בחוץ עם קפה.</p></details>
+    <details><summary>מתי אפשר להיכנס?</summary><p>מיידי. אפשר לתאם כניסה כבר השבוע.</p></details>
+    <details><summary>אפשר לשכור לחודש?</summary><p>השכרה מינימלית ל-3 חודשים. לתקופה קצרה יותר - התעריף משתנה. נדבר.</p></details>
+    <details><summary>צריך לשלם דמי תיווך?</summary><p>לא! הדירה מושכרת ישירות ממני, בעל הדירה. אין תיווך ואין דמי תיווך.</p></details>
+    <details><summary>איך קובעים ביקור?</summary><p>פשוט שלח הודעה בוואטסאפ או התקשר: 052-594-4424. אני גמיש בשעות ואשמח להראות לך את הדירה.</p></details>
+  </div>
+
+  <!-- BOTTOM CTA -->
+  <div class="cta-box">
+    <div class="cta-btns">
+      <a class="btn btn-wa" href="https://wa.me/972525944424?text=%D7%94%D7%99%D7%99%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%93%D7%99%D7%A8%D7%94%20%D7%91%D7%90%D7%97%D7%99%20%D7%90%D7%99%D7%9C%D7%AA%205" target="_blank">&#x1F4AC; שלח הודעה בוואטסאפ</a>
+      <a class="btn btn-call" href="tel:0525944424">&#x1F4DE; 052-594-4424</a>
+    </div>
   </div>
 
   <footer>
     דירה להשכרה בקריית חיים מזרחית | ישירות מהבעלים | ללא תיווך<br>
     שדרות אחי אילת 5, קומה 2
   </footer>
-
 </div>
 
-<div class="sticky"><a href="https://wa.me/972525944424?text=%D7%94%D7%99%D7%99%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%93%D7%99%D7%A8%D7%94%20%D7%91%D7%90%D7%97%D7%99%20%D7%90%D7%99%D7%9C%D7%AA%205">💬 דברו איתי עכשיו בוואטסאפ</a></div>
+<!-- STICKY BAR -->
+<div class="sticky">
+  <a href="https://wa.me/972525944424?text=%D7%94%D7%99%D7%99%20%D7%90%D7%A0%D7%99%20%D7%9E%D7%AA%D7%A2%D7%A0%D7%99%D7%99%D7%9F%20%D7%91%D7%93%D7%99%D7%A8%D7%94%20%D7%91%D7%90%D7%97%D7%99%20%D7%90%D7%99%D7%9C%D7%AA%205" target="_blank">&#x1F4AC; דברו איתי עכשיו בוואטסאפ</a>
+</div>
 
 <script>
-  let i=0;const imgs=document.querySelectorAll('.slides img');
-  function show(n){imgs[i].classList.remove('active');i=(n+imgs.length)%imgs.length;
-    imgs[i].classList.add('active');document.getElementById('cur').textContent=i+1;}
-  function move(d){show(i+d);}
-  setInterval(()=>move(1),4500);
-  function submitLead(e){
-    e.preventDefault();
-    var raw=document.getElementById('lf_phone').value;
-    var digits=raw.replace(/[^0-9]/g,'');
-    if(digits.length<9){alert('נא להזין מספר טלפון תקין');return false;}
-    var btn=e.target.querySelector('button');btn.textContent='שולח...';btn.disabled=true;
-    var wa='https://wa.me/972525944424?text='+encodeURIComponent('היי, השארתי פרטים בדף הדירה באחי אילת 5. אשמח לקבל את כל התמונות והזמינות לביקור 🙏');
-    fetch('https://avi-hazan.app.n8n.cloud/webhook/new-lead-eilat5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:'(השאיר טלפון בדף)',phone:raw,source:'דף נחיתה',status:'פנייה חדשה',potential:'בינוני',notes:'השאיר טלפון בטופס דף הנחיתה'})}).catch(function(){}).finally(function(){
-      e.target.querySelector('.lf-row').style.display='none';
-      e.target.querySelector('small').style.display='none';
-      document.getElementById('lf_ok').style.display='block';
-      setTimeout(function(){window.location.href=wa;},1600);
-    });
-    return false;
+// === IMAGE DATA ===
+var photos=[
+  {src:'images/06_balcony.jpg',alt:'מרפסת שמש 20 מ״ר',room:'מרפסת',hero:true},
+  {src:'images/01_salon.jpg',alt:'סלון מרוהט',room:'סלון'},
+  {src:'images/12_salon_yellow.jpg',alt:'סלון - ספה צהובה',room:'סלון'},
+  {src:'images/04_bedroom.jpg',alt:'חדר שינה',room:'שינה'},
+  {src:'images/05_kitchen.jpg',alt:'מטבח מאובזר',room:'מטבח'},
+  {src:'images/07_bathroom.jpg',alt:'חדר רחצה / מקלחת',room:'מקלחת'},
+  {src:'images/02_salon2.jpg',alt:'סלון - זווית נוספת',room:'סלון'},
+  {src:'images/03_salon3.jpg',alt:'סלון - זווית נוספת',room:'סלון'},
+  {src:'images/11_street_view.jpg',alt:'הבניין מבחוץ - שדרות אחי אילת 5',room:'סביבה'},
+  {src:'images/08_building.jpg',alt:'הבניין ונוף',room:'סביבה'},
+  {src:'images/09_entrance.jpg',alt:'כניסה לבניין',room:'סביבה'},
+  {src:'images/10_street.jpg',alt:'מבט על השדרה',room:'סביבה'}
+];
+var filtered=photos.slice();
+var lbIdx=0;
+
+function renderGallery(list){
+  var g=document.getElementById('gallery');g.innerHTML='';
+  list.forEach(function(p,i){
+    var img=document.createElement('img');
+    img.src=p.src;img.alt=p.alt;img.loading='lazy';
+    if(i===0)img.className='hero-img';
+    img.onclick=function(){openLb(i);};
+    g.appendChild(img);
+  });
+}
+
+function filterRoom(room,btn){
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('active');});
+  btn.classList.add('active');
+  if(room==='all'){filtered=photos.slice();}
+  else{filtered=photos.filter(function(p){return p.room===room;});}
+  renderGallery(filtered);
+}
+
+// LIGHTBOX
+function openLb(i){
+  lbIdx=i;
+  document.getElementById('lb-img').src=filtered[i].src;
+  document.getElementById('lb-cap').textContent=filtered[i].alt;
+  document.getElementById('lb').classList.add('open');
+  document.body.style.overflow='hidden';
+}
+function closeLb(){
+  document.getElementById('lb').classList.remove('open');
+  document.body.style.overflow='';
+}
+function lbNav(d){
+  lbIdx=(lbIdx+d+filtered.length)%filtered.length;
+  document.getElementById('lb-img').src=filtered[lbIdx].src;
+  document.getElementById('lb-cap').textContent=filtered[lbIdx].alt;
+}
+document.getElementById('lb').addEventListener('click',function(e){
+  if(e.target===this)closeLb();
+});
+document.addEventListener('keydown',function(e){
+  if(!document.getElementById('lb').classList.contains('open'))return;
+  if(e.key==='Escape')closeLb();
+  if(e.key==='ArrowRight')lbNav(-1);
+  if(e.key==='ArrowLeft')lbNav(1);
+});
+
+// AUTO SLIDE
+var autoIdx=0;
+setInterval(function(){
+  var imgs=document.querySelectorAll('.gallery-grid img');
+  if(imgs.length>1){
+    autoIdx=(autoIdx+1)%photos.length;
+    if(imgs[0])imgs[0].src=photos[autoIdx].src;
   }
+},5000);
+
+// INIT
+renderGallery(photos);
+
+// COPY LINK
+function cpLink(){
+  var btn=document.querySelector('.btn-copy');
+  navigator.clipboard.writeText(window.location.href).then(function(){
+    btn.classList.add('ok');btn.innerHTML='&#x2705; הועתק!';
+    setTimeout(function(){btn.classList.remove('ok');btn.innerHTML='&#x1F517; העתק קישור';},2500);
+  });
+}
+
+// LEAD FORM
+function submitLead(e){
+  e.preventDefault();
+  var raw=document.getElementById('lf_phone').value;
+  var digits=raw.replace(/[^0-9]/g,'');
+  if(digits.length<9){alert('נא להזין מספר טלפון תקין');return false;}
+  var btn=e.target.querySelector('button');btn.textContent='שולח...';btn.disabled=true;
+  var wa='https://wa.me/972525944424?text='+encodeURIComponent('היי, השארתי פרטים בדף הדירה באחי אילת 5. אשמח לקבל את כל התמונות והזמינות לביקור');
+  fetch('https://avi-hazan.app.n8n.cloud/webhook/new-lead-eilat5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:'(השאיר טלפון בדף)',phone:raw,source:'דף נחיתה',status:'פנייה חדשה',potential:'בינוני',notes:'השאיר טלפון בטופס דף הנחיתה'})}).catch(function(){}).finally(function(){
+    e.target.querySelector('.lf-row').style.display='none';
+    e.target.querySelector('small').style.display='none';
+    document.getElementById('lf_ok').style.display='block';
+    setTimeout(function(){window.location.href=wa;},1600);
+  });
+  return false;
+}
 </script>
-<footer style="font-size:10px;color:#999;text-align:center;padding:10px 0;">גרסה <span id="siteVer"></span></footer>
+<footer style="font-size:10px;color:#555;text-align:center;padding:10px 0;">גרסה <span id="siteVer"></span></footer>
 <script src="../version.js"></script>
 <script>(function(){if(window.SITE_VERSION){document.getElementById('siteVer').textContent=SITE_VERSION.num+' · '+SITE_VERSION.date+' '+SITE_VERSION.time;}})();</script>
 </body>
