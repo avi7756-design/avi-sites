@@ -66,6 +66,11 @@
   h2.sec{font-size:18px;color:var(--terra-d);margin:6px 0 12px;}
   .setlink{display:flex;gap:6px;align-items:center;margin-bottom:8px;}
   .setlink label{min-width:120px;font-size:13px;font-weight:bold;}
+  .linkrow{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:9px 12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .linkrow .lnk{flex:1;text-decoration:none;color:var(--brown);font-weight:bold;font-size:14px;min-width:0;}
+  .linkrow .lnk:hover{color:var(--terra-d);}
+  .linkrow .lnk small{display:block;font-weight:normal;color:var(--brown-s);font-size:11px;word-break:break-all;}
+  .linkrow .go{flex:0 0 auto;}
   /* modal */
   .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;padding:20px;overflow:auto;}
   .overlay.show{display:block;}
@@ -104,6 +109,22 @@
   .hist h2.sec{margin-top:20px;}
   .histrow{display:flex;justify-content:space-between;background:var(--white);border:1px solid #e6d9c2;border-radius:8px;padding:8px 12px;margin-bottom:6px;font-size:13px;}
   .histrow.istoday{border-color:var(--terra);background:#fff7e8;}
+  /* TODAY - manual control bar + journal (v2.7) */
+  .todaynav{background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:10px 12px;margin-bottom:12px;}
+  .navjumps{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:8px;}
+  .navjump{width:38px;height:38px;border-radius:50%;border:2px solid var(--gold);background:var(--cream);color:var(--terra-d);font-weight:bold;font-size:15px;cursor:pointer;line-height:1;}
+  .navjump.cur{background:var(--terra);color:#fff;border-color:var(--terra);transform:scale(1.08);}
+  .navjump.done{background:var(--ok);color:#fff;border-color:var(--ok);}
+  .navjump.done.cur{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--terra);}
+  .navjump.skip{background:#ddd;color:#888;border-color:#ccc;}
+  .navarrows{display:flex;gap:8px;justify-content:center;margin-bottom:8px;}
+  .navchecks{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;border-top:1px dashed #e6d9c2;padding-top:8px;}
+  .navchk{display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;}
+  .navchk input{width:auto;flex:0 0 auto;transform:scale(1.2);}
+  .navchk.isdone span{color:var(--ok);font-weight:bold;}
+  .navstatus{font-size:13px;font-weight:bold;color:var(--terra-d);background:var(--cream);border-radius:8px;padding:8px 10px;text-align:center;}
+  .todayjournal{background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:10px 12px;margin-bottom:12px;}
+  .jrow{font-size:13px;border-right:3px solid var(--gold);background:var(--cream);border-radius:6px;padding:6px 9px;margin-bottom:5px;}
   /* bottom navigation (mobile PWA) */
   .bottomnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:90;
     background:var(--terra);box-shadow:0 -2px 12px rgba(0,0,0,.25);
@@ -155,7 +176,9 @@
   <div class="panel active" id="today">
     <div class="todaywrap">
       <div class="dayprog" id="todayProg"></div>
+      <div class="todaynav" id="todayNav"></div>
       <div id="todayCard"></div>
+      <div class="todayjournal" id="todayJournal"></div>
       <div class="hist" id="todayHist"></div>
     </div>
   </div>
@@ -292,13 +315,10 @@
 
   <!-- LINKS -->
   <div class="panel" id="links">
+    <div class="hint">כל הקישורים מאורגנים לפי קטגוריה. כל קישור נפתח בלשונית חדשה (🔗), וכפתור 📋 מעתיק את הכתובת ללוח.</div>
+    <div id="linksContainer"></div>
+    <h2 class="sec">📝 Google (טופס סינון + גיליון)</h2>
     <div class="grid-actions">
-      <a class="action" href="https://t.me/Avi_eilat5_bot" target="_blank"><div class="ico">🤖</div><b>בוט טלגרם - רישום ליד ב-5 שניות</b><small>שלח: שם טלפון מקור (למשל: דנה 0541234567 פייסבוק)</small></a>
-      <a class="action" href="https://avi-hazan.app.n8n.cloud" target="_blank"><div class="ico">⚙️</div><b>n8n - מנוע האוטומציה</b><small>טבלת לידים, וובהוקים ודוחות אוטומטיים</small></a>
-      <a class="action" href="https://avi7756-design.github.io/avi-sites/dira-gallery/" target="_blank"><div class="ico">🏠</div><b>דף הנחיתה</b><small>הקישור הראשי ללקוחות</small></a>
-      <a class="action" href="https://avi7756-design.github.io/avi-sites/dashboard.html" target="_blank"><div class="ico">📊</div><b>דשבורד לידים</b><small>תצוגה מלאה</small></a>
-      <a class="action" href="https://avi7756-design.github.io/avi-sites/lead-entry.html" target="_blank"><div class="ico">📥</div><b>רישום ליד</b><small>טופס מהיר</small></a>
-      <a class="action" href="https://wa.me/972525944424" target="_blank"><div class="ico">💬</div><b>וואטסאפ שלי</b><small>פתיחת צ'אט</small></a>
       <a class="action" id="lnk_form" href="#" target="_blank"><div class="ico">📝</div><b>טופס סינון לידים</b><small>הגדר קישור למטה</small></a>
       <a class="action" id="lnk_sheet" href="#" target="_blank"><div class="ico">📈</div><b>גיליון לידים</b><small>הגדר קישור למטה</small></a>
     </div>
@@ -372,7 +392,7 @@ const HELP=[
  ["ליד חם","ליד חם = רוצה לסגור כאן ועכשיו (סטטוס 'מעוניין' או פוטנציאל גבוה). מסומן 🔥 וקופץ לראש. עליו להתקשר מיד ולקבוע ביקור/חוזה."],
  ["כרטיס ליד והיסטוריה","בכרטיס הליד: חיוג ישיר, וואטסאפ, קביעת חום (חם/בינוני/קר), פעולה הבאה, והוספת רשומות מעקב מתוארכות. כל זה נשמר אצלך בדפדפן."],
  ["התנגדויות","ספר תשובות מומחה + יומן אישי. רשום מה שמעת ומה ענית - בונה פלייבוק. 'התייעץ עם העוזר' לחידוד חי בצ'אט."],
- ["ערוצי פרסום","24 ערוצים. 'סמן' אחרי פרסום - מתאפס כל בוקר. קבוצות/וואטסאפ ידני בלבד (סיכון חסימה). ✏️ להוספת קישור."],
+ ["ערוצי פרסום","35 ערוצים. 'סמן' אחרי פרסום - מתאפס כל בוקר. קבוצות/וואטסאפ ידני בלבד (סיכון חסימה). ✏️ להוספת קישור."],
  ["קישורים","דף נחיתה, דשבורד, טופס, וואטסאפ. אפשר לשמור קישור לטופס/גיליון Google."],
  ["איפה נשמר המידע","מעקב לידים, ערוצים, התנגדויות וקישורים נשמרים בדפדפן הזה (גם אחרי סגירה). הלידים עצמם מגיעים חי מהמערכת. שמור את הדף כסימנייה."]
 ];
@@ -400,7 +420,7 @@ function activate(p){
  document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===p));
  document.querySelectorAll('.bottomnav button').forEach(x=>x.classList.toggle('active',x.dataset.nav===p));
  if(p==='leads'){startLeadAuto();}else{stopLeadAuto();}
- if(p==='today'){renderToday();}else{clearTimer();}
+ if(p==='today'){renderToday();pullToday();}else{clearTimer();}
 }
 document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>activate(t.dataset.p));
 function goHome(){activate('today');window.scrollTo(0,0);closeHelp();}
@@ -423,6 +443,29 @@ document.addEventListener('keydown',function(e){
 const LEAD_API='https://avi-hazan.app.n8n.cloud/webhook/leads-data-eilat5';
 const UPD_API='https://avi-hazan.app.n8n.cloud/webhook/lead-update-eilat5';
 const DEL_API='https://avi-hazan.app.n8n.cloud/webhook/lead-delete-eilat5';
+// ===== SERVER STATE SYNC (v2.7) - same mechanism as leads (n8n webhook + data table) =====
+const STATE_GET='https://avi-hazan.app.n8n.cloud/webhook/state-get-eilat5';
+const STATE_SET='https://avi-hazan.app.n8n.cloud/webhook/state-set-eilat5';
+const DEVICE=/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)?'phone':'desktop';
+const DEVHE=DEVICE==='phone'?'טלפון':'מחשב';
+var _syncState='ok';
+function paintSync(){var e=document.getElementById('syncBadge');if(!e)return;var s=_syncState;
+ if(s==='saving'){e.textContent='⏳ שומר...';e.style.color='#a87d1d';}
+ else if(s==='loading'){e.textContent='⏳ טוען מהשרת...';e.style.color='#a87d1d';}
+ else if(s==='err'){e.textContent='⚠️ לא סונכרן (נשמר מקומית)';e.style.color='var(--red)';}
+ else{e.textContent='☁️ מסונכרן ✓';e.style.color='var(--ok)';}}
+function setSync(s){_syncState=s;paintSync();}
+function stateGet(key){
+ return fetch(STATE_GET+'?key='+encodeURIComponent(key)+'&t='+Date.now(),{cache:'no-store'})
+  .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+  .then(function(rows){if(Array.isArray(rows)&&rows.length&&rows[0]&&rows[0].value){try{return JSON.parse(rows[0].value);}catch(e){return null;}}return null;});
+}
+function stateSet(key,obj){
+ setSync('saving');
+ return fetch(STATE_SET,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:key,value:JSON.stringify(obj),updatedBy:DEVICE})})
+  .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);setSync('ok');return true;})
+  .catch(function(e){setSync('err');return false;});
+}
 const ACTIVE=['חדש','דיברנו','ביקור נקבע','מעוניין'];
 let LEADS=[];
 function key(l){return (l.phone||l.name||'').replace(/[^0-9a-zא-ת]/gi,'');}
@@ -611,8 +654,53 @@ function delObj(i){var a=getObj();a.splice(i,1);saveObj(a);renderObjLog();}
 function consult(){var ob=document.getElementById('o_obj').value.trim();var ans=document.getElementById('o_ans').value.trim();var msg='התנגדות ששמעתי: '+(ob||'(כתוב בשדה ההתנגדות)')+(ans?('\nמה עניתי: '+ans):'')+'\nתחדד אותי - האם אני בכיוון הנכון?';cpText(msg);toast('הועתק - הדבק בצ\'אט עם העוזר');}
 
 // LINKS
-function loadLinks(){var f=localStorage.getItem('eilat_form')||'',s=localStorage.getItem('eilat_sheet')||'';document.getElementById('set_form').value=f;document.getElementById('set_sheet').value=s;if(f)document.getElementById('lnk_form').href=f;if(s)document.getElementById('lnk_sheet').href=s;}
-function saveLinks(){var f=document.getElementById('set_form').value.trim(),s=document.getElementById('set_sheet').value.trim();localStorage.setItem('eilat_form',f);localStorage.setItem('eilat_sheet',s);loadLinks();toast('נשמר ✓');}
+const LINK_GROUPS=[
+ {t:'🏘️ קבוצות פייסבוק - קריות',ic:'📘',items:[
+  ['קרית ים וקריית חיים מערבית בלבד','https://www.facebook.com/groups/842840749613605/'],
+  ['דירות מפה לאוזן בקריות','https://www.facebook.com/groups/125793327613639/'],
+  ['דירות להשכרה בקריות וחיפה','https://www.facebook.com/groups/1896414753945570/'],
+  ['דירות להשכרה מכירה חיפה קריות נשר','https://www.facebook.com/groups/3387613464901265/'],
+  ['דירה להשכיר חיפה קריות','https://www.facebook.com/groups/438774037334934/']
+ ]},
+ {t:'🌆 קבוצות פייסבוק - חיפה',ic:'📘',items:[
+  ['דירות יחידות דיור חיפה קריות - לא למתווכים','https://www.facebook.com/groups/1697699190534876/'],
+  ['דירות להשכרה בחיפה ללא תיווך','https://www.facebook.com/groups/1734519960003504/'],
+  ['דירות להשכרה בחיפה והקריות','https://www.facebook.com/groups/302498687310251/'],
+  ['דירות להשכרה חיפה והקריות','https://www.facebook.com/groups/726151022194957/'],
+  ['דירות להשכרה בחיפה עם מחיר','https://www.facebook.com/groups/1316280659214308/'],
+  ['דירות להשכרה בחיפה','https://www.facebook.com/groups/570905303053795/']
+ ]},
+ {t:'📋 לוחות נדל"ן',ic:'🏷️',items:[
+  ['יד2 - השכרה','https://www.yad2.co.il/realestate/rent'],
+  ['מדלן','https://www.madlan.co.il'],
+  ['הומלס (Homeless)','https://www.homeless.co.il'],
+  ['WinWin','https://www.winwin.co.il'],
+  ['OnMap','https://www.onmap.co.il'],
+  ['מרקטפלייס (Facebook Marketplace)','https://www.facebook.com/marketplace/category/propertyrentals']
+ ]},
+ {t:'🏠 הנכסים שלי',ic:'',items:[
+  ['🖼️ גלריית הדירה','https://avi7756-design.github.io/avi-sites/dira-gallery/'],
+  ['🎯 מרכז שיווק','https://avi7756-design.github.io/avi-sites/manage.html'],
+  ['📊 דשבורד לידים','https://avi7756-design.github.io/avi-sites/dashboard.html'],
+  ['📥 רישום ליד','https://avi7756-design.github.io/avi-sites/lead-entry.html'],
+  ['🤖 בוט טלגרם','https://t.me/Avi_eilat5_bot'],
+  ['⚙️ n8n - מנוע אוטומציה','https://avi-hazan.app.n8n.cloud'],
+  ['💬 וואטסאפ שלי','https://wa.me/972525944424']
+ ]}
+];
+function renderLinks(){
+ var c=document.getElementById('linksContainer');if(!c)return;
+ c.innerHTML=LINK_GROUPS.map(function(g){
+  return '<h2 class="sec">'+g.t+'</h2>'+g.items.map(function(it){
+   var label=(g.ic?g.ic+' ':'')+esc(it[0]);
+   return '<div class="linkrow"><a class="lnk" href="'+it[1]+'" target="_blank" rel="noopener">'+label+'<small>'+esc(it[1])+'</small></a>'+
+    '<button class="btn copy sm go" onclick="cpText(\''+it[1]+'\')">📋</button>'+
+    '<a class="btn sm go" style="background:#2563eb" href="'+it[1]+'" target="_blank" rel="noopener">🔗</a></div>';
+  }).join('');
+ }).join('');
+}
+function loadLinks(){var f=localStorage.getItem('eilat_form')||'',s=localStorage.getItem('eilat_sheet')||'';var sf=document.getElementById('set_form'),ss=document.getElementById('set_sheet'),lf=document.getElementById('lnk_form'),ls=document.getElementById('lnk_sheet');if(sf)sf.value=f;if(ss)ss.value=s;if(f&&lf)lf.href=f;if(s&&ls)ls.href=s;}
+function saveLinks(){var f=document.getElementById('set_form').value.trim(),s=document.getElementById('set_sheet').value.trim();localStorage.setItem('eilat_form',f);localStorage.setItem('eilat_sheet',s);stateSet('links',{form:f,sheet:s});loadLinks();toast('נשמר ✓');}
 
 // CHANNELS
 const CHANNELS=[
@@ -639,13 +727,24 @@ const CHANNELS=[
  {n:"קבוצה: תושבי קריית ביאליק",t:"fb",p:2,l:""},
  {n:"ImmoIsrael (קהל בינ\"ל)",t:"site",p:1,l:"https://www.immoisrael.com"},
  {n:"fb-nadlan.com (אגרגטור קבוצות)",t:"forum",p:1,l:"https://www.fb-nadlan.com"},
- {n:"וואטסאפ: krayotrent + אינדקסים",t:"wa",p:1,l:""}
+ {n:"וואטסאפ: krayotrent + אינדקסים",t:"wa",p:1,l:""},
+ {n:"קבוצה: קרית ים וקריית חיים מערבית בלבד",t:"fb",p:3,l:"https://www.facebook.com/groups/842840749613605/"},
+ {n:"קבוצה: דירות מפה לאוזן בקריות",t:"fb",p:3,l:"https://www.facebook.com/groups/125793327613639/"},
+ {n:"קבוצה: דירות יחידות דיור חיפה קריות - לא למתווכים",t:"fb",p:3,l:"https://www.facebook.com/groups/1697699190534876/"},
+ {n:"קבוצה: דירות להשכרה בחיפה ללא תיווך",t:"fb",p:3,l:"https://www.facebook.com/groups/1734519960003504/"},
+ {n:"קבוצה: דירות להשכרה מכירה חיפה קריות נשר",t:"fb",p:3,l:"https://www.facebook.com/groups/3387613464901265/"},
+ {n:"קבוצה: דירות להשכרה בקריות וחיפה",t:"fb",p:2,l:"https://www.facebook.com/groups/1896414753945570/"},
+ {n:"קבוצה: דירה להשכיר חיפה קריות",t:"fb",p:2,l:"https://www.facebook.com/groups/438774037334934/"},
+ {n:"קבוצה: דירות להשכרה בחיפה והקריות",t:"fb",p:2,l:"https://www.facebook.com/groups/302498687310251/"},
+ {n:"קבוצה: דירות להשכרה חיפה והקריות",t:"fb",p:2,l:"https://www.facebook.com/groups/726151022194957/"},
+ {n:"קבוצה: דירות להשכרה בחיפה עם מחיר",t:"fb",p:2,l:"https://www.facebook.com/groups/1316280659214308/"},
+ {n:"קבוצה: דירות להשכרה בחיפה (570)",t:"fb",p:1,l:"https://www.facebook.com/groups/570905303053795/"}
 ];
 const CT={site:["אתר לוח","#2563eb"],paid:["לוח (תשלום)","#a05c3a"],fb:["קבוצת פייסבוק","#7e57c2"],fbpage:["דף עסקי","#7e57c2"],forum:["פורום/אגרגטור","#8a7a68"],wa:["וואטסאפ","#25d366"]};
 const PRIO={3:["גבוה","b-closed"],2:["בינוני","b-contacted"],1:["נמוך","b-lost"]};
 function today(){return new Date().toISOString().slice(0,10);}
 function getCh(){try{return JSON.parse(localStorage.getItem('eilat_ch')||'{}');}catch(e){return {};}}
-function saveCh(o){localStorage.setItem('eilat_ch',JSON.stringify(o));}
+function saveCh(o){localStorage.setItem('eilat_ch',JSON.stringify(o));stateSet('channels',o);}
 function chLink(i){var o=getCh();return (o[i]&&o[i].link)||CHANNELS[i].l||"";}
 function setLink(i){var cur=chLink(i);var v=prompt("הדבק קישור לערוץ:\n"+CHANNELS[i].n,cur);if(v===null)return;var o=getCh();o[i]=o[i]||{};o[i].link=v.trim();saveCh(o);renderCh();toast('קישור נשמר ✓');}
 function togglePub(i){var o=getCh();o[i]=o[i]||{};if(o[i].lastPub===today()){o[i].lastPub='';}else{o[i].lastPub=today();o[i].count=(o[i].count||0)+1;}saveCh(o);renderCh();}
@@ -721,21 +820,46 @@ const GROUPS=[
  {n:'דירות להשכרה בקריות',l:''},
  {n:'דירות להשכרה בחיפה',l:''},
  {n:'יד2 דירות בקריות בלבד',l:''},
- {n:'חיפה-קריות-נשר (אזורי)',l:''}
+ {n:'חיפה-קריות-נשר (אזורי)',l:''},
+ {n:'קרית ים וקריית חיים מערבית בלבד',l:'https://www.facebook.com/groups/842840749613605/'},
+ {n:'דירות מפה לאוזן בקריות',l:'https://www.facebook.com/groups/125793327613639/'},
+ {n:'דירות יחידות דיור חיפה קריות - לא למתווכים',l:'https://www.facebook.com/groups/1697699190534876/'},
+ {n:'דירות להשכרה בחיפה ללא תיווך',l:'https://www.facebook.com/groups/1734519960003504/'},
+ {n:'דירות להשכרה מכירה חיפה קריות נשר',l:'https://www.facebook.com/groups/3387613464901265/'},
+ {n:'דירות להשכרה בקריות וחיפה',l:'https://www.facebook.com/groups/1896414753945570/'},
+ {n:'דירה להשכיר חיפה קריות',l:'https://www.facebook.com/groups/438774037334934/'},
+ {n:'דירות להשכרה בחיפה והקריות',l:'https://www.facebook.com/groups/302498687310251/'},
+ {n:'דירות להשכרה חיפה והקריות',l:'https://www.facebook.com/groups/726151022194957/'},
+ {n:'דירות להשכרה בחיפה עם מחיר',l:'https://www.facebook.com/groups/1316280659214308/'},
+ {n:'דירות להשכרה בחיפה',l:'https://www.facebook.com/groups/570905303053795/'}
 ];
-const GCHIDX=[4,5,6,7,8,17,18,19]; // GROUPS index -> CHANNELS index (for togglePub sync)
+const GCHIDX=[4,5,6,7,8,17,18,19,24,25,26,27,28,29,30,31,32,33,34]; // GROUPS index -> CHANNELS index (for togglePub sync)
 const MPHOTOS=[['06_balcony.jpg','מרפסת'],['01_salon.jpg','סלון'],['04_bedroom.jpg','חדר שינה'],['05_kitchen.jpg','מטבח'],['11_street_view.jpg','הבניין']];
 function todayTasks(){
  var day=Math.floor(Date.now()/86400000);
- var gi1=(day*2)%8,gi2=(day*2+1)%8,pi1=day%4,pi2=(day+2)%4,dow=new Date().getDay();
+ var n=GROUPS.length,gi1=(day*2)%n,gi2=(day*2+1)%n,pi1=day%4,pi2=(day+2)%4,dow=new Date().getDay();
  var t=[{kind:'pub',gi:gi1,pi:pi1,num:1},{kind:'wait',num:2},{kind:'pub',gi:gi2,pi:pi2,num:3},{kind:'wa',num:4}];
  if(dow===0)t.push({kind:'profile',pi:0,num:5});
  if(dow===1)t.push({kind:'meta',num:6});
  return t;
 }
 function dKey(){return 'eilat_daily_'+today();}
-function getDaily(){try{var o=JSON.parse(localStorage.getItem(dKey()));return (o&&typeof o==='object')?o:{done:{},skip:{}};}catch(e){return {done:{},skip:{}};}}
-function saveDaily(o){localStorage.setItem(dKey(),JSON.stringify(o));}
+function dServerKey(){return 'daily_'+today();}
+var _viewTask=null; // 1-based position currently displayed (manual nav); null => auto/trophy
+function normalizeDaily(o){
+ o=(o&&typeof o==='object')?o:{};
+ o.date=o.date||today();
+ if(!Array.isArray(o.tasksDone)){var td=[];var od=o.done;if(od&&typeof od==='object'){Object.keys(od).forEach(function(k){if(od[k])td.push(parseInt(k,10)+1);});}o.tasksDone=td;}
+ if(!Array.isArray(o.skip)){var sk=[];var os=o.skip;if(os&&typeof os==='object'){Object.keys(os).forEach(function(k){if(os[k])sk.push(parseInt(k,10)+1);});}o.skip=sk;}
+ o.log=Array.isArray(o.log)?o.log:[];
+ return o;
+}
+function getDaily(){var o;try{o=JSON.parse(localStorage.getItem(dKey()));}catch(e){o=null;}return normalizeDaily(o);}
+function saveDaily(o,push){o=normalizeDaily(o);o.updatedAt=new Date().toISOString();o.updatedBy=DEVICE;o.currentTask=_viewTask;localStorage.setItem(dKey(),JSON.stringify(o));if(push!==false)stateSet(dServerKey(),o);}
+function tsNow(){var d=new Date();function z(n){return (n<10?'0':'')+n;}return z(d.getDate())+'/'+z(d.getMonth()+1)+' '+z(d.getHours())+':'+z(d.getMinutes());}
+function logDaily(o,p,action){o.log=o.log||[];o.log.push({ts:tsNow(),num:p,action:action,by:DEVHE});}
+function firstIncomplete(d,total){for(var p=1;p<=total;p++){if(d.tasksDone.indexOf(p)<0&&d.skip.indexOf(p)<0)return p;}return null;}
+function curView(){var total=todayTasks().length,d=getDaily();var show=_viewTask;if(show==null||show<1||show>total){var fi=firstIncomplete(d,total);show=(fi==null)?null:fi;}return show;}
 function markChannelPub(ci){var o=getCh();o[ci]=o[ci]||{};if(o[ci].lastPub!==today()){o[ci].lastPub=today();o[ci].count=(o[ci].count||0)+1;saveCh(o);}if(document.getElementById('channels').classList.contains('active'))renderCh();}
 function copyPost(pi){cpText(POSTS[pi].body);}
 function copyQuick(){cpText(document.getElementById('m_quick').textContent);}
@@ -796,42 +920,100 @@ function taskCard(t,cur,total){
  }
  return head;
 }
+function navTitle(t){if(!t)return '';if(t.kind==='pub')return 'פרסום בקבוצה';if(t.kind==='wait')return 'המתנה 7 דקות';if(t.kind==='wa')return 'סטטוס וואטסאפ';if(t.kind==='profile')return 'פוסט בפרופיל';if(t.kind==='meta')return 'תזמון שבועי';return 'משימה';}
+function renderNav(d,total,show){
+ var el=document.getElementById('todayNav');if(!el)return;var tasks=todayTasks();
+ var jumps='';
+ for(var p=1;p<=total;p++){
+  var done=d.tasksDone.indexOf(p)>-1,sk=d.skip.indexOf(p)>-1,iscur=(p===show);
+  var cls='navjump'+(iscur?' cur':'')+(done?' done':'')+((sk&&!done)?' skip':'');
+  jumps+='<button class="'+cls+'" onclick="goToTask('+p+')" title="'+esc(navTitle(tasks[p-1]))+'">'+(done?'✓':p)+'</button>';
+ }
+ var checks=tasks.map(function(t,idx){var p=idx+1;var done=d.tasksDone.indexOf(p)>-1;
+  return '<label class="navchk'+(done?' isdone':'')+'"><input type="checkbox" '+(done?'checked':'')+' onchange="toggleDone('+p+')"> <span>'+p+'. '+esc(navTitle(t))+'</span></label>';
+ }).join('');
+ var doneList=d.tasksDone.filter(function(p){return p>=1&&p<=total;}).sort(function(a,b){return a-b;});
+ var leftList=[];for(var q=1;q<=total;q++){if(doneList.indexOf(q)<0)leftList.push(q);}
+ var status='אתה במשימה '+(show||'-')+' · בוצעו: '+(doneList.join(',')||'—')+' · נותרו: '+(leftList.join(',')||'—');
+ el.innerHTML='<div class="navjumps">'+jumps+'</div>'+
+  '<div class="navarrows"><button class="btn sm gray" onclick="navPrev()">◀ הקודם</button><button class="btn sm gray" onclick="navNext()">הבא ▶</button></div>'+
+  '<div class="navchecks">'+checks+'</div>'+
+  '<div class="navstatus">'+status+'</div>';
+}
+function renderJournal(d){
+ var el=document.getElementById('todayJournal');if(!el)return;
+ var log=(d.log||[]).slice().reverse();
+ el.innerHTML='<h2 class="sec" style="font-size:15px">📒 יומן היום</h2>'+(log.length?log.map(function(e){return '<div class="jrow">'+esc(e.ts)+' - משימה '+e.num+' '+esc(e.action)+' ('+esc(e.by)+')</div>';}).join(''):'<p style="color:#888;font-size:13px">אין פעולות היום עדיין.</p>');
+}
 function renderToday(){
  var tasks=todayTasks(),total=tasks.length,d=getDaily();
- d.done=d.done||{};d.skip=d.skip||{};
- if(d.total!==total){d.total=total;saveDaily(d);}
- var doneCount=0;for(var i=0;i<total;i++){if(d.done[i])doneCount++;}
+ if(d.total!==total){d.total=total;saveDaily(d,false);}
+ var doneCount=d.tasksDone.filter(function(p){return p>=1&&p<=total;}).length;
  var pct=total?Math.round(doneCount/total*100):0;
  var pe=document.getElementById('todayProg');
- if(pe)pe.innerHTML='<div class="pt">היום: '+doneCount+'/'+total+' בוצעו</div><div class="pbar"><div style="width:'+pct+'%"></div></div>';
- var cur=-1;for(var j=0;j<total;j++){if(!d.done[j]&&!d.skip[j]){cur=j;break;}}
+ if(pe)pe.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px"><span class="pt">היום: '+doneCount+'/'+total+' בוצעו</span><span id="syncBadge" style="font-size:12px;font-weight:bold"></span></div><div class="pbar"><div style="width:'+pct+'%"></div></div>';
+ paintSync();
+ var show=curView();
+ renderNav(d,total,show);
  var card=document.getElementById('todayCard');
  if(card){
-  if(cur===-1){
-   card.innerHTML='<div class="mcard donescreen"><div class="trophy">🏆</div><h2 style="color:var(--terra-d);font-size:24px">סיימת את היום!</h2><p style="font-size:18px;margin:10px 0"><b>'+doneCount+'/'+total+'</b> משימות בוצעו</p><div class="hint" style="text-align:right">💡 אל תשכח לרשום כל פנייה שקיבלת בבוט הטלגרם - כדי שלא יאבד אף ליד.</div><a class="btn copy" href="https://t.me/Avi_eilat5_bot" target="_blank" style="margin-top:8px">🤖 פתח את בוט הטלגרם</a></div>';
+  if(show==null){
+   card.innerHTML='<div class="mcard donescreen"><div class="trophy">🏆</div><h2 style="color:var(--terra-d);font-size:24px">סיימת את היום!</h2><p style="font-size:18px;margin:10px 0"><b>'+doneCount+'/'+total+'</b> משימות בוצעו</p><div class="hint" style="text-align:right">💡 אל תשכח לרשום כל פנייה שקיבלת בבוט הטלגרם - כדי שלא יאבד אף ליד. אפשר לחזור לכל משימה דרך פס הניווט למעלה.</div><a class="btn copy" href="https://t.me/Avi_eilat5_bot" target="_blank" style="margin-top:8px">🤖 פתח את בוט הטלגרם</a></div>';
    clearTimer();
   }else{
-   card.innerHTML='<div class="mcard">'+taskCard(tasks[cur],cur,total)+'</div>';
-   if(tasks[cur].kind!=='wait')clearTimer();
+   card.innerHTML='<div class="mcard">'+taskCard(tasks[show-1],show-1,total)+'</div>';
+   if(tasks[show-1].kind!=='wait')clearTimer();
   }
  }
+ renderJournal(d);
  renderHist();
 }
 function doneTask(i){
- var tasks=todayTasks(),t=tasks[i],d=getDaily();d.done=d.done||{};d.done[i]=true;d.total=tasks.length;saveDaily(d);
+ var tasks=todayTasks(),total=tasks.length,p=i+1,t=tasks[i],d=getDaily();d.total=total;
+ if(d.tasksDone.indexOf(p)<0){d.tasksDone.push(p);logDaily(d,p,'בוצעה');}
+ var si=d.skip.indexOf(p);if(si>-1)d.skip.splice(si,1);
+ _viewTask=firstIncomplete(d,total);
+ saveDaily(d);
  if(t&&t.kind==='pub')markChannelPub(GCHIDX[t.gi]);
  clearTimer();toast('בוצע ✓');renderToday();
 }
-function skipTask(i){var d=getDaily();d.skip=d.skip||{};d.skip[i]=true;d.total=todayTasks().length;saveDaily(d);clearTimer();renderToday();}
+function toggleDone(p){
+ var tasks=todayTasks(),total=tasks.length,d=getDaily();d.total=total;
+ var idx=d.tasksDone.indexOf(p);
+ if(idx>-1){d.tasksDone.splice(idx,1);logDaily(d,p,'בוטלה');}
+ else{d.tasksDone.push(p);logDaily(d,p,'בוצעה');var si=d.skip.indexOf(p);if(si>-1)d.skip.splice(si,1);var t=tasks[p-1];if(t&&t.kind==='pub')markChannelPub(GCHIDX[t.gi]);}
+ _viewTask=p;
+ saveDaily(d);toast('עודכן ✓');renderToday();
+}
+function skipTask(i){
+ var tasks=todayTasks(),total=tasks.length,p=i+1,d=getDaily();d.total=total;
+ if(d.skip.indexOf(p)<0){d.skip.push(p);logDaily(d,p,'דולגה');}
+ _viewTask=firstIncomplete(d,total);
+ saveDaily(d);clearTimer();renderToday();
+}
+function goToTask(p){var total=todayTasks().length;if(p<1)p=1;if(p>total)p=total;_viewTask=p;renderToday();}
+function navPrev(){var c=curView();goToTask((c||1)-1);}
+function navNext(){var c=curView();goToTask((c||0)+1);}
+function pullToday(){
+ _viewTask=null;setSync('loading');
+ return stateGet(dServerKey()).then(function(sv){
+  if(sv&&typeof sv==='object'){localStorage.setItem(dKey(),JSON.stringify(normalizeDaily(sv)));if(typeof sv.currentTask==='number')_viewTask=sv.currentTask;setSync('ok');}
+  else{var local=getDaily();if(local.tasksDone.length||local.skip.length||(local.log&&local.log.length))stateSet(dServerKey(),local);else setSync('ok');}
+ }).catch(function(e){setSync('err');}).then(function(){renderToday();});
+}
+function bootSync(){
+ stateGet('channels').then(function(ch){if(ch&&typeof ch==='object'){localStorage.setItem('eilat_ch',JSON.stringify(ch));renderCh();}}).catch(function(e){});
+ stateGet('links').then(function(lk){if(lk&&typeof lk==='object'){if(typeof lk.form==='string')localStorage.setItem('eilat_form',lk.form);if(typeof lk.sheet==='string')localStorage.setItem('eilat_sheet',lk.sheet);loadLinks();}}).catch(function(e){});
+}
 function fmtD(iso){var p=(iso||'').split('-');return p.length===3?p[2]+'/'+p[1]:iso;}
 function renderHist(){
  var el=document.getElementById('todayHist');if(!el)return;
  var arr=[];
- for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('eilat_daily_')===0){try{var v=JSON.parse(localStorage.getItem(k));var dc=0;if(v&&v.done)Object.keys(v.done).forEach(x=>{if(v.done[x])dc++;});arr.push({date:k.replace('eilat_daily_',''),done:dc,total:(v&&v.total)||'?'});}catch(e){}}}
- arr.sort((a,b)=>a.date<b.date?1:-1);arr=arr.slice(0,7);
- el.innerHTML='<h2 class="sec" style="font-size:15px">📅 7 הימים האחרונים</h2>'+(arr.length?arr.map(r=>'<div class="histrow'+(r.date===today()?' istoday':'')+'"><span>'+fmtD(r.date)+(r.date===today()?' (היום)':'')+'</span><span><b>'+r.done+'/'+r.total+'</b> בוצעו</span></div>').join(''):'<p style="color:#888;font-size:13px">אין היסטוריה עדיין.</p>');
+ for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('eilat_daily_')===0){try{var v=JSON.parse(localStorage.getItem(k));var dc=0;if(v){if(Array.isArray(v.tasksDone))dc=v.tasksDone.filter(function(x){return typeof x==='number';}).length;else if(v.done&&typeof v.done==='object')Object.keys(v.done).forEach(function(x){if(v.done[x])dc++;});}arr.push({date:k.replace('eilat_daily_',''),done:dc,total:(v&&v.total)||'?'});}catch(e){}}}
+ arr.sort(function(a,b){return a.date<b.date?1:-1;});arr=arr.slice(0,7);
+ el.innerHTML='<h2 class="sec" style="font-size:15px">📅 7 הימים האחרונים</h2>'+(arr.length?arr.map(function(r){return '<div class="histrow'+(r.date===today()?' istoday':'')+'"><span>'+fmtD(r.date)+(r.date===today()?' (היום)':'')+'</span><span><b>'+r.done+'/'+r.total+'</b> בוצעו</span></div>';}).join(''):'<p style="color:#888;font-size:13px">אין היסטוריה עדיין.</p>');
 }
-renderCh();fetchLeads();loadLinks();renderObjLog();loadMedia();renderToday();activate('today');
+renderCh();fetchLeads();renderLinks();loadLinks();renderObjLog();loadMedia();activate('today');bootSync();
 </script>
 <footer style="font-size:10px;color:#999;text-align:center;padding:10px 0;margin-bottom:8px;">גרסה <span id="siteVer"></span></footer>
 <script src="version.js"></script>
