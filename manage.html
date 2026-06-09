@@ -246,6 +246,7 @@
       <div class="msgcard"><h3>גרסה B · נכנסים עם מזוודה <button class="btn copy sm" onclick="copyPost(1)">📋 העתק</button></h3></div>
       <div class="msgcard"><h3>גרסה C · החשבון הפשוט <button class="btn copy sm" onclick="copyPost(2)">📋 העתק</button></h3></div>
       <div class="msgcard"><h3>גרסה D · שקיפות מלאה <button class="btn copy sm" onclick="copyPost(3)">📋 העתק</button></h3></div>
+      <div class="msgcard"><h3>גרסה E · קצרה (וואטסאפ/סטטוס) <button class="btn copy sm" onclick="copyPost(4)">📋 העתק</button></h3></div>
     </div>
     <div style="background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin-bottom:14px;"><b style="color:var(--terra-d);font-size:15px">⚡ ערכת שיתוף מהירה</b><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;"><button class="btn copy sm" onclick="cpText('https://avi7756-design.github.io/avi-sites/dira-gallery/')">📋 קישור לגלריה המלאה</button><button class="btn ok sm" onclick="cpShareKit()">📋 ריל ראשי + טקסט</button><button class="btn copy sm" onclick="cp('m_full')">📋 מידע מלא</button><button class="btn sm" style="background:#25d366" onclick="waShare()">📤 שלח בוואטסאפ</button></div></div><h2 class="sec" style="font-size:16px">📄 עלון ופלייר</h2><div class="photos" id="fileGrid"><div style="color:#888;font-size:13px;padding:8px">טוען...</div></div><h2 class="sec" style="font-size:16px;margin-top:14px">🎬 סרטונים</h2><div class="photos" id="videoGrid"><div style="color:#888;font-size:13px;padding:8px">טוען סרטונים...</div></div><h2 class="sec" style="font-size:16px;margin-top:14px">📸 תמונות</h2><div class="photos" id="photoGrid"></div>
   </div>
@@ -814,7 +815,16 @@ const POSTS=[
 מה אין: חדר שלישי. מטבח גדול עם תנור בילט-אין. מקום למשפחה עם ילדים.
 
 מי שזה מתאים לו - מקבל דירה שאפשר להיכנס אליה מחר עם מזוודה ולחיות בשקט.
-לפני ביקור אני שולח סרטון מלא של הדירה - שתדעו בדיוק מה אתם באים לראות.`+POST_END}
+לפני ביקור אני שולח סרטון מלא של הדירה - שתדעו בדיוק מה אתם באים לראות.`+POST_END},
+ {v:'E',name:'קצרה (וואטסאפ/סטטוס)',body:`🏠 דירה מרוהטת להשכרה בק. חיים - 3,700₪ כולל הכל!
+✅ מרוהטת קומפלט - נכנסים עם מזוודה
+✅ חניון תת-קרקעי שמור
+✅ מרפסת ענקית 20 מ"ר
+✅ 6 דק' הליכה מהים
+✅ ללא תיווך - ישירות מהבעלים
+📸 כל התמונות + פרטים מלאים כאן:
+https://avi7756-design.github.io/avi-sites/dira-gallery/
+📞 052-594-4424`}
 ];
 const GROUPS=[
  {n:'דירות להשכרה בקריות ללא תיווך',l:'https://www.facebook.com/groups/1591401697779759'},
