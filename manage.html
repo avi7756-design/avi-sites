@@ -295,6 +295,18 @@
       <textarea id="ex_obj_a" placeholder="התשובה (לדוגמה: יש בקומה הראשונה)" style="margin-bottom:6px;min-height:60px"></textarea>
       <div style="display:flex;gap:6px"><button class="btn ok sm" onclick="addExpertObj()">➕ הוסף לספר</button><button class="btn gray sm" onclick="resetExpertObjs()">🔄 אפס לברירת מחדל</button></div>
     </div>
+    <div style="background:var(--white);border:2px solid #7e57c2;border-radius:14px;padding:14px;margin:12px 0;">
+      <h2 class="sec" style="margin:0 0 4px;cursor:pointer;color:#7e57c2" onclick="toggleAiPanel()">🤖 יועץ AI להתנגדויות <span id="aiToggle" style="font-size:12px">▼ פתח</span></h2>
+      <div id="aiPanel" style="display:none">
+        <div class="hint" style="margin-bottom:8px">כתוב התנגדות ששמעת - המערכת תחפש קודם בספר ההתנגדויות. אם אין תשובה מוכנה, לחץ "העתק שאלה ליועץ AI" והדבק בצ'אט Claude / ChatGPT.</div>
+        <input id="aiQ" placeholder="כתוב את ההתנגדות כאן..." oninput="searchAiObj()" style="margin:0 0 6px;">
+        <div id="aiResults"></div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;">
+          <button class="btn sm" style="background:#7e57c2" onclick="copyForAi()">🤖 העתק שאלה ליועץ AI</button>
+          <button class="btn gray sm" onclick="clearAiPanel()">🧹 נקה</button>
+        </div>
+      </div>
+    </div>
     <h2 class="sec">📝 היומן הלומד שלי</h2>
     <div style="background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin-bottom:12px;">
       <input id="o_obj" placeholder="ההתנגדות ששמעתי (לדוגמה: יקר לי)" style="margin-bottom:6px;">
@@ -676,6 +688,11 @@ function renderObjLog(){
 function addObj(){var ob=document.getElementById('o_obj').value.trim();if(!ob){toast('כתוב התנגדות');return;}var a=getObj();a.push({obj:ob,ans:document.getElementById('o_ans').value.trim(),out:document.getElementById('o_out').value,d:new Date().toLocaleDateString('he-IL')});saveObj(a);document.getElementById('o_obj').value='';document.getElementById('o_ans').value='';renderObjLog();toast('נוסף ליומן ✓');}
 function delObj(i){var a=getObj();a.splice(i,1);saveObj(a);renderObjLog();}
 function consult(){var ob=document.getElementById('o_obj').value.trim();var ans=document.getElementById('o_ans').value.trim();var msg='התנגדות ששמעתי: '+(ob||'(כתוב בשדה ההתנגדות)')+(ans?('\nמה עניתי: '+ans):'')+'\nתחדד אותי - האם אני בכיוון הנכון?';cpText(msg);toast('הועתק - הדבק בצ\'אט עם העוזר');}
+function toggleAiPanel(){var p=document.getElementById('aiPanel'),t=document.getElementById('aiToggle');if(p.style.display==='none'){p.style.display='block';t.textContent='▲ סגור';document.getElementById('aiQ').focus();}else{p.style.display='none';t.textContent='▼ פתח';}}
+function searchAiObj(){var q=(document.getElementById('aiQ').value||'').trim().toLowerCase();var el=document.getElementById('aiResults');if(!q||q.length<2){el.innerHTML='';return;}var objs=getExpertObjs()||[];var words=q.split(/\s+/);var matches=objs.filter(function(o){var txt=(o.q+' '+o.a).toLowerCase();return words.some(function(w){return w.length>1&&txt.indexOf(w)>-1;});});if(matches.length){el.innerHTML='<div style="margin-top:4px"><b style="color:var(--ok)">✅ נמצאו '+matches.length+' תשובות מהספר:</b></div>'+matches.map(function(o,i){return '<div style="background:#f9f5ff;border:1px solid #d4c4f0;border-radius:10px;padding:10px;margin-top:6px"><b>'+esc(o.q)+'</b><p style="margin:4px 0 0;font-size:13px">'+esc(o.a)+'</p><button class="btn copy sm" style="margin-top:4px" onclick="cpAiResult('+i+')">📋 העתק תשובה</button></div>';}).join('');window._aiMatches=matches;}else{el.innerHTML='<div style="margin-top:4px;color:var(--muted)">🔍 לא נמצאה תשובה מוכנה בספר. לחץ "העתק שאלה ליועץ AI" לקבלת תשובה חכמה.</div>';}}
+function copyForAi(){var q=(document.getElementById('aiQ').value||'').trim();if(!q){toast('כתוב התנגדות קודם');return;}var msg='אני משכיר דירה (2 חד\', 40 מ"ר + מרפסת 20 מ"ר, 3,700 ₪ כולל הכל, קריית חיים, מרוהטת קומפלט עם חניון שמור).\n\nשמעתי את ההתנגדות הבאה מלקוח פוטנציאלי:\n"'+q+'"\n\nתן לי תשובה שכנועית, קצרה ומקצועית שאוכל להגיד למתעניין. כלול גם טיפ למשא ומתן.';navigator.clipboard.writeText(msg).then(function(){toast('הועתק! הדבק בצ\'אט AI');});}
+function cpAiResult(i){if(window._aiMatches&&window._aiMatches[i])cpText(window._aiMatches[i].a);}
+function clearAiPanel(){document.getElementById('aiQ').value='';document.getElementById('aiResults').innerHTML='';window._aiMatches=null;}
 
 // Expert objections (editable)
 function getExpertObjs(){try{var v=JSON.parse(localStorage.getItem('eilat_expert_objs'));return Array.isArray(v)?v:null;}catch(e){return null;}}
@@ -1076,11 +1093,29 @@ function skipTask(i){
 function goToTask(p){var total=todayTasks().length;if(p<1)p=1;if(p>total)p=total;_viewTask=p;renderToday();}
 function navPrev(){var c=curView();goToTask((c||1)-1);}
 function navNext(){var c=curView();goToTask((c||0)+1);}
+function mergeDailies(local,server){
+ var m=normalizeDaily(local);if(!server)return m;var sv=normalizeDaily(server);
+ sv.tasksDone.forEach(function(p){if(m.tasksDone.indexOf(p)<0)m.tasksDone.push(p);});
+ sv.skip.forEach(function(p){if(m.skip.indexOf(p)<0&&m.tasksDone.indexOf(p)<0)m.skip.push(p);});
+ var seen={};m.log.forEach(function(e){seen[(e.ts||'')+':'+(e.num||'')]=1;});
+ (sv.log||[]).forEach(function(e){if(!seen[(e.ts||'')+':'+(e.num||'')])m.log.push(e);});
+ m.log.sort(function(a,b){return (a.ts||'')<(b.ts||'')?-1:1;});
+ return m;
+}
 function pullToday(){
- _viewTask=null;setSync('loading');
+ setSync('loading');
+ var localBefore=getDaily();
  return stateGet(dServerKey()).then(function(sv){
-  if(sv&&typeof sv==='object'){localStorage.setItem(dKey(),JSON.stringify(normalizeDaily(sv)));if(typeof sv.currentTask==='number')_viewTask=sv.currentTask;setSync('ok');}
-  else{var local=getDaily();if(local.tasksDone.length||local.skip.length||(local.log&&local.log.length))stateSet(dServerKey(),local);else setSync('ok');}
+  if(sv&&typeof sv==='object'){
+   var merged=mergeDailies(localBefore,sv);
+   localStorage.setItem(dKey(),JSON.stringify(merged));
+   if(_viewTask==null&&typeof sv.currentTask==='number')_viewTask=sv.currentTask;
+   if(merged.tasksDone.length>((normalizeDaily(sv)).tasksDone.length))stateSet(dServerKey(),merged);
+   setSync('ok');
+  }else{
+   if(localBefore.tasksDone.length||localBefore.skip.length||(localBefore.log&&localBefore.log.length))stateSet(dServerKey(),localBefore);
+   else setSync('ok');
+  }
  }).catch(function(e){setSync('err');}).then(function(){renderToday();});
 }
 function bootSync(){
