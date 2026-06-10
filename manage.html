@@ -242,12 +242,9 @@
     <div id="groupPosts" style="margin-bottom:14px;">
       <h2 class="sec" style="font-size:16px;margin:0 0 6px;">📝 פוסטים לקבוצות (העתק בלחיצה)</h2>
       <div class="hint" style="margin-bottom:10px;"><b>חוק זהב:</b> לא אותה גרסה בשתי קבוצות באותו יום. צרף 4-5 תמונות כולל המטבחון.</div>
-      <div class="msgcard"><h3>גרסה A · קטנה וחכמה <button class="btn copy sm" onclick="copyPost(0)">📋 העתק</button></h3></div>
-      <div class="msgcard"><h3>גרסה B · נכנסים עם מזוודה <button class="btn copy sm" onclick="copyPost(1)">📋 העתק</button></h3></div>
-      <div class="msgcard"><h3>גרסה C · החשבון הפשוט <button class="btn copy sm" onclick="copyPost(2)">📋 העתק</button></h3></div>
-      <div class="msgcard"><h3>גרסה D · שקיפות מלאה <button class="btn copy sm" onclick="copyPost(3)">📋 העתק</button></h3></div>
-      <div class="msgcard"><h3>גרסה E · קצרה (וואטסאפ/סטטוס) <button class="btn copy sm" onclick="copyPost(4)">📋 העתק</button></h3></div>
+      <div id="postCards"></div>
     </div>
+    <div class="linkrow" style="margin-bottom:14px;border:2px solid var(--gold);"><a class="lnk" href="https://avi7756-design.github.io/avi-sites/dira-gallery/" target="_blank" rel="noopener">🖼️ גלריית הדירה<small>https://avi7756-design.github.io/avi-sites/dira-gallery/</small></a><button class="btn copy sm go" onclick="cpText('https://avi7756-design.github.io/avi-sites/dira-gallery/')">📋</button><a class="btn sm go" style="background:#2563eb" href="https://avi7756-design.github.io/avi-sites/dira-gallery/" target="_blank" rel="noopener">🔗</a></div>
     <div style="background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin-bottom:14px;"><b style="color:var(--terra-d);font-size:15px">⚡ ערכת שיתוף מהירה</b><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;"><button class="btn copy sm" onclick="cpText('https://avi7756-design.github.io/avi-sites/dira-gallery/')">📋 קישור לגלריה המלאה</button><button class="btn ok sm" onclick="cpShareKit()">📋 ריל ראשי + טקסט</button><button class="btn copy sm" onclick="cp('m_full')">📋 מידע מלא</button><button class="btn sm" style="background:#25d366" onclick="waShare()">📤 שלח בוואטסאפ</button></div></div><h2 class="sec" style="font-size:16px">📄 עלון ופלייר</h2><div class="photos" id="fileGrid"><div style="color:#888;font-size:13px;padding:8px">טוען...</div></div><h2 class="sec" style="font-size:16px;margin-top:14px">🎬 סרטונים</h2><div class="photos" id="videoGrid"><div style="color:#888;font-size:13px;padding:8px">טוען סרטונים...</div></div><h2 class="sec" style="font-size:16px;margin-top:14px">📸 תמונות</h2><div class="photos" id="photoGrid"></div>
   </div>
 
@@ -292,6 +289,12 @@
     <div class="hint">📚 ספר התנגדויות עם תשובות מומחה. למטה - <b>יומן אישי</b>: רשום מה שמעת ומה ענית, וזה בונה לך פלייבוק. 💬 לחידוד חי: לחץ "התייעץ עם העוזר" והבא את ההתנגדות לצ'אט.</div>
     <h2 class="sec">תשובות מומחה להתנגדויות נפוצות</h2>
     <div id="objList"></div>
+    <div style="background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin:12px 0;">
+      <b style="color:var(--terra-d)">➕ הוסף התנגדות חדשה לספר</b>
+      <input id="ex_obj_q" placeholder="ההתנגדות (לדוגמה: האם יש ממד?)" style="margin:6px 0;">
+      <textarea id="ex_obj_a" placeholder="התשובה (לדוגמה: יש בקומה הראשונה)" style="margin-bottom:6px;min-height:60px"></textarea>
+      <div style="display:flex;gap:6px"><button class="btn ok sm" onclick="addExpertObj()">➕ הוסף לספר</button><button class="btn gray sm" onclick="resetExpertObjs()">🔄 אפס לברירת מחדל</button></div>
+    </div>
     <h2 class="sec">📝 היומן הלומד שלי</h2>
     <div style="background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin-bottom:12px;">
       <input id="o_obj" placeholder="ההתנגדות ששמעתי (לדוגמה: יקר לי)" style="margin-bottom:6px;">
@@ -423,7 +426,7 @@ document.getElementById('qaList').innerHTML=QA.map((q,idx)=>
  '<div class="msgcard"><h3>🔹 '+q[0]+' <button class="btn copy sm" onclick="cpText(QA['+idx+'][1])">📋 העתק</button></h3><div class="msgbody">'+q[1]+'</div></div>').join('');
 document.getElementById('photoGrid').innerHTML=PHOTOS.map(p=>
  '<figure><img src="'+BASE+p[0]+'" alt="'+p[1]+'" onclick="window.open(this.src)"><figcaption>'+p[1]+'</figcaption><div class="pbtns"><button class="btn copy sm" onclick="cpText(\''+BASE+p[0]+'\')">קישור</button></div></figure>').join('');
-document.getElementById('objList').innerHTML=OBJS.map(o=>'<div class="obj"><b>'+o[0]+'</b><p>'+o[1]+'</p></div>').join('');
+initExpertObjs();renderExpertObjs();
 
 function activate(p){
  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.p===p));
@@ -673,6 +676,60 @@ function renderObjLog(){
 function addObj(){var ob=document.getElementById('o_obj').value.trim();if(!ob){toast('כתוב התנגדות');return;}var a=getObj();a.push({obj:ob,ans:document.getElementById('o_ans').value.trim(),out:document.getElementById('o_out').value,d:new Date().toLocaleDateString('he-IL')});saveObj(a);document.getElementById('o_obj').value='';document.getElementById('o_ans').value='';renderObjLog();toast('נוסף ליומן ✓');}
 function delObj(i){var a=getObj();a.splice(i,1);saveObj(a);renderObjLog();}
 function consult(){var ob=document.getElementById('o_obj').value.trim();var ans=document.getElementById('o_ans').value.trim();var msg='התנגדות ששמעתי: '+(ob||'(כתוב בשדה ההתנגדות)')+(ans?('\nמה עניתי: '+ans):'')+'\nתחדד אותי - האם אני בכיוון הנכון?';cpText(msg);toast('הועתק - הדבק בצ\'אט עם העוזר');}
+
+// Expert objections (editable)
+function getExpertObjs(){try{var v=JSON.parse(localStorage.getItem('eilat_expert_objs'));return Array.isArray(v)?v:null;}catch(e){return null;}}
+function saveExpertObjs(a){localStorage.setItem('eilat_expert_objs',JSON.stringify(a));}
+function initExpertObjs(){if(!getExpertObjs())saveExpertObjs(OBJS.map(function(o){return {q:o[0],a:o[1]};}));}
+function renderExpertObjs(){
+ var objs=getExpertObjs()||[];
+ document.getElementById('objList').innerHTML=objs.map(function(o,i){
+  return '<div class="obj"><b>'+esc(o.q)+'</b><p>'+esc(o.a)+'</p>'+
+   '<div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">'+
+   '<button class="btn copy sm" onclick="cpText(getExpertObjs()['+i+'].a)">📋 העתק</button>'+
+   '<button class="btn sm gray" onclick="editExpertObj('+i+')">✏️ ערוך</button>'+
+   '<button class="btn red sm" onclick="delExpertObj('+i+')">🗑️ מחק</button>'+
+   '</div></div>';
+ }).join('')||'<p style="color:#888">אין התנגדויות. הוסף חדשה.</p>';
+}
+function addExpertObj(){
+ var q=document.getElementById('ex_obj_q').value.trim(),a=document.getElementById('ex_obj_a').value.trim();
+ if(!q){toast('כתוב התנגדות');return;}if(!a){toast('כתוב תשובה');return;}
+ var objs=getExpertObjs()||[];objs.push({q:q,a:a});saveExpertObjs(objs);
+ document.getElementById('ex_obj_q').value='';document.getElementById('ex_obj_a').value='';
+ renderExpertObjs();toast('התנגדות נוספה לספר ✓');
+}
+function editExpertObj(i){
+ var objs=getExpertObjs()||[];if(!objs[i])return;
+ var nq=prompt('ערוך התנגדות:',objs[i].q);if(nq===null)return;
+ var na=prompt('ערוך תשובה:',objs[i].a);if(na===null)return;
+ objs[i].q=nq.trim();objs[i].a=na.trim();saveExpertObjs(objs);renderExpertObjs();toast('עודכן ✓');
+}
+function delExpertObj(i){
+ if(!confirm('למחוק התנגדות זו?'))return;
+ var objs=getExpertObjs()||[];objs.splice(i,1);saveExpertObjs(objs);renderExpertObjs();toast('נמחק ✓');
+}
+function resetExpertObjs(){
+ if(!confirm('לאפס את כל ההתנגדויות לברירת המחדל? כל השינויים שלך יימחקו.'))return;
+ saveExpertObjs(OBJS.map(function(o){return {q:o[0],a:o[1]};}));renderExpertObjs();toast('אופס לברירת מחדל ✓');
+}
+
+// Post cards with expand/collapse
+function renderGroupPosts(){
+ var el=document.getElementById('postCards');if(!el)return;
+ el.innerHTML=POSTS.map(function(p,i){
+  return '<div class="msgcard"><h3>גרסה '+esc(p.v)+' · '+esc(p.name)+
+   ' <span style="display:flex;gap:6px"><button class="btn copy sm" onclick="copyPost('+i+')">📋 העתק</button>'+
+   '<button class="btn sm gray" onclick="togglePostPreview('+i+')" id="postToggle'+i+'">▼ תצוגה</button></span></h3>'+
+   '<div class="msgbody" id="postBody'+i+'" style="display:none">'+esc(p.body)+'</div></div>';
+ }).join('');
+}
+function togglePostPreview(i){
+ var body=document.getElementById('postBody'+i),btn=document.getElementById('postToggle'+i);
+ if(!body||!btn)return;
+ if(body.style.display==='none'){body.style.display='block';btn.textContent='▲ סגור';}
+ else{body.style.display='none';btn.textContent='▼ תצוגה';}
+}
 
 // LINKS
 const LINK_GROUPS=[
@@ -1037,7 +1094,7 @@ function renderHist(){
  arr.sort(function(a,b){return a.date<b.date?1:-1;});arr=arr.slice(0,7);
  el.innerHTML='<h2 class="sec" style="font-size:15px">📅 7 הימים האחרונים</h2>'+(arr.length?arr.map(function(r){return '<div class="histrow'+(r.date===today()?' istoday':'')+'"><span>'+fmtD(r.date)+(r.date===today()?' (היום)':'')+'</span><span><b>'+r.done+'/'+r.total+'</b> בוצעו</span></div>';}).join(''):'<p style="color:#888;font-size:13px">אין היסטוריה עדיין.</p>');
 }
-renderCh();fetchLeads();renderLinks();loadLinks();renderObjLog();loadMedia();activate('today');bootSync();
+renderCh();fetchLeads();renderLinks();loadLinks();renderObjLog();loadMedia();renderGroupPosts();activate('today');bootSync();
 </script>
 <footer style="font-size:10px;color:#999;text-align:center;padding:10px 0;margin-bottom:8px;">גרסה <span id="siteVer"></span></footer>
 <script src="version.js"></script>
