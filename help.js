@@ -1,0 +1,158 @@
+/* ===== עזרה צפה משותפת (F1) - מאסטרו נדל"ן =====
+   הטמעה: <script src="help.js"></script> בכל דף (יחסי: ../help.js בגלריה).
+   נותן כפתור ❓ בכל דף + מקש F1 שפותח חלון עזרה ויזואלי ופשוט,
+   מותאם אוטומטית לדף שבו נמצאים. הסבר בגובה העיניים - "שגם ילד יבין". */
+(function () {
+  // ---- תוכן עזרה לכל דף (לפי שם הקובץ ב-URL) ----
+  var HELP = {
+    'maestro-nadlan': {
+      title: '🏠 מאסטרו נדל"ן - מסך הבית',
+      what: 'זה השלט-רחוק של כל הנדל"ן שלך. כל כפתור פותח כלי אחד.',
+      why: 'במקום לזכור 10 כתובות - הכל מתחיל מכאן.',
+      steps: [
+        ['🏢', 'עמוד עליון = השקעות', 'הכלים לקנייה וניתוח של דירה חדשה: ניקוד עסקה, דוח תזרים, סימולטור.'],
+        ['📣', 'עמוד תחתון = שיווק', 'הכלים להשכרת הדירה הקיימת: משימות יומיות, לידים, דף נחיתה, בוט.'],
+        ['🟢', 'תגית "חי" = עובד עכשיו', 'תגית ירוקה אומרת שהכלי פעיל ומחובר. פשוט תלחץ.']
+      ],
+      tip: 'הוסף את הדף הזה למסך הבית של הטלפון - יהפוך לאפליקציה אחת לכל הנדל"ן.'
+    },
+    'manage': {
+      title: '🎯 מרכז ניהול שיווק',
+      what: 'המסך שעוזר לך להשכיר את הדירה - מה לעשות היום, צעד אחרי צעד.',
+      why: 'במקום "מרוב כפתורים לא יודע מה לעשות" - הלשונית "היום" אומרת לך בדיוק מה המשימה הבאה.',
+      steps: [
+        ['🎯', 'לשונית "היום"', 'מציגה משימה אחת בכל רגע: פרסם בקבוצה X, העתק טקסט, סמן בוצע. רק לעקוב.'],
+        ['💬', 'לשונית "הודעות"', 'הודעות מוכנות להעתקה לוואטסאפ - פתיח, מידע מלא, תזכורת.'],
+        ['👥', 'לשונית "לידים"', 'כל מי שפנה אליך. לחיצה על ליד פותחת כרטיס עם היסטוריה וחיוג.'],
+        ['🧠', 'לשונית "התנגדויות"', 'תשובות מוכנות ל"יקר לי" / "קטן לי" - מה לענות.']
+      ],
+      tip: 'התחל כל בוקר מלשונית "היום". סיימת את 4 המשימות? עשית את העבודה השיווקית של היום.'
+    },
+    'dashboard': {
+      title: '📊 דשבורד לידים',
+      what: 'תמונת מצב של כל המתעניינים בדירה - מי חם, מי מחכה, מאיפה הם הגיעו.',
+      why: 'לראות במבט אחד איפה עומדים, ולא לפספס אף אחד.',
+      steps: [
+        ['🔢', 'הריבועים למעלה (KPI)', 'מספרים מהירים: כמה לידים בסך הכל, כמה פעילים, כמה חמים.'],
+        ['📍', 'לידים לפי מקור', 'מאיזה ערוץ באו - פייסבוק? יד2? כך יודעים מה עובד.'],
+        ['📋', 'הטבלה', 'כל הלידים. לחיצה על שורה = פתיחת כרטיס לעריכה, חיוג או וואטסאפ.'],
+        ['🌡️', 'חום הליד', '🔥 חם = רוצה לסגור עכשיו. תתקשר אליו ראשון.']
+      ],
+      tip: 'ליד חם שלא ענית לו תוך שעה - מתקרר. תמיד תתחיל מהאדומים.'
+    },
+    'deal-report': {
+      title: '📑 דוח עסקה + תזרים',
+      what: 'בודק אם כדאי לקנות דירה מסוימת - מזין מספרים, מקבל תשובה: כן/לא ולמה.',
+      why: 'לפני שקונים דירה ב-מיליון ₪ - 5 דקות כאן חוסכות טעות של שנים.',
+      steps: [
+        ['📝', '1. מזין נתוני עסקה', 'מחיר הדירה, כמה שכ"ד תקבל, הוצאות, כמה משכנתא. הכל בשדות.'],
+        ['💰', '2. תזרים = הכסף החודשי', 'כמה נכנס (שכירות) פחות כמה יוצא (משכנתא+הוצאות). חיובי = הדירה משלמת לך. שלילי = אתה משלם מהכיס.'],
+        ['📈', '3. תשואה שנתית (IRR)', 'כמה אחוז רווח בשנה על הכסף שלך. 8%+ = עסקה טובה לקריות.'],
+        ['⚖️', '4. ציון 7 הסוכנים', 'ציון כולל מ-0 עד 100 שמשקלל הכל: שוק, ערך, סיכון, משפטי. גבוה = ירוק.']
+      ],
+      tip: 'שנה מספר אחד (למשל מוריד 50,000 ₪ מהמחיר) וראה איך הציון קופץ - ככה יודעים על כמה למקח.'
+    },
+    'simulator': {
+      title: '🧮 סימולטור כדאיות',
+      what: 'בדיקה מהירה אם עסקה שווה - לפני שמשקיעים זמן בדוח המלא.',
+      why: 'רואה דירה ביד2? תזין 4 מספרים ותדע ב-30 שניות אם להמשיך או לוותר.',
+      steps: [
+        ['🏠', '1. סוג עסקה', 'השכרה (מחזיקים ומשכירים) או פליפ (קונים, משביחים, מוכרים).'],
+        ['💵', '2. מזין מחיר + שכ"ד + מימון', 'כמה הדירה, כמה תקבל בחודש, כמה אחוז משכנתא.'],
+        ['🎯', '3. ציון כדאיות', 'מספר מ-0 עד 100. ירוק = כדאי, אדום = תוותר. עם הסבר למה.'],
+        ['📊', '4. תזרים חודשי', 'כמה כסף נכנס או יוצא לך כל חודש מהדירה הזו.']
+      ],
+      tip: 'תזרים שלילי לא תמיד רע - בפליפ מרוויחים מהמכירה, לא מהחודש. בהשכרה - תרצה תזרים חיובי.'
+    },
+    'lead-entry': {
+      title: '📥 רישום ליד',
+      what: 'טופס קצר להוספת מתעניין חדש למערכת.',
+      why: 'מישהו התקשר? רשום אותו כאן כדי שלא יישכח ותדע לחזור אליו.',
+      steps: [
+        ['✍️', '1. ממלא שם + טלפון', 'המינימום ההכרחי. אפשר גם להוסיף הערה.'],
+        ['📡', '2. בוחר מקור', 'מאיפה הגיע - פייסבוק, יד2, המלצה. עוזר לדעת מה עובד.'],
+        ['💾', '3. שומר', 'הליד נכנס למערכת ויופיע בדשבורד ובמרכז הניהול.']
+      ],
+      tip: 'מהיר יותר: שלח לבוט הטלגרם "שם טלפון מקור" - רישום ב-5 שניות מהנייד.'
+    },
+    'default': {
+      title: '❓ עזרה',
+      what: 'זה אחד הכלים של מאסטרו נדל"ן.',
+      why: 'לחזרה למסך הראשי - לחץ על כפתור 🏠 מאסטרו, או על מקש F2.',
+      steps: [
+        ['🧭', 'ניווט מהיר', 'כפתור 🧭 למטה פותח תפריט לכל הדפים.'],
+        ['🏠', 'חזרה לבית', 'כפתור 🏠 מאסטרו מחזיר למסך הראשי.']
+      ],
+      tip: 'F1 = עזרה · F2 = מסך ראשי.'
+    }
+  };
+
+  function pageKey() {
+    var p = location.pathname.toLowerCase();
+    for (var k in HELP) { if (k !== 'default' && p.indexOf(k) > -1) return k; }
+    if (p.indexOf('dira-gallery') > -1 || p === '/' || p.endsWith('/')) return 'default';
+    return 'default';
+  }
+
+  var css = '' +
+  '#mhlp-btn{position:fixed;bottom:calc(82px + env(safe-area-inset-bottom));left:18px;z-index:99997;' +
+  'width:46px;height:46px;border-radius:50%;background:#c9a25a;color:#fff;border:none;cursor:pointer;' +
+  'font-size:22px;font-weight:bold;box-shadow:0 4px 14px rgba(0,0,0,.28);display:flex;align-items:center;justify-content:center;}' +
+  '#mhlp-btn:active{transform:scale(.92);}' +
+  '#mhlp-ov{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99999;display:none;padding:16px;overflow:auto;}' +
+  '#mhlp-ov.show{display:block;}' +
+  '#mhlp-box{max-width:560px;margin:24px auto;background:#fff;border-radius:18px;overflow:hidden;' +
+  'box-shadow:0 12px 50px rgba(0,0,0,.4);font-family:Segoe UI,Arial,sans-serif;direction:rtl;}' +
+  '#mhlp-hd{background:linear-gradient(135deg,#4a382b,#a05c3a);color:#fff;padding:18px 18px 16px;position:relative;}' +
+  '#mhlp-hd h2{font-size:19px;margin:0;}' +
+  '#mhlp-x{position:absolute;top:14px;left:14px;background:rgba(255,255,255,.25);color:#fff;border:none;' +
+  'width:32px;height:32px;border-radius:50%;font-size:16px;cursor:pointer;}' +
+  '#mhlp-bd{padding:16px 18px 20px;color:#4a382b;}' +
+  '.mhlp-what{background:#fbf4e9;border-radius:12px;padding:12px 14px;font-size:15px;font-weight:bold;margin-bottom:8px;}' +
+  '.mhlp-why{font-size:13.5px;color:#78624f;margin-bottom:16px;line-height:1.5;}' +
+  '.mhlp-step{display:flex;gap:12px;align-items:flex-start;margin-bottom:13px;}' +
+  '.mhlp-step .ic{font-size:26px;flex-shrink:0;width:38px;text-align:center;}' +
+  '.mhlp-step .tx b{display:block;font-size:14.5px;margin-bottom:2px;color:#a05c3a;}' +
+  '.mhlp-step .tx span{font-size:13px;color:#5a4a3a;line-height:1.5;}' +
+  '.mhlp-tip{background:#e9f5ec;border:1px solid #b9e0c4;border-radius:12px;padding:11px 14px;font-size:13px;' +
+  'color:#2e7d32;margin-top:6px;line-height:1.5;}' +
+  '.mhlp-tip b{color:#1b5e20;}' +
+  '#mhlp-foot{text-align:center;font-size:11px;color:#a99;padding:10px;border-top:1px solid #eee;}';
+
+  function build() {
+    var st = document.createElement('style'); st.textContent = css; document.head.appendChild(st);
+
+    var btn = document.createElement('button');
+    btn.id = 'mhlp-btn'; btn.innerHTML = '?'; btn.title = 'עזרה (F1)';
+    document.body.appendChild(btn);
+
+    var ov = document.createElement('div'); ov.id = 'mhlp-ov';
+    document.body.appendChild(ov);
+
+    function render() {
+      var h = HELP[pageKey()] || HELP['default'];
+      var s = '<div id="mhlp-box"><div id="mhlp-hd"><button id="mhlp-x">✕</button><h2>' + h.title + '</h2></div><div id="mhlp-bd">';
+      s += '<div class="mhlp-what">' + h.what + '</div>';
+      s += '<div class="mhlp-why">' + h.why + '</div>';
+      h.steps.forEach(function (st) {
+        s += '<div class="mhlp-step"><div class="ic">' + st[0] + '</div><div class="tx"><b>' + st[1] + '</b><span>' + st[2] + '</span></div></div>';
+      });
+      s += '<div class="mhlp-tip">💡 <b>טיפ:</b> ' + h.tip + '</div>';
+      s += '</div><div id="mhlp-foot">עזרה · F1 לפתיחה · Esc לסגירה</div></div>';
+      ov.innerHTML = s;
+    }
+
+    function open() { render(); ov.classList.add('show'); }
+    function close() { ov.classList.remove('show'); }
+
+    btn.onclick = open;
+    ov.onclick = function (e) { if (e.target === ov || e.target.id === 'mhlp-x') close(); };
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'F1') { e.preventDefault(); open(); }
+      else if (e.key === 'Escape') close();
+    });
+  }
+
+  if (document.body) build();
+  else document.addEventListener('DOMContentLoaded', build);
+})();
