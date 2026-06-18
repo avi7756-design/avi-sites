@@ -4,6 +4,7 @@
 
 | גרסה | תאריך | תיאור | commits עיקריים |
 |------|-------|-------|-----------------|
+| **v3.9** | 19/06/2026 | תיקון: טיפול בתשובת רשומה בודדת מ-API (מונים ופיד הציגו 0 במקום 1) | `Fix single-row API response handling v3.9` |
 | **v3.8** | 18/06/2026 | איתור יהלום + פיד חי + מונים חיים במאסטרו (מרכז שליטה אחד) | `Diamond sourcing + live counters command center v3.8` |
 | **v3.7** | 18/06/2026 | עזרה צפה (help.js) כפתור ? + F1 בכל הדפים | `Add contextual help overlay v3.7` |
 | **v3.6** | 18/06/2026 | תיקון 404: הוספת deal-report.html ו-simulator.html שהמאסטרו מצביע אליהם | `Fix 404: add deal-report + simulator pages v3.6` |

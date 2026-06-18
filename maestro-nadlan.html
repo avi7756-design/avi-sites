@@ -179,12 +179,12 @@
 <script>
 (function(){
   fetch('https://avi-hazan.app.n8n.cloud/webhook/deals-data',{cache:'no-store'}).then(r=>r.json()).then(d=>{
-    if(!Array.isArray(d))d=[];
+    if(!Array.isArray(d))d=(d&&typeof d==='object'&&(d.id||d.address||d.city||d.name||d.phone))?[d]:[];
     document.getElementById('st_deals').textContent=d.length;
     document.getElementById('st_diamonds').textContent=d.filter(x=>(x.decision||'').indexOf('יהלום')>-1).length;
   }).catch(()=>{});
   fetch('https://avi-hazan.app.n8n.cloud/webhook/leads-data-eilat5',{cache:'no-store'}).then(r=>r.json()).then(d=>{
-    if(!Array.isArray(d))d=[];
+    if(!Array.isArray(d))d=(d&&typeof d==='object'&&(d.id||d.address||d.city||d.name||d.phone))?[d]:[];
     var active=d.filter(x=>['פנייה חדשה','חדש','דיברנו','ביקור נקבע','מעוניין'].indexOf((x.status||'').trim())>-1).length;
     document.getElementById('st_leads').textContent=active;
   }).catch(()=>{});
