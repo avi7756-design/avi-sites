@@ -4,6 +4,7 @@
 
 | גרסה | תאריך | תיאור | commits עיקריים |
 |------|-------|-------|-----------------|
+| **v3.8** | 18/06/2026 | איתור יהלום + פיד חי + מונים חיים במאסטרו (מרכז שליטה אחד) | `Diamond sourcing + live counters command center v3.8` |
 | **v3.7** | 18/06/2026 | עזרה צפה (help.js) כפתור ? + F1 בכל הדפים | `Add contextual help overlay v3.7` |
 | **v3.6** | 18/06/2026 | תיקון 404: הוספת deal-report.html ו-simulator.html שהמאסטרו מצביע אליהם | `Fix 404: add deal-report + simulator pages v3.6` |
 | **v3.4** | 17/06/2026 | ניווט צף משותף (nav.js) בכל הדפים: כפתור 🧭 ניווט מהיר, כפתור 🏠 חזרה למאסטרו, ומקש F2 | `Shared floating nav across all pages v3.4` |
