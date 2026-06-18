@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<!-- saved from url=(0054)file:///C:/Users/Avi/Downloads/simulator-nadlan_2.html -->
+<html lang="he" dir="rtl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>סימולטור כדאיות נדל"ן - חזן אבי</title>
+<style>
+  :root{
+    --ink:#0e1726; --ink-soft:#43506b; --line:#e3e8f0;
+    --bg:#f5f7fb; --card:#ffffff;
+    --gold:#b8893a; --gold-soft:#f0e2c8;
+    --green:#1f8a52; --green-bg:#e6f4ec;
+    --red:#c0392b; --red-bg:#fbeae8;
+    --amber:#b9770a; --amber-bg:#fdf3e0;
+    --blue:#22456b;
+    --shadow:0 8px 30px rgba(14,23,38,.07);
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{
+    font-family:"Heebo","Segoe UI",Tahoma,sans-serif;
+    background:var(--bg);color:var(--ink);
+    line-height:1.55;padding:0 0 60px;
+    -webkit-font-smoothing:antialiased;
+  }
+  .wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+
+  /* Header */
+  header{
+    background:linear-gradient(135deg,#11203a 0%,#22456b 100%);
+    color:#fff;padding:34px 0 30px;margin-bottom:28px;
+    border-bottom:4px solid var(--gold);
+  }
+  header h1{font-size:1.85rem;font-weight:800;display:flex;align-items:center;gap:12px;letter-spacing:-.5px}
+  header h1 .mark{
+    background:var(--gold);color:#11203a;width:42px;height:42px;border-radius:11px;
+    display:grid;place-items:center;font-size:1.3rem;flex:none;
+  }
+  header p{opacity:.82;margin-top:7px;font-size:.97rem;max-width:760px}
+  .badge-row{display:flex;gap:9px;flex-wrap:wrap;margin-top:16px}
+  .badge{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);
+    padding:5px 13px;border-radius:30px;font-size:.78rem;font-weight:500}
+
+  /* Layout */
+  .grid{display:grid;grid-template-columns:1fr 1.15fr;gap:22px;align-items:start}
+  @media(max-width:880px){.grid{grid-template-columns:1fr}}
+
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;
+    box-shadow:var(--shadow);overflow:hidden}
+  .card-head{padding:16px 20px;border-bottom:1px solid var(--line);
+    display:flex;align-items:center;gap:10px;background:#fbfcfe}
+  .card-head h2{font-size:1.05rem;font-weight:700}
+  .card-head .ico{width:30px;height:30px;border-radius:8px;display:grid;place-items:center;
+    background:var(--gold-soft);color:var(--gold);font-size:.95rem;flex:none}
+  .card-body{padding:20px}
+
+  /* Inputs */
+  .field{margin-bottom:15px}
+  .field label{display:block;font-size:.85rem;font-weight:600;color:var(--ink-soft);margin-bottom:6px}
+  .field .hint{font-weight:400;color:#94a0b8;font-size:.78rem}
+  .input-wrap{position:relative}
+  .input-wrap .suffix{position:absolute;left:13px;top:50%;transform:translateY(-50%);
+    color:#9aa6bd;font-size:.83rem;pointer-events:none}
+  input[type=number],select{
+    width:100%;padding:11px 13px;border:1.5px solid var(--line);border-radius:10px;
+    font-size:.95rem;font-family:inherit;color:var(--ink);background:#fff;transition:.15s;
+  }
+  input[type=number]{padding-left:46px}
+  input:focus,select:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--gold-soft)}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  .sec-label{font-size:.74rem;font-weight:700;letter-spacing:.5px;color:var(--gold);
+    text-transform:uppercase;margin:22px 0 11px;padding-bottom:6px;border-bottom:1px dashed var(--line)}
+  .sec-label:first-child{margin-top:0}
+
+  .range-row{display:flex;align-items:center;gap:12px}
+  .range-row input[type=range]{flex:1;accent-color:var(--gold)}
+  .range-row .val{font-weight:700;min-width:54px;text-align:left;color:var(--blue)}
+
+  /* Results */
+  .verdict{padding:20px;text-align:center;border-radius:14px;margin-bottom:18px;border:1.5px solid}
+  .verdict.good{background:var(--green-bg);border-color:#bfe3cd}
+  .verdict.mid{background:var(--amber-bg);border-color:#f3dcae}
+  .verdict.bad{background:var(--red-bg);border-color:#f1c9c3}
+  .verdict .tag{font-size:.8rem;font-weight:600;opacity:.75;margin-bottom:4px}
+  .verdict .score{font-size:2.5rem;font-weight:800;line-height:1.1}
+  .verdict.good .score{color:var(--green)}
+  .verdict.mid .score{color:var(--amber)}
+  .verdict.bad .score{color:var(--red)}
+  .verdict .msg{font-size:.92rem;margin-top:6px;font-weight:500}
+
+  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
+  .kpi{background:#fbfcfe;border:1px solid var(--line);border-radius:12px;padding:14px}
+  .kpi .k-label{font-size:.78rem;color:var(--ink-soft);margin-bottom:5px;display:flex;align-items:center;gap:5px}
+  .kpi .k-val{font-size:1.45rem;font-weight:800;letter-spacing:-.5px}
+  .kpi .k-sub{font-size:.74rem;color:#9aa6bd;margin-top:2px}
+  .pos{color:var(--green)} .neg{color:var(--red)} .neu{color:var(--blue)}
+
+  table{width:100%;border-collapse:collapse;font-size:.88rem}
+  table th,table td{padding:9px 12px;text-align:right;border-bottom:1px solid var(--line)}
+  table th{background:#fbfcfe;font-weight:600;color:var(--ink-soft);font-size:.8rem}
+  table td.num{font-weight:700;text-align:left;font-variant-numeric:tabular-nums}
+  table tr:last-child td{border-bottom:none}
+  table tr.total td{background:#fbfcfe;font-weight:800}
+
+  .flags{margin-top:16px}
+  .flag{display:flex;gap:9px;align-items:flex-start;padding:10px 13px;border-radius:10px;
+    margin-bottom:8px;font-size:.85rem;line-height:1.4}
+  .flag.ok{background:var(--green-bg)} .flag.warn{background:var(--amber-bg)} .flag.alert{background:var(--red-bg)}
+  .flag .fi{flex:none;font-weight:700}
+
+  .empty{text-align:center;padding:50px 20px;color:#9aa6bd}
+  .empty .big{font-size:2.4rem;margin-bottom:10px}
+
+  footer{text-align:center;color:#9aa6bd;font-size:.8rem;margin-top:30px;line-height:1.7}
+  .disclaimer{background:#fff;border:1px solid var(--line);border-radius:12px;
+    padding:14px 18px;margin-top:22px;font-size:.82rem;color:var(--ink-soft);line-height:1.6}
+  .disclaimer b{color:var(--amber)}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <h1><span class="mark">🏢</span> סימולטור כדאיות נדל"ן</h1>
+    <p>כלי ניתוח עסקאות מקצועי - מזין נתוני עסקה אמיתיים ומקבל תשואה, תזרים, מינוף ומדדי כדאיות. כל מספר מבוסס על מה שאתה מזין, ללא נתונים מומצאים.</p>
+    <div class="badge-row">
+      <span class="badge">✓ חישוב תשואה ברוטו ונטו</span>
+      <span class="badge">✓ ניתוח מינוף ומשכנתא</span>
+      <span class="badge">✓ תזרים חודשי</span>
+      <span class="badge">✓ ציון כדאיות אוטומטי</span>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="grid">
+
+    <!-- INPUT -->
+    <div class="card">
+      <div class="card-head"><span class="ico">📝</span><h2>נתוני העסקה</h2></div>
+      <div class="card-body">
+
+        <div class="sec-label">פרטי הנכס</div>
+        <div class="field">
+          <label>סוג עסקה</label>
+          <select id="dealType" onchange="calc()">
+            <option value="rent">השקעה להשכרה (תשואה שוטפת)</option>
+            <option value="flip">פליפ / השבחה ומכירה</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>מחיר רכישה <span class="hint">(₪)</span></label>
+          <div class="input-wrap"><span class="suffix">₪</span>
+            <input type="number" id="price" value="1200000" oninput="calc()"></div>
+        </div>
+        <div class="two">
+          <div class="field">
+            <label>עלויות רכישה <span class="hint">מס רכישה, עו"ד, תיווך</span></label>
+            <div class="input-wrap"><span class="suffix">₪</span>
+              <input type="number" id="buyCosts" value="60000" oninput="calc()"></div>
+          </div>
+          <div class="field">
+            <label>שיפוץ / השבחה <span class="hint">(₪)</span></label>
+            <div class="input-wrap"><span class="suffix">₪</span>
+              <input type="number" id="reno" value="40000" oninput="calc()"></div>
+          </div>
+        </div>
+
+        <div class="sec-label">מימון</div>
+        <div class="field">
+          <label>אחוז מימון (LTV) <span class="hint" id="ltvHint">70%</span></label>
+          <div class="range-row">
+            <input type="range" id="ltv" min="0" max="90" value="70" oninput="calc()">
+            <span class="val" id="ltvVal">70%</span>
+          </div>
+        </div>
+        <div class="two">
+          <div class="field">
+            <label>ריבית שנתית <span class="hint">%</span></label>
+            <div class="input-wrap"><span class="suffix">%</span>
+              <input type="number" id="rate" value="5.2" step="0.1" oninput="calc()" style="padding-left:30px"></div>
+          </div>
+          <div class="field">
+            <label>תקופת משכנתא <span class="hint">שנים</span></label>
+            <div class="input-wrap"><span class="suffix">שנ'</span>
+              <input type="number" id="years" value="25" oninput="calc()" style="padding-left:38px"></div>
+          </div>
+        </div>
+
+        <!-- RENT -->
+        <div id="rentInputs" style="display: block;">
+          <div class="sec-label">הכנסות והוצאות (השכרה)</div>
+          <div class="field">
+            <label>שכר דירה חודשי <span class="hint">(₪)</span></label>
+            <div class="input-wrap"><span class="suffix">₪</span>
+              <input type="number" id="rentM" value="4500" oninput="calc()"></div>
+          </div>
+          <div class="two">
+            <div class="field">
+              <label>הוצאות שנתיות <span class="hint">ועד, ביטוח, תחזוקה</span></label>
+              <div class="input-wrap"><span class="suffix">₪</span>
+                <input type="number" id="opex" value="6000" oninput="calc()"></div>
+            </div>
+            <div class="field">
+              <label>אחוז אי-תפוסה <span class="hint">vacancy %</span></label>
+              <div class="input-wrap"><span class="suffix">%</span>
+                <input type="number" id="vac" value="4" oninput="calc()" style="padding-left:30px"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- FLIP -->
+        <div id="flipInputs" style="display:none">
+          <div class="sec-label">מכירה (פליפ)</div>
+          <div class="two">
+            <div class="field">
+              <label>מחיר מכירה צפוי <span class="hint">(₪)</span></label>
+              <div class="input-wrap"><span class="suffix">₪</span>
+                <input type="number" id="sellPrice" value="1450000" oninput="calc()"></div>
+            </div>
+            <div class="field">
+              <label>חודשים עד מכירה</label>
+              <div class="input-wrap"><span class="suffix">חוד'</span>
+                <input type="number" id="holdM" value="9" oninput="calc()" style="padding-left:44px"></div>
+            </div>
+          </div>
+          <div class="field">
+            <label>עלות מכירה <span class="hint">תיווך, מס שבח, עו"ד (₪)</span></label>
+            <div class="input-wrap"><span class="suffix">₪</span>
+              <input type="number" id="sellCosts" value="55000" oninput="calc()"></div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="card">
+      <div class="card-head"><span class="ico">📊</span><h2>תוצאות הניתוח</h2></div>
+      <div class="card-body" id="results"><div class="verdict bad">
+    <div class="tag">ציון כדאיות · לא מומלץ</div>
+    <div class="score">22<span style="font-size:1.1rem;opacity:.5">/100</span></div>
+    <div class="msg">עסקה לא כדאית בתנאים הנוכחיים</div>
+  </div><div class="kpis">
+      <div class="kpi"><div class="k-label">תשואה נטו</div>
+    <div class="k-val neu">3.5%</div><div class="k-sub">על ההשקעה הכוללת</div></div>
+      <div class="kpi"><div class="k-label">תשואה ברוטו</div>
+    <div class="k-val neu">4.5%</div><div class="k-sub">על מחיר הנכס</div></div>
+      <div class="kpi"><div class="k-label">תזרים חודשי</div>
+    <div class="k-val neg">‎-1,189 ₪</div><div class="k-sub">אחרי משכנתא והוצאות</div></div>
+      <div class="kpi"><div class="k-label">Cash-on-Cash</div>
+    <div class="k-val neg">-3.1%</div><div class="k-sub">תשואה על ההון העצמי</div></div>
+    </div><table>
+      <tbody><tr><th>פירוט</th><th style="text-align:left">סכום</th></tr>
+      <tr><td>הון עצמי נדרש</td><td class="num">460,000 ₪</td></tr>
+      <tr><td>הלוואה (70%)</td><td class="num">840,000 ₪</td></tr>
+      <tr><td>החזר משכנתא חודשי</td><td class="num">5,009 ₪</td></tr>
+      <tr><td>הכנסה תפעולית נטו (NOI) שנתית</td><td class="num">45,840 ₪</td></tr>
+      <tr class="total"><td>תזרים שנתי נטו</td><td class="num neg">‎-14,267 ₪</td></tr>
+    </tbody></table><div class="flags"><div class="flag warn"><span class="fi">!</span><span>תשואה נטו 3.5% - מתחת ל-5%, שקול מיקוח על המחיר</span></div><div class="flag alert"><span class="fi">✕</span><span>תזרים שלילי ‎-1,189 ₪/חודש - אתה מוסיף מהכיס מדי חודש</span></div><div class="flag ok"><span class="fi">✓</span><span>מינוף 70% - שמרני וסביר</span></div><div class="flag warn"><span class="fi">!</span><span>Cash-on-Cash -3.1% - תשואה נמוכה על ההון העצמי</span></div></div></div>
+    </div>
+
+  </div>
+
+  <div class="disclaimer">
+    <b>הבהרה:</b> הכלי מחשב על בסיס הנתונים שאתה מזין בלבד. הוא אינו סורק מאגרים חיצוניים (יד2/מדלן) ואינו ממציא עסקאות.
+    מס רכישה, מס שבח ושיעורי מימון משתנים לפי נסיבות - אמת מול עו"ד ויועץ מס לפני ביצוע. אינו תחליף לייעוץ פיננסי/משפטי.
+  </div>
+
+  <footer>
+    סימולטור כדאיות נדל"ן · גרסה עובדת 2026 · נבנה עבור חזן אבי<br>
+    להעלאה מחדש ל-Netlify: גרור קובץ זה לאתר netlify.com (Deploy)
+  </footer>
+</div>
+
+<script>
+const fmt = n => Math.round(n).toLocaleString('he-IL');
+const fmt1 = n => n.toFixed(1);
+
+function pmt(principal, annualRate, years){
+  const r = annualRate/100/12, n = years*12;
+  if(r === 0) return principal/n;
+  return principal * r / (1 - Math.pow(1+r, -n));
+}
+
+function calc(){
+  const dealType = document.getElementById('dealType').value;
+  document.getElementById('rentInputs').style.display = dealType==='rent'?'block':'none';
+  document.getElementById('flipInputs').style.display = dealType==='flip'?'block':'none';
+
+  const price = +document.getElementById('price').value || 0;
+  const buyCosts = +document.getElementById('buyCosts').value || 0;
+  const reno = +document.getElementById('reno').value || 0;
+  const ltv = +document.getElementById('ltv').value || 0;
+  const rate = +document.getElementById('rate').value || 0;
+  const years = +document.getElementById('years').value || 1;
+
+  document.getElementById('ltvVal').textContent = ltv+'%';
+  document.getElementById('ltvHint').textContent = ltv+'%';
+
+  const loan = price * ltv/100;
+  const totalCost = price + buyCosts + reno;
+  const equity = totalCost - loan;          // הון עצמי נדרש
+  const monthlyPmt = loan>0 ? pmt(loan, rate, years) : 0;
+
+  let res = '';
+
+  if(dealType==='rent'){
+    const rentM = +document.getElementById('rentM').value || 0;
+    const opex = +document.getElementById('opex').value || 0;
+    const vac = +document.getElementById('vac').value || 0;
+
+    const grossYear = rentM*12;
+    const effGross = grossYear * (1 - vac/100);
+    const noi = effGross - opex;                       // הכנסה תפעולית נטו
+    const grossYield = price>0 ? grossYear/price*100 : 0;
+    const netYield = totalCost>0 ? noi/totalCost*100 : 0;
+    const cashFlowM = rentM*(1-vac/100) - opex/12 - monthlyPmt;
+    const cashFlowY = cashFlowM*12;
+    const cashOnCash = equity>0 ? cashFlowY/equity*100 : 0;
+
+    // ציון
+    let score=0;
+    score += Math.min(netYield/6*40,40);
+    score += cashFlowM>0 ? 30 : (cashFlowM>-500?12:0);
+    score += Math.min(cashOnCash/8*20,20);
+    score += grossYield>=5?10:(grossYield>=4?6:2);
+    score = Math.max(0,Math.min(100,Math.round(score)));
+
+    const cls = score>=70?'good':score>=50?'mid':'bad';
+    const verdictMsg = score>=70?'עסקה אטרקטיבית':score>=50?'עסקה גבולית - דורשת מיקוח':'עסקה לא כדאית בתנאים הנוכחיים';
+
+    res += verdictBlock(cls,score,verdictMsg);
+    res += `<div class="kpis">
+      ${kpi('תשואה נטו','neu',fmt1(netYield)+'%','על ההשקעה הכוללת')}
+      ${kpi('תשואה ברוטו','neu',fmt1(grossYield)+'%','על מחיר הנכס')}
+      ${kpi('תזרים חודשי',cashFlowM>=0?'pos':'neg',(cashFlowM>=0?'+':'')+fmt(cashFlowM)+' ₪','אחרי משכנתא והוצאות')}
+      ${kpi('Cash-on-Cash',cashOnCash>=0?'pos':'neg',fmt1(cashOnCash)+'%','תשואה על ההון העצמי')}
+    </div>`;
+
+    res += `<table>
+      <tr><th>פירוט</th><th style="text-align:left">סכום</th></tr>
+      <tr><td>הון עצמי נדרש</td><td class="num">${fmt(equity)} ₪</td></tr>
+      <tr><td>הלוואה (${ltv}%)</td><td class="num">${fmt(loan)} ₪</td></tr>
+      <tr><td>החזר משכנתא חודשי</td><td class="num">${fmt(monthlyPmt)} ₪</td></tr>
+      <tr><td>הכנסה תפעולית נטו (NOI) שנתית</td><td class="num">${fmt(noi)} ₪</td></tr>
+      <tr class="total"><td>תזרים שנתי נטו</td><td class="num ${cashFlowY>=0?'pos':'neg'}">${(cashFlowY>=0?'+':'')+fmt(cashFlowY)} ₪</td></tr>
+    </table>`;
+
+    res += flagsBlock([
+      [netYield>=5,'ok','warn',`תשואה נטו ${fmt1(netYield)}% - ${netYield>=5?'מעל סף 5% הרצוי':'מתחת ל-5%, שקול מיקוח על המחיר'}`],
+      [cashFlowM>=0,'ok','alert',cashFlowM>=0?`תזרים חיובי ${fmt(cashFlowM)} ₪/חודש - הנכס מממן את עצמו`:`תזרים שלילי ${fmt(cashFlowM)} ₪/חודש - אתה מוסיף מהכיס מדי חודש`],
+      [ltv<=75,'ok','warn',`מינוף ${ltv}% - ${ltv<=75?'שמרני וסביר':'גבוה, רגישות גבוהה לעליית ריבית'}`],
+      [cashOnCash>=6,'ok','warn',`Cash-on-Cash ${fmt1(cashOnCash)}% - ${cashOnCash>=6?'תשואה טובה על ההון':'תשואה נמוכה על ההון העצמי'}`]
+    ]);
+
+  } else {
+    // FLIP
+    const sellPrice = +document.getElementById('sellPrice').value || 0;
+    const holdM = +document.getElementById('holdM').value || 1;
+    const sellCosts = +document.getElementById('sellCosts').value || 0;
+
+    const financeCost = monthlyPmt*holdM;             // עלות מימון בתקופת ההחזקה (קירוב)
+    const totalInvest = totalCost + financeCost;
+    const profit = sellPrice - totalInvest - sellCosts;
+    const roiTotal = totalInvest>0 ? profit/(equity+financeCost)*100 : 0;
+    const roiAnnual = roiTotal/(holdM/12);
+    const margin = sellPrice>0 ? profit/sellPrice*100 : 0;
+
+    let score=0;
+    score += Math.min(roiAnnual/30*45,45);
+    score += profit>0?25:0;
+    score += Math.min(margin/20*20,20);
+    score += holdM<=12?10:(holdM<=18?5:0);
+    score = Math.max(0,Math.min(100,Math.round(score)));
+
+    const cls = score>=70?'good':score>=50?'mid':'bad';
+    const verdictMsg = score>=70?'פליפ רווחי':score>=50?'רווח גבולי - סיכון מול תשואה':'הפליפ לא משתלם בתנאים אלה';
+
+    res += verdictBlock(cls,score,verdictMsg);
+    res += `<div class="kpis">
+      ${kpi('רווח נקי',profit>=0?'pos':'neg',(profit>=0?'+':'')+fmt(profit)+' ₪','אחרי כל העלויות')}
+      ${kpi('תשואה שנתית','neu',fmt1(roiAnnual)+'%','ROI מתואם לשנה')}
+      ${kpi('שולי רווח','neu',fmt1(margin)+'%','מתוך מחיר המכירה')}
+      ${kpi('הון עצמי','neu',fmt(equity)+' ₪','השקעה ראשונית')}
+    </div>`;
+
+    res += `<table>
+      <tr><th>פירוט</th><th style="text-align:left">סכום</th></tr>
+      <tr><td>סך השקעה (רכישה+עלויות+שיפוץ)</td><td class="num">${fmt(totalCost)} ₪</td></tr>
+      <tr><td>עלות מימון ל-${holdM} חודשים</td><td class="num">${fmt(financeCost)} ₪</td></tr>
+      <tr><td>מחיר מכירה</td><td class="num">${fmt(sellPrice)} ₪</td></tr>
+      <tr><td>עלויות מכירה</td><td class="num">-${fmt(sellCosts)} ₪</td></tr>
+      <tr class="total"><td>רווח נקי</td><td class="num ${profit>=0?'pos':'neg'}">${(profit>=0?'+':'')+fmt(profit)} ₪</td></tr>
+    </table>`;
+
+    res += flagsBlock([
+      [profit>0,'ok','alert',profit>0?`רווח חיובי ${fmt(profit)} ₪`:`הפסד צפוי ${fmt(profit)} ₪ - העסקה מפסידה`],
+      [roiAnnual>=20,'ok','warn',`תשואה שנתית ${fmt1(roiAnnual)}% - ${roiAnnual>=20?'מעל סף הפליפ (20%)':'נמוכה ביחס לסיכון הפליפ'}`],
+      [margin>=12,'ok','warn',`שולי רווח ${fmt1(margin)}% - ${margin>=12?'מרווח ביטחון סביר':'מרווח דק, רגיש לחריגות שיפוץ'}`],
+      [holdM<=12,'ok','warn',`${holdM} חודשי החזקה - ${holdM<=12?'טווח קצר וטוב':'ככל שמתארך, עלות המימון אוכלת מהרווח'}`]
+    ]);
+  }
+
+  document.getElementById('results').innerHTML = res;
+}
+
+function verdictBlock(cls,score,msg){
+  const tag = cls==='good'?'מומלץ':cls==='mid'?'בזהירות':'לא מומלץ';
+  return `<div class="verdict ${cls}">
+    <div class="tag">ציון כדאיות · ${tag}</div>
+    <div class="score">${score}<span style="font-size:1.1rem;opacity:.5">/100</span></div>
+    <div class="msg">${msg}</div>
+  </div>`;
+}
+function kpi(label,cls,val,sub){
+  return `<div class="kpi"><div class="k-label">${label}</div>
+    <div class="k-val ${cls}">${val}</div><div class="k-sub">${sub}</div></div>`;
+}
+function flagsBlock(arr){
+  let h='<div class="flags">';
+  arr.forEach(([ok,okCls,badCls,txt])=>{
+    const c = ok?'ok':badCls;
+    const ic = ok?'✓':(badCls==='alert'?'✕':'!');
+    h+=`<div class="flag ${c}"><span class="fi">${ic}</span><span>${txt}</span></div>`;
+  });
+  return h+'</div>';
+}
+
+calc();
+</script>
+
+
+<script src="nav.js"></script>
+</body></html>

@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דוח עסקה + תזרים | מערכת השקעות נדל"ן</title>
+<style>
+  :root{--ink:#0e1726;--muted:#5f6b82;--line:#e3e8f0;--bg:#f5f7fb;--card:#fff;
+    --blue:#22456b;--gold:#b8893a;--green:#1f8a52;--green-bg:#e6f4ec;--amber:#b9770a;--amber-bg:#fdf3e0;--red:#c0392b;--red-bg:#fbeae8;--shadow:0 6px 24px rgba(14,23,38,.07)}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Heebo","Segoe UI",Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.5;padding:24px}
+  .wrap{max-width:1080px;margin:auto}
+  header{background:linear-gradient(135deg,#11203a,#22456b);color:#fff;border-radius:16px;padding:22px 26px;border-bottom:4px solid var(--gold);margin-bottom:20px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:14px}
+  header h1{font-size:1.5rem;font-weight:800}
+  header .sub{opacity:.85;font-size:.9rem;margin-top:4px}
+  .verstamp{text-align:left;font-size:.82rem;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);border-radius:10px;padding:8px 12px}
+  .verstamp input{background:transparent;border:none;border-bottom:1px dashed rgba(255,255,255,.5);color:#fff;font-family:inherit;font-size:.82rem;width:96px;text-align:left}
+  .verstamp input:focus{outline:none;border-bottom-color:var(--gold)}
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:12px;margin-bottom:20px}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--shadow)}
+  .kpi .lab{font-size:.8rem;color:var(--muted);margin-bottom:6px}
+  .kpi .val{font-size:1.7rem;font-weight:800;letter-spacing:-.5px}
+  .verdict{grid-column:1/-1;border-radius:14px;padding:16px 20px;font-weight:800;font-size:1.15rem;text-align:center;border:1.5px solid}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  @media(max-width:820px){.grid2{grid-template-columns:1fr}}
+  .card{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);overflow:hidden;margin-bottom:18px}
+  .card h2{font-size:1.05rem;padding:14px 18px;border-bottom:1px solid var(--line);background:#fbfcfe;display:flex;align-items:center;gap:8px}
+  .card .body{padding:16px 18px}
+  .row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--line);font-size:.92rem}
+  .row:last-child{border:none}
+  .row .v{font-weight:700;font-variant-numeric:tabular-nums}
+  .pos{color:var(--green)}.neg{color:var(--red)}.neu{color:var(--blue)}
+  .fld{display:flex;justify-content:space-between;align-items:center;margin-bottom:9px;font-size:.88rem}
+  .fld label{color:var(--muted)}
+  .fld input{width:120px;padding:7px 9px;border:1.5px solid var(--line);border-radius:8px;font-family:inherit;font-size:.9rem;text-align:left}
+  .fld input:focus{outline:none;border-color:var(--gold);box-shadow:0 0 0 3px var(--amber-bg)}
+  .bar{height:10px;background:var(--line);border-radius:6px;overflow:hidden;margin-top:4px}
+  .bar>i{display:block;height:100%;border-radius:6px}
+  .scorerow{margin-bottom:11px;font-size:.86rem}
+  .scorerow .top{display:flex;justify-content:space-between;margin-bottom:3px}
+  .levers{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+  .lever{background:var(--green-bg);border:1px solid #bfe3cd;border-radius:10px;padding:10px;font-size:.85rem}
+  .lever b{display:block;color:var(--green);font-size:.95rem}
+  .note{font-size:.8rem;color:var(--muted);margin-top:10px;line-height:1.6}
+  footer{text-align:center;color:var(--muted);font-size:.8rem;margin-top:18px;line-height:1.7}
+  .hint{font-size:.72rem;color:#9aa6bd}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div>
+      <h1>🏢 דוח עסקה + תזרים</h1>
+      <div class="sub">מערכת ניתוח השקעות נדל"ן בקריות · ניתן לעדכן את כל הערכים</div>
+    </div>
+    <div class="verstamp">
+      גרסה: <input id="ver" value="v1.0"><br>
+      תאריך: <input id="dt" value="17/06/2026">
+    </div>
+  </header>
+
+  <div class="kpis">
+    <div id="verdict" class="verdict"></div>
+    <div class="kpi"><div class="lab">ציון סופי</div><div class="val neu" id="kScore">-</div></div>
+    <div class="kpi"><div class="lab">תשואה נטו (שכירות)</div><div class="val" id="kNet">-</div></div>
+    <div class="kpi"><div class="lab">תזרים חודשי</div><div class="val" id="kCf">-</div></div>
+    <div class="kpi"><div class="lab">תשואה שנתית על ההון ≈IRR</div><div class="val" id="kIrr">-</div></div>
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <h2>📝 נתוני העסקה <span class="hint">(ערוך - הכל מתעדכן)</span></h2>
+      <div class="body">
+        <div class="fld"><label>כתובת</label><input id="addr" value="ברזילי 16/8, קריית ים" style="width:180px"></div>
+        <div class="fld"><label>מחיר רכישה (₪)</label><input id="price" type="number" value="1300000"></div>
+        <div class="fld"><label>עלויות רכישה (₪)</label><input id="buyCosts" type="number" value="143000"></div>
+        <div class="fld"><label>שיפוץ/השבחה (₪)</label><input id="reno" type="number" value="0"></div>
+        <div class="fld"><label>שכ"ד חודשי (₪)</label><input id="rent" type="number" value="3500"></div>
+        <div class="fld"><label>הוצאות שנתיות (₪)</label><input id="opex" type="number" value="6000"></div>
+        <div class="fld"><label>אי-תפוסה (%)</label><input id="vac" type="number" value="4"></div>
+        <div class="fld"><label>מימון LTV (%)</label><input id="ltv" type="number" value="70"></div>
+        <div class="fld"><label>ריבית שנתית (%)</label><input id="rate" type="number" value="5.2"></div>
+        <div class="fld"><label>שנות משכנתא</label><input id="years" type="number" value="25"></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>💰 תזרים ומודל פיננסי</h2>
+      <div class="body" id="cashflow"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>📈 מנוע יצירת-ערך → תשואה שנתית (IRR) <span class="hint">(הלב של ה-8%)</span></h2>
+    <div class="body">
+      <div class="grid2">
+        <div>
+          <div class="fld"><label>שווי שוק אמיתי (₪)</label><input id="mv" type="number" value="1400000"></div>
+          <div class="fld"><label>ערך מוסף מהשבחה (₪)</label><input id="addv" type="number" value="0"></div>
+          <div class="fld"><label>הצפה צפויה - אזור (%)</label><input id="appr" type="number" value="6"></div>
+          <div class="fld"><label>אופק מימוש (חודשים)</label><input id="horizon" type="number" value="18"></div>
+        </div>
+        <div id="vcout"></div>
+      </div>
+      <div class="levers" style="margin-top:14px">
+        <div class="lever"><b id="lvBelow">-</b>קנייה מתחת לשוק</div>
+        <div class="lever"><b id="lvAdd">-</b>השבחה פיזית (מרפסת/פיצול)</div>
+        <div class="lever"><b id="lvAppr">-</b>קטליזטור הצפה (רכבת/קו סגול)</div>
+        <div class="lever"><b id="lvCf">-</b>תזרים מצטבר לתקופה</div>
+      </div>
+      <div class="note">ה-8% אינו תשואת שכירות (~2.5-3% נטו) אלא <b>תשואה שנתית כוללת על ההון</b>, המורכבת מ-4 המנופים יחד. ערוך את ההנחות וראה אם העסקה חוצה 8%.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>⚖️ ציון 7 הסוכנים (משוקלל)</h2>
+    <div class="body">
+      <div class="grid2">
+        <div>
+          <div class="fld"><label>שוק (20%)</label><input id="sMarket" type="number" value="75"></div>
+          <div class="fld"><label>יצירת ערך (20%)</label><input id="sValue" type="number" value="78"></div>
+          <div class="fld"><label>פיננסי (20%) - אוטומטי</label><input id="sFin" type="number" value="" placeholder="אוטומטי" disabled></div>
+          <div class="fld"><label>משפטי (15%)</label><input id="sLegal" type="number" value="" placeholder="חסר"></div>
+        </div>
+        <div>
+          <div class="fld"><label>התחדשות (15%)</label><input id="sUrban" type="number" value="78"></div>
+          <div class="fld"><label>סיכון Risk (5%)</label><input id="sRisk" type="number" value="66"></div>
+          <div class="fld"><label>שותף הון (5%)</label><input id="sCap" type="number" value="62"></div>
+        </div>
+      </div>
+      <div id="scores" style="margin-top:10px"></div>
+    </div>
+  </div>
+
+  <footer>
+    דוח עסקה + תזרים · <span id="fVer">v1.0</span> · <span id="fDt">17/06/2026</span><br>
+    מנוע: סימולטור פיננסי + מנוע ניקוד 7 סוכנים + מנוע יצירת-ערך · כל ציון נשען על נתון מאומת, חסר ≠ הומצא · Hard Stops גוברים
+  </footer>
+</div>
+
+<script>
+function n(id){var v=parseFloat(document.getElementById(id).value);return isNaN(v)?null:v;}
+function ils(x){return x===null?'-':Math.round(x).toLocaleString('he-IL')+' ₪';}
+function pct(x){return x===null?'-':(Math.round(x*10)/10)+'%';}
+function pmt(P,ar,y){var r=ar/100/12,m=y*12;if(r===0)return P/m;return P*r/(1-Math.pow(1+r,-m));}
+var W={market:.2,value:.2,financial:.2,legal:.15,urban:.15,risk:.05,capital:.05};
+var lbl={market:'שוק',value:'יצירת ערך',financial:'פיננסי',legal:'משפטי',urban:'התחדשות',risk:'סיכון',capital:'שותף הון'};
+
+function calc(){
+  var price=n('price'),buyCosts=n('buyCosts')||0,reno=n('reno')||0,rent=n('rent'),opex=n('opex')||0,
+      vac=n('vac')||0,ltv=n('ltv')||0,rate=n('rate')||0,years=n('years')||1;
+  var loan=price?price*ltv/100:0, totalCost=price!==null?price+buyCosts+reno:null,
+      equity=totalCost!==null?totalCost-loan:null, mp=loan>0?pmt(loan,rate,years):0;
+  var grossY=rent!==null?rent*12:null, effG=grossY!==null?grossY*(1-vac/100):null,
+      noi=effG!==null?effG-opex:null;
+  var grossYield=(grossY!==null&&price)?grossY/price*100:null,
+      netYield=(noi!==null&&totalCost)?noi/totalCost*100:null;
+  var cfM=rent!==null?(rent*(1-vac/100)-opex/12-mp):null, cfY=cfM!==null?cfM*12:null,
+      coc=(cfM!==null&&equity>0)?cfY/equity*100:null;
+
+  // financial agent score (simulator formula)
+  var fin=null;
+  if(netYield!==null&&cfM!==null&&coc!==null&&grossYield!==null){
+    var sc=Math.min(netYield/6*40,40)+(cfM>0?30:(cfM>-500?12:0))+Math.min(coc/8*20,20)+(grossYield>=5?10:(grossYield>=4?6:2));
+    fin=Math.max(0,Math.min(100,Math.round(sc)));
+  }
+  document.getElementById('sFin').value=fin===null?'':fin;
+
+  // cash flow table
+  document.getElementById('cashflow').innerHTML=
+    row('הלוואה ('+ltv+'%)',ils(loan))+row('הון עצמי נדרש',ils(equity))+
+    row('עלות כוללת',ils(totalCost))+row('החזר משכנתא חודשי',ils(mp))+
+    row('NOI שנתי',ils(noi))+
+    rowc('תזרים חודשי',(cfM!==null?(cfM>=0?'+':'')+Math.round(cfM).toLocaleString('he-IL')+' ₪':'-'),cfM>=0?'pos':'neg')+
+    rowc('תזרים שנתי',(cfY!==null?(cfY>=0?'+':'')+Math.round(cfY).toLocaleString('he-IL')+' ₪':'-'),cfY>=0?'pos':'neg')+
+    row('תשואה ברוטו',pct(grossYield))+row('תשואה נטו',pct(netYield))+
+    rowc('Cash-on-Cash',pct(coc),coc>=0?'pos':'neg');
+
+  // value creation -> IRR
+  var mv=n('mv'),addv=n('addv')||0,appr=n('appr')||0,horizon=n('horizon')||12;
+  var below=(mv!==null&&price!==null)?mv-price:0;
+  var apprVal=price!==null?appr/100*price:0;
+  var cfPeriod=cfM!==null?cfM*horizon:0;
+  var totalGain=below+addv+apprVal+cfPeriod;
+  var annual=(equity>0)?totalGain/equity/(horizon/12)*100:null;
+  document.getElementById('lvBelow').textContent=ils(below);
+  document.getElementById('lvAdd').textContent=ils(addv);
+  document.getElementById('lvAppr').textContent=ils(apprVal);
+  document.getElementById('lvCf').textContent=ils(cfPeriod);
+  var irrCls=annual>=8?'pos':(annual>=5?'neu':'neg');
+  document.getElementById('vcout').innerHTML=
+    row('רווח כולל צפוי',ils(totalGain))+
+    rowc('תשואה שנתית על ההון (≈IRR)',pct(annual),irrCls)+
+    rowc('מול יעד 8%',(annual>=8?'✓ עובר':'✗ מתחת'),annual>=8?'pos':'neg');
+  document.getElementById('kIrr').innerHTML='<span class="'+irrCls+'">'+pct(annual)+'</span>';
+
+  // weighted score
+  var scores={market:n('sMarket'),value:n('sValue'),financial:fin,legal:n('sLegal'),urban:n('sUrban'),risk:n('sRisk'),capital:n('sCap')};
+  var weighted=0,wsum=0,html='';
+  for(var k in W){
+    var s=scores[k];
+    var w=W[k]*100;
+    var fill=s===null?0:s;
+    var col=s===null?'#b4b2a9':(s>=80?'#1f8a52':(s>=70?'#b9770a':'#c0392b'));
+    html+='<div class="scorerow"><div class="top"><span>'+lbl[k]+' ('+w+'%)</span><span>'+(s===null?'מידע חסר':s)+'</span></div><div class="bar"><i style="width:'+fill+'%;background:'+col+'"></i></div></div>';
+    if(s!==null){weighted+=s*W[k];wsum+=W[k];}
+  }
+  document.getElementById('scores').innerHTML=html;
+  var coverage=Math.round(wsum*100);
+  var finalScore=wsum>0?Math.round(weighted*10)/10:null;
+
+  // verdict
+  var dec,bg,bc,tc;
+  if(finalScore===null){dec='לא ניתן לחשב';bg='#f1efe8';bc='#d3d1c7';tc='#5f5e5a';}
+  else if(coverage<100){dec='ציון חלקי '+finalScore+' (כיסוי '+coverage+'%) - ודאות נמוכה';bg='#f1efe8';bc='#d3d1c7';tc='#5f5e5a';}
+  else if(finalScore>=90){dec='90+ : כניסה מיידית למו"מ';bg='var(--green-bg)';bc='#bfe3cd';tc='#1f8a52';}
+  else if(finalScore>=80){dec='80-89 : מו"מ ובדיקות עומק';bg='var(--green-bg)';bc='#bfe3cd';tc='#1f8a52';}
+  else if(finalScore>=70){dec='70-79 : בדיקה נוספת';bg='var(--amber-bg)';bc='#f3dcae';tc='#b9770a';}
+  else{dec='מתחת ל-70 : פסילה';bg='var(--red-bg)';bc='#f1c9c3';tc='#c0392b';}
+  var vd=document.getElementById('verdict');
+  vd.textContent='החלטת המערכת: '+dec;vd.style.background=bg;vd.style.borderColor=bc;vd.style.color=tc;
+  document.getElementById('kScore').textContent=finalScore===null?'-':finalScore;
+  document.getElementById('kNet').innerHTML='<span class="neu">'+pct(netYield)+'</span>';
+  document.getElementById('kCf').innerHTML=cfM!==null?'<span class="'+(cfM>=0?'pos':'neg')+'">'+(cfM>=0?'+':'')+Math.round(cfM).toLocaleString('he-IL')+'</span>':'-';
+}
+function row(l,v){return '<div class="row"><span>'+l+'</span><span class="v">'+v+'</span></div>';}
+function rowc(l,v,c){return '<div class="row"><span>'+l+'</span><span class="v '+c+'">'+v+'</span></div>';}
+
+document.querySelectorAll('input').forEach(function(el){el.addEventListener('input',calc);});
+document.getElementById('ver').addEventListener('input',function(){document.getElementById('fVer').textContent=this.value;});
+document.getElementById('dt').addEventListener('input',function(){document.getElementById('fDt').textContent=this.value;});
+calc();
+</script>
+<script src="nav.js"></script>
+</body>
+</html>
