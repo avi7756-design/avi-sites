@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVI HUNTER - מסע פיתוח המודל</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0d1117;color:#e6edf3;font-family:-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.6;padding:32px 16px}
+  .wrap{max-width:920px;margin:0 auto}
+  .head{text-align:center;margin-bottom:10px}
+  .head h1{font-size:30px;font-weight:800;letter-spacing:.5px}
+  .head .sub{color:#8b949e;font-size:15px;margin-top:6px}
+  .head .date{color:#58a6ff;font-size:13px;margin-top:4px}
+  .rule{height:3px;border-radius:3px;background:linear-gradient(90deg,#da3633,#d29922,#3fb950,#1f6feb);margin:18px 0 26px}
+  .start,.bigpic,.truth{border-radius:16px;padding:18px 20px;margin:14px 0}
+  .start{background:#3d1418;border:1px solid #da3633}
+  .start h2{font-size:17px;color:#f85149;margin-bottom:6px}
+  .start p{font-size:14px;color:#f0c0c0}
+  .timeline{position:relative;margin:26px 0;padding-right:26px;border-right:3px solid #21262d}
+  .st{position:relative;margin:0 0 18px;background:#161b22;border:1px solid #30363d;border-radius:16px;padding:16px 18px 16px 18px}
+  .st::before{content:attr(data-n);position:absolute;right:-46px;top:16px;width:34px;height:34px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;font-weight:800;font-size:15px;color:#0d1117;box-shadow:0 0 0 4px #0d1117}
+  .st.c1::before{background:#f0883e}.st.c2::before{background:#d29922}.st.c3::before{background:#a371f7}
+  .st.c4::before{background:#3fb950}.st.c5::before{background:#2ea043}.st.c6::before{background:#58a6ff}.st.c7::before{background:#1f6feb}
+  .st h3{font-size:16px;margin-bottom:8px}
+  .st .ic{margin-left:6px}
+  .st .row{font-size:13.5px;margin-top:3px}
+  .st .k{color:#8b949e;font-weight:700}
+  .st .changed .k{color:#79c0ff}
+  .st .mean .k{color:#3fb950}
+  .bigpic{background:#0d2538;border:1px solid #1f6feb}
+  .bigpic h2{font-size:17px;color:#58a6ff;margin-bottom:6px}
+  .bigpic p{font-size:14px;color:#c9d9e8}
+  .truth{background:#332b00;border:1px solid #9e6a03}
+  .truth h2{font-size:17px;color:#d29922;margin-bottom:6px}
+  .truth p{font-size:14px;color:#e8d8a8}
+  .foot{text-align:center;color:#6e7681;font-size:11px;margin-top:24px;line-height:1.8}
+  b{color:#fff}
+  @media print{body{background:#fff;color:#111}.st,.start,.bigpic,.truth{break-inside:avoid}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <div class="head">
+    <h1>🎯 AVI HUNTER — מסע פיתוח המודל</h1>
+    <div class="sub">מ"מנוע עיוור שמחכה שנה" ל"מנוע שמודד את עצמו מול SPY ומשפר את היציאה בראיות"</div>
+    <div class="date">7 תחנות · עודכן 15.06.2026</div>
+  </div>
+  <div class="rule"></div>
+
+  <div class="start">
+    <h2>⏮️ נקודת ההתחלה</h2>
+    <p>מערכת מומנטום עובדת בענן עם שכבת ולידציה — אבל פסק דין שלילי: <b>DSR 0.566 (נכשל)</b>, CAGR 1.47% מול ~9-10% של SPY, 0% הצלחה בקריסות, דעיכה אחרי 2019. Paper Trading: <b>0 עסקאות סגורות</b>. התוכנית: לחכות ל-50 עסקאות — שנה ויותר. ידענו שיש מנוע, לא ידענו אם הוא עובד.</p>
+  </div>
+
+  <div class="timeline">
+    <div class="st c1" data-n="1">
+      <h3><span class="ic">📈</span>מחיר ההמתנה הפך גלוי — כרטיס SPY</h3>
+      <div class="row changed"><span class="k">מה השתנה:</span> הדשבורד מראה כמה ה-cash מפסיד מול SPY מתחילת הניסוי.</div>
+      <div class="row mean"><span class="k">המשמעות:</span> רף ההצלחה השתנה מ"תוחלת חיובית" ל"לנצח את SPY". מתחרים מול החלופה האמיתית, לא מול אפס.</div>
+    </div>
+    <div class="st c2" data-n="2">
+      <h3><span class="ic">⚡</span>ההכרעה הפכה מהירה — מבחן רציף</h3>
+      <div class="row changed"><span class="k">מה השתנה:</span> אור ירוק/אדום כבר לא מחכה ל-50 — אפשר להכריע ב-~20 עם רף ביטחון 95%.</div>
+      <div class="row mean"><span class="k">המשמעות:</span> חצי מזמן ההכרעה נחסך, בלי לוותר על קפדנות סטטיסטית.</div>
+    </div>
+    <div class="st c3" data-n="3">
+      <h3><span class="ic">🗺️</span>מפת שיפור בלי לקלקל — דוח + NotebookLM</h3>
+      <div class="row changed"><span class="k">מה השתנה:</span> מפת דרכים מדורגת + התובנה שאפשר לבדוק שיפורי-יציאה במקביל (מזווג).</div>
+      <div class="row mean"><span class="k">המשמעות:</span> שיטה לשפר את המודל בלי התאמת-יתר ובלי לגעת בחי.</div>
+    </div>
+    <div class="st c4" data-n="4">
+      <h3><span class="ic">🌑</span>סימולציית יציאה-צללים — הליבה</h3>
+      <div class="row changed"><span class="k">מה השתנה:</span> מנוע הנייר מחשב לכל עסקה תוצאה תחת Chandelier ומדורג, לצד הסטופ הקבוע — אותן כניסות, יציאות שונות.</div>
+      <div class="row mean"><span class="k">המשמעות:</span> מנגנון השיפור עצמו. יציאה טובה יותר תהפוך לחדשה — שדרוג מבוסס-ראיות, בסיכון אפס.</div>
+    </div>
+    <div class="st c5" data-n="5">
+      <h3><span class="ic">⏩</span>האצת מדגם בטוחה</h3>
+      <div class="row changed"><span class="k">מה השתנה:</span> טיקר סגור יכול להיכנס שוב באות חדש תקף.</div>
+      <div class="row mean"><span class="k">המשמעות:</span> המדגם הקדמי צובר מהר יותר — בלי לדלל את הכרעת ה-5-כוכבים.</div>
+    </div>
+    <div class="st c6" data-n="6">
+      <h3><span class="ic">🧪</span>בקטסט מזווג היסטורי — סקריפט מקומי</h3>
+      <div class="row changed"><span class="k">מה השתנה:</span> דירוג שלוש היציאות על מאות עסקאות תוך דקות.</div>
+      <div class="row mean"><span class="k">המשמעות:</span> יודעים היום איזו יציאה הכי טובה — ומריצים אותה קדימה מהיום הראשון במקום לגלות אחרי שנים.</div>
+    </div>
+    <div class="st c7" data-n="7">
+      <h3><span class="ic">⚖️</span>כרטיס השוואת היציאות בדשבורד</h3>
+      <div class="row changed"><span class="k">מה השתנה:</span> שלוש היציאות מוצגות זו מול זו, חי, עם הכרזת מוביל.</div>
+      <div class="row mean"><span class="k">המשמעות:</span> מחקר-היציאה הפך להחלטה גלויה שאפשר לפעול לפיה.</div>
+    </div>
+  </div>
+
+  <div class="bigpic">
+    <h2>🔭 התמונה הגדולה</h2>
+    <p>לוגיקת ה<b>כניסה לא נגעה</b> (במכוון — לא מכווננים על העבר). בנינו <b>פיגום מדידה ושיפור</b> סביב המודל: עכשיו הוא (א) מתחרה מול SPY, (ב) מכריע מהר יותר, (ג) בודק יציאות טובות יותר במקביל בלי סיכון, (ד) מציג הכל חי.</p>
+  </div>
+
+  <div class="truth">
+    <h2>🎯 האמת שלא השתנתה</h2>
+    <p>עדיין <b>אין יתרון מוכח</b>. לא ייצרנו רווחיות — בנינו את המכונה שתגיד לנו, מהר וזול, אם רווחיות קיימת ובאיזו תצורה. אור ירוק לכסף אמיתי דורש: מבחן רציף חיובי <b>וגם</b> ניצחון על SPY. הכל ממתין כעת לעסקאות הנייר שייסגרו.</p>
+  </div>
+
+  <div class="foot">
+    AVI HUNTER · מסע פיתוח מודל "5 הכוכבים" · אבי חזן<br>
+    אין באמור ייעוץ השקעות — מתודולוגיה של מדידה ושיפור מודל בלבד.
+  </div>
+</div>
+<div id="avinav" dir="rtl" style="position:fixed;top:10px;left:10px;z-index:2147483647;display:flex;gap:7px;font-family:Arial,sans-serif"><a href="javascript:history.back()" style="background:#1f2940;color:#cfe0ff;text-decoration:none;padding:7px 13px;border-radius:9px;font-size:13px;font-weight:700;border:1px solid #3a4a6a;box-shadow:0 2px 8px #0006">← חזור</a><a href="../מרכז_שליטה_שוק_ההון.html" style="background:#2563eb;color:#fff;text-decoration:none;padding:7px 13px;border-radius:9px;font-size:13px;font-weight:700;border:1px solid #4a6a9a;box-shadow:0 2px 8px #0006">🏠 מסך ראשי</a></div>
+</body>
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVI HUNTER - התראות ואישור</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0d1117;color:#e6edf3;font-family:-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.6;padding:28px 14px}
+  .w{max-width:880px;margin:0 auto}
+  h1{font-size:25px;text-align:center}
+  .sub{color:#8b949e;font-size:13px;text-align:center;margin-top:4px}
+  .rule{height:3px;border-radius:3px;background:linear-gradient(90deg,#d29922,#3fb950,#1f6feb);margin:16px 0 22px}
+  h2{font-size:18px;margin:22px 0 10px;color:#58a6ff}
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px}
+  .step{flex:1;min-width:130px;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:12px;font-size:13px}
+  .step b{display:block;margin-bottom:4px}
+  .y b{color:#d29922}.g b{color:#3fb950}.b2 b{color:#58a6ff}
+  .arrow{align-self:center;color:#6e7681;font-size:20px;font-weight:800}
+  .card{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:13px 15px;margin:8px 0;font-size:13.5px}
+  .card b{color:#fff}
+  .no{border-color:#da3633;background:#3d1418}.no b{color:#f85149}
+  .yes{border-color:#238636;background:#0f2e1d}.yes b{color:#3fb950}
+  .fresh{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+  @media(max-width:620px){.fresh{grid-template-columns:1fr}}
+  .fresh div{border-radius:12px;padding:12px;font-size:13px}
+  .ok{background:#0f2e1d;border:1px solid #238636}.ok b{color:#3fb950}
+  .stale{background:#332b00;border:1px solid #9e6a03}.stale b{color:#d29922}
+  .foot{text-align:center;color:#6e7681;font-size:11px;margin-top:22px;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="w">
+  <h1>🔔 AVI HUNTER — התראות ואישור</h1>
+  <div class="sub">מה זה אישור, מתי משתמשים, ואיך יודעים אם אות עדיין רלוונטי</div>
+  <div class="rule"></div>
+
+  <h2>מחזור חיי התראה</h2>
+  <div class="flow">
+    <div class="step b2"><b>1 · סריקה</b>מניה עוברת את כל 5 הקריטריונים בסריקה השעתית.</div>
+    <div class="arrow">←</div>
+    <div class="step y"><b>2 · ממתינה לאישור</b>נרשמת התראה + מייל. תזכורת כל 3 שעות עד אישור.</div>
+    <div class="arrow">←</div>
+    <div class="step g"><b>3 · אושרה ✓</b>לחצת "אשר" → הסטטוס משתנה, התזכורות נעצרות.</div>
+  </div>
+
+  <h2>מה אישור עושה — ומה לא</h2>
+  <div class="card yes"><b>✓ כן:</b> מסמן "ראיתי וטיפלתי" · עוצר את תזכורות המייל · (בכסף אמיתי) האיתות שלך לבצע ב-IBKR ידנית.</div>
+  <div class="card no"><b>✗ לא:</b> לא מבצע עסקה (המערכת אף פעם לא קונה) · לא משפיע על מעקב הנייר (נזרע אוטומטית מכל אות 5★).</div>
+  <div class="card"><b>בשלב הנוכחי (נייר, אין כסף אמיתי):</b> אישור הוא בעיקר ניקוי תיבה ועצירת ספאם — לא מסכן כסף.</div>
+
+  <h2>טריות — האם אות מאתמול רלוונטי היום?</h2>
+  <div class="card"><b>פריצת מומנטום רגישה-לזמן מאוד.</b> קונים קרוב לנקודת הפריצה (אחוזים בודדים, יום-יומיים). אישור לא "מקפיא" את מחיר אתמול — אם תבצע היום, המחיר ויחס הסיכון/תגמול שונים.</div>
+  <div class="fresh">
+    <div class="ok"><b>✅ רלוונטי</b><br>אות מהיום, אחרי הסריקה, והמניה עדיין באינדקס המועמדות כ-5★.</div>
+    <div class="stale"><b>⏳ כנראה מיושן</b><br>אות בן כמה ימים / מעל סוף שבוע. בדוק מחיר נוכחי לפני שקילה — אל תבצע "עיוור".</div>
+  </div>
+  <div class="card"><b>איך בודקים:</b> (1) חותמת הזמן של האות · (2) הצלבה מול אינדקס המועמדות (עדיין 5★?) · (3) הסריקה הבאה מרעננת.</div>
+
+  <h2>האם מתעדכן בכל פתיחה?</h2>
+  <div class="card"><b>כן — קריאה חיה בכל פתיחה/רענון.</b> אבל יש הבדל: <b>אינדקס המועמדות</b> מתרענן בכל סריקה (מי 5★ עכשיו); <b>רשימת ההתראות</b> היא יומן אירועים — התראה נשארת "ממתינה" עד שתאשר, גם אם עברו ימים.</div>
+
+  <div class="foot">
+    AVI HUNTER · התראות ואישור · אבי חזן · אין באמור ייעוץ השקעות
+  </div>
+</div>
+<div id="avinav" dir="rtl" style="position:fixed;top:10px;left:10px;z-index:2147483647;display:flex;gap:7px;font-family:Arial,sans-serif"><a href="javascript:history.back()" style="background:#1f2940;color:#cfe0ff;text-decoration:none;padding:7px 13px;border-radius:9px;font-size:13px;font-weight:700;border:1px solid #3a4a6a;box-shadow:0 2px 8px #0006">← חזור</a><a href="../מרכז_שליטה_שוק_ההון.html" style="background:#2563eb;color:#fff;text-decoration:none;padding:7px 13px;border-radius:9px;font-size:13px;font-weight:700;border:1px solid #4a6a9a;box-shadow:0 2px 8px #0006">🏠 מסך ראשי</a></div>
+</body>
+</html>

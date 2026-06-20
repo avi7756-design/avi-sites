@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVI HUNTER - זרימה יומית והפעלה</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0d1117;color:#e6edf3;font-family:-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.6;padding:30px 16px}
+  .wrap{max-width:960px;margin:0 auto}
+  h1{font-size:28px;font-weight:800;text-align:center}
+  .sub{color:#8b949e;font-size:14px;text-align:center;margin-top:6px}
+  .rule{height:3px;border-radius:3px;background:linear-gradient(90deg,#3fb950,#d29922,#1f6feb);margin:18px 0 24px}
+  h2{font-size:19px;margin:26px 0 12px;display:flex;align-items:center;gap:8px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:680px){.grid{grid-template-columns:1fr}}
+  .card{background:#161b22;border:1px solid #30363d;border-radius:14px;padding:14px 16px}
+  .card .h{font-weight:800;font-size:15px;margin-bottom:4px}
+  .card .time{font-size:12px;color:#58a6ff;font-weight:700}
+  .card p{font-size:13px;color:#c9d1d9}
+  .you{border-color:#238636;background:#0f2e1d}
+  .you .h{color:#3fb950}
+  .auto{border-color:#1f6feb;background:#0d2538}
+  .auto .h{color:#58a6ff}
+  .flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin-top:6px}
+  .step{flex:1;min-width:120px;background:#161b22;border:1px solid #30363d;border-radius:12px;padding:11px 12px;font-size:12.5px}
+  .step b{display:block;font-size:13px;margin-bottom:3px;color:#e6edf3}
+  .step.act{border-color:#238636}.step.act b{color:#3fb950}
+  .step.sysd{border-color:#9e6a03}.step.sysd b{color:#d29922}
+  .arrow{align-self:center;color:#6e7681;font-size:18px;font-weight:800}
+  .mon{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+  @media(max-width:680px){.mon{grid-template-columns:1fr}}
+  .mon .m{background:#161b22;border:1px solid #30363d;border-radius:12px;padding:11px 13px;font-size:13px}
+  .mon .m b{color:#79c0ff}
+  .now{background:#332b00;border:1px solid #9e6a03;border-radius:14px;padding:15px 17px;margin-top:18px}
+  .now .h{color:#d29922;font-weight:800;font-size:15px;margin-bottom:4px}
+  .now p{font-size:13px;color:#e8d8a8}
+  .foot{text-align:center;color:#6e7681;font-size:11px;margin-top:24px;line-height:1.8}
+  b.k{color:#fff}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🎯 AVI HUNTER — זרימה יומית והפעלה</h1>
+  <div class="sub">מה לעשות מהבוקר · על מה לעקוב · איך המערכת עובדת (שעון ישראל)</div>
+  <div class="rule"></div>
+
+  <h2>☀️ מה אתה עושה בבוקר (3 דקות)</h2>
+  <div class="grid">
+    <div class="card you"><div class="h">1 · פתח את הדשבורד</div><p>זה מקור האמת היחיד. הסתכל קודם על הבאנר העליון.</p></div>
+    <div class="card you"><div class="h">2 · קרא את הרמזור</div><p><b class="k">✅ מותר לסחור</b> = הסביבה בטוחה · <b class="k">⛔ לא נכנסים</b> = יום חסום (VIX/SPY/FOMC/Kill switch). היום ⛔ בגלל FOMC.</p></div>
+    <div class="card you"><div class="h">3 · אם ✅ — אשר התראות</div><p>טאב 🔔 התראות → לחץ "אשר" על מניות 5★ שאתה רוצה. רק אז הן נחשבות מאושרות.</p></div>
+    <div class="card you"><div class="h">4 · אם ⛔ — אל תעשה כלום</div><p>אל תיכנס לעסקאות. המערכת ממשיכה לסרוק ולמדוד ברקע.</p></div>
+  </div>
+
+  <h2>🔄 מה רץ אוטומטית (בלי שתיגע)</h2>
+  <div class="grid">
+    <div class="card auto"><div class="time">17:35–23:35 · כל שעה</div><div class="h">סורק 5 כוכבים</div><p>סורק ~1,900 מניות, מאתר מועמדות 5★, שולח מייל התראה, מעדכן את אינדקס המעקב.</p></div>
+    <div class="card auto"><div class="time">21:15 · יומי</div><div class="h">סנכרון IBKR (Flex)</div><p>מושך NAV, פוזיציות ו-Drawdown מהבנק לכרטיסים.</p></div>
+    <div class="card auto"><div class="time">23:50 · יומי</div><div class="h">מנוע נייר</div><p>סוגר עסקאות נייר (Yahoo), זורע חדשות מ-5★, ומחשב את יציאות-הצללים (Chandelier/מדורג).</p></div>
+    <div class="card auto"><div class="time">חי · בכל רענון</div><div class="h">דשבורד</div><p>מרכב הכל: רמזור, מבחן רציף, עלות SPY, השוואת יציאות.</p></div>
+  </div>
+
+  <h2>📈 מחזור חיי עסקה</h2>
+  <div class="flow">
+    <div class="step sysd"><b>1 · סריקה</b>הסורק מאתר מניה שעוברת את כל 5 הקריטריונים (5★).</div>
+    <div class="arrow">←</div>
+    <div class="step sysd"><b>2 · התראה</b>מייל נשלח, המניה נכנסת לרשימה כ"ממתינה".</div>
+    <div class="arrow">←</div>
+    <div class="step act"><b>3 · אתה מאשר</b>בטאב התראות (אם הרמזור ✅).</div>
+    <div class="arrow">←</div>
+    <div class="step act"><b>4 · ביצוע (כסף אמיתי)</b>אתה מבצע ב-IBKR בעצמך. המערכת לא מבצעת עסקאות.</div>
+    <div class="arrow">←</div>
+    <div class="step sysd"><b>5 · ניהול</b>סטופ = שפל 30 יום ×0.995 · יעד +20% · זמן 60 יום.</div>
+    <div class="arrow">←</div>
+    <div class="step sysd"><b>6 · סגירה</b>נסגר ונרשם (R-multiple). במקביל: עסקת נייר נסגרת אוטומטית + צללי יציאה.</div>
+  </div>
+
+  <h2>👁️ על מה לעקוב (מדדי ההכרעה)</h2>
+  <div class="mon">
+    <div class="m"><b>📒 ביצועי נייר (Forward)</b> — המבחן הרציף. מכריע מ-20 עסקאות. כיום 0/20.</div>
+    <div class="m"><b>📈 עלות חלופית SPY</b> — כמה ה-cash מפסיד מול SPY. השיטה חייבת לנצח את זה.</div>
+    <div class="m"><b>⚖️ השוואת יציאות</b> — מי מנצח: קבוע / Chandelier / מדורג.</div>
+    <div class="m"><b>🧪 ולידציית שיטה</b> — ציון backtest. כיום 3/5 (אין יתרון מוכח).</div>
+  </div>
+
+  <div class="now">
+    <div class="h">📍 איפה אנחנו עכשיו</div>
+    <p>מצב <b class="k">PAPER / ולידציה</b> — <b class="k">אין כסף אמיתי</b> (ALL CASH, אין יתרון מוכח). היום הרמזור ⛔ בגלל FOMC בעוד 3 ימים. הזרימה היומית כרגע: <b class="k">לפתוח, להסתכל, לתת לנייר לצבור</b>. אור ירוק לכסף אמיתי יגיע רק כשהמבחן הרציף חיובי וגם השיטה מנצחת את SPY.</p>
+  </div>
+
+  <div class="foot">
+    AVI HUNTER · זרימה יומית והפעלה · אבי חזן · 15.06.2026<br>
+    כפתור עזרה בדשבורד: ❓ בפינה שמאל-עליון או מקש F1 · אין באמור ייעוץ השקעות.
+  </div>
+</div>
+<div id="avinav" dir="rtl" style="position:fixed;top:10px;left:10px;z-index:2147483647;display:flex;gap:7px;font-family:Arial,sans-serif"><a href="javascript:history.back()" style="background:#1f2940;color:#cfe0ff;text-decoration:none;padding:7px 13px;border-radius:9px;font-size:13px;font-weight:700;border:1px solid #3a4a6a;box-shadow:0 2px 8px #0006">← חזור</a><a href="../מרכז_שליטה_שוק_ההון.html" style="background:#2563eb;color:#fff;text-decoration:none;padding:7px 13px;border-radius:9px;font-size:13px;font-weight:700;border:1px solid #4a6a9a;box-shadow:0 2px 8px #0006">🏠 מסך ראשי</a></div>
+</body>
+</html>

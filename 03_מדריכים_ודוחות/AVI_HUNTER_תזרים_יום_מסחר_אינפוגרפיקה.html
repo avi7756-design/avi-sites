@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVI HUNTER - תזרים יום מסחר</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0d1117;color:#e6edf3;font-family:-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.6;padding:28px 14px}
+  .w{max-width:920px;margin:0 auto}
+  h1{font-size:24px;text-align:center}
+  .sub{color:#8b949e;font-size:13px;text-align:center;margin-top:4px}
+  .rule{height:3px;border-radius:3px;background:linear-gradient(90deg,#8b949e,#3fb950,#1f6feb,#8b949e);margin:16px 0 18px}
+  .decide{background:#0d2538;border:1px solid #1f6feb;border-radius:14px;padding:14px 16px;margin:10px 0;font-size:14px}
+  .decide b{color:#58a6ff}
+  .row{display:flex;gap:12px;align-items:stretch;margin:8px 0}
+  .time{flex:0 0 96px;background:#161b22;border:1px solid #30363d;border-radius:10px;padding:10px 6px;text-align:center;font-weight:800;font-size:13px;color:#79c0ff;display:flex;flex-direction:column;justify-content:center}
+  .body{flex:1;border-radius:10px;padding:11px 14px;font-size:13.5px}
+  .you{background:#0f2e1d;border:1px solid #238636}.you .t{color:#3fb950;font-weight:800}
+  .auto{background:#161b22;border:1px solid #30363d}.auto .t{color:#d29922;font-weight:800}
+  .closed{background:#1c1c22;border:1px solid #30363d}.closed .t{color:#8b949e;font-weight:800}
+  .body .d{font-size:12.5px;color:#c9d1d9;margin-top:3px}
+  b{color:#fff}
+  .legend{display:flex;gap:14px;justify-content:center;font-size:12px;color:#8b949e;margin:10px 0 4px;flex-wrap:wrap}
+  .legend span b{font-weight:800}
+  .now{background:#332b00;border:1px solid #9e6a03;border-radius:12px;padding:13px 16px;margin-top:14px;font-size:13.5px}
+  .now b{color:#d29922}
+  .foot{text-align:center;color:#6e7681;font-size:11px;margin-top:22px;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="w">
+  <h1>🕐 תזרים יום מסחר — לפי שעה (שעון ישראל)</h1>
+  <div class="sub">מה אתה עושה · ומה קורה לבד</div>
+  <div class="rule"></div>
+
+  <div class="decide">
+    <b>כלל הזהב בכל פתיחה:</b> קרא את הרמזור העליון. <b>⛔ → אל תעשה כלום.</b> <b>✅ → בדוק מועמדות → אשר התראות → (בכסף אמיתי) בצע ב-IBKR.</b>
+  </div>
+
+  <div class="legend">
+    <span>🟩 <b>אתה</b> פועל</span>
+    <span>🟨 <b>אוטומטי</b> (לבד)</span>
+    <span>⬜ שוק סגור</span>
+  </div>
+
+  <div class="row"><div class="time">08:00–16:30</div><div class="body closed"><div class="t">⬜ לפני פתיחת US — שוק סגור</div><div class="d">פתיחת דשבורד אופציונלית. הרמזור והמאקרו מעודכנים. אין פעולה. (boot+5 דוחות רק אם רוצה ניתוח בוקר מעמיק.)</div></div></div>
+
+  <div class="row"><div class="time">16:30</div><div class="body you"><div class="t">🟩 פתיחת US — פתח, קרא רמזור</div><div class="d">השוק נפתח, אבל הסורק עוד לא רץ (ראשון ב-17:35) והנפח (K4) לא אמין כך מוקדם. <b>אל תפעל על אות מוקדם.</b> רק קריאת מצב.</div></div></div>
+
+  <div class="row"><div class="time">17:35–19:00</div><div class="body auto"><div class="t">🟨 הסורק מתחיל (כל שעה)</div><div class="d">מועמדות מתרעננות אוטומטית. הנפח עדיין מתייצב. מעקב בלבד — מוקדם להכריע.</div></div></div>
+
+  <div class="row"><div class="time">19:00–22:30</div><div class="body you"><div class="t">🟩 חלון הפעולה האמיתי</div><div class="d">נפח אמין, סריקות טריות. אם <b>✅ + מניית 5★</b>: בדוק כניסה/סטופ/יעד (בדוח הסריקה), אשר התראה, ו(בכסף אמיתי) בצע ב-IBKR ידנית.</div></div></div>
+
+  <div class="row"><div class="time">21:15</div><div class="body auto"><div class="t">🟨 סנכרון חשבון</div><div class="d">NAV ופוזיציות נמשכים אוטומטית מ-IBKR. אתה לא עושה כלום.</div></div></div>
+
+  <div class="row"><div class="time">22:30–23:00</div><div class="body you"><div class="t">🟩 לפני סגירה (CLOSE)</div><div class="d">אם יש פוזיציה: ודא שהסטופ פעיל ו-GTC. אם אין — אין מה לעשות.</div></div></div>
+
+  <div class="row"><div class="time">23:50</div><div class="body auto"><div class="t">🟨 מנוע נייר נסגר</div><div class="d">עסקאות הנייר נסגרות ומחושבות (כולל צללי יציאה) אוטומטית.</div></div></div>
+
+  <div class="row"><div class="time">לילה / סופ״ש</div><div class="body closed"><div class="t">⬜ שוק סגור</div><div class="d">אין פעולה. אסור לפתוח IBKR בשבת/ראשון. מנוחה.</div></div></div>
+
+  <div class="now">
+    <b>📍 היום ספציפית:</b> הרמזור ⛔ (מגן FOMC, יומיים להחלטה) + מצב נייר → <b>אין פעולה בכל שעה.</b> רק מעקב. החלון הפעיל (19:00–22:30) רלוונטי רק כשהרמזור ✅.
+  </div>
+
+  <div class="foot">
+    AVI HUNTER · תזרים יום מסחר · אבי חזן · כל הזמנים בשעון ישראל · אין באמור ייעוץ השקעות
+  </div>
+</div>
+<div id="avinav" dir="rtl" style="position:fixed;top:10px;left:10px;z-index:2147483647;display:flex;gap:7px;font-family:Arial,sans-serif"><a href="javascript:history.back()" style="background:#1f2940;color:#cfe0ff;text-decoration:none;padding:7px 13px;border-radius:9px;font-size:13px;font-weight:700;border:1px solid #3a4a6a;box-shadow:0 2px 8px #0006">← חזור</a><a href="../מרכז_שליטה_שוק_ההון.html" style="background:#2563eb;color:#fff;text-decoration:none;padding:7px 13px;border-radius:9px;font-size:13px;font-weight:700;border:1px solid #4a6a9a;box-shadow:0 2px 8px #0006">🏠 מסך ראשי</a></div>
+</body>
+</html>

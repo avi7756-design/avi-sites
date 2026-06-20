@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ספר צללים נייר — לוויין</title>
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Arial,sans-serif;background:#eef1f7;color:#1a2030;line-height:1.55;padding:16px}
+.doc{max-width:880px;margin:0 auto;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(20,30,60,.08);overflow:hidden}
+.hdr{background:linear-gradient(135deg,#15233f,#23386a);color:#fff;padding:22px 28px}
+.hdr h1{font-size:20px;margin-bottom:4px}
+.hdr .sub{font-size:12px;color:#aebdd4}
+.body{padding:18px 28px}
+.note{background:#eef4ff;border-right:4px solid #3a5bb0;border-radius:0 10px 10px 0;padding:10px 14px;font-size:12.5px;margin-bottom:14px}
+.sum{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:10px;margin:12px 0}
+.s{border-radius:12px;padding:12px;text-align:center;border:1px solid #e3e9f4;background:#f7f9fd}
+.s b{display:block;font-size:11px;color:#6b7488;margin-bottom:3px}
+.s span{font-size:20px;font-weight:800}
+.s.alpha{background:#15233f}.s.alpha b{color:#aebdd4}.s.alpha span{color:#fff}
+.pos{color:#1d7a44}.neg{color:#c0334a}
+table{width:100%;border-collapse:collapse;margin:8px 0;font-size:12.5px}
+th,td{border:1px solid #e3e9f4;padding:6px 8px;text-align:center}
+th{background:#f0f4fb;color:#2d3a55}
+td.r{text-align:right}
+input{width:84px;padding:5px 7px;border:1px solid #cdd5e6;border-radius:7px;font-size:13px;text-align:center}
+.spy{background:#fff7e6;font-weight:700}
+button{cursor:pointer;border:none;border-radius:9px;font-size:13px;font-weight:600;padding:8px 15px;font-family:inherit;background:#2563eb;color:#fff}
+textarea{width:100%;padding:8px;border:1px solid #cdd5e6;border-radius:9px;font-size:13px;font-family:inherit;min-height:48px;margin-top:8px}
+.flag{font-size:10px;color:#c0334a;font-weight:700}
+h2{font-size:15px;color:#23386a;margin:20px 0 9px;padding-bottom:5px;border-bottom:2px solid #e6eaf3}
+.foot{padding:13px 28px;background:#f5f8fd;border-top:1px solid #e6eaf3;font-size:11px;color:#7a8398;text-align:center}
+</style>
+</head>
+<body>
+<div class="doc">
+<div class="hdr">
+  <h1>📒 ספר צללים נייר — לוויין מומנטום-איכות</h1>
+  <div class="sub">פתיחה: 18.06.2026 · כניסות = מחירים חיים מ-IBKR (16:45 ET) · 8 פוזיציות · משקל שווה · בנצ'מרק SPY 747.43</div>
+</div>
+<div class="body">
+
+  <div class="note">
+    <b>איך זה עובד:</b> פוזיציות <b>נייר</b> שנפתחו היום במחירים החיים. בכל סקירה שבועית הזן מחיר נוכחי + SPY → הדף מחשב תשואה לכל מניה, ממוצע תיק, ו-<b>אלפא מול SPY</b> (זה מזין את ה-Kill-switch). נשמר בדפדפן. <b>אין באמור ייעוץ השקעות.</b>
+  </div>
+
+  <div class="sum">
+    <div class="s"><b>תשואת תיק (נייר)</b><span id="portRet">—</span></div>
+    <div class="s"><b>תשואת SPY</b><span id="spyRet">—</span></div>
+    <div class="s alpha"><b>אלפא (תיק − SPY)</b><span id="alpha">—</span></div>
+    <div class="s"><b>פוזיציות</b><span>8</span></div>
+  </div>
+
+  <h2>הפוזיציות (כניסה 18.6.2026, מחיר חי)</h2>
+  <table id="t">
+    <tr><th>#</th><th class="r">מניה</th><th>סקטור</th><th>כניסה $</th><th>סטופ $ (−8%)</th><th>מחיר נוכחי $</th><th>תשואה</th></tr>
+    <tr><td>1</td><td class="r"><b>CAT</b></td><td>Industrials</td><td>989.50</td><td>910.34</td><td><input data-e="989.50" type="number" step="0.01"></td><td class="ret">—</td></tr>
+    <tr><td>2</td><td class="r"><b>GOOGL</b></td><td>Communication</td><td>367.60</td><td>338.19</td><td><input data-e="367.60" type="number" step="0.01"></td><td class="ret">—</td></tr>
+    <tr><td>3</td><td class="r"><b>GE</b></td><td>Aerospace</td><td>357.67</td><td>329.06</td><td><input data-e="357.67" type="number" step="0.01"></td><td class="ret">—</td></tr>
+    <tr><td>4</td><td class="r"><b>AVGO</b></td><td>Semis</td><td>411.17</td><td>378.28</td><td><input data-e="411.17" type="number" step="0.01"></td><td class="ret">—</td></tr>
+    <tr><td>5</td><td class="r"><b>ORCL</b></td><td>Technology</td><td>184.00</td><td>169.28</td><td><input data-e="184.00" type="number" step="0.01"></td><td class="ret">—</td></tr>
+    <tr><td>6</td><td class="r"><b>NFLX</b> <span class="flag">⚠️ אמת פיצול</span></td><td>Communication</td><td>77.33</td><td>71.14</td><td><input data-e="77.33" type="number" step="0.01"></td><td class="ret">—</td></tr>
+    <tr><td>7</td><td class="r"><b>RTX</b></td><td>Defense</td><td>185.67</td><td>170.82</td><td><input data-e="185.67" type="number" step="0.01"></td><td class="ret">—</td></tr>
+    <tr><td>8</td><td class="r"><b>XOM</b></td><td>Energy</td><td>137.84</td><td>126.81</td><td><input data-e="137.84" type="number" step="0.01"></td><td class="ret">—</td></tr>
+    <tr class="spy"><td>—</td><td class="r"><b>SPY</b></td><td>בנצ'מרק</td><td>747.43</td><td>—</td><td><input id="spy" data-e="747.43" type="number" step="0.01"></td><td class="ret">—</td></tr>
+  </table>
+  <p style="font-size:11.5px;color:#777">כל מחירי הכניסה <b>חיים ומאומתים מ-IBKR</b> (18.6, ~16:45 ET, Realtime Non-consolidated). <span class="flag">NFLX $77.33 — לאמת פיצול מניות לפני הסתמכות. הוחרגו: LMT (downtrend −25%), NVDA (Beta&gt;1.8), AAPL/AMZN (RS חלש).</span></p>
+
+  <h2>📝 יומן רוטציה</h2>
+  <textarea id="log" placeholder="רשום כל החלפה: מכרתי X (סיבה) / קניתי Y (RS+Argus)... עם תאריך"></textarea>
+  <div style="margin-top:8px"><button onclick="saveLog()">שמור יומן</button></div>
+  <div id="logView" style="margin-top:10px;font-size:12.5px;color:#444"></div>
+
+</div>
+<div class="foot">ספר צללים נייר · נפתח 18.06.2026 במחירים חיים · נתונים מקומיים בדפדפן · הליבה (VOO) היא המנוע · אין ייעוץ השקעות</div>
+</div>
+<script>
+const LS='avi_shadow_paper_v2';const SPY_ENTRY=747.43;
+function load(){try{return JSON.parse(localStorage.getItem(LS))||{}}catch(e){return{}}}
+function save(o){localStorage.setItem(LS,JSON.stringify(o))}
+function fmt(x){return (x>=0?'+':'')+x.toFixed(1)+'%'}
+function calc(){
+ let sum=0,n=0;
+ document.querySelectorAll('#t input').forEach(function(inp){
+  const e=parseFloat(inp.dataset.e),c=parseFloat(inp.value);
+  const cell=inp.closest('tr').querySelector('.ret');
+  if(!isNaN(c)&&e>0){const r=(c-e)/e*100;cell.textContent=fmt(r);cell.className='ret '+(r>=0?'pos':'neg');
+   if(inp.id!=='spy'){sum+=r;n++;}}
+  else cell.textContent='—';
+ });
+ const port=n?sum/n:null;
+ const spyC=parseFloat(document.getElementById('spy').value);
+ const spy=(!isNaN(spyC))?(spyC-SPY_ENTRY)/SPY_ENTRY*100:null;
+ const pe=document.getElementById('portRet'),se=document.getElementById('spyRet'),ae=document.getElementById('alpha');
+ pe.textContent=port==null?'—':fmt(port);pe.className='';if(port!=null)pe.classList.add(port>=0?'pos':'neg');
+ se.textContent=spy==null?'—':fmt(spy);
+ if(port!=null&&spy!=null){ae.textContent=fmt(port-spy);}else ae.textContent='—';
+}
+(function(){const st=load();document.querySelectorAll('#t input').forEach(function(inp,i){
+ if(st['p'+i]!=null)inp.value=st['p'+i];
+ inp.addEventListener('input',function(){const s=load();s['p'+i]=inp.value;save(s);calc();});
+});
+ const lv=load();if(lv.log){document.getElementById('log').value=lv.log;renderLog(lv.log);}
+ calc();})();
+function saveLog(){const s=load();s.log=document.getElementById('log').value;save(s);renderLog(s.log);alert('נשמר');}
+function renderLog(t){document.getElementById('logView').innerText=t||'';}
+</script>
+</body>
+</html>

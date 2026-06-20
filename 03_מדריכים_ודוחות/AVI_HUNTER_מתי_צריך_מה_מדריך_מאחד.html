@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVI HUNTER - מתי צריך מה</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#0d1117;color:#e6edf3;font-family:-apple-system,"Segoe UI",Arial,sans-serif;line-height:1.6;padding:28px 14px}
+  .w{max-width:940px;margin:0 auto}
+  h1{font-size:24px;text-align:center}
+  .sub{color:#8b949e;font-size:13px;text-align:center;margin-top:4px}
+  .rule{height:3px;border-radius:3px;background:linear-gradient(90deg,#3fb950,#d29922,#1f6feb);margin:16px 0 18px}
+  h2{font-size:18px;margin:22px 0 8px}
+  .decide{background:#0d2538;border:1px solid #1f6feb;border-radius:14px;padding:14px 16px;font-size:14px}
+  .decide b{color:#58a6ff}
+  .auto{background:#161b22;border:1px solid #30363d;border-radius:14px;padding:13px 16px;font-size:13.5px}
+  .auto .t{color:#d29922;font-weight:800;margin-bottom:4px}
+  .auto .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .auto .chips span{background:rgba(255,255,255,.05);border:1px solid #30363d;border-radius:8px;padding:3px 9px;font-size:12px}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:680px){.grid{grid-template-columns:1fr}}
+  .card{border-radius:14px;padding:14px 15px;border:1px solid #30363d;background:#161b22}
+  .card .st{font-weight:800;font-size:14.5px;margin-bottom:6px}
+  .card .lab{font-size:11.5px;color:#8b949e;font-weight:700;margin-top:7px}
+  .card .val{font-size:13px;color:#c9d1d9}
+  .mon{border-color:#238636}.mon .st{color:#3fb950}
+  .deep{border-color:#9e6a03}.deep .st{color:#d29922}
+  b{color:#fff}
+  .now{background:#332b00;border:1px solid #9e6a03;border-radius:12px;padding:13px 16px;margin-top:14px;font-size:13.5px}
+  .now b{color:#d29922}
+  .foot{text-align:center;color:#6e7681;font-size:11px;margin-top:22px;line-height:1.8}
+</style>
+</head>
+<body>
+<div class="w">
+  <h1>🧭 AVI HUNTER — מתי צריך מה</h1>
+  <div class="sub">המדריך המאחד: מה אוטומטי · מתי boot+דוחות · ומה להעלות בכל מצב</div>
+  <div class="rule"></div>
+
+  <div class="decide">
+    <b>כלל הזהב (בכל פתיחה):</b> קרא את הרמזור. <b>⛔ → כלום.</b> <b>✅ → בדוק מועמדות → אשר התראות → (בכסף אמיתי) בצע ב-IBKR.</b>
+  </div>
+
+  <h2>🟨 מה רץ אוטומטית — בלי שתיגע</h2>
+  <div class="auto">
+    <div class="t">המערכת עובדת לבד 24/7</div>
+    <div class="chips"><span>סורק כל שעה (17:35–23:35)</span><span>סנכרון NAV 21:15</span><span>מנוע נייר 23:50</span><span>בודק בריאות 06:00</span><span>רמזור + מאקרו (כל רענון)</span></div>
+    <div class="val" style="margin-top:7px">לכל אלה — <b>אתה לא צריך לעשות כלום ולא להעלות כלום.</b></div>
+  </div>
+
+  <h2>🟩 מצבים שצריך רק לפתוח דשבורד (אין דוחות)</h2>
+  <div class="grid">
+    <div class="card mon"><div class="st">1 · יום רגיל / ALL CASH</div><div class="val">אין פוזיציות. (המצב היום.)</div><div class="lab">מה צריך:</div><div class="val">דשבורד בלבד.</div><div class="lab">פעולה:</div><div class="val">קרא רמזור. ⛔=כלום · ✅+5★=שקול כניסה.</div></div>
+    <div class="card mon"><div class="st">2 · רק לבדוק מצב/מאקרו</div><div class="val">סקרנות, בדיקת VIX/SPY/FOMC.</div><div class="lab">מה צריך:</div><div class="val">דשבורד בלבד.</div><div class="lab">פעולה:</div><div class="val">קריאה. הכל חי בכל רענון.</div></div>
+  </div>
+
+  <h2>🟡 מצבים שצריך boot + דוחות (ניתוח מעמיק)</h2>
+  <div class="grid">
+    <div class="card deep"><div class="st">3 · יש פוזיציות פתוחות</div><div class="lab">מה צריך:</div><div class="val">boot + Morning_Status, do2_POSITIONS, do5_NAV_TWR, do7_OPEN_ORDERS.</div><div class="lab">בשביל:</div><div class="val">P&L לכל מניה, אימות סטופים, מרחק לסטופ.</div></div>
+    <div class="card deep"><div class="st">4 · לפני סגירה / סוף שבוע</div><div class="lab">מה צריך:</div><div class="val">do2_POSITIONS + do7_OPEN_ORDERS.</div><div class="lab">בשביל:</div><div class="val">לוודא שכל סטופ פעיל ו-GTC ללילה/סופ״ש.</div></div>
+    <div class="card deep"><div class="st">5 · אחרי ביצוע עסקה</div><div class="lab">מה צריך:</div><div class="val">do2_POSITIONS + do7_OPEN_ORDERS.</div><div class="lab">בשביל:</div><div class="val">לאשר שהעסקה נקלטה ושהסטופ במקום.</div></div>
+    <div class="card deep"><div class="st">6 · סקירה שבועית</div><div class="lab">מה צריך:</div><div class="val">Trades_History.</div><div class="lab">בשביל:</div><div class="val">Win Rate, תוחלת, Sharpe, P&L ממוצע.</div></div>
+    <div class="card deep"><div class="st">7 · חשד לתקלה / מספר מוזר</div><div class="lab">מה צריך:</div><div class="val">הדוחות הרלוונטיים (לרוב do5_NAV + do2).</div><div class="lab">בשביל:</div><div class="val">הצלבה ידנית — בדיוק כך תפסנו היום את פער ה-NAV/FX.</div></div>
+  </div>
+
+  <div class="now">
+    <b>📍 היום:</b> אתה ALL CASH + ⛔ FOMC → <b>מצב 1.</b> צריך רק לפתוח דשבורד ולקרוא רמזור. אין צורך ב-boot/דוחות. ברגע שתחזיק מניות — עוברים למצבים 3–5.
+  </div>
+
+  <div class="foot">
+    AVI HUNTER · מתי צריך מה · אבי חזן · אין באמור ייעוץ השקעות
+  </div>
+</div>
+<div id="avinav" dir="rtl" style="position:fixed;top:10px;left:10px;z-index:2147483647;display:flex;gap:7px;font-family:Arial,sans-serif"><a href="javascript:history.back()" style="background:#1f2940;color:#cfe0ff;text-decoration:none;padding:7px 13px;border-radius:9px;font-size:13px;font-weight:700;border:1px solid #3a4a6a;box-shadow:0 2px 8px #0006">← חזור</a><a href="../מרכז_שליטה_שוק_ההון.html" style="background:#2563eb;color:#fff;text-decoration:none;padding:7px 13px;border-radius:9px;font-size:13px;font-weight:700;border:1px solid #4a6a9a;box-shadow:0 2px 8px #0006">🏠 מסך ראשי</a></div>
+</body>
+</html>
