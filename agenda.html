@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>📅 יומן אירועים ומשימות | אבי חזן</title>
+<meta name="theme-color" content="#7e57c2">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="יומן ומשימות">
+<style>
+  :root{
+    --ink:#241a33; --bg:#f3eefb; --card:#fff; --line:#e0d6ef; --muted:#6b5d80;
+    --purple:#7e57c2; --purple-d:#5e3aa0; --green:#2e7d32; --red:#c0392b; --amber:#e08e0b; --blue:#2c6ca5;
+    --shadow:0 2px 12px rgba(50,30,80,.09);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;}
+  body{background:var(--bg);color:var(--ink);line-height:1.55;padding:0 0 90px;-webkit-tap-highlight-color:transparent;}
+  header{background:linear-gradient(135deg,var(--purple-d),var(--purple));color:#fff;padding:18px 16px 14px;text-align:center;box-shadow:var(--shadow);}
+  header h1{font-size:21px;} header p{font-size:12px;opacity:.9;margin-top:2px;}
+  .wrap{max-width:840px;margin:0 auto;padding:14px;}
+  .tabs{display:flex;gap:6px;margin-bottom:14px;}
+  .tab{flex:1;background:var(--card);border:1px solid var(--line);border-radius:30px;padding:9px;font-size:14px;font-weight:bold;color:var(--purple-d);cursor:pointer;text-align:center;}
+  .tab.active{background:var(--purple);color:#fff;}
+  .panel{display:none;} .panel.active{display:block;}
+  .btn{border:none;border-radius:10px;padding:9px 14px;font-size:13px;font-weight:bold;cursor:pointer;color:#fff;background:var(--purple);font-family:inherit;}
+  .btn:active{transform:scale(.97);}
+  .btn.sm{padding:5px 10px;font-size:12px;} .btn.gray{background:#8a7d9e;} .btn.green{background:var(--green);} .btn.red{background:var(--red);} .btn.wide{width:100%;margin-top:7px;}
+  .bar{display:flex;gap:7px;margin-bottom:12px;flex-wrap:wrap;}
+  input,select,textarea{padding:9px;border:1px solid #cfc2e3;border-radius:9px;font-family:inherit;font-size:14px;background:#fff;width:100%;}
+  .sec{font-size:13px;font-weight:bold;color:var(--purple-d);margin:14px 0 7px;display:flex;align-items:center;gap:7px;}
+  .sec .cnt{background:var(--line);color:var(--muted);border-radius:20px;padding:1px 9px;font-size:11px;}
+  .item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:11px 13px;margin-bottom:8px;box-shadow:var(--shadow);border-right:4px solid var(--purple);display:flex;gap:10px;align-items:flex-start;}
+  .item.overdue{border-right-color:var(--red);} .item.today{border-right-color:var(--amber);} .item.done{border-right-color:#b8aecb;opacity:.65;}
+  .item .chk{width:22px;height:22px;border:2px solid var(--purple);border-radius:6px;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;color:#fff;margin-top:1px;}
+  .item.done .chk{background:var(--green);border-color:var(--green);}
+  .item .body{flex:1;}
+  .item .ttl{font-size:14.5px;font-weight:bold;}
+  .item.done .ttl{text-decoration:line-through;}
+  .item .sub{font-size:11.5px;color:var(--muted);margin-top:2px;}
+  .typchip{font-size:10px;font-weight:bold;padding:1px 8px;border-radius:20px;background:#efe9f9;color:var(--purple-d);}
+  .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;padding:14px;overflow:auto;} .ov.show{display:block;}
+  .modal{max-width:500px;margin:22px auto;background:var(--card);border-radius:16px;padding:17px;box-shadow:0 12px 50px rgba(0,0,0,.35);}
+  .modal .x{float:left;background:var(--red);color:#fff;border:none;border-radius:50%;width:30px;height:30px;font-size:15px;cursor:pointer;}
+  label{display:block;font-size:12px;font-weight:bold;color:var(--muted);margin:7px 0 3px;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px;text-align:center;box-shadow:var(--shadow);}
+  .stat .n{font-size:23px;font-weight:bold;color:var(--purple-d);} .stat .l{font-size:11.5px;color:var(--muted);}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-bottom:9px;}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:12px;}
+  .insight{background:#f9f5ff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:9px;font-size:13.5px;}
+  .insight b{color:var(--purple-d);}
+  .barrow{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:13px;}
+  .barfill{height:14px;background:var(--purple);border-radius:5px;min-width:3px;}
+  .hint{font-size:12px;color:var(--muted);background:#f9f5ff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-bottom:12px;}
+  footer{text-align:center;font-size:11px;color:var(--muted);margin-top:10px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>📅 יומן אירועים ומשימות</h1>
+  <p>כל אירוע עם חתימת זמן · ניתוח ותובנות · ללא n8n</p>
+</header>
+
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab active" data-p="agenda" onclick="tab('agenda')">📅 יומן</div>
+    <div class="tab" data-p="stats" onclick="tab('stats')">📊 ניתוח ותובנות</div>
+  </div>
+
+  <div class="panel active" id="agenda">
+    <div class="bar">
+      <button class="btn" onclick="openAdd()">➕ משימה / אירוע</button>
+      <button class="btn gray" onclick="exportData()">📤 גיבוי</button>
+    </div>
+    <div id="list"></div>
+  </div>
+
+  <div class="panel" id="stats">
+    <div class="hint">📊 כל פעולה נרשמת עם חתימת זמן. כאן רואים ביצועים, תובנות ואיפה להשתפר. מתעדכן לבד.</div>
+    <div id="statsBody"></div>
+  </div>
+
+  <footer>יומן אירועים ומשימות · v1.0 · נשמר מקומית · אבי חזן</footer>
+</div>
+
+<div class="ov" id="ov"><div class="modal" id="modal"></div></div>
+<div id="toast" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2e7d32;color:#fff;padding:11px 22px;border-radius:30px;font-weight:bold;opacity:0;transition:.3s;z-index:200">נשמר ✓</div>
+
+<script>
+var KEY='agenda_v1';
+var TYPES=['משימה','אירוע','פגישה','תזכורת','שיחת טלפון','ביקור'];
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||[];}catch(e){return [];}}
+function save(a){localStorage.setItem(KEY,JSON.stringify(a));}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
+function esc(s){return (s||'').replace(/[<>&"]/g,function(c){return({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'})[c];});}
+function toast(t){var e=document.getElementById('toast');e.textContent=t||'נשמר ✓';e.style.opacity='1';setTimeout(function(){e.style.opacity='0';},1400);}
+function nowISO(){return new Date().toISOString();}
+function fmtDT(iso){if(!iso)return '';var d=new Date(iso);return d.toLocaleDateString('he-IL')+' '+d.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});}
+function fmtD(iso){if(!iso)return '';return new Date(iso).toLocaleDateString('he-IL');}
+function startOfDay(d){var x=new Date(d);x.setHours(0,0,0,0);return x;}
+
+function tab(p){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.p===p);});document.querySelectorAll('.panel').forEach(function(x){x.classList.toggle('active',x.id===p);});if(p==='stats')renderStats();}
+
+function bucket(it){
+  if(it.done)return 'done';
+  if(!it.dueAt)return 'later';
+  var due=startOfDay(it.dueAt), today=startOfDay(new Date());
+  var diff=(due-today)/86400000;
+  if(diff<0)return 'overdue';
+  if(diff===0)return 'today';
+  if(diff<=7)return 'week';
+  return 'later';
+}
+function render(){
+  var a=load();
+  a.sort(function(x,y){return new Date(x.dueAt||x.createdAt)-new Date(y.dueAt||y.createdAt);});
+  var groups={overdue:[],today:[],week:[],later:[],done:[]};
+  a.forEach(function(it,i){groups[bucket(it)].push({it:it,i:i});});
+  var titles={overdue:['🔴 באיחור','overdue'],today:['🟡 היום','today'],week:['📅 השבוע','week'],later:['בהמשך','later'],done:['✅ הושלם','done']};
+  var html='';
+  ['overdue','today','week','later','done'].forEach(function(k){
+    var arr=groups[k];if(!arr.length)return;
+    html+='<div class="sec">'+titles[k][0]+' <span class="cnt">'+arr.length+'</span></div>';
+    if(k==='done')arr=arr.slice(-15).reverse();
+    html+=arr.map(function(x){return itemHtml(x.it,x.i,k);}).join('');
+  });
+  document.getElementById('list').innerHTML=html||'<div class="hint" style="text-align:center">אין משימות. לחץ "➕ משימה / אירוע".</div>';
+}
+function itemHtml(it,i,k){
+  return '<div class="item '+k+'">'+
+    '<div class="chk" onclick="toggleDone('+i+')">'+(it.done?'✓':'')+'</div>'+
+    '<div class="body" onclick="openEdit('+i+')">'+
+      '<div class="ttl">'+esc(it.title)+'</div>'+
+      '<div class="sub"><span class="typchip">'+esc(it.type||'משימה')+'</span> '+
+        (it.dueAt?' · 🕒 '+fmtDT(it.dueAt):'')+
+        (it.link?' · 🔗 '+esc(it.link):'')+
+        (it.done&&it.completedAt?' · בוצע '+fmtDT(it.completedAt):'')+
+      '</div>'+
+      (it.notes?'<div class="sub">'+esc(it.notes)+'</div>':'')+
+    '</div></div>';
+}
+function toggleDone(i){var a=load();a[i].done=!a[i].done;a[i].completedAt=a[i].done?nowISO():null;save(a);render();toast(a[i].done?'הושלם ✓':'הוחזר');}
+
+function openAdd(){form(null);}
+function openEdit(i){form(i);}
+function form(i){
+  var a=load();var it=(i!==null)?a[i]:{title:'',type:'משימה',dueAt:'',notes:'',link:''};
+  var dval='';if(it.dueAt){var d=new Date(it.dueAt);dval=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+'T'+String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');}
+  document.getElementById('modal').innerHTML=
+   '<button class="x" onclick="closeOv()">✕</button><h2 style="color:var(--purple-d)">'+(i!==null?'✏️ עריכה':'➕ חדש')+'</h2>'+
+   '<label>כותרת</label><input id="f_title" value="'+esc(it.title)+'" placeholder="למשל: להתקשר לסער">'+
+   '<div class="row2"><div><label>סוג</label><select id="f_type">'+TYPES.map(function(t){return '<option'+(t===(it.type||'משימה')?' selected':'')+'>'+t+'</option>';}).join('')+'</select></div>'+
+   '<div><label>תאריך ושעה</label><input id="f_due" type="datetime-local" value="'+dval+'"></div></div>'+
+   '<label>קשור ל (נכס/ליד - אופציונלי)</label><input id="f_link" value="'+esc(it.link||'')+'" placeholder="אחי אילת 5 / סער">'+
+   '<label>הערות</label><textarea id="f_notes" style="min-height:48px">'+esc(it.notes||'')+'</textarea>'+
+   (i!==null&&it.createdAt?'<div style="font-size:11px;color:var(--muted);margin-top:8px">🕒 נוצר: '+fmtDT(it.createdAt)+'</div>':'')+
+   '<button class="btn wide" onclick="saveItem('+(i!==null?i:'-1')+')">💾 שמור</button>'+
+   (i!==null?'<button class="btn red wide" onclick="delItem('+i+')">🗑️ מחק</button>':'');
+  document.getElementById('ov').classList.add('show');
+}
+function gv(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+function saveItem(i){
+  var a=load();
+  var due=gv('f_due');
+  var it={id:(i>-1&&a[i])?a[i].id:uid(),title:gv('f_title')||'משימה',type:gv('f_type'),
+    dueAt:due?new Date(due).toISOString():'',link:gv('f_link'),notes:gv('f_notes'),
+    done:(i>-1&&a[i])?a[i].done:false,completedAt:(i>-1&&a[i])?a[i].completedAt:null,
+    createdAt:(i>-1&&a[i])?a[i].createdAt:nowISO()};
+  if(i>-1)a[i]=it;else a.push(it);
+  save(a);closeOv();render();toast();
+}
+function delItem(i){if(!confirm('למחוק?'))return;var a=load();a.splice(i,1);save(a);closeOv();render();}
+function closeOv(){document.getElementById('ov').classList.remove('show');}
+function exportData(){var d=localStorage.getItem(KEY)||'[]';var b=new Blob([d],{type:'application/json'});var u=URL.createObjectURL(b);var el=document.createElement('a');el.href=u;el.download='agenda_backup_'+new Date().toISOString().slice(0,10)+'.json';el.click();}
+
+function renderStats(){
+  var a=load();
+  var total=a.length, done=a.filter(function(x){return x.done;}).length, open=total-done;
+  var overdue=a.filter(function(x){return !x.done&&bucket(x)==='overdue';}).length;
+  var rate=total?Math.round(done/total*100):0;
+  // completed this week
+  var weekAgo=Date.now()-7*86400000;
+  var doneWeek=a.filter(function(x){return x.done&&x.completedAt&&new Date(x.completedAt).getTime()>weekAgo;}).length;
+  // avg days to complete
+  var durs=a.filter(function(x){return x.done&&x.completedAt&&x.createdAt;}).map(function(x){return (new Date(x.completedAt)-new Date(x.createdAt))/86400000;});
+  var avg=durs.length?(durs.reduce(function(s,d){return s+d;},0)/durs.length):0;
+  // by type
+  var byType={};a.forEach(function(x){var t=x.type||'משימה';byType[t]=(byType[t]||0)+1;});
+  var maxT=Math.max(1,...Object.values(byType));
+  var typeBars=Object.entries(byType).sort(function(a,b){return b[1]-a[1];}).map(function(e){
+    return '<div class="barrow"><span style="min-width:80px">'+esc(e[0])+'</span><div class="barfill" style="width:'+(e[1]/maxT*160)+'px"></div><b>'+e[1]+'</b></div>';
+  }).join('');
+  // insights
+  var insights=[];
+  if(total===0){insights.push('עדיין אין נתונים. תתחיל להוסיף משימות וכל אחת תקבל חתימת זמן - וכאן יצטברו התובנות.');}
+  else{
+    insights.push('<b>שיעור השלמה: '+rate+'%</b> '+(rate>=70?'מצוין - אתה סוגר משימות.':(rate>=40?'סביר - יש מקום לשפר מעקב.':'נמוך - הרבה משימות פתוחות, שווה לתעדף.')));
+    if(overdue>0)insights.push('🔴 <b>'+overdue+' משימות באיחור</b> - כדאי לטפל בהן ראשונות.');
+    if(doneWeek>0)insights.push('✅ השלמת <b>'+doneWeek+'</b> משימות בשבוע האחרון.');
+    if(avg>0)insights.push('⏱️ זמן ממוצע לסגירת משימה: <b>'+avg.toFixed(1)+' ימים</b>'+(avg>5?' - נסה לקצר.':' - מהיר, כל הכבוד.'));
+  }
+  document.getElementById('statsBody').innerHTML=
+    '<div class="grid3">'+st(total,'סה"כ')+st(open,'פתוחות')+st(done,'הושלמו')+'</div>'+
+    '<div class="grid3">'+st(rate+'%','שיעור השלמה')+st(overdue,'🔴 באיחור')+st(doneWeek,'השבוע')+'</div>'+
+    insights.map(function(t){return '<div class="insight">💡 '+t+'</div>';}).join('')+
+    (typeBars?'<div class="sec">לפי סוג</div>'+typeBars:'');
+}
+function st(n,l){return '<div class="stat"><div class="n">'+n+'</div><div class="l">'+l+'</div></div>';}
+
+render();
+</script>
+<script src="nav.js"></script>
+<script src="help.js"></script>
+</body>
+</html>
