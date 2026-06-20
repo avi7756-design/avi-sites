@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>יומן אירועים והחלטות — AVI HUNTER</title>
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Arial,sans-serif;background:#eef1f7;color:#1a2030;line-height:1.6;padding:16px}
+.doc{max-width:900px;margin:0 auto;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(20,30,60,.08);overflow:hidden}
+.hdr{background:linear-gradient(135deg,#15233f,#23386a);color:#fff;padding:24px 30px}
+.hdr h1{font-size:21px;margin-bottom:4px}
+.hdr .sub{font-size:12.5px;color:#aebdd4}
+.body{padding:20px 30px}
+h2{font-size:16px;color:#23386a;margin:22px 0 10px;padding-bottom:5px;border-bottom:2px solid #e6eaf3}
+h2:first-child{margin-top:0}
+p{font-size:13px;margin-bottom:7px}
+.aibox{background:#f4f0ff;border:1px solid #d6c8f5;border-radius:12px;padding:14px 16px;font-size:13px}
+.aibox b{color:#5b3aa0}
+.tools{display:flex;gap:8px;flex-wrap:wrap;margin:12px 0}
+button{cursor:pointer;border:none;border-radius:9px;font-size:12.5px;font-weight:600;padding:8px 14px;font-family:inherit}
+.btn-go{background:#2563eb;color:#fff}
+.btn-f{background:#eef2fb;color:#2247a8}
+.btn-f.on{background:#2563eb;color:#fff}
+.card{border-right:4px solid #9aa0a6;background:#f8fafd;border-radius:0 12px 12px 0;padding:13px 16px;margin-bottom:11px}
+.card .top{display:flex;justify-content:space-between;flex-wrap:wrap;gap:6px;margin-bottom:5px}
+.card .ts{font-size:11.5px;color:#6b7488;font-weight:700}
+.tag{font-size:10px;font-weight:700;padding:2px 9px;border-radius:20px}
+.card .node{font-size:14.5px;font-weight:700;color:#15233f;margin-bottom:4px}
+.card .dec{font-size:13px;margin-bottom:3px}
+.card .why{font-size:12.5px;color:#444;margin-bottom:3px}
+.card .alt{font-size:12px;color:#777;margin-bottom:3px}
+.card .ref{font-size:11.5px}
+.card .ref a{color:#2247a8}
+.strategy{border-right-color:#2f6fd0}.strategy .tag{background:#e3edfb;color:#2247a8}
+.exec{border-right-color:#1d7a44}.exec .tag{background:#eafaf0;color:#1d7a44}
+.fault{border-right-color:#c0334a}.fault .tag{background:#fdeef0;color:#b3243c}
+.research{border-right-color:#9e6a03}.research .tag{background:#fff7e6;color:#9a6b13}
+.chk{display:flex;align-items:flex-start;gap:8px;padding:7px 10px;border-radius:8px;background:#f7f9fd;margin-bottom:5px;font-size:13px;border:1px solid #eef1f8}
+.chk.done{background:#eafaf0;border-color:#bfe9cf}
+.chk .m{flex-shrink:0}
+.reflist{font-size:12.5px;columns:2;column-gap:24px}
+.reflist a{color:#2247a8;display:block;margin-bottom:4px}
+@media(max-width:560px){.reflist{columns:1}}
+.foot{padding:14px 30px;background:#f5f8fd;border-top:1px solid #e6eaf3;font-size:11px;color:#7a8398;text-align:center}
+@media print{body{background:#fff;padding:0}.doc{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="doc">
+<div class="hdr">
+  <h1>📓 יומן אירועים והחלטות — AVI HUNTER</h1>
+  <div class="sub">ספר התהליך · סימוכין · חותמות זמן · יומן חי · עודכן: <b>19.06.2026 00:10 IDT</b></div>
+</div>
+<div class="body">
+
+  <div class="aibox">
+    <b>🤖 הקשר למודל AI (תפתח כאן):</b> אבי חזן, משקיע פרטי, חשבון IBKR U24234851 (US-broker בלבד, אין TASE). NAV ≈₪679K. עבר מאסטרטגיית סווינג "5 כוכבים" (שהופרכה: אין אלפא) ל-<b>Core-Satellite</b>: ליבה 75% VOO (אחזקה, לא תזמון) · לוויין 10-15% רוטציית מומנטום-איכות (ספסל 28 מגה-קאפ + מסנן Argus, עם Kill-switch) · מזומן. הדוקטרינה הקובעת: <b>דוקטרינה v3 (18.6)</b>. יומן זה מתעד כל החלטה עם נימוק וסימוכין.
+  </div>
+
+  <div class="tools">
+    <button class="btn-go" onclick="copyAI()">📋 העתק ל-AI (טקסט)</button>
+    <button class="btn-f on" data-f="all" onclick="filt(this)">הכל</button>
+    <button class="btn-f" data-f="strategy" onclick="filt(this)">אסטרטגיה</button>
+    <button class="btn-f" data-f="exec" onclick="filt(this)">ביצוע</button>
+    <button class="btn-f" data-f="fault" onclick="filt(this)">תקלה</button>
+    <button class="btn-f" data-f="research" onclick="filt(this)">מחקר</button>
+  </div>
+
+  <h2>📜 ציר זמן ההחלטות</h2>
+  <div id="timeline">
+
+    <div class="card strategy" data-t="strategy">
+      <div class="top"><span class="ts">🕒 17.06.2026 · ~17:00</span><span class="tag">אסטרטגיה</span></div>
+      <div class="node">📍 קריאת רמזור FOMC</div>
+      <div class="dec">✅ רמזור ירוק-נייטרלי → להמשיך לפריסת ליבה.</div>
+      <div class="why">🧠 FOMC הקפאה ניצית (3.50-3.75%, dot-plot↑3.8%), VIX 16.4, SPY ליד שיא. השוק רגוע; הליבה לפי דוקטרינה לא מתוזמנת.</div>
+      <div class="alt">⚖️ חלופה: לחכות עד שהרמזור "מושלם" — נדחתה (סותרת את עקרון אי-תזמון הליבה).</div>
+      <div class="ref">🔗 <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm">Fed FOMC 17.6</a> · <a href="../STATE_AVI_HUNTER.md">STATE</a></div>
+    </div>
+
+    <div class="card strategy" data-t="strategy">
+      <div class="top"><span class="ts">🕒 17.06.2026</span><span class="tag">אסטרטגיה</span></div>
+      <div class="node">📍 מסגרת הגנת תיק — בחירת מודל B</div>
+      <div class="dec">✅ מודל B "ליבה מוגנת" (60/18/7/15) כיעד.</div>
+      <div class="why">🧠 75% מניות + 15% מזומן אינו "סיכון נמוך". מודל B חותך את ה-Drawdown הגרוע מ~−35% ל~−20%, ונשאר מוטה-מניות.</div>
+      <div class="alt">⚖️ A (הנוכחי, DD −35%) · C (All-Weather, מוגן מדי / כבד אג"ח). נבחר B.</div>
+      <div class="ref">🔗 <a href="מסגרת_הגנת_תיק_AVI_HUNTER.md">מסגרת הגנת תיק</a></div>
+    </div>
+
+    <div class="card exec" data-t="exec">
+      <div class="top"><span class="ts">🕒 17-18.06.2026</span><span class="tag">ביצוע/מערכת</span></div>
+      <div class="node">📍 בניית שכבת State (זיכרון מתמשך)</div>
+      <div class="dec">✅ קובץ State קנוני (JSON+MD) שכל שיחה קוראת ומעדכנת.</div>
+      <div class="why">🧠 למנוע אובדן הקשר בין שיחות; מקור-אמת אחד.</div>
+      <div class="ref">🔗 <a href="../STATE_AVI_HUNTER.json">STATE.json</a> · <a href="../STATE_AVI_HUNTER.md">STATE.md</a></div>
+    </div>
+
+    <div class="card fault" data-t="fault">
+      <div class="top"><span class="ts">🕒 18.06.2026 · ~13:40</span><span class="tag">תיקון קריטי</span></div>
+      <div class="node">📍 גילוי: ברוקר אמריקאי בלבד</div>
+      <div class="dec">✅ הליבה = VOO דולרי (לא קרן מנוטרלת-שקל).</div>
+      <div class="why">🧠 אין גישה ל-TASE. מכשיר S&P500 מנוטרל-שקל לא קיים כקרן אמריקאית. כל התוכנית הקודמת (קסם מנוטרל) הייתה לא-ישימה.</div>
+      <div class="alt">⚖️ קסם/תכלית מנוטרל (TASE) — נפסלו (לא נגישים). VOO/IVV — נבחר VOO (0.03%, נזיל).</div>
+      <div class="ref">🔗 <a href="דוקטרינה_v3_18.6.26.html">דוקטרינה v3</a></div>
+    </div>
+
+    <div class="card strategy" data-t="strategy">
+      <div class="top"><span class="ts">🕒 18.06.2026</span><span class="tag">אסטרטגיה</span></div>
+      <div class="node">📍 החלטת מטבע — המרת שקלים במנות</div>
+      <div class="dec">✅ להמיר ILS→USD במנות (DCA), רק חלק (~₪70-130K).</div>
+      <div class="why">🧠 הדולר התחזק 2.916→2.95 (ישראל מורידה ריבית, פד ניצי) — התזה מתממשת, אז המרה פחות "הימור". מנות מפזרות סיכון תזמון. שאר השקלים = כרית.</div>
+      <div class="alt">⚖️ הכל עכשיו (סיכון תזמון) · רק דולר (שקלים נשארים ב-0%). נבחר DCA חלקי.</div>
+      <div class="ref">🔗 <a href="https://www.themarker.com/news/macroeconomics/2026-05-25/ty-article/0000019e-5ee0-d121-a5df-5fedbfda0000">בנק ישראל 3.75%</a></div>
+    </div>
+
+    <div class="card exec" data-t="exec">
+      <div class="top"><span class="ts">🕒 18.06.2026 · 16:45</span><span class="tag">ביצוע</span></div>
+      <div class="node">📍 BOOT — ניתוח Flex + רמזור יום</div>
+      <div class="dec">✅ GO למנה 1.</div>
+      <div class="why">🧠 NAV ₪678,953, ALL CASH, הדולר התחזק (+₪4,269). VIX 18.4 (&lt;20), שוק מתאושש אחרי FOMC. רמזור ירוק.</div>
+      <div class="ref">🔗 Flex CSVs (IBKR) · <a href="https://www.gurufocus.com/economic_indicators/234/vix">VIX 18.4</a></div>
+    </div>
+
+    <div class="card exec" data-t="exec">
+      <div class="top"><span class="ts">🕒 18.06.2026 · 17:14</span><span class="tag">✅ ביצוע</span></div>
+      <div class="node">📍 מנה 1 בוצעה — 41 VOO</div>
+      <div class="dec">✅ 41 מניות VOO @ 686.59, עמלה $1.00, סה"כ $28,150.19.</div>
+      <div class="why">🧠 LIMIT marketable ליד ה-Ask, DAY. שווה-ערך ₪84K, מ-$149K הדולר הקיים (אפס המרה).</div>
+      <div class="alt">⚖️ אירוע: ההוראה תחילה "לא נתפסה" (Limit מתחת לשוק), נחה, ואז התמלאה. <b>עצרנו לאמת מול Positions+Orders לפני שליחה חוזרת → מנענו קנייה כפולה של $28K.</b></div>
+      <div class="ref">🔗 IBKR Trades · <a href="../STATE_AVI_HUNTER.md">STATE (executed)</a></div>
+    </div>
+
+    <div class="card exec" data-t="exec">
+      <div class="top"><span class="ts">🕒 18.06.2026</span><span class="tag">מערכת</span></div>
+      <div class="node">📍 בניית אזור ביצוע ענני</div>
+      <div class="dec">✅ webhook ‎/exec-zone-avi + טבלת state + סנכרון non-blocking.</div>
+      <div class="why">🧠 "מקום אחד" נגיש מהנייד, localStorage מיידי + סנכרון רקע (timeout 3ש') שלא חוסם את הממשק בזמן מסחר.</div>
+      <div class="ref">🔗 <a href="https://avi-hazan.app.n8n.cloud/webhook/exec-zone-avi">exec-zone-avi</a></div>
+    </div>
+
+    <div class="card fault" data-t="fault">
+      <div class="top"><span class="ts">🕒 18.06.2026</span><span class="tag">תקלת מערכת</span></div>
+      <div class="node">📍 גילוי: צינור ענני קפוא מ-~12.6</div>
+      <div class="dec">✅ אבחון: לא הסורק (רץ ומחזיר נתונים) — שכבת ההגשה (דשבורד+API) מגישה מטמון 12.6. החלטה: לדחות תיקון לאחרי סגירה.</div>
+      <div class="why">🧠 לתקן production בזמן מסחר = הסיכון לאמינות שרוצים למנוע. הדשבורד הוא של הלוויין (לא-קריטי).</div>
+      <div class="ref">🔗 n8n executions (get_execution 3321/3533)</div>
+    </div>
+
+    <div class="card research" data-t="research">
+      <div class="top"><span class="ts">🕒 18.06.2026</span><span class="tag">מחקר</span></div>
+      <div class="node">📍 לימוד שיטת Hunter/Argus (17.2)</div>
+      <div class="dec">✅ נלמדה מהמחברת NotebookLM "השקעות סופי 17.2".</div>
+      <div class="why">🧠 Hunter = סורק 19 מגה-קאפ (PEAD/VCP). Argus = שער איכות 0-100 (4 עמודים, רף ≥80, Veto דגלים אדומים). פילוסופיית Fail-Closed.</div>
+      <div class="ref">🔗 מחברת NotebookLM 17.2 (מקור פנימי)</div>
+    </div>
+
+    <div class="card strategy" data-t="strategy">
+      <div class="top"><span class="ts">🕒 18.06.2026</span><span class="tag">אסטרטגיה</span></div>
+      <div class="node">📍 החלטה: להחליף 5★ ברוטציית מומנטום-איכות</div>
+      <div class="dec">✅ לזרוק את סורק 5★. הלוויין = ספסל 28 מגה-קאפ + מסנן Argus, רוטציה שבועית.</div>
+      <div class="why">🧠 5★ סורק small-caps בלי שער איכות (שביר, מסוכן). Hunter/Argus עדיף בכל פרמטר. אבל גם תזמון לא-מוכח → לוויין בלבד + Kill-switch (20+ עסקאות/6ח' לא מכה SPY → מכווץ ל-5%/VOO).</div>
+      <div class="alt">⚖️ לשלב 5★+Hunter — נדחה (מורכבות בלי אלפא). להחזיק VOO בלבד — אפשרי, אך המשתמש רוצה לוויין נמדד.</div>
+      <div class="ref">🔗 <a href="ספסל_לוויין_מגה_קאפ_18.6.26.html">ספסל הלוויין</a> · <a href="דוקטרינה_v3_18.6.26.html">דוקטרינה v3</a></div>
+    </div>
+
+    <div class="card strategy" data-t="strategy">
+      <div class="top"><span class="ts">🕒 18.06.2026 · 22:00</span><span class="tag">אסטרטגיה</span></div>
+      <div class="node">📍 בניית ספסל 28 מגה-קאפ + דוקטרינה v3</div>
+      <div class="dec">✅ ספסל מסונן (פארטו + Argus, 8 סקטורים) + דוקטרינה v3 שמאחדת הכל.</div>
+      <div class="why">🧠 משפך פארטו 80/20: לסרוק 28 איכותיים, לא 1,900. NVDA סומן בדגל (Beta&gt;1.8 → Veto).</div>
+      <div class="ref">🔗 <a href="ספסל_לוויין_מגה_קאפ_18.6.26.html">ספסל</a> · <a href="דוקטרינה_v3_18.6.26.html">v3</a> · <a href="https://www.tradingkey.com/analysis/stocks/us-stocks/261841636-us-stock-nvidia-google-apple-microsoft-amazon-tsm-meta-tesla-2026-tradingkey">מובילי מגה-קאפ 2026</a></div>
+    </div>
+
+    <div class="card strategy" data-t="strategy">
+      <div class="top"><span class="ts">🕒 18.06.2026 · 22:30</span><span class="tag">אסטרטגיה</span></div>
+      <div class="node">📍 תפעול הלוויין — תצורה ותחילת מדידה</div>
+      <div class="dec">✅ RS 3-חודשים · 6-8 פוזיציות · נייר עכשיו / כסף אמיתי M4 (5%).</div>
+      <div class="why">🧠 "מהיר אבל בטוח": ספר צללים נייר רץ מהיום (מדידה, אפס סיכון); כסף אמיתי רק אחרי שהליבה 67% והנייר מוכיח. בנינו מדריך הפעלה + רובריקת Argus מוחשית.</div>
+      <div class="ref">🔗 <a href="מדריך_הפעלת_לוויין_AVI_HUNTER.html">מדריך הפעלה</a> · <a href="ספר_צללים_נייר_לוויין_18.6.26.html">ספר צללים נייר</a></div>
+    </div>
+
+    <div class="card exec" data-t="exec">
+      <div class="top"><span class="ts">🕒 18.06.2026 · 22:45</span><span class="tag">ביצוע/מחקר</span></div>
+      <div class="node">📍 פתיחת ספר צללים נייר — 8 פוזיציות</div>
+      <div class="dec">✅ CAT, GOOGL, GE, AVGO, ORCL, NFLX, RTX, XOM. כניסות = מחירים חיים מ-IBKR. בנצ'מרק SPY 747.43.</div>
+      <div class="why">🧠 סוכן מקביל דירג RS; המסנן פסל את LMT (downtrend −25%), דיגל NVDA (Beta>1.8), AAPL/AMZN (RS חלש). <b>לקח:</b> ניחושי המחיר הראשוניים (AVGO/ORCL/NFLX) היו שגויים — הנתונים החיים תפסו זאת, ואיפסנו כניסות למחירים אמיתיים. NFLX $77 לאמת פיצול.</div>
+      <div class="ref">🔗 <a href="ספר_צללים_נייר_לוויין_18.6.26.html">ספר צללים נייר</a></div>
+    </div>
+
+    <div class="card exec" data-t="exec">
+      <div class="top"><span class="ts">🕒 19.06.2026 · 00:05</span><span class="tag">מערכת</span></div>
+      <div class="node">📍 אוטומציה — 3 משימות מתוזמנות</div>
+      <div class="dec">✅ סקירת נייר שבועית (א' 09:00) · הכנת מנה 2 (2.7) · תיקון דשבורד קפוא (19.6 08:00, אחרי סגירה).</div>
+      <div class="why">🧠 "כל יום שלא מתקדמים = הפסד". אוטומציה מבטיחה שלא מפספסים ימים, ושהתיקון המסוכן (production) קורה בזמן בטוח (שוק סגור).</div>
+      <div class="ref">🔗 Scheduled tasks (סיידבר)</div>
+    </div>
+
+  </div>
+
+  <h2>✅ צ'ק-ליסט — בוצע / לביצוע</h2>
+  <div class="chk done"><span class="m">✅</span><div>מנה 1 — 41 VOO @686.59 בוצעה ואומתה (18.6)</div></div>
+  <div class="chk done"><span class="m">✅</span><div>שכבת State + אזור ביצוע ענני (webhook + טבלה)</div></div>
+  <div class="chk done"><span class="m">✅</span><div>מסגרת הגנה (מודל B) + דוקטרינה v2→v3</div></div>
+  <div class="chk done"><span class="m">✅</span><div>ספסל 28 מגה-קאפ + מסנן Argus + מדריך הפעלה</div></div>
+  <div class="chk done"><span class="m">✅</span><div>ספר צללים נייר נפתח (8 פוזיציות, מחירים חיים) — מדידה מול SPY רצה</div></div>
+  <div class="chk done"><span class="m">✅</span><div>3 משימות מתוזמנות (סקירה שבועית · מנה 2 · תיקון דשבורד)</div></div>
+  <div class="chk done"><span class="m">✅</span><div>יומן + מפת דרכים + תרחישים</div></div>
+  <div class="chk"><span class="m">⏳</span><div>תיקון דשבורד קפוא — מתוזמן 19.6 08:00 (אוטומטי)</div></div>
+  <div class="chk"><span class="m">⏳</span><div>מנה 2 לליבה — מתוזמן 2.7 (אוטומטי)</div></div>
+  <div class="chk"><span class="m">⏳</span><div>המרת שקלים מנה 1 (~₪79K → $) — השבוע</div></div>
+  <div class="chk"><span class="m">⏳</span><div>סקירת נייר שבועית — מתוזמן כל יום ראשון (אוטומטי)</div></div>
+  <div class="chk"><span class="m">⏳</span><div>מנות 3-6 לליבה — לפי לוח (יולי-ספטמבר)</div></div>
+
+  <h2>🔗 מאגר סימוכין</h2>
+  <div class="reflist">
+    <a href="דוקטרינה_v3_18.6.26.html">📄 דוקטרינה v3 (קובעת)</a>
+    <a href="ספסל_לוויין_מגה_קאפ_18.6.26.html">🐎 ספסל לוויין 28 מגה-קאפ</a>
+    <a href="מסגרת_הגנת_תיק_AVI_HUNTER.md">🛡️ מסגרת הגנת תיק</a>
+    <a href="../STATE_AVI_HUNTER.md">🧠 STATE (זיכרון)</a>
+    <a href="../01_דשבורדים/אזור_ביצוע_מנה1.html">🎯 אזור ביצוע</a>
+    <a href="תוכנית_יום_18.6.26_מנה1.md">📅 תוכנית יום 18.6</a>
+    <a href="https://avi-hazan.app.n8n.cloud/webhook/exec-zone-avi">☁️ אזור ביצוע ענני</a>
+    <a href="https://www.federalreserve.gov/newsevents/pressreleases/monetary20260617a.htm">🏛️ Fed FOMC 17.6</a>
+  </div>
+
+</div>
+<div class="foot">יומן חי · נוצר 18.06.2026 22:20 IDT · יעודכן בכל החלטה חדשה · אין באמור ייעוץ השקעות</div>
+</div>
+
+<textarea id="aitext" style="position:absolute;left:-9999px">AVI HUNTER — יומן החלטות (18.6.2026)
+משקיע: אבי חזן · IBKR U24234851 (US-broker בלבד) · NAV ~₪679K.
+אסטרטגיה: Core-Satellite. ליבה 75% VOO (אחזקה, לא תזמון). לוויין 10-15% רוטציית מומנטום-איכות (ספסל 28 מגה-קאפ + מסנן Argus ≥80, Kill-switch 20 עסקאות/6ח'). מזומן 10-15%. בוטל: סורק 5★, יעד 30%, Sharpe>2 (הופרכו ב-5 בדיקות, CAGR 1.47%).
+
+החלטות מרכזיות (כרונולוגי):
+1. 17.6: FOMC ניצי אך VIX 16.4 → רמזור ירוק → לפרוס ליבה (הליבה לא מתוזמנת).
+2. 17.6: מסגרת הגנה מודל B (60/18/7/15) — חותך DD מ-35% ל-20%.
+3. 18.6: גילוי US-broker בלבד → ליבה = VOO (לא מנוטרל-שקל TASE שלא נגיש).
+4. 18.6: מטבע — להמיר שקלים במנות, רק חלק; הדולר התחזק 2.916→2.95 (תזה מתממשת).
+5. 18.6 17:14: מנה 1 בוצעה — 41 VOO @686.59, $28,150, עמלה $1.
+6. 18.6: אירוע — הוראה "לא נתפסה" ואז התמלאה; עצרנו לאמת → מנענו קנייה כפולה.
+7. 18.6: גילוי — צינור ענני (דשבורד+API) קפוא מ-12.6, שכבת הגשה; תיקון נדחה לאחרי סגירה.
+8. 18.6: לימוד Hunter/Argus 17.2 (סורק מגה-קאפ + שער איכות 0-100).
+9. 18.6: החלפת 5★ ברוטציית מומנטום-איכות (ספסל 28 + Argus), בלוויין בלבד עם Kill-switch.
+
+יתרה אחרי מנה 1: $121,125 + ₪237,969. מחזיק 41 VOO.
+לביצוע: מנות 2-6 ליבה · המרת שקלים · תיקון דשבורד (אחרי סגירה) · הפעלת ספר צללים על הלוויין.
+אזהרה: רוטציית מומנטום היא מסחר אקטיבי לא-מוכח — לוויין מתוחם ונמדד בלבד. הליבה (VOO) היא המנוע. אין ייעוץ השקעות.</textarea>
+
+<script>
+function filt(b){
+ document.querySelectorAll('.btn-f').forEach(function(x){x.classList.remove('on')});b.classList.add('on');
+ const f=b.dataset.f;
+ document.querySelectorAll('#timeline .card').forEach(function(c){
+  c.style.display=(f==='all'||c.dataset.t===f)?'block':'none';});
+}
+function copyAI(){
+ const t=document.getElementById('aitext');t.select();
+ try{document.execCommand('copy');alert('היומן הועתק! הדבק אותו בכל מודל AI כדי שיבין את כל התהליך.');}
+ catch(e){navigator.clipboard&&navigator.clipboard.writeText(t.value).then(function(){alert('הועתק!')});}
+}
+</script>
+</body>
+</html>
