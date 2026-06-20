@@ -4,6 +4,7 @@
 
 | גרסה | תאריך | תיאור | commits עיקריים |
 |------|-------|-------|-----------------|
+| **v4.7** | 21/06/2026 | שלב 3: יומן למידה (learning-log.html): תיעוד החלטות+תוצאות, ניתוח דפוסים, פרומפט ניתוח עומק ל-ChatGPT/Claude. השלמת מערכת איתור היהלומים | `Add learning loop journal v4.7 - diamond system complete` |
 | **v4.6** | 21/06/2026 | שלב 2: מחקר אזור (area-research.html): בנצ'מרק, מנופי ערך וסיכונים לכל שכונה בקריות + פרומפט מחקר ושמירת ממצאים מ-Perplexity | `Add area research market intelligence v4.6` |
 | **v4.5** | 21/06/2026 | שדרוג מסד עסקאות (deals-db.html): מודל יהלום (מנופי ערך + דגלי סיכון), זיהוי נכסים נטושים, כונס נכסים, AS IS, אנשי מקצוע, כפתור פרומפט מחקר ל-Perplexity | `Upgrade deals DB with diamond model + research prompts v4.5` |
 | **v4.4** | 20/06/2026 | יומן אירועים ומשימות (agenda.html): חתימת זמן לכל פריט, קיבוץ לפי דחיפות, ניתוח ותובנות + הוספת כל האפליקציות החדשות לניווט הצף | `Add agenda + tasks with insights, wire floating nav v4.4` |

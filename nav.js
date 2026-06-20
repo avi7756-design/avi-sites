@@ -15,6 +15,7 @@
     { i: '👥', t: 'מרכז לידים', u: BASE + 'leads-center.html' },
     { i: '🏢', t: 'מסד עסקאות', u: BASE + 'deals-db.html' },
     { i: '🗺️', t: 'מחקר אזור', u: BASE + 'area-research.html' },
+    { i: '🧠', t: 'יומן למידה', u: BASE + 'learning-log.html' },
     { i: '💰', t: 'תזרים', u: BASE + 'cashflow.html' },
     { i: '📅', t: 'יומן ומשימות', u: BASE + 'agenda.html' },
     { i: '🏡', t: 'דף נחיתה', u: BASE + 'dira-gallery/' },
