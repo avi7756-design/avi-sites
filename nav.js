@@ -9,6 +9,7 @@
   // רשימת היעדים בתפריט הניווט
   var LINKS = [
     { i: '🏠', t: 'מאסטרו (ראשי)', u: HOME },
+    { i: '🗺️', t: 'מפת המערכת', u: BASE + 'overview.html' },
     { i: '🎯', t: 'משימות היום', u: BASE + 'manage.html' },
     { i: '📊', t: 'דשבורד לידים', u: BASE + 'dashboard.html' },
     { i: '🏘️', t: 'מרכז הנכסים', u: BASE + 'assets-hub.html' },
