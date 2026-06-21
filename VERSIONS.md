@@ -4,6 +4,7 @@
 
 | גרסה | תאריך | תיאור | commits עיקריים |
 |------|-------|-------|-----------------|
+| **v4.9** | 21/06/2026 | שילוב מלא של סימולטור כדאיות ודוח עסקה במפת המערכת ובניווט הצף | `Integrate simulator + deal-report into overview and nav v4.9` |
 | **v4.8** | 21/06/2026 | מפת המערכת (overview.html): סקירה ויזואלית של כל האפליקציות והכלים במערכת | `Add system overview v4.8` |
 | **v4.7** | 21/06/2026 | שלב 3: יומן למידה (learning-log.html): תיעוד החלטות+תוצאות, ניתוח דפוסים, פרומפט ניתוח עומק ל-ChatGPT/Claude. השלמת מערכת איתור היהלומים | `Add learning loop journal v4.7 - diamond system complete` |
 | **v4.6** | 21/06/2026 | שלב 2: מחקר אזור (area-research.html): בנצ'מרק, מנופי ערך וסיכונים לכל שכונה בקריות + פרומפט מחקר ושמירת ממצאים מ-Perplexity | `Add area research market intelligence v4.6` |
