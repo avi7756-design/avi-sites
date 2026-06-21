@@ -4,6 +4,7 @@
 
 | גרסה | תאריך | תיאור | commits עיקריים |
 |------|-------|-------|-----------------|
+| **v5.0** | 21/06/2026 | מסד עסקאות ארצי: עיר גמישה (כל הארץ + datalist), מחיר שוק למ"ר ידני, שדות גוש/חלקה + חיפוש GovMap ו-nadlan.gov.il | `Nationwide deals DB + gush/helka lookup v5.0` |
 | **v4.9** | 21/06/2026 | שילוב מלא של סימולטור כדאיות ודוח עסקה במפת המערכת ובניווט הצף | `Integrate simulator + deal-report into overview and nav v4.9` |
 | **v4.8** | 21/06/2026 | מפת המערכת (overview.html): סקירה ויזואלית של כל האפליקציות והכלים במערכת | `Add system overview v4.8` |
 | **v4.7** | 21/06/2026 | שלב 3: יומן למידה (learning-log.html): תיעוד החלטות+תוצאות, ניתוח דפוסים, פרומפט ניתוח עומק ל-ChatGPT/Claude. השלמת מערכת איתור היהלומים | `Add learning loop journal v4.7 - diamond system complete` |

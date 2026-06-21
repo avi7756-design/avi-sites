@@ -109,7 +109,9 @@ var KEY='deals_db_v1';
 var BENCH={'מוצקין':17500,'ביאליק':16000,'חיים':15500,'ים':13500,'אתא':13000};
 var CATS=[['transport','🚈 רכבת/מטרונית מתוכננת'],['renewal','🏗️ התחדשות עירונית/פינוי-בינוי'],['rights','📐 הגדלת אחוזי בנייה'],['jobs','💼 קרבה למוקד תעסוקה']];
 var RISKS=[['env','🏭 מפגע סביבתי (מפרץ חיפה/זיהום)'],['supply','🏘️ עודף היצע עתידי באזור'],['bureau','📋 בירוקרטיה/התנגדות תב"ע'],['geo','🛡️ סיכון גאו-פוליטי/גבול'],['asis','⚠️ עסקת AS IS (כמו שהוא)']];
-function benchFor(c){if(!c)return null;for(var k in BENCH){if(c.indexOf(k)>-1)return BENCH[k];}return null;}
+function areaBench(){try{var ar=JSON.parse(localStorage.getItem('area_research_v1'))||[];var m={};ar.forEach(function(a){if(a.name&&a.perSqm)m[a.name]=a.perSqm;});return m;}catch(e){return {};}}
+function knownCities(){var s=['קריית מוצקין','קריית ביאליק','קריית חיים','קריית ים','קריית אתא'];var am=areaBench();for(var n in am){if(s.indexOf(n)<0)s.push(n);}return s;}
+function benchFor(c){if(!c)return null;for(var k in BENCH){if(c.indexOf(k)>-1)return BENCH[k];}var am=areaBench();for(var n in am){if(c.indexOf(n)>-1||n.indexOf(c)>-1)return am[n];}return null;}
 function load(){try{return JSON.parse(localStorage.getItem(KEY))||[];}catch(e){return [];}}
 function save(a){localStorage.setItem(KEY,JSON.stringify(a));}
 function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
@@ -119,7 +121,7 @@ function toast(t){var e=document.getElementById('toast');e.textContent=t||'נש�
 
 function priceV(d){
   var price=+d.price||0,sqm=+d.sqm||0;if(!price||!sqm)return null;
-  var bench=benchFor(d.city||'');if(!bench)return null;
+  var bench=(+d.marketSqm||0)||benchFor(d.city||'');if(!bench)return null;
   var perSqm=price/sqm, below=(bench-perSqm)/bench*100;
   return {below:below,perSqm:Math.round(perSqm),bench:bench};
 }
@@ -194,8 +196,12 @@ function form(i){
   document.getElementById('modal').innerHTML=
    '<button class="x" onclick="closeOv()">✕</button><h2>'+(i!==null?'✏️ עריכת עסקה':'➕ עסקה חדשה')+'</h2>'+
    '<label>כתובת</label><input id="f_address" value="'+esc(d.address)+'">'+
-   '<div class="row2"><div><label>עיר</label><input id="f_city" value="'+esc(d.city||'')+'" placeholder="קריית מוצקין"></div><div><label>מקור</label><input id="f_source" value="'+esc(d.source||'')+'"></div></div>'+
+   '<datalist id="cityList">'+knownCities().map(function(c){return '<option value="'+esc(c)+'">';}).join('')+'</datalist>'+
+   '<div class="row2"><div><label>עיר (כל הארץ)</label><input id="f_city" list="cityList" value="'+esc(d.city||'')+'" placeholder="הקלד או בחר"></div><div><label>מקור</label><input id="f_source" value="'+esc(d.source||'')+'"></div></div>'+
    '<div class="row2"><div><label>מחיר (₪)</label><input id="f_price" type="number" inputmode="numeric" value="'+(d.price||'')+'"></div><div><label>מ"ר</label><input id="f_sqm" type="number" inputmode="numeric" value="'+(d.sqm||'')+'"></div></div>'+
+   '<label>מחיר שוק למ"ר באזור (₪, ידני - לעיר שאינה במאגר)</label><input id="f_market" type="number" inputmode="numeric" value="'+(d.marketSqm||'')+'" placeholder="מ-nadlan.gov.il לרחוב">'+
+   '<div class="row2"><div><label>גוש</label><input id="f_gush" value="'+esc(d.gush||'')+'" placeholder="מספר גוש"></div><div><label>חלקה</label><input id="f_helka" value="'+esc(d.helka||'')+'" placeholder="מספר חלקה"></div></div>'+
+   '<div style="display:flex;gap:7px;margin-top:6px"><button class="btn sm gray" style="flex:1" onclick="lookupGush()">🗺️ חפש ב-GovMap</button><button class="btn sm gray" style="flex:1" onclick="lookupNadlan()">📊 nadlan.gov.il</button></div>'+
    '<div class="row2"><div><label>חדרים</label><input id="f_rooms" type="number" inputmode="numeric" value="'+(d.rooms||'')+'"></div><div><label>שכ"ד צפוי (₪)</label><input id="f_rent" type="number" inputmode="numeric" value="'+(d.rent||'')+'"></div></div>'+
    '<div id="liveV"></div>'+
    '<h3>💎 מנופי ערך (יהלומים סמויים)</h3>'+CATS.map(function(c){return ck2('cat_'+c[0],c[1],(d.cats||[]).indexOf(c[0])>-1,'cat');}).join('')+
@@ -212,12 +218,12 @@ function form(i){
    '<button class="btn wide" onclick="saveDeal('+(i!==null?i:'-1')+')">💾 שמור</button>'+
    (i!==null?'<button class="btn red wide" onclick="delDeal('+i+')">🗑️ מחק</button>':'');
   document.getElementById('ov').classList.add('show');
-  ['f_price','f_sqm','f_city','f_rent'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',liveVerdict);});
+  ['f_price','f_sqm','f_city','f_rent','f_market'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',liveVerdict);});
   liveVerdict();
 }
 function ck2(id,label,val,kind){return '<div class="ck '+(kind||'')+'"><input type="checkbox" id="'+id+'"'+(val?' checked':'')+'><label style="margin:0">'+label+'</label></div>';}
 function liveVerdict(){
-  var d={price:+val('f_price'),sqm:+val('f_sqm'),city:val('f_city'),rent:+val('f_rent')};
+  var d={price:+val('f_price'),sqm:+val('f_sqm'),city:val('f_city'),rent:+val('f_rent'),marketSqm:+val('f_market')};
   var v=priceV(d);var box=document.getElementById('liveV');if(!box)return;
   if(!v){box.innerHTML='';return;}
   var g=gross(d);var below=v.below;
@@ -245,10 +251,13 @@ function genPrompt(i){
 }
 function val(id){var e=document.getElementById(id);return e?e.value.trim():'';}
 function chk(id){var e=document.getElementById(id);return e?e.checked:false;}
+function lookupGush(){var g=val('f_gush'),h=val('f_helka');if(!g){toast('הזן גוש');return;}navigator.clipboard.writeText('גוש '+g+(h?' חלקה '+h:'')).then(function(){toast('הועתק! הדבק בחיפוש GovMap');});window.open('https://www.govmap.gov.il','_blank');}
+function lookupNadlan(){var g=val('f_gush'),h=val('f_helka'),addr=val('f_address'),city=val('f_city');navigator.clipboard.writeText(g?('גוש '+g+(h?' חלקה '+h:'')):((addr?addr+' ':'')+city)).then(function(){toast('הועתק! הדבק בחיפוש');});window.open('https://www.nadlan.gov.il','_blank');}
 function saveDeal(i){
   var a=load();
   var d={id:(i>-1&&a[i])?a[i].id:uid(),address:val('f_address')||'עסקה',city:val('f_city'),source:val('f_source'),
     price:+val('f_price')||0,sqm:+val('f_sqm')||0,rooms:+val('f_rooms')||0,rent:+val('f_rent')||0,
+    marketSqm:+val('f_market')||0,gush:val('f_gush'),helka:val('f_helka'),
     status:val('f_status')||'בבדיקה',notes:val('f_notes'),cats:collectCats(),risks:collectRisks(),
     legal:{lien:chk('lg_lien'),build:chk('lg_build'),own:chk('lg_own'),appraisal:chk('lg_appraisal')},
     pros:{lawyer:val('pr_lawyer'),appraiser:val('pr_appraiser'),broker:val('pr_broker')},
