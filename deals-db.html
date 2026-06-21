@@ -72,6 +72,7 @@
 
 <div class="wrap">
   <div class="hint">💎 יהלום אמיתי = מחיר מתחת לשוק <b>+</b> מנוף ערך (רכבת/התחדשות/זכויות) <b>+</b> אפס דגלים אדומים. נשמר במכשיר.</div>
+  <div id="learnTip"></div>
   <div class="summary" id="summary"></div>
 
   <div class="srcwrap">
@@ -144,7 +145,27 @@ function diamond(d){
   return {cls:cls,txt:txt,below:below,pv:pv,isDiamond:isDiamond,risks:risks,cats:cats};
 }
 
+var LFAC={transport:'🚈 רכבת/תחבורה',renewal:'🏗️ התחדשות',rights:'📐 זכויות בנייה',jobs:'💼 תעסוקה',below:'💰 מתחת לשוק',env:'🏭 מפגע סביבתי',supply:'🏘️ עודף היצע',bureau:'📋 בירוקרטיה',geo:'🛡️ גאו-פוליטי'};
+function learnTip(){
+  var box=document.getElementById('learnTip');if(!box)return;
+  var log;try{log=JSON.parse(localStorage.getItem('learning_log_v1'))||[];}catch(e){log=[];}
+  var pos={};log.forEach(function(e){if(e.outcome==='חיובי')(e.factors||[]).forEach(function(f){pos[f]=(pos[f]||0)+1;});});
+  var top=Object.entries(pos).sort(function(a,b){return b[1]-a[1];})[0];
+  if(top){box.innerHTML='<div style="background:#f3eefb;border:1px solid #e0d6ef;border-radius:11px;padding:10px 13px;margin-bottom:12px;font-size:13px;color:#5e3aa0">🧠 <b>תובנה מהניסיון שלך:</b> הגורם שהכי קשור לעסקאות מוצלחות הוא '+(LFAC[top[0]]||top[0])+'. חפש אותו.</div>';}
+  else{box.innerHTML='';}
+}
+function logToLearning(i){
+  var a=load();var d=a[i];var v=diamond(d);
+  var factors=(d.cats||[]).concat((d.risks||[]).filter(function(r){return r!=='asis';}));
+  if(v.pv&&v.pv.below>=7)factors.push('below');
+  var dec=d.status==='נסגר'?'קניתי':(d.status==='נדחה'?'דחיתי':'בהמתנה');
+  var entry={id:Date.now().toString(36),deal:d.address||'עסקה',area:d.city||'',decision:dec,score:(v.pv?v.pv.below.toFixed(0)+'% מתחת':''),factors:factors,outcome:'טרם ידוע',outcomeNotes:'',decidedAt:new Date().toISOString(),outcomeAt:null};
+  var log;try{log=JSON.parse(localStorage.getItem('learning_log_v1'))||[];}catch(e){log=[];}
+  log.unshift(entry);localStorage.setItem('learning_log_v1',JSON.stringify(log));
+  toast('נרשם ביומן הלמידה ✓');
+}
 function render(){
+  learnTip();
   var a=load();
   var dia=0,hot=0,closed=0,risky=0;
   a.forEach(function(d){var v=diamond(d);if(v.isDiamond)dia++;if(d.status==='להתקדם')hot++;if(d.status==='נסגר')closed++;if(v.risks>0)risky++;});
@@ -216,6 +237,7 @@ function form(i){
    '<select id="f_status">'+['בבדיקה','נצפה','בניתוח','להתקדם','נסגר','נדחה'].map(function(s){return '<option'+(s===(d.status||'בבדיקה')?' selected':'')+'>'+s+'</option>';}).join('')+'</select>'+
    '<input id="f_notes" style="margin-top:6px" value="'+esc(d.notes||'')+'" placeholder="הערות">'+
    '<button class="btn wide" onclick="saveDeal('+(i!==null?i:'-1')+')">💾 שמור</button>'+
+   (i!==null?'<button class="btn purple wide" onclick="logToLearning('+i+')">📓 רשום החלטה ביומן למידה</button>':'')+
    (i!==null?'<button class="btn red wide" onclick="delDeal('+i+')">🗑️ מחק</button>':'');
   document.getElementById('ov').classList.add('show');
   ['f_price','f_sqm','f_city','f_rent','f_market'].forEach(function(id){var e=document.getElementById(id);if(e)e.addEventListener('input',liveVerdict);});

@@ -52,8 +52,6 @@
       <a class="app" href="area-research.html"><b>🗺️ מחקר אזור</b><small>איפה לחפש · מנופים וסיכונים</small></a>
       <a class="app" href="deals-db.html"><b>🏢 מסד עסקאות</b><small>מד-יהלום · פרומפט מחקר</small></a>
       <a class="app" href="learning-log.html"><b>🧠 יומן למידה</b><small>לומד מההחלטות והתוצאות</small></a>
-      <a class="app" href="simulator.html"><b>🧮 סימולטור כדאיות</b><small>בדיקה מהירה של עסקה</small></a>
-      <a class="app" href="deal-report.html"><b>📑 דוח עסקה + תזרים</b><small>ניתוח מעמיק · IRR · 7 סוכנים</small></a>
     </div>
     <div class="col a">
       <h2>🏠 נכסים (ניהול)</h2>
@@ -85,10 +83,42 @@
     </div>
   </div>
 
+  <div style="background:var(--card);border:1px solid var(--line);border-radius:13px;padding:14px;margin-bottom:12px;box-shadow:var(--shadow);text-align:center">
+    <div style="font-size:14px;font-weight:bold;color:var(--brown);margin-bottom:4px">💾 גיבוי כולל של כל המערכת</div>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:10px">מגבה בקובץ אחד את כל הנתונים מכל האפליקציות (עסקאות, לידים, נכסים, תזרים, יומן, למידה). שמור מדי פעם.</div>
+    <div style="display:flex;gap:8px;justify-content:center;flex-wrap:wrap">
+      <button onclick="backupAll()" style="background:var(--brown);color:#fff;border:none;border-radius:10px;padding:10px 18px;font-size:13px;font-weight:bold;cursor:pointer;font-family:inherit">📤 גבה הכל</button>
+      <label style="background:#8a7a68;color:#fff;border-radius:10px;padding:10px 18px;font-size:13px;font-weight:bold;cursor:pointer">📥 שחזר מגיבוי<input type="file" accept="application/json" onchange="restoreAll(this)" style="display:none"></label>
+    </div>
+    <div id="bkMsg" style="font-size:12px;font-weight:bold;color:var(--market);margin-top:8px"></div>
+  </div>
+
   <div style="text-align:center;font-size:12px;color:var(--muted)">בכל דף: 🧭 ניווט צף · ❓ עזרה (F1) · 💾 גיבוי</div>
   <footer>מפת המערכת · אבי חזן · <span id="dt"></span></footer>
 </div>
-<script>try{document.getElementById('dt').textContent=new Date().toLocaleDateString('he-IL');}catch(e){}</script>
+<script>
+try{document.getElementById('dt').textContent=new Date().toLocaleDateString('he-IL');}catch(e){}
+function backupAll(){
+  var all={};for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);all[k]=localStorage.getItem(k);}
+  var data=JSON.stringify({_backup:'maestro-nadlan',date:new Date().toISOString(),data:all},null,1);
+  var b=new Blob([data],{type:'application/json'});var u=URL.createObjectURL(b);
+  var a=document.createElement('a');a.href=u;a.download='גיבוי_מלא_מערכת_נדלן_'+new Date().toISOString().slice(0,10)+'.json';a.click();
+  document.getElementById('bkMsg').textContent='✅ גובו '+Object.keys(all).length+' מאגרי נתונים';
+}
+function restoreAll(input){
+  var f=input.files[0];if(!f)return;
+  var r=new FileReader();
+  r.onload=function(e){
+    try{
+      var obj=JSON.parse(e.target.result);var data=obj.data||obj;
+      if(!confirm('לשחזר את הגיבוי? פעולה זו תדרוס את הנתונים הנוכחיים במכשיר.'))return;
+      Object.keys(data).forEach(function(k){localStorage.setItem(k,data[k]);});
+      document.getElementById('bkMsg').textContent='✅ שוחזרו '+Object.keys(data).length+' מאגרים. רענן את הדפים.';
+    }catch(err){document.getElementById('bkMsg').style.color='#c0392b';document.getElementById('bkMsg').textContent='❌ קובץ גיבוי לא תקין';}
+  };
+  r.readAsText(f);
+}
+</script>
 <script src="nav.js"></script>
 <script src="help.js"></script>
 </body>
