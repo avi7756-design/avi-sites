@@ -52,6 +52,13 @@
 
 <div class="wrap">
   <div class="hint">💡 לכל אזור: מחיר שוק, מנופי ערך (➕) וסיכונים (➖) ידועים. לחץ "🔎 פרומפט מחקר" לעדכון חי ב-Perplexity, והדבק את הממצאים. הנתונים אינדיקטיביים - אמת מול nadlan.gov.il.</div>
+
+  <div style="background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:14px;box-shadow:var(--shadow);border-right:4px solid var(--purple)">
+    <h3 style="font-size:14px;color:var(--blue-d);margin-bottom:6px">⚡ מחקר מהיר - כל עיר בארץ</h3>
+    <div style="font-size:12px;color:var(--muted);margin-bottom:8px">הקלד עיר/אזור (לא חייב להיות ברשימה) → פרומפט מחקר מוכן ל-Perplexity</div>
+    <div style="display:flex;gap:7px;flex-wrap:wrap"><input id="quickCity" placeholder="למשל: חיפה / נשר / כרמיאל" style="flex:1;min-width:150px"><button class="btn purple" onclick="quickPrompt()">🔎 צור פרומפט</button></div>
+    <div id="quickOut"></div>
+  </div>
   <div class="bar"><button class="btn" onclick="openAdd()">➕ הוסף אזור</button><button class="btn gray" onclick="exportData()">📤 גיבוי</button></div>
   <div id="areas"></div>
   <footer>מחקר אזור · v1.0 · נשמר מקומית · אבי חזן</footer>
@@ -101,6 +108,24 @@ function render(){
   }).join('');
 }
 
+function promptFor(name){
+  return 'בדוק לי כמומחה נדל"ן עבור '+name+'. ענה עם מקורות ותאריכים:\n\n'+
+    'מנופי ערך (העלאת שווי):\n1. רכבת קלה / מטרונית / תחנה מתוכננת.\n2. מתחמי פינוי-בינוי / תמ"א 38 מוכרזים או מתוכננים.\n3. שינויי תב"ע / הגדלת אחוזי בנייה.\n4. פרויקטי תעסוקה ותשתית.\n\n'+
+    'סיכונים:\n5. מפגעים סביבתיים / זיהום אוויר / מפעלים.\n6. עתודות קרקע גדולות שיגדילו היצע.\n7. בעיות תכנון/רישוי ידועות.\n\n'+
+    'בנוסף: מה מחיר למ"ר העדכני ב'+name+' לפי עסקאות אחרונות, ומה מגמת המחירים ב-12 החודשים האחרונים?\nסכם: פוטנציאל עליית ערך מול סיכון.';
+}
+function quickPrompt(){
+  var c=(document.getElementById('quickCity').value||'').trim();
+  if(!c){toast('הקלד שם עיר/אזור');return;}
+  var p=promptFor(c);
+  navigator.clipboard.writeText(p).then(function(){toast('הפרומפט הועתק!');});
+  document.getElementById('quickOut').innerHTML='<div class="promptbox">'+esc(p)+'</div><div style="display:flex;gap:7px;margin-top:7px"><a class="btn purple" href="https://www.perplexity.ai" target="_blank" style="flex:1;text-align:center;text-decoration:none">🔗 פתח Perplexity</a><button class="btn gray" onclick="quickAdd()" style="flex:1">➕ שמור כאזור</button></div>';
+}
+function quickAdd(){
+  var c=(document.getElementById('quickCity').value||'').trim();if(!c)return;
+  var a=getAreas();a.push({id:uid(),name:c,perSqm:0,yieldStr:'',cats:[],risks:[],notes:'נוסף ממחקר מהיר. הזן מחיר למ"ר וממצאים.',updatedAt:''});
+  save(a);render();toast('האזור "'+c+'" נוסף ✓');
+}
 function genPrompt(i){
   var ar=getAreas()[i];
   var p='בדוק לי כמומחה נדל"ן עבור '+ar.name+' (אזור הקריות, מפרץ חיפה). ענה עם מקורות ותאריכים:\n\n'+
