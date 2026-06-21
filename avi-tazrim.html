@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>מנהל התזרים החכם — דשבורד v1</title>
+<title>מנהל התזרים החכם — דשבורד v2</title>
 <style>
 :root{color-scheme:light}
 *{box-sizing:border-box;margin:0;padding:0}
@@ -19,41 +19,48 @@ body{font-family:"Segoe UI",Arial,sans-serif;background:#0d1117;color:#e0e6f0;li
 .card .v{font-size:20px;font-weight:800;color:#fff}
 .card .v.g{color:#2ecc71}
 .card .v.r{color:#ff6b6b}
-.card .v.a{color:#ffb454}
 .panel{background:#131c2b;border:1px solid #233149;border-radius:14px;padding:15px 17px;margin-bottom:12px}
 .panel.core{border-color:#1d7a44;background:#10241a}
 .panel.warn{border-color:#7a3b1d;background:#241710}
+.panel.auto{border-color:#1c4a7a;background:#101a28}
 .panel h2{font-size:14px;margin-bottom:10px;color:#9fe6bd}
 .panel.warn h2{color:#ffb98f}
+.panel.auto h2{color:#8fc4ff}
 .row{display:flex;justify-content:space-between;font-size:13px;padding:5px 0;border-bottom:1px solid #1c2940;gap:10px}
 .row:last-child{border:0}
 .row span:last-child{font-weight:700;color:#fff;white-space:nowrap}
 .alloc .bar{height:9px;background:#1c2940;border-radius:6px;overflow:hidden;margin:3px 0 8px}
 .alloc .bar>div{height:100%;background:linear-gradient(90deg,#1d7a44,#2ecc71)}
-.chk{display:flex;align-items:flex-start;gap:9px;font-size:13px;padding:7px 0;border-bottom:1px solid #1c2940}
+.chk{display:flex;align-items:flex-start;gap:9px;font-size:13px;padding:9px 0;border-bottom:1px solid #1c2940}
 .chk:last-child{border:0}
 .chk .ic{font-size:15px;line-height:1.3;flex-shrink:0}
+.chk .bd{flex:1}
 .chk .tt{font-weight:600;color:#fff}
-.chk .ds{font-size:11px;color:#7a8aa3}
+.chk .ds{font-size:11px;color:#7a8aa3;margin:2px 0 5px}
 .chk.done .tt{color:#9fe6bd}
 .tag{font-size:10px;font-weight:700;padding:1px 7px;border-radius:10px;margin-right:5px}
 .tag.urg{background:#3a1717;color:#ff8a8a;border:1px solid #6b2a2a}
 .tag.do{background:#3a2c10;color:#ffc66b;border:1px solid #6b5021}
-.calc label{font-size:12px;color:#8a98b3;display:flex;align-items:center;gap:7px;cursor:pointer;padding:6px 0;border-bottom:1px solid #1c2940;justify-content:space-between}
+.btns{display:flex;gap:6px;flex-wrap:wrap}
+.b{display:inline-block;text-decoration:none;font-size:11px;font-weight:700;padding:4px 11px;border-radius:8px;border:1px solid #2a3a55;background:#1a2740;color:#bcd2f5}
+.b:hover{background:#22406a}
+.b.go{background:#16351f;border-color:#2a6b40;color:#7fe0a5}
+.b.red{background:#3a1717;border-color:#6b2a2a;color:#ff9a9a}
+.b.wa{background:#103a2a;border-color:#1f7a52;color:#7fe0b5}
+.calc label{font-size:12px;color:#cdd9ef;display:flex;align-items:center;gap:7px;cursor:pointer;padding:7px 0;border-bottom:1px solid #1c2940;justify-content:space-between}
+.calc .lf{display:flex;align-items:center;gap:7px}
 .calc input[type=checkbox]{width:17px;height:17px;accent-color:#2ecc71;cursor:pointer}
+.calc .rt{display:flex;align-items:center;gap:8px}
 .calc .amt{color:#cdd9ef;font-weight:700}
-.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
-.links a{flex:1;min-width:150px;text-align:center;background:#1a2740;border:1px solid #2a3a55;color:#bcd2f5;text-decoration:none;padding:11px;border-radius:10px;font-size:13px;font-weight:600}
-.links a:hover{background:#22406a}
 .note{font-size:11px;color:#6a7894;text-align:center;margin-top:12px}
 </style>
 </head>
 <body>
 <div class="doc">
 <div class="hdr">
-  <h1>🛡️ מנהל התזרים החכם — דשבורד v1</h1>
-  <div class="sub">ניהול תזרים אישי · קובץ עצמאי לשיתוף · נפתח מהמחשב, מהטלפון, וניתן לשליחה בוואטסאפ/מייל</div>
-  <span class="badge">🟢 קובץ אחד · ללא תלות חיצונית · יוני 2026</span>
+  <h1>🛡️ מנהל התזרים החכם — דשבורד v2</h1>
+  <div class="sub">ניהול תזרים אישי · קישורי פעולה ישירים · נפתח מהמחשב, מהטלפון, וניתן לשליחה בוואטסאפ/מייל</div>
+  <span class="badge">🟢 קובץ אחד · קישורים ישירים לביטול/בירור · יוני 2026</span>
 </div>
 
 <div class="cards">
@@ -65,9 +72,8 @@ body{font-family:"Segoe UI",Arial,sans-serif;background:#0d1117;color:#e0e6f0;li
 
 <div class="panel warn">
   <h2>🚩 דחוף - דורש טיפול</h2>
-  <div class="row"><span>חוב חשמל - התראת אי-תשלום 15/06 (חשבון 348497928)</span><span style="color:#ff8a8a">לבדוק</span></div>
-  <div class="row"><span>הוראת קבע Amex רדומה (מ-2011, חיוב אחרון 2022)</span><span style="color:#ff8a8a">לבטל</span></div>
-  <div class="row"><span>כפל מנויי AI</span><span style="color:#ffb454">₪234/ח</span></div>
+  <div class="chk"><span class="ic">🟥</span><div class="bd"><div class="tt">חוב חשמל - התראת אי-תשלום 15/06 <span class="tag urg">דחוף</span></div><div class="ds">חברת חשמל · חשבון 348497928 · החיוב דרך בנק אגוד</div><div class="btns"><a class="b red" href="https://www.iec.co.il/login" target="_blank">ברר ושלם →</a></div></div></div>
+  <div class="chk"><span class="ic">🟥</span><div class="bd"><div class="tt">הוראת קבע Amex רדומה <span class="tag urg">לבטל</span></div><div class="ds">פעילה מ-2011, חיוב אחרון 2022</div><div class="btns"><a class="b red" href="https://www.max.co.il" target="_blank">לאזור האישי →</a></div></div></div>
 </div>
 
 <div class="panel alloc">
@@ -90,61 +96,37 @@ body{font-family:"Segoe UI",Arial,sans-serif;background:#0d1117;color:#e0e6f0;li
 
 <div class="panel core">
   <h2>✅ מה בוצע</h2>
-  <div class="chk done"><span class="ic">✅</span><div><div class="tt">סקיל "מנהל-תזרים" נבנה</div><div class="ds">מחובר לקבצים, מייל, וזיכרון חודשי</div></div></div>
-  <div class="chk done"><span class="ic">✅</span><div><div class="tt">ניתוח אשראי + זיהוי כפילויות</div><div class="ds">גולמי ₪21,255 ← אמיתי ₪13,990</div></div></div>
-  <div class="chk done"><span class="ic">✅</span><div><div class="tt">דוח תשלומים מלא (Excel)</div><div class="ds">269 תנועות + הצלבת חשבוניות מהמייל</div></div></div>
-  <div class="chk done"><span class="ic">✅</span><div><div class="tt">מרשם ספקים - 21 ספקים</div><div class="ds">סכום, תדירות, קשר, סף חריגה +10%</div></div></div>
-  <div class="chk done"><span class="ic">✅</span><div><div class="tt">תוכנית איחוד מנויי AI</div><div class="ds">החלטות ננעלו</div></div></div>
-  <div class="chk done"><span class="ic">✅</span><div><div class="tt">ניקוי מייל התחיל + בקרה חודשית פעילה</div><div class="ds">תווית פרסומות · התרעת Cello חודשית</div></div></div>
+  <div class="chk done"><span class="ic">✅</span><div class="bd"><div class="tt">ניתוח אשראי + זיהוי כפילויות</div><div class="ds">גולמי ₪21,255 ← אמיתי ₪13,990</div></div></div>
+  <div class="chk done"><span class="ic">✅</span><div class="bd"><div class="tt">דוח תשלומים מלא + הצלבת חשבוניות מהמייל</div><div class="ds">269 תנועות</div></div></div>
+  <div class="chk done"><span class="ic">✅</span><div class="bd"><div class="tt">מרשם ספקים - 21 ספקים</div><div class="ds">סכום, תדירות, קשר, סף חריגה +10%</div></div></div>
+  <div class="chk done"><span class="ic">✅</span><div class="bd"><div class="tt">תוכנית איחוד מנויי AI</div><div class="ds">החלטות ננעלו</div></div></div>
+  <div class="chk done"><span class="ic">✅</span><div class="bd"><div class="tt">ניקוי מייל + בקרה חודשית אוטומטית</div><div class="ds">תווית פרסומות · התרעת Cello חודשית</div></div></div>
 </div>
 
 <div class="panel">
-  <h2>⬜ מה לביצוע - עליך</h2>
-  <div class="chk"><span class="ic">🟥</span><div><div class="tt">לבדוק חוב חשמל <span class="tag urg">דחוף</span></div><div class="ds">דרך בנק אגוד · חשבון 348497928</div></div></div>
-  <div class="chk"><span class="ic">🟥</span><div><div class="tt">לבטל Suno <span class="tag urg">ביטול</span></div><div class="ds">suno.com ← Account ← Cancel · ₪29/ח</div></div></div>
-  <div class="chk"><span class="ic">🟥</span><div><div class="tt">לבטל "בינה בגובה העיניים" <span class="tag urg">ביטול</span></div><div class="ds">WhatsApp ‎+1-947-252-7322 · ₪47/ח</div></div></div>
-  <div class="chk"><span class="ic">⬜</span><div><div class="tt">לזהות חיוב Google ₪75 <span class="tag do">בדיקה</span></div><div class="ds">myaccount.google.com/payments</div></div></div>
-  <div class="chk"><span class="ic">⬜</span><div><div class="tt">להתקין את הסקיל <span class="tag do">פעולה</span></div><div class="ds">כתוב "/avi-s1" ואצביע על תיקיית avi-cashflow</div></div></div>
-  <div class="chk"><span class="ic">⬜</span><div><div class="tt">פילטר Gmail להתראות מסחר</div><div class="ds">לנקות מאות מיילים בבת אחת</div></div></div>
-  <div class="chk"><span class="ic">⬜</span><div><div class="tt">לבטל הוראת קבע Amex רדומה</div><div class="ds">מול חברת האשראי</div></div></div>
-  <div class="chk"><span class="ic">🕓</span><div><div class="tt">Cello - החלטה חודשית</div><div class="ds">המערכת תתריע כל חודש (אוטומטי)</div></div></div>
+  <h2>⬜ מה לביצוע - לחיצה אחת לכל פעולה</h2>
+
+  <div class="chk"><span class="ic">🟥</span><div class="bd"><div class="tt">לבטל Suno <span class="tag urg">₪29/ח</span></div><div class="ds">מנוי AI שלא בשימוש</div><div class="btns"><a class="b red" href="https://suno.com/account" target="_blank">בטל מנוי →</a></div></div></div>
+
+  <div class="chk"><span class="ic">🟥</span><div class="bd"><div class="tt">לבטל "בינה בגובה העיניים" <span class="tag urg">₪47/ח</span></div><div class="ds">ביטול דרך וואטסאפ (המייל הוא מערכת חיוב)</div><div class="btns"><a class="b wa" href="https://wa.me/19472527322" target="_blank">פתח וואטסאפ →</a></div></div></div>
+
+  <div class="chk"><span class="ic">⬜</span><div class="bd"><div class="tt">לזהות חיוב Google ₪75 <span class="tag do">בדיקה</span></div><div class="ds">אתה יודע על מה - רק להחליט אם להשאיר</div><div class="btns"><a class="b" href="https://myaccount.google.com/subscriptions" target="_blank">מנויי Google →</a> <a class="b" href="https://myaccount.google.com/payments" target="_blank">תשלומים →</a></div></div></div>
+
+  <div class="chk"><span class="ic">⬜</span><div class="bd"><div class="tt">פילטר Gmail להתראות מסחר</div><div class="ds">לנקות מאות מיילים בבת אחת + עתידיים</div><div class="btns"><a class="b" href="https://mail.google.com/mail/u/0/#settings/filters" target="_blank">הגדרות פילטרים →</a></div></div></div>
+
+  <div class="chk"><span class="ic">⬜</span><div class="bd"><div class="tt">להתקין את הסקיל "מנהל-תזרים" <span class="tag do">פעולה</span></div><div class="ds">ב-Claude: Settings ← Capabilities, או כתוב "/avi-s1"</div></div></div>
+
+  <div class="chk"><span class="ic">🕓</span><div class="bd"><div class="tt">Cello - החלטה חודשית</div><div class="ds">נשאר פעיל · המערכת תתריע כל חודש (אוטומטי)</div><div class="btns"><a class="b" href="https://wa.me/19472527322" target="_blank" style="visibility:hidden">.</a></div></div></div>
 </div>
 
-<div class="panel">
-  <h2>💰 מחשבון חיסכון - סמן מה לבטל</h2>
-  <div class="calc" id="calc">
-    <label><span><input type="checkbox" data-a="28.81" checked> Suno</span><span class="amt">₪28.81</span></label>
-    <label><span><input type="checkbox" data-a="47" checked> בינה בגובה העיניים</span><span class="amt">₪47.00</span></label>
-    <label><span><input type="checkbox" data-a="38.70"> Cello</span><span class="amt">₪38.70</span></label>
-    <label><span><input type="checkbox" data-a="59.94"> Perplexity (ניסוי)</span><span class="amt">₪59.94</span></label>
-    <label><span><input type="checkbox" data-a="74.90"> Google (אם Gemini)</span><span class="amt">₪74.90</span></label>
-  </div>
-  <div class="row" style="font-size:15px;margin-top:8px"><span><b>חיסכון חודשי נבחר</b></span><span class="g" id="mo">—</span></div>
-  <div class="row" style="font-size:15px"><span><b>חיסכון שנתי</b></span><span class="g" id="yr">—</span></div>
-</div>
+<div class="panel" id="berurim">
+  <h2>🔍 בירורים - אסמכתא ובדיקה מול הספק</h2>
+  <div class="ds" style="font-size:11px;color:#8a98b3;margin-bottom:8px">לחץ "אסמכתא במייל" כדי לראות את הקבלה/חשבונית בתיבה, או "בירור" כדי לפנות ישירות לספק. לתקציר מלא של מה שילמת - בקש מהעוזר (הבקרה החודשית מפיקה תקציר אוטומטי).</div>
 
-<div class="panel">
-  <h2>🗂️ אינדקס המערכת</h2>
-  <div class="row"><span>📄 דוח תשלומים מלא (Excel)</span><span style="color:#9fe6bd">269 תנועות</span></div>
-  <div class="row"><span>📒 מרשם ספקים (Excel)</span><span style="color:#9fe6bd">21 ספקים</span></div>
-  <div class="row"><span>🤖 תוכנית איחוד מנויי AI</span><span style="color:#9fe6bd">נעול</span></div>
-  <div class="row"><span>🛡️ סקיל "מנהל-תזרים"</span><span style="color:#9fe6bd">להתקנה</span></div>
-  <div class="row"><span>📈 היסטוריה חודשית (JSON)</span><span style="color:#9fe6bd">פעיל</span></div>
-  <div class="row"><span>🔄 בקרה אוטומטית</span><span style="color:#9fe6bd">11 לחודש</span></div>
-  <div style="font-size:11px;color:#6a7894;margin-top:9px">הקבצים שמורים בתיקיית "אישי ניהול חשבון הוצאות 20.6" במחשב. דשבורד זה עצמאי וניתן לשיתוף בנפרד.</div>
-</div>
+  <div class="chk"><span class="ic">🔎</span><div class="bd"><div class="tt">Google - ₪75/חודש</div><div class="ds">חיוב חודשי לזיהוי - מה השירות בדיוק?</div><div class="btns"><a class="b" href="https://mail.google.com/mail/u/0/#search/from%3Agoogle%20(receipt%20OR%20payment%20OR%20%D7%97%D7%A9%D7%91%D7%95%D7%A0%D7%99%D7%AA%20OR%20%D7%A7%D7%91%D7%9C%D7%94)" target="_blank">אסמכתא במייל →</a> <a class="b" href="https://myaccount.google.com/subscriptions" target="_blank">בירור מול Google →</a></div></div></div>
 
-<div class="note">דשבורד תזרים עצמאי · קובץ אחד מלא · ניתן לאחסון ולשיתוף בוואטסאפ/מייל · נפתח בכל דפדפן · אינו ייעוץ פיננסי מוסמך</div>
-</div>
-<script>
-function calc(){
-  let s=0;
-  document.querySelectorAll('#calc input:checked').forEach(function(i){s+=parseFloat(i.dataset.a)||0});
-  document.getElementById('mo').textContent='₪'+(Math.round(s*100)/100).toLocaleString('he',{minimumFractionDigits:2});
-  document.getElementById('yr').textContent='₪'+Math.round(s*12).toLocaleString('he');
-}
-document.querySelectorAll('#calc input').forEach(function(i){i.addEventListener('change',calc)});
-calc();
-</script>
-</body>
-</html>
+  <div class="chk"><span class="ic">🔎</span><div class="bd"><div class="tt">Cello - ₪38.70/חודש</div><div class="ds">לזהות מה השירות ואם בשימוש</div><div class="btns"><a class="b" href="https://mail.google.com/mail/u/0/#search/cello" target="_blank">אסמכתא במייל →</a></div></div></div>
+
+  <div class="chk"><span class="ic">🔎</span><div class="bd"><div class="tt">Paddle - ₪23.40/חודש</div><div class="ds">Paddle הוא מעבד תשלום - איזה שירות מאחוריו?</div><div class="btns"><a class="b" href="https://mail.google.com/mail/u/0/#search/paddle" target="_blank">אסמכתא במייל →</a></div></div></div>
+
+  <div
