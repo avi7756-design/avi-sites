@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מרכז עזרה והדרכה - מאסטרו נדל"ן</title>
+<style>
+  :root{--bg:#0f1419;--card:#1a2230;--card2:#222d3d;--line:#2e3c4f;--txt:#e8eef5;--mut:#8aa0b5;
+        --accent:#4ea1ff;--teal:#39d3c3;--gold:#ffcc4d;--green:#3ddc84;--amber:#ffb74d;--red:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:"Segoe UI",Arial,sans-serif;line-height:1.65}
+  header{padding:20px 22px;background:linear-gradient(135deg,#16202e,#0f1419);border-bottom:1px solid var(--line);position:sticky;top:0;z-index:10}
+  header h1{margin:0 0 10px;font-size:21px}
+  .search{width:100%;background:#0c1118;border:1px solid var(--gold);color:var(--txt);border-radius:10px;padding:12px 14px;font-size:15px;font-family:inherit}
+  .search::placeholder{color:var(--mut)}
+  .wrap{max-width:920px;margin:0 auto;padding:18px}
+  .chips{display:flex;gap:8px;flex-wrap:wrap;margin:14px 0 4px}
+  .chip{background:var(--card2);border:1px solid var(--line);border-radius:20px;padding:6px 13px;font-size:13px;cursor:pointer;color:var(--mut)}
+  .chip:hover,.chip.on{border-color:var(--accent);color:var(--txt)}
+  h2{font-size:17px;color:var(--accent);border-bottom:2px solid var(--line);padding-bottom:7px;margin:26px 0 12px;display:flex;align-items:center;gap:8px}
+  h2.teal{color:var(--teal)} h2.gold{color:var(--gold)}
+  .item{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:14px 16px;margin:10px 0}
+  .item .q{font-weight:700;font-size:15px;margin-bottom:6px;cursor:pointer;display:flex;justify-content:space-between;gap:10px}
+  .item .q .ar{color:var(--mut);transition:.2s}
+  .item.open .q .ar{transform:rotate(90deg)}
+  .item .a{font-size:14px;color:#cdd9e6;display:none;padding-top:8px;border-top:1px dashed var(--line);margin-top:6px}
+  .item.open .a{display:block}
+  .item .a b{color:var(--txt)} .item .a code{background:#0c1118;padding:1px 6px;border-radius:5px;color:var(--gold);font-size:13px}
+  .step{display:flex;gap:10px;margin:7px 0;font-size:14px}
+  .step .n{flex-shrink:0;width:22px;height:22px;border-radius:50%;background:var(--accent);color:#06121f;font-weight:700;font-size:12px;display:flex;align-items:center;justify-content:center}
+  .btnref{display:inline-block;background:#0c1118;border:1px solid var(--line);border-radius:6px;padding:1px 7px;font-size:13px;color:var(--gold);margin:0 2px}
+  .tag{font-size:11px;padding:2px 8px;border-radius:20px;background:var(--card2);color:var(--mut);margin-inline-start:8px}
+  .none{text-align:center;color:var(--mut);padding:40px;display:none}
+  .tip{background:rgba(57,211,195,.08);border-right:3px solid var(--teal);border-radius:8px;padding:9px 12px;font-size:13px;margin:8px 0}
+  .warn{background:rgba(255,107,107,.08);border-right:3px solid var(--red);border-radius:8px;padding:9px 12px;font-size:13px;margin:8px 0}
+  .foot{color:var(--mut);font-size:12px;text-align:center;margin:26px 0 10px}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap" style="padding:0">
+    <h1>📚 מרכז עזרה והדרכה - מאסטרו נדל"ן</h1>
+    <input class="search" id="q" placeholder="🔍 חפש שאלה, כפתור, או נושא... (למשל: ARV, מרווח ביטחון, סנכרון, מתווך)" oninput="doSearch()">
+    <div class="chips" id="chips"></div>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="none" id="none">לא נמצאו תוצאות. נסה מילה אחרת (למשל "יהלום", "טלפון", "גיבוי").</div>
+
+  <!-- ===================== תקציר מנהלים ===================== -->
+  <h2 data-sec="תקציר">📋 תקציר מנהלים - מה יש לנו</h2>
+  <div class="item open srch" data-sec="תקציר"><div class="q">מה זו המערכת? <span class="ar">▸</span></div>
+    <div class="a">מאסטרו נדל"ן היא מערכת אישית לאיתור, ניתוח וביצוע עסקאות נדל"ן "יהלום" בקריות והצפון. היא עושה שלושה דברים: <b>(1) מוצאת</b> עסקאות מתחת לשוק (יד2 + מדלן), <b>(2) מנתחת</b> אם הן באמת רווחיות אחרי שיפוץ, בנייה ומס - עם הגנה על ההון (מרווח ביטחון), ו<b>(3) מנהלת</b> לידים, מתווכים ומו"מ. המטרה: לקנות יהלום אחד-שניים מהון עצמי, לבנות track record, ובהמשך קרן משקיעים.</div></div>
+  <div class="item open srch" data-sec="תקציר"><div class="q">מהם הרכיבים? <span class="ar">▸</span></div>
+    <div class="a"><b>דף הבית (hub)</b> - שער לכל הכלים. <b>דשבורד מאסטרו</b> - הלב: CRM לידים + מנוע יהלום + מאגר מתווכים + מנתח הדבקה. <b>מנוע ARV</b> - רווח אחרי שיפוץ/בנייה/מס. <b>מנוע Comps</b> - ARV מעסקאות שנמכרו. <b>פלייבוק ציד</b> - פרוטוקול מציאת יהלומים + מדדי אזור. <b>מרכז עזרה</b> - המדריך הזה.</div></div>
+  <div class="item open srch" data-sec="תקציר"><div class="q">הפילוסופיה - 4 עקרונות <span class="ar">▸</span></div>
+    <div class="a"><b>1.</b> מודדים רווח, לא הנחה (זול ≠ יהלום). <b>2.</b> ARV מ-Comps שנמכרו בלבד, לא ממבוקש. <b>3.</b> בנייה (ממ"ד/חדר/גג) היא מנוף הערך, לא קוסמטיקה. <b>4.</b> מרווח ביטחון מגן על ההון - גם אם עסקה נכשלת, מוכרים כמו-שהוא ומחזירים את הקרן.</div></div>
+  <div class="item open srch" data-sec="תקציר"><div class="q">איפה אנחנו עכשיו? <span class="ar">▸</span></div>
+    <div class="a">שלב המודל הושלם - המערכת בנויה ועובדת. השלב הנוכחי: לצאת לציד, לסגור שיחות, ולקנות יהלום ראשון מהון עצמי. הקופסה: עד 1M, סיכון 500K, מרווח ביטחון ≥15%.</div></div>
+
+  <!-- ===================== מהיר ===================== -->
+  <h2 data-sec="התחלה">🚀 מאיפה מתחילים (60 שניות)</h2>
+  <div class="item srch" data-sec="התחלה"><div class="q">המערכת שלי - מה זה ואיך זה בנוי? <span class="ar">▸</span></div>
+    <div class="a">המערכת מורכבת מ-3 שכבות: <b>(1) דף הבית (hub)</b> - maestro-nadlan.html, שמקשר לכל הכלים. <b>(2) הדשבורד</b> - הכלי המרכזי שבו אתה מנהל לידים ומחשב אם עסקה היא יהלום. <b>(3) כלי עזר</b> - פלייבוק ציד, מנוע ARV, מאגר מתווכים. הזרימה: מוצאים עסקה → מזינים לדשבורד → המנוע אומר יהלום/לא → מתקשרים → מבצעים.</div></div>
+  <div class="item srch" data-sec="התחלה"><div class="q">מה הדבר הראשון שאני עושה כל בוקר? <span class="ar">▸</span></div>
+    <div class="a">פותח את הדשבורד. אם יש עסקה חדשה ביד2 - מזין אותה (<span class="btnref">＋ ליד חדש</span> או <span class="btnref">⚡ נתח ומלא</span>). אם מתווך התקשר - מוסיף אותו למאגר ומשייך. בלי עסקה חדשה - יוצא לציד לפי הפלייבוק.</div></div>
+
+  <!-- ===================== תזרימי עבודה ===================== -->
+  <h2 class="teal" data-sec="תזרים">🔄 תזרימי עבודה - תרחיש ותשובה</h2>
+
+  <div class="item srch" data-sec="תזרים"><div class="q">תרחיש: מצאתי מודעה ביד2 <span class="tag">הכי נפוץ</span> <span class="ar">▸</span></div>
+    <div class="a">
+      <div class="step"><span class="n">1</span><div>ביד2, סמן את כל טקסט המודעה והעתק (Ctrl+C).</div></div>
+      <div class="step"><span class="n">2</span><div>בדשבורד לחץ <span class="btnref">＋ ליד חדש</span>.</div></div>
+      <div class="step"><span class="n">3</span><div>הדבק בתיבה הצהובה <span class="btnref">📋 הדבק מודעה</span> ולחץ <span class="btnref">⚡ נתח ומלא</span> - מחיר, שטח, מצב, טלפון מתמלאים לבד.</div></div>
+      <div class="step"><span class="n">4</span><div>השלם ידנית את <b>ARV</b> (מחיר למ"ר שנמכר באזור, ממדלן) ואת <b>שווי שוק נוכחי</b> (as-is).</div></div>
+      <div class="step"><span class="n">5</span><div>קרא את הפסיקה החיה: 💎 יהלום / 🔍 גבולי / ❌ דחה + מרווח הביטחון.</div></div>
+      <div class="step"><span class="n">6</span><div>לחץ <span class="btnref">💾 שמור ליד</span>.</div></div>
+      <div class="tip">השדה הכי קריטי הוא ARV - בלעדיו אי אפשר לחשב. תמיד מ-Comps שנמכרו, לא ממחיר מבוקש.</div>
+    </div></div>
+
+  <div class="item srch" data-sec="תזרים"><div class="q">תרחיש: מתווך התקשר / הפנה לי עסקה <span class="ar">▸</span></div>
+    <div class="a">
+      <div class="step"><span class="n">1</span><div>גלול ל-<span class="btnref">👥 מאגר מתווכים</span> ולחץ <span class="btnref">＋ מתווך</span> - הזן שם, משרד, טלפון, אזור.</div></div>
+      <div class="step"><span class="n">2</span><div>פתח <span class="btnref">＋ ליד חדש</span> לעסקה שהפנה, ובשדה "מתווך מפנה" בחר אותו - הטלפון והמשרד מתמלאים אוטומטית.</div></div>
+      <div class="step"><span class="n">3</span><div>השלם נתונים והרץ במנוע. שמור.</div></div>
+      <div class="tip">בטבלת המתווכים תראה לכל אחד כמה עסקאות הפנה - לחיצה על המספר מסננת את הלידים שלו. כך אתה יודע מי באמת מביא לך זהב.</div>
+    </div></div>
+
+  <div class="item srch" data-sec="תזרים"><div class="q">תרחיש: לצאת לציד דיאמונד יזום <span class="ar">▸</span></div>
+    <div class="a">
+      <div class="step"><span class="n">1</span><div>בחר אזור עם תקרה גבוהה (מוצקין/קריות).</div></div>
+      <div class="step"><span class="n">2</span><div>במדלן (area-info) שלוף את ₪/מ"ר שנמכר - זה ה-ARV.</div></div>
+      <div class="step"><span class="n">3</span><div>ביד2 הפעל את פילטר היהלום (מחיר עד 1.15M, 3-4 חד').</div></div>
+      <div class="step"><span class="n">4</span><div>חשב ₪/מ"ר לכל מודעה (מחיר ÷ מ"ר), דרג מהנמוך. הנמוכים = מועמדים.</div></div>
+      <div class="step"><span class="n">5</span><div>הרץ את המובילים במנוע + מרווח ביטחון. תעד ביומן הסריקות.</div></div>
+      <div class="tip">המדריך המלא נמצא בקובץ "פלייבוק ציד יהלום". זה התקציר.</div>
+    </div></div>
+
+  <div class="item srch" data-sec="תזרים"><div class="q">תרחיש: סיימתי שיחת טלפון על עסקה <span class="ar">▸</span></div>
+    <div class="a">
+      <div class="step"><span class="n">1</span><div>פתח את הליד (✏️ בטבלה) או צור חדש.</div></div>
+      <div class="step"><span class="n">2</span><div>מלא את התשובות: מצב הדירה, מוטיבציה, Comps שהמוכר מסר, פוטנציאל בנייה.</div></div>
+      <div class="step"><span class="n">3</span><div>עדכן את ARV האמיתי (אם קיבלת מידע על רחוב) ואת אחוז המו"מ.</div></div>
+      <div class="step"><span class="n">4</span><div>קרא פסיקה מעודכנת. אם הופך ל-Hard Stop (עיקול/חריגה) - סמן ונפסל.</div></div>
+      <div class="step"><span class="n">5</span><div>עדכן "צעד הבא" (לקבוע ביקור / להמשיך מו"מ / לדחות) ושמור.</div></div>
+    </div></div>
+
+  <div class="item srch" data-sec="תזרים"><div class="q">תרחיש: לבדוק אם עסקה היא יהלום <span class="ar">▸</span></div>
+    <div class="a">המנוע בודק שני צדדים. <b>Upside:</b> שולי רווח ≥ 10% וגם ROI שנתי ≥ 15% = 💎. <b>Downside:</b> מרווח ביטחון ≥ 15% = ההון מוגן. עסקה אמיתית טובה בשני הצדדים. אם רק אחד ירוק - היא לא יהלום, היא הימור.</div></div>
+
+  <div class="item srch" data-sec="תזרים"><div class="q">תרחיש: לגבות או לסנכרן את הנתונים <span class="ar">▸</span></div>
+    <div class="a"><b>גיבוי מקומי:</b> <span class="btnref">⬇ גיבוי</span> מוריד קובץ JSON. <span class="btnref">⬆ שחזור</span> טוען אותו בחזרה. <b>סנכרון ענן:</b> <span class="btnref">☁ סנכרון Sheets</span> מחבר לגיליון Google - כל ליד נשמר גם שם, נגיש מכל מכשיר. <span class="btnref">⬇ משוך מהגיליון</span> מביא לידים שנוספו ממכשיר אחר.<div class="warn">הנתונים נשמרים בדפדפן (localStorage). אם תנקה היסטוריה - הם נמחקים. לכן גבה מדי פעם או חבר ל-Sheets.</div></div></div>
+
+  <!-- ===================== מדריך כפתורים ===================== -->
+  <h2 class="gold" data-sec="כפתורים">🔘 מדריך כפתורים - מה כל כפתור עושה</h2>
+
+  <div class="item srch" data-sec="כפתורים"><div class="q">＋ ליד חדש <span class="ar">▸</span></div><div class="a">פותח כרטיס להזנת עסקה חדשה - שאלות, מספרים, וחישוב יהלום חי.</div></div>
+  <div class="item srch" data-sec="כפתורים"><div class="q">👥 מתווכים <span class="ar">▸</span></div><div class="a">גולל למאגר המתווכים - מי מפנה לך עסקאות וכמה הפנה כל אחד.</div></div>
+  <div class="item srch" data-sec="כפתורים"><div class="q">☁ סנכרון Sheets <span class="ar">▸</span></div><div class="a">מחבר את הדשבורד לגיליון Google שלך. מדביקים את כתובת ה-Web App (מ-Apps Script) פעם אחת, ומאז כל ליד נשמר גם בגיליון. ראה "איך מחברים את הגיליון".</div></div>
+  <div class="item srch" data-sec="כפתורים"><div class="q">⬇ CSV <span class="ar">▸</span></div><div class="a">מייצא את כל הלידים לקובץ אקסל (לפתיחה ב-Excel/Sheets).</div></div>
+  <div class="item srch" data-sec="כפתורים"><div class="q">⬇ גיבוי / ⬆ שחזור <span class="ar">▸</span></div><div class="a">גיבוי = שומר קובץ JSON עם כל הנתונים. שחזור = טוען קובץ כזה בחזרה (למשל במחשב אחר).</div></div>
+  <div class="item srch" data-sec="כפתורים"><div class="q">📋 הדבק מודעה + ⚡ נתח ומלא <span class="ar">▸</span></div><div class="a">מדביקים טקסט מודעה מיד2/מדלן, לוחצים נתח, והמערכת ממלאת לבד מחיר, שטח (טאבו), מצב, ממ"ד/מרפסת, וטלפון. חוסך הקלדה.</div></div>
+  <div class="item srch" data-sec="כפתורים"><div class="q">מתווך מפנה (תפריט נפתח) <span class="ar">▸</span></div><div class="a">משייך את הליד למתווך מהמאגר. בחירה ממלאת אוטומטית את המשרד והטלפון.</div></div>
+  <div class="item srch" data-sec="כפתורים"><div class="q">צ'קבוקס: כבר משופצת <span class="ar">▸</span></div><div class="a">מאפס את עלות השיפוץ (כי כבר נעשה). שים לב - אם משופצת ומושכרת, זו עסקת החזק, לא פליפ.</div></div>
+  <div class="item srch" data-sec="כפתורים"><div class="q">צ'קבוקס: מסלול שכירות <span class="ar">▸</span></div><div class="a">מעבר ממסלול פליפ למסלול קנה-והחזק. המנוע יציג תשואת שכירות במקום רווח פליפ.</div></div>
+  <div class="item srch" data-sec="כפתורים"><div class="q">צ'קבוקס: 🚩 Hard Stop <span class="ar">▸</span></div><div class="a">סימון שאותר דגל פוסל (עיקול, הערת אזהרה, חריגת בנייה, חוב). פוסל את העסקה מיידית ללא קשר למספרים.</div></div>
+  <div class="item srch" data-sec="כפתורים"><div class="q">💾 שמור ליד <span class="ar">▸</span></div><div class="a">שומר את הליד למסד הנתונים (ולגיליון אם מחובר). הוא יופיע בטבלה עם הסטטוס שלו.</div></div>
+
+  <!-- ===================== שאלות ותשובות ===================== -->
+  <h2 data-sec="שאלות">❓ שאלות ותשובות</h2>
+
+  <div class="item srch" data-sec="שאלות"><div class="q">מה זה ARV ומאיפה לוקחים אותו? <span class="ar">▸</span></div><div class="a"><b>ARV</b> = השווי הצפוי של הנכס אחרי שיפוץ ובנייה (After Repair Value), במחיר למ"ר. <b>חובה</b> לקחת אותו מעסקאות ש<b>נמכרו</b> באזור (מדלן / רשות המסים), ברמת רחוב - לא ממחיר מבוקש ולא מגרף "היסטוריית שווי" (שמטעים פי 1.5-2).</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">מה זה מרווח ביטחון (Exit-Whole)? <span class="ar">▸</span></div><div class="a">המדד שמגן על הכסף שלך. הוא שואל: אם העסקה תיכשל ותמכור את הנכס <b>כמו שהוא</b> במחיר השוק הנוכחי, האם תחזיר את ההון? מעל 15% = 🛡️ מוגן. חיובי = צא-שלם. שלילי = חשוף (מסוכן).</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">למה עסקה זולה לא תמיד יהלום? <span class="ar">▸</span></div><div class="a">כי "זול" נמדד מול המבוקש, אבל הרווח נמדד אחרי שיפוץ, בנייה, מס רכישה 8%, מס שבח 25% ועלויות. נכס 30% מתחת למבוקש עדיין יכול להפסיד. מודדים רווח, לא הנחה.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">מה ההבדל בין שטח טאבו לשטח שיווקי? <span class="ar">▸</span></div><div class="a">השיווקי הוא מה שהמתווך כותב (לרוב גדול יותר). הטאבו הוא הרשום חוקית. <b>מתמחרים תמיד לפי הטאבו.</b> פער גדול ביניהם = דגל אדום (אולי תוספת לא חוקית).</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">מה זה Hard Stop? <span class="ar">▸</span></div><div class="a">דגל שפוסל עסקה מיידית, גם אם המספרים יפים: עיקול, הערת אזהרה, חריגת בנייה לא מוסדרת, חוב ועד, או מרווח ביטחון שלילי.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">מתי פליפ ומתי קנה-והחזק? <span class="ar">▸</span></div><div class="a"><b>פליפ</b> (שיפוץ/בנייה ומכירה) באזורים עם תקרה גבוהה (מוצקין). <b>קנה-והחזק</b> (שכירות) באזורים זולים עם תשואה טובה (עכו 5%+) שבהם פליפ לא משתלם.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">איך מחברים את הגיליון (Google Sheets)? <span class="ar">▸</span></div><div class="a">לפי הקובץ "מדריך חיבור Google Sheets" - 6 צעדים: פתיחת הגיליון → תוספים > Apps Script → הדבקת קוד → Deploy כ-Web app → העתקת כתובת /exec → הדבקה בדשבורד ב-<span class="btnref">☁ סנכרון Sheets</span>. פעם אחת בלבד.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">איפה הנתונים שלי נשמרים? בטוח? <span class="ar">▸</span></div><div class="a">בדפדפן שלך (localStorage) - פרטי לחלוטין, אף אחד אחר לא רואה. אם חיברת Sheets, גם בגיליון הפרטי שלך. הגרסה הציבורית באתר לא מכילה את הנתונים האמיתיים שלך.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">מה ההבדל בין כל הכלים ב-hub? <span class="ar">▸</span></div><div class="a"><b>דשבורד מאסטרו</b> = המוח (ניתוח עסקאות + יהלום). <b>סימולטור</b> = בדיקה מהירה. <b>מחקר אזור</b> = מנופי ערך לשכונה. <b>יומן למידה</b> = מה עבד. <b>תזרים</b> = הכנסות/הוצאות. <b>דף נחיתה</b> = לשיווק הדירה ללקוחות. הדשבורד הוא המרכזי לצד הקנייה.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">ראיתי גרסה ישנה אחרי עדכון - למה? <span class="ar">▸</span></div><div class="a">cache של הדפדפן או של GitHub. פתרון: רענון קשיח <b>Ctrl+Shift+R</b>, או הוסף <code>?v=123</code> לסוף הכתובת. זה מכריח את הגרסה החדשה.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">מה הקופסה שלי - אילו עסקאות לחפש? <span class="ar">▸</span></div><div class="a">עד 1,000,000 ₪, סיכון עד 500K (50% הון), ורק יהלומים עם מרווח ביטחון ≥ 15%. עכשiv מנצלים מגמת ריבית יורדת - לקנות לפני שהמחירים עולים.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">מה השלב הבא בעסק (מודל המשקיעים)? <span class="ar">▸</span></div><div class="a"><b>שלב 1:</b> 3 עסקאות מכספך = track record. <b>שלב 2:</b> הצגת ההיסטוריה → קרן עד 35 משקיעים. אזהרה: גיוס משקיעים דורש עו"ד ניירות ערך לפני שמתחילים.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">מה זה ROI שנתי ולמה הסף 15%? <span class="ar">▸</span></div><div class="a">ROI שנתי = הרווח חלקי ההון העצמי, מתואם לשנה. הסף 15% מבטיח שהכסף שלך עובד מספיק קשה ביחס לזמן ולסיכון. במקור הסף היה 20% שולי רווח, אבל נתוני אמת בקריות הוכיחו שזה לא ריאלי - לכן עברנו למדד כפול: שוליים ≥10% וגם ROI שנתי ≥15%.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">כמה הון עצמי צריך לעסקה? <span class="ar">▸</span></div><div class="a">המנוע מניח 50% מימון (LTV), כלומר ~50% הון עצמי. לעסקה של 1M זה ~500K הון, פלוס מס רכישה ועלויות. זו בדיוק הקופסה שלך: עד 1M, סיכון עד 500K.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">אילו מסים נכנסים לחישוב? <span class="ar">▸</span></div><div class="a"><b>מס רכישה:</b> 8% מהשקל הראשון (דירה שנייה+ למשקיע), 10% מעל ~6M. <b>מס שבח:</b> 25% על הרווח הריאלי במכירה. שניהם כבר מובנים במנוע אוטומטית.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">כמה זמן לוקחת עסקת פליפ? <span class="ar">▸</span></div><div class="a">בערך 12-14 חודשים: קנייה, היתר, שיפוץ/בנייה, מכירה. המנוע מחשב ריבית מימון והחזקה לכל התקופה. עסקת שכירות (החזק) היא לטווח ארוך יותר.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">המנוע אמר ❌ דחה - מה עכשיו? <span class="ar">▸</span></div><div class="a">3 אפשרויות: <b>(1)</b> מו"מ - גרור את אחוז המו"מ ותראה אם בהורדת מחיר זה הופך ל-🔍/💎 ומה מחיר היעד. <b>(2)</b> בדוק מנוף בנייה - אולי תוספת מ"ר משנה. <b>(3)</b> אם גם אחרי מו"מ ובנייה זה ❌ - עזוב ועבור למועמד הבא. אל תתאהב.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">מצאתי יהלום - איך פועלים מהר? <span class="ar">▸</span></div><div class="a">יהלומים נמכרים תוך ימים. סדר פעולות: <b>(1)</b> התקשר מיד למתווך/מוכר. <b>(2)</b> אמת Comps וזכויות בנייה. <b>(3)</b> בדוק Hard Stops (עיקול/חריגה/נסח). <b>(4)</b> קבע ביקור. <b>(5)</b> פתח מו"מ סביב מחיר היעד. מהירות התגובה היא חלק מהאסטרטגיה.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">כמה Comps צריך כדי לסמוך על ARV? <span class="ar">▸</span></div><div class="a">לפחות 3-5 עסקאות שנמכרו באותו רחוב/אזור, רצוי מהשנה-שנתיים האחרונות. ככל שהן קרובות יותר (רחוב, בניין, מצב דומה) - ה-ARV אמין יותר. עסקה אחת רחוקה לא מספיקה.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">האם המערכת מחליפה עו"ד ושמאי? <span class="ar">▸</span></div><div class="a"><b>לא.</b> היא שכבת סינון והחלטה ראשונית. לפני רכישה חובה: עו"ד נדל"ן (נסח, חוזה), שמאי, יועץ מס/רו"ח, יועץ משכנתאות, ובדיקה תכנונית לבנייה. המערכת מסננת מה שווה לבדוק - המומחים מאשרים.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">איך עובד המו"מ (3 מחירים)? <span class="ar">▸</span></div><div class="a">סוכן המו"מ מחשב 3 מחירים: <b>פתיחה</b> (ההצעה הראשונה, נמוכה), <b>יעד</b> (מחיר שבו זה יהלום נוח), ו<b>מקסימום</b> (קום-וצא - מעליו העסקה כבר לא משתלמת). אתה יודע מראש מתי לקום מהשולחן.</div></div>
+  <div class="item srch" data-sec="שאלות"><div class="q">על איזה מתווך לסמוך? <span class="ar">▸</span></div><div class="a">המאגר מראה לכל מתווך כמה עסקאות הפנה. עם הזמן תראה מי מביא לידים אמיתיים ומי מבזבז זמן. לחיצה על מספר העסקאות של מתווך מסננת את הלידים שלו - כך תדע מי מקור הזהב שלך.</div></div>
+
+  <!-- ===================== מילון ===================== -->
+  <h2 class="gold" data-sec="מילון">📖 מילון מונחים</h2>
+  <div class="item srch" data-sec="מילון"><div class="q">ARV <span class="ar">▸</span></div><div class="a">After Repair Value - שווי הנכס למ"ר אחרי שיפוץ ובנייה. מקור: עסקאות שנמכרו (מדלן).</div></div>
+  <div class="item srch" data-sec="מילון"><div class="q">מרווח ביטחון / Exit-Whole <span class="ar">▸</span></div><div class="a">כמה תחזיר אם תמכור כמו-שהוא במחיר השוק הנוכחי. ≥15% = ההון מוגן.</div></div>
+  <div class="item srch" data-sec="מילון"><div class="q">Comps <span class="ar">▸</span></div><div class="a">עסקאות השוואה - מחירים של נכסים דומים שנמכרו באזור. הבסיס לקביעת ARV ושווי שוק.</div></div>
+  <div class="item srch" data-sec="מילון"><div class="q">ROI שנתי <span class="ar">▸</span></div><div class="a">תשואה על ההון העצמי, מתואמת לשנה. סף יהלום: ≥15%.</div></div>
+  <div class="item srch" data-sec="מילון"><div class="q">Hard Stop <span class="ar">▸</span></div><div class="a">דגל פוסל מיידי: עיקול, הערת אזהרה, חריגת בנייה, חוב, מרווח ביטחון שלילי.</div></div>
+  <div class="item srch" data-sec="מילון"><div class="q">פליפ <span class="ar">▸</span></div><div class="a">קנייה, השבחה (שיפוץ/בנייה) ומכירה ברווח, תוך ~12-14 חודשים.</div></div>
+  <div class="item srch" data-sec="מילון"><div class="q">קנה-והחזק <span class="ar">▸</span></div><div class="a">קנייה והשכרה לטווח ארוך לתשואה שוטפת. מתאים לאזורים זולים עם תשואה 5%+.</div></div>
+  <div class="item srch" data-sec="מילון"><div class="q">LTV <span class="ar">▸</span></div><div class="a">Loan To Value - אחוז המימון מהבנק. למשקיע עד ~50%, כלומר חצי הון עצמי.</div></div>
+  <div class="item srch" data-sec="מילון"><div class="q">מס רכישה <span class="ar">▸</span></div><div class="a">8% מהשקל הראשון לדירה שנייה+ (10% מעל ~6M). משולם בקנייה.</div></div>
+  <div class="item srch" data-sec="מילון"><div class="q">מס שבח <span class="ar">▸</span></div><div class="a">25% על הרווח הריאלי במכירת הנכס.</div></div>
+  <div class="item srch" data-sec="מילון"><div class="q">טאבו מול שיווקי <span class="ar">▸</span></div><div class="a">טאבו = שטח רשום חוקית (מתמחרים לפיו). שיווקי = מה שהמתווך כותב (לרוב גדול יותר). פער = דגל.</div></div>
+
+  <div class="foot">מרכז עזרה - מאסטרו נדל"ן · אבי חזן · לחיצה על שאלה פותחת תשובה · החיפוש מסנן הכל</div>
+</div>
+
+<script>
+const items=[...document.querySelectorAll('.item')];
+const heads=[...document.querySelectorAll('h2')];
+// accordion
+items.forEach(it=>it.querySelector('.q').addEventListener('click',()=>it.classList.toggle('open')));
+// chips by section
+const secs=[...new Set(items.map(i=>i.dataset.sec))];
+const chipBox=document.getElementById('chips');
+chipBox.innerHTML='<span class="chip on" data-f="">הכל</span>'+secs.map(s=>`<span class="chip" data-f="${s}">${s}</span>`).join('');
+let filter='';
+chipBox.querySelectorAll('.chip').forEach(c=>c.addEventListener('click',()=>{
+  chipBox.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));c.classList.add('on');
+  filter=c.dataset.f; doSearch();
+}));
+function doSearch(){
+  const q=document.getElementById('q').value.trim();
+  let any=false;
+  items.forEach(it=>{
+    const txt=it.textContent;
+    const okText=!q||txt.includes(q);
+    const okSec=!filter||it.dataset.sec===filter;
+    const show=okText&&okSec;
+    it.style.display=show?'':'none';
+    if(show)any=true;
+    if(q&&show)it.classList.add('open'); else if(q&&!show)it.classList.remove('open');
+  });
+  heads.forEach(h=>{
+    const sec=h.dataset.sec;
+    const vis=items.some(i=>i.dataset.sec===sec&&i.style.display!=='none');
+    h.style.display=vis?'':'none';
+  });
+  document.getElementById('none').style.display=any?'none':'block';
+}
+</script>
+</body>
+</html>
