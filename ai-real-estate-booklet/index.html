@@ -54,10 +54,21 @@
     .step span{background:var(--soft-gold);color:#6d4611;border-radius:8px;padding:7px;text-align:center;font-weight:700}
     .notice{background:var(--soft-blue);border-right:5px solid var(--blue);padding:14px;border-radius:8px;margin:12px 0}
     .success{background:var(--soft-green);border-right:5px solid var(--green);padding:14px;border-radius:8px;margin:12px 0}
+    .infographic{display:grid;gap:16px}
+    .info-strip{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+    .info-step{border:1px solid var(--line);border-top:5px solid var(--gold);background:#fbfdff;border-radius:10px;padding:14px;min-height:138px}
+    .info-step strong{display:block;color:#10213a;margin-bottom:6px}
+    .info-step span{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:50%;background:var(--soft-gold);color:#6d4611;font-weight:800;margin-bottom:8px}
+    .decision-grid{display:grid;grid-template-columns:1.2fr 1fr 1fr;gap:12px}
+    .decision-box{border:1px solid var(--line);border-radius:10px;padding:14px;background:#fff}
+    .decision-box h3{margin-top:0}
+    .qa-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .qa{border:1px solid var(--line);border-right:5px solid var(--blue);border-radius:10px;background:#fbfdff;padding:14px}
+    .qa b{display:block;color:#10213a;margin-bottom:5px}
     [contenteditable="true"]{outline:2px dashed rgba(184,137,58,.55);outline-offset:4px;background:#fffdf8}
     .edit-badge{display:none;position:fixed;bottom:16px;left:16px;background:var(--gold);color:#111827;border-radius:999px;padding:9px 14px;box-shadow:var(--shadow);font-weight:700;z-index:10}
     body.editing .edit-badge{display:block}
-    @media(max-width:900px){.app{grid-template-columns:1fr}aside{position:relative;height:auto}.grid{grid-template-columns:1fr}.hero{margin:0 0 18px;border-radius:0}main{padding:14px}.step{grid-template-columns:1fr}}
+    @media(max-width:900px){.app{grid-template-columns:1fr}aside{position:relative;height:auto}.grid,.info-strip,.decision-grid,.qa-grid{grid-template-columns:1fr}.hero{margin:0 0 18px;border-radius:0}main{padding:14px}.step{grid-template-columns:1fr}}
     @media print{aside,.actions,.edit-badge{display:none}.app{display:block}main{max-width:none}.hero,section{box-shadow:none;break-inside:avoid}}
   </style>
 </head>
@@ -76,6 +87,7 @@
     </div>
     <nav class="nav">
       <a href="#summary">תקציר</a>
+      <a href="#investor-infographic">אינפוגרפיקה למשקיע</a>
       <a href="#expert-review">ביקורת מאסטרו</a>
       <a href="#done">מה כבר נעשה</a>
       <a href="#vision">המערכת הרצויה</a>
@@ -103,7 +115,7 @@
       <p>חזון, מצב קיים, מפת פיתוח ופרומפטים לשיפור מול מודלי שפה. המטרה: לבנות מערכת שמלווה משקיע מקצה לקצה, מאתרת יהלומי נדל"ן, מנטרלת סיכונים, משווקת עסקאות ומשתפרת מכל תוצאה אמיתית.</p>
       <div class="meta">
         <span class="pill">עדכון: 22.06.2026</span>
-        <span class="pill">גרסה: Maestro v5.5</span>
+        <span class="pill">גרסה: Maestro v5.6</span>
         <span class="pill">בעל החזון: חזן אבי</span>
         <span class="pill">AI Agents + Automation</span>
       </div>
@@ -134,9 +146,79 @@
       <div class="success"><b>עקרון רצפה חדש:</b> המערכת מודדת לא רק רווח (upside) אלא גם רצפה (downside) - מרווח ביטחון שמבטיח החזר הון גם אם עסקה נכשלת.</div>
     </section>
 
+    <section id="investor-infographic" data-editable>
+      <h2>1ב. אינפוגרפיקה למשקיע - איך המערכת עובדת</h2>
+      <p class="lead">המטרה של החלק הזה היא להסביר למשקיע, בשפה פשוטה, איך עסקה עוברת מרעיון לאיתור, בדיקה, החלטה ושיווק.</p>
+      <div class="infographic">
+        <div class="info-strip">
+          <div class="info-step"><span>1</span><strong>איתור</strong>יד2, מדלן, מתווכים וקבוצות מספקים מועמדים. המערכת לא מתאהבת בנכס, היא מתחילה מרשימת אפשרויות.</div>
+          <div class="info-step"><span>2</span><strong>אימות שווי</strong>Comps שנמכרו מרשות המסים ומדלן קובעים שווי אמת ו-ARV. מחיר מבוקש הוא רק נקודת פתיחה למו"מ.</div>
+          <div class="info-step"><span>3</span><strong>בדיקת יהלום</strong>המנוע מחשב ARV פחות קנייה, שיפוץ, בנייה, מס, מימון ונלוות. עסקה עוברת רק עם רווח ומרווח ביטחון.</div>
+          <div class="info-step"><span>4</span><strong>ניטרול סיכונים</strong>Hard Stops עוצרים עסקה עם עיקול, חריגה, פער טאבו, חוב ועד, מס חסר או מרווח ביטחון שלילי.</div>
+          <div class="info-step"><span>5</span><strong>שיווק ולמידה</strong>המערכת מפיקה דוח, וואטסאפ, מחיר מו"מ ותיק עסקה. אחרי התוצאה היא לומדת ומשפרת את הסינון.</div>
+        </div>
+
+        <div class="diagram"><pre class="mermaid">flowchart LR
+    A["מקורות מידע"] --> B["סינון מועמדים"]
+    B --> C["Comps שנמכרו"]
+    C --> D["ARV + מס + עלויות"]
+    D --> E{"שולי רווח ≥ 10% וגם ROI שנתי ≥ 15%?"}
+    E -- לא --> F["פסילה או מו\"מ מחיר"]
+    E -- כן --> G{"מרווח ביטחון ≥ 15% ואין Hard Stop?"}
+    G -- לא --> F
+    G -- כן --> H["תיק עסקה למשקיע"]
+    H --> I["שיווק, מו\"מ, ביצוע"]
+    I --> J["למידה מתוצאה אמיתית"]
+    J --> B</pre></div>
+
+        <div class="decision-grid">
+          <div class="decision-box">
+            <h3>מה המשקיע רואה</h3>
+            <table>
+              <tr><th>שאלה</th><th>תשובה במסמך העסקה</th></tr>
+              <tr><td>למה זו עסקה?</td><td>ARV, רווח נקי, מרווח ביטחון וציון ועדה.</td></tr>
+              <tr><td>מה הסיכון?</td><td>דגלים אדומים, Hard Stops, תרחיש שמרני ובדיקות חובה.</td></tr>
+              <tr><td>כמה הון צריך?</td><td>הון עצמי, מימון, עלויות רכישה, שיפוץ, מס ובלת"מ.</td></tr>
+              <tr><td>מה עושים עכשיו?</td><td>מחיר פתיחה, מחיר יעד, מחיר מקסימום ומשימות סגירה.</td></tr>
+            </table>
+          </div>
+          <div class="decision-box">
+            <h3>כללי מעבר</h3>
+            <ul>
+              <li>שולי רווח על ARV ≥ 10%</li>
+              <li>ROI שנתי ≥ 15%</li>
+              <li>מרווח ביטחון ≥ 15%</li>
+              <li>Comps נמכרים בלבד</li>
+              <li>אין Hard Stop משפטי או תכנוני</li>
+            </ul>
+          </div>
+          <div class="decision-box">
+            <h3>תוצר סופי</h3>
+            <ul>
+              <li>דוח מנהלים למשקיע</li>
+              <li>הודעת וואטסאפ קצרה</li>
+              <li>טבלת מספרים שקופה</li>
+              <li>רשימת סיכונים ובדיקות</li>
+              <li>המלצת קנייה / מו"מ / פסילה</li>
+            </ul>
+          </div>
+        </div>
+
+        <h3>שאלות ותשובות למשקיע</h3>
+        <div class="qa-grid">
+          <div class="qa"><b>איך המערכת מוצאת יהלומים?</b>היא משווה בין היצע בשוק לבין עסקאות אמת שנמכרו, ואז מחפשת פער שנשאר רווחי גם אחרי שיפוץ, בנייה, מסים ומימון.</div>
+          <div class="qa"><b>למה לא מספיק לקנות מתחת לשוק?</b>כי נכס זול יכול להפסיד אם השיפוץ, המסים, הזמן והסיכונים אוכלים את ההנחה. המחיר הוא קלט, לא החלטה.</div>
+          <div class="qa"><b>מה מגן על ההון?</b>מרווח ביטחון. גם אם ההשבחה לא מצליחה, המערכת בודקת האם אפשר למכור את הנכס כמו שהוא ולצאת שלם.</div>
+          <div class="qa"><b>איפה AI נכנס לתמונה?</b>ריבוי סוכנים מנתח שוק, שווי, מיסוי, סיכון, השבחה, מו"מ, שיווק ולמידה. כל סוכן מחזיר ציון וביטחון.</div>
+          <div class="qa"><b>מה עדיין דורש אדם מקצועי?</b>עו"ד, שמאי, יועץ מס, יועץ משכנתאות ובודק תכנוני. המערכת מסננת ומארגנת, אבל לא מחליפה בדיקת מומחה.</div>
+          <div class="qa"><b>איך המערכת משתפרת?</b>כל עסקה, שיחה, פסילה ותוצאה נשמרות ב-CRM ובלמידה. כך המשקלים, ה-Comps והסף העסקי מתכיילים למציאות.</div>
+        </div>
+      </div>
+    </section>
+
     <section id="expert-review" data-editable>
       <h2>1א. ממצאי ביקורת מאסטרו - העדכון החשוב</h2>
-      <p class="lead">לאחר הסינתזה החדשה, המסקנה המקצועית היא שהמערכת כבר אינה רעיון אלא מערכת Maestro v5.5: מערכת סטטית חיה, עם מנוע ARV v2, Comps, תיק עסקה, ועדה, סוכן מו"מ, CRM ופלייבוק. הלב של הגרסה: לא למדוד "זול", אלא למדוד "השבחה אמיתית עם מרווח ביטחון".</p>
+      <p class="lead">לאחר הסינתזה החדשה, המסקנה המקצועית היא שהמערכת כבר אינה רעיון אלא מערכת Maestro v5.6: מערכת סטטית חיה, עם מנוע ARV v2, Comps, תיק עסקה, ועדה, סוכן מו"מ, CRM, אינפוגרפיקה למשקיע ופלייבוק. הלב של הגרסה: לא למדוד "זול", אלא למדוד "השבחה אמיתית עם מרווח ביטחון".</p>
       <div class="notice"><b>השורה התחתונה:</b> מד-היהלום הנוכחי נוטה למדוד מחיר מתחת לשוק. המנוע הבא חייב למדוד רווח לאחר השבחה: ARV פחות מחיר קנייה, שיפוץ, מסים, מימון, נלוות ומס יציאה.</div>
       <div class="notice"><b>עדכון תשתית:</b> n8n אינו שכבת העבודה המרכזית כרגע. לפי הסינתזה, המכסה אזלה ויש ביטול קבוע ל-04/07, ולכן הארכיטקטורה הפעילה היא סטטית: GitHub Pages + קבצי HTML + עדכונים מבוקרים. n8n יישאר עתידי-אופציונלי לאחר שהמודל מוכח.</div>
       <table>
