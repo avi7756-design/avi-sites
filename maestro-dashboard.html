@@ -3,1003 +3,497 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>MAESTRO v17.2 - דשבורד מסחר</title>
+<title>דשבורד לידים - מאסטרו נדל"ן</title>
 <style>
-  :root {
-    --red: #E24B4A; --red-bg: #FCEBEB; --red-border: #F09595; --red-dark: #A32D2D;
-    --amber: #BA7517; --amber-bg: #FAEEDA; --amber-border: #FAC775; --amber-dark: #633806;
-    --green: #639922; --green-bg: #EAF3DE; --green-border: #C0DD97; --green-dark: #27500A;
-    --blue: #185FA5; --blue-bg: #E6F1FB; --blue-border: #B5D4F4; --blue-dark: #0C447C;
-    --gray: #5F5E5A; --gray-bg: #F1EFE8; --gray-border: #D3D1C7;
-    --text: #1a1a18; --text2: #5F5E5A; --text3: #888780;
-    --bg: #ffffff; --bg2: #F7F6F2; --bg3: #EDECE8;
-    --border: rgba(0,0,0,0.1); --border2: rgba(0,0,0,0.18);
-    --radius: 8px; --radius-lg: 12px;
-    --font: 'Segoe UI', 'Arial Hebrew', Arial, sans-serif;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: var(--font); background: #EDECE8; color: var(--text); direction: rtl; min-height: 100vh; }
-
-  /* HEADER */
-  .header { background: var(--text); color: #fff; padding: 14px 24px; display: flex; align-items: center; justify-content: space-between; }
-  .header-logo { font-size: 18px; font-weight: 600; letter-spacing: 1px; }
-  .header-logo span { font-size: 12px; font-weight: 400; color: #aaa; margin-right: 10px; }
-  .tl-pill { padding: 5px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; letter-spacing: 0.5px; }
-  .tl-green { background: var(--green-bg); color: var(--green-dark); }
-  .tl-yellow { background: var(--amber-bg); color: var(--amber-dark); }
-  .tl-red { background: var(--red-bg); color: var(--red-dark); }
-  .header-date { font-size: 12px; color: #aaa; }
-
-  /* LAYOUT */
-  .container { max-width: 1200px; margin: 0 auto; padding: 20px 16px; }
-  .fomc-bar { background: var(--amber-bg); border: 1px solid var(--amber-border); border-radius: var(--radius); padding: 10px 16px; margin-bottom: 18px; font-size: 13px; color: var(--amber-dark); display: flex; align-items: center; gap: 10px; }
-  .fomc-icon { font-size: 18px; }
-
-  /* METRICS ROW */
-  .metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; margin-bottom: 20px; }
-  .metric-card { background: var(--bg); border-radius: var(--radius-lg); padding: 16px; border: 1px solid var(--border); }
-  .metric-label { font-size: 11px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 6px; }
-  .metric-value { font-size: 24px; font-weight: 600; color: var(--text); }
-  .metric-sub { font-size: 11px; color: var(--text3); margin-top: 3px; }
-  .val-green { color: var(--green); }
-  .val-amber { color: var(--amber); }
-  .val-red { color: var(--red-dark); }
-
-  /* GRID */
-  .main-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin-bottom: 20px; }
-  .full-width { grid-column: 1 / -1; }
-  .card { background: var(--bg); border-radius: var(--radius-lg); border: 1px solid var(--border); overflow: hidden; }
-  .card-header { padding: 14px 18px; border-bottom: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
-  .card-title { font-size: 13px; font-weight: 600; color: var(--text); }
-  .card-body { padding: 16px 18px; }
-
-  /* POSITIONS */
-  .pos-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-  .pos-card { border: 1px solid var(--border); border-radius: var(--radius); padding: 14px; }
-  .pos-card.dead { border-color: var(--amber-border); background: #fffdf8; }
-  .pos-card.pending { border-color: var(--blue-border); background: #f8fbff; }
-  .pos-card.sold { border-color: var(--gray-border); background: var(--bg2); }
-  .pos-head { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 10px; }
-  .pos-ticker { font-size: 17px; font-weight: 700; color: var(--text); }
-  .pos-name { font-size: 11px; color: var(--text3); margin-top: 2px; }
-  .badge { font-size: 10px; padding: 3px 8px; border-radius: 20px; font-weight: 600; white-space: nowrap; }
-  .badge-hold { background: var(--green-bg); color: var(--green-dark); }
-  .badge-sold { background: var(--gray-bg); color: var(--gray); }
-  .badge-pending { background: var(--blue-bg); color: var(--blue-dark); }
-  .badge-dead { background: var(--amber-bg); color: var(--amber-dark); }
-  .badge-reject { background: var(--red-bg); color: var(--red-dark); }
-  .pos-pnl { font-size: 20px; font-weight: 700; margin-bottom: 10px; }
-  .pos-pnl.pos { color: var(--green); }
-  .pos-pnl.neg { color: var(--red-dark); }
-  .pos-pnl.neutral { color: var(--amber); }
-  .pos-details { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; }
-  .pd { font-size: 11px; }
-  .pd-l { color: var(--text3); }
-  .pd-v { color: var(--text); font-weight: 600; }
-  .progress-wrap { margin-top: 10px; }
-  .progress-labels { display: flex; justify-content: space-between; font-size: 10px; color: var(--text3); margin-bottom: 3px; }
-  .progress-bar { height: 5px; background: var(--bg3); border-radius: 3px; overflow: hidden; }
-  .progress-fill { height: 100%; border-radius: 3px; }
-  .fill-green { background: var(--green); }
-  .fill-amber { background: var(--amber); }
-  .fill-red { background: var(--red); }
-  .dead-tag { font-size: 10px; background: var(--amber-bg); color: var(--amber-dark); border: 1px solid var(--amber-border); padding: 3px 8px; border-radius: var(--radius); margin-top: 8px; display: inline-block; }
-
-  /* ALERTS */
-  .alert-list { display: flex; flex-direction: column; gap: 8px; }
-  .alert-row { display: flex; align-items: flex-start; gap: 10px; padding: 10px 14px; border-radius: var(--radius); border: 1px solid; }
-  .alert-urgent { background: var(--red-bg); border-color: var(--red-border); }
-  .alert-warn { background: var(--amber-bg); border-color: var(--amber-border); }
-  .alert-info { background: var(--green-bg); border-color: var(--green-border); }
-  .alert-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; margin-top: 4px; }
-  .dot-r { background: var(--red); }
-  .dot-a { background: var(--amber); }
-  .dot-g { background: var(--green); }
-  .alert-text { font-size: 12px; line-height: 1.5; }
-  .alert-urgent .alert-text { color: var(--red-dark); }
-  .alert-warn .alert-text { color: var(--amber-dark); }
-  .alert-info .alert-text { color: var(--green-dark); }
-
-  /* CANDIDATES TABLE */
-  .cand-table { width: 100%; border-collapse: collapse; font-size: 12px; }
-  .cand-table th { font-size: 11px; font-weight: 600; color: var(--text3); padding: 0 10px 10px; text-align: right; border-bottom: 1px solid var(--border); }
-  .cand-table td { padding: 10px; border-bottom: 1px solid var(--border); color: var(--text); vertical-align: middle; }
-  .cand-table tr:last-child td { border-bottom: none; }
-  .cand-table tr:hover td { background: var(--bg2); }
-  .score-chip { display: inline-block; padding: 2px 8px; border-radius: 20px; font-size: 11px; font-weight: 700; }
-  .chip-a { background: var(--green-bg); color: var(--green-dark); }
-  .chip-b { background: var(--blue-bg); color: var(--blue-dark); }
-  .chip-c { background: var(--amber-bg); color: var(--amber-dark); }
-  .chip-d { background: var(--red-bg); color: var(--red-dark); }
-  .wait-chip { font-size: 10px; background: var(--amber-bg); color: var(--amber-dark); padding: 2px 6px; border-radius: var(--radius); }
-  .kill-chip { font-size: 10px; background: var(--red-bg); color: var(--red-dark); padding: 2px 6px; border-radius: var(--radius); }
-  .rr-good { color: var(--green); font-weight: 700; }
-
-  /* F1 TREASURY BUTTON */
-  .f1-btn { width: 100%; padding: 16px 20px; background: var(--red-dark); border: none; border-radius: var(--radius-lg); color: #fff; font-size: 16px; font-weight: 700; cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 12px; margin-bottom: 4px; font-family: var(--font); transition: background 0.15s; }
-  .f1-btn:hover { background: #6B1414; }
-  .f1-key { background: rgba(255,255,255,0.2); border-radius: 6px; padding: 3px 10px; font-size: 13px; font-family: monospace; }
-  .f1-sub { font-size: 12px; color: rgba(255,255,255,0.7); margin-bottom: 18px; text-align: center; }
-
-  /* F1 PANEL */
-  .f1-panel { display: none; background: var(--bg); border-radius: var(--radius-lg); border: 2px solid var(--red-border); overflow: hidden; }
-  .f1-panel.open { display: block; }
-  .f1-tabs { display: flex; border-bottom: 1px solid var(--border); background: var(--bg2); overflow-x: auto; }
-  .f1-tab { padding: 12px 18px; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--text3); white-space: nowrap; border-bottom: 3px solid transparent; transition: all 0.15s; flex-shrink: 0; }
-  .f1-tab:hover { color: var(--text); background: var(--bg3); }
-  .f1-tab.active { color: var(--red-dark); border-bottom-color: var(--red); background: var(--bg); }
-  .f1-section { display: none; padding: 20px; }
-  .f1-section.active { display: block; }
-
-  /* WHAT IS */
-  .hero-box { background: var(--red-bg); border: 1px solid var(--red-border); border-radius: var(--radius-lg); padding: 20px; margin-bottom: 18px; text-align: center; }
-  .hero-box h3 { font-size: 20px; font-weight: 700; color: var(--red-dark); margin-bottom: 8px; }
-  .hero-box p { font-size: 13px; color: #791F1F; line-height: 1.7; }
-  .analogy-box { background: var(--green-bg); border: 1px solid var(--green-border); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 18px; }
-  .analogy-title { font-size: 13px; font-weight: 700; color: var(--green-dark); margin-bottom: 12px; }
-  .analogy-grid { display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; }
-  .analogy-col { background: var(--bg); border-radius: var(--radius); padding: 12px; }
-  .analogy-label { font-size: 10px; color: var(--text3); text-transform: uppercase; margin-bottom: 5px; }
-  .analogy-val { font-size: 12px; color: var(--text); line-height: 1.5; }
-  .ana-arrow { font-size: 22px; color: var(--text3); text-align: center; }
-  .buckets { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; margin-bottom: 16px; }
-  .bucket { border-radius: var(--radius-lg); padding: 16px; text-align: center; }
-  .bk-r { background: var(--red-bg); border: 1px solid var(--red-border); }
-  .bk-a { background: var(--amber-bg); border: 1px solid var(--amber-border); }
-  .bk-g { background: var(--green-bg); border: 1px solid var(--green-border); }
-  .bk-icon { width: 36px; height: 36px; border-radius: 50%; margin: 0 auto 8px; display: flex; align-items: center; justify-content: center; font-size: 16px; }
-  .bk-r .bk-icon { background: var(--red); color: #fff; }
-  .bk-a .bk-icon { background: var(--amber); color: #fff; }
-  .bk-g .bk-icon { background: var(--green); color: #fff; }
-  .bk-name { font-size: 13px; font-weight: 700; margin-bottom: 4px; }
-  .bk-r .bk-name { color: var(--red-dark); }
-  .bk-a .bk-name { color: var(--amber-dark); }
-  .bk-g .bk-name { color: var(--green-dark); }
-  .bk-pct { font-size: 26px; font-weight: 700; margin-bottom: 4px; }
-  .bk-r .bk-pct { color: var(--red); }
-  .bk-a .bk-pct { color: var(--amber); }
-  .bk-g .bk-pct { color: var(--green); }
-  .bk-desc { font-size: 11px; color: var(--text2); line-height: 1.4; }
-
-  /* RULES */
-  .rule { display: flex; align-items: flex-start; gap: 14px; padding: 14px; background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius); margin-bottom: 10px; }
-  .rule-num { width: 30px; height: 30px; border-radius: 50%; background: var(--red-bg); color: var(--red-dark); font-size: 13px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border: 1px solid var(--red-border); }
-  .rule-body { flex: 1; }
-  .rule-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-  .rule-desc { font-size: 12px; color: var(--text2); line-height: 1.6; }
-  .rule-example { font-size: 11px; background: var(--bg2); border-radius: 4px; padding: 5px 10px; margin-top: 7px; color: var(--text); font-family: monospace; border-right: 3px solid var(--green-border); }
-
-  /* EXAMPLES */
-  .ex-card { background: var(--bg); border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 14px; }
-  .ex-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; }
-  .ex-ticker { font-size: 17px; font-weight: 700; color: var(--text); }
-  .ex-sub { font-size: 11px; color: var(--text3); margin-top: 2px; }
-  .ex-flow { display: flex; align-items: center; gap: 6px; margin-bottom: 14px; flex-wrap: wrap; }
-  .ex-box { padding: 7px 12px; border-radius: var(--radius); font-size: 12px; font-weight: 700; text-align: center; }
-  .box-entry { background: var(--blue-bg); color: var(--blue-dark); border: 1px solid var(--blue-border); }
-  .box-sl { background: var(--red-bg); color: var(--red-dark); border: 1px solid var(--red-border); }
-  .box-t1 { background: var(--amber-bg); color: var(--amber-dark); border: 1px solid var(--amber-border); }
-  .box-t2 { background: var(--green-bg); color: var(--green-dark); border: 1px solid var(--green-border); }
-  .ex-arr { color: var(--text3); font-size: 16px; }
-  .ex-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 12px; }
-  .ex-stat { background: var(--bg2); border-radius: var(--radius); padding: 10px; text-align: center; }
-  .ex-stat-label { font-size: 10px; color: var(--text3); margin-bottom: 4px; }
-  .ex-stat-val { font-size: 16px; font-weight: 700; color: var(--text); }
-  .sc { border-radius: var(--radius); padding: 10px 14px; margin-bottom: 6px; font-size: 12px; }
-  .sc-win { background: var(--green-bg); border: 1px solid var(--green-border); }
-  .sc-loss { background: var(--red-bg); border: 1px solid var(--red-border); }
-  .sc-label { font-weight: 700; margin-bottom: 3px; }
-  .sc-win .sc-label { color: var(--green-dark); }
-  .sc-loss .sc-label { color: var(--red-dark); }
-  .sc-win { color: var(--green-dark); }
-  .sc-loss { color: var(--red-dark); }
-
-  /* FLOW */
-  .flow-step { display: flex; gap: 14px; }
-  .flow-line { display: flex; flex-direction: column; align-items: center; }
-  .flow-dot { width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 13px; font-weight: 700; flex-shrink: 0; }
-  .flow-conn { width: 2px; background: var(--border); flex: 1; min-height: 24px; margin: 3px 0; }
-  .flow-content { padding-top: 5px; padding-bottom: 18px; flex: 1; }
-  .flow-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
-  .flow-detail { font-size: 12px; color: var(--text2); line-height: 1.6; }
-  .flow-code { font-family: monospace; font-size: 11px; background: var(--bg3); padding: 4px 10px; border-radius: 4px; margin-top: 5px; display: inline-block; color: var(--text); border: 1px solid var(--border); }
-  .fd-gray { background: var(--gray-bg); color: var(--gray); border: 1px solid var(--gray-border); }
-  .fd-blue { background: var(--blue-bg); color: var(--blue-dark); border: 1px solid var(--blue-border); }
-  .fd-amber { background: var(--amber-bg); color: var(--amber-dark); border: 1px solid var(--amber-border); }
-  .fd-red { background: var(--red-bg); color: var(--red-dark); border: 1px solid var(--red-border); }
-  .fd-green { background: var(--green-bg); color: var(--green-dark); border: 1px solid var(--green-border); }
-  .sizing-box { background: var(--bg2); border-radius: var(--radius-lg); padding: 16px; margin-top: 16px; }
-  .sizing-title { font-size: 13px; font-weight: 700; color: var(--text); margin-bottom: 10px; }
-  .sizing-row { display: flex; justify-content: space-between; font-size: 12px; padding: 5px 0; border-bottom: 1px solid var(--border); }
-  .sizing-row:last-child { border-bottom: none; }
-  .sizing-label { color: var(--text2); }
-  .sizing-val { font-weight: 700; color: var(--text); }
-
-  /* NOW */
-  .now-bad { background: var(--red-bg); border: 1px solid var(--red-border); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 14px; }
-  .now-good { background: var(--green-bg); border: 1px solid var(--green-border); border-radius: var(--radius-lg); padding: 16px; margin-bottom: 14px; }
-  .now-title { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
-  .now-bad .now-title { color: var(--red-dark); }
-  .now-good .now-title { color: var(--green-dark); }
-  .now-row { display: flex; justify-content: space-between; font-size: 12px; padding: 5px 0; border-bottom: 1px solid rgba(0,0,0,0.07); }
-  .now-row:last-child { border-bottom: none; }
-  .now-bad .now-row { color: #791F1F; }
-  .now-good .now-row { color: var(--green-dark); }
-  .now-label { opacity: 0.75; }
-  .now-val { font-weight: 700; }
-  .action-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 16px; }
-  .act-btn { background: var(--bg); border: 1px solid var(--border2); border-radius: var(--radius); padding: 12px 14px; font-size: 12px; font-weight: 600; color: var(--text); cursor: pointer; text-align: right; font-family: var(--font); transition: background 0.12s; }
-  .act-btn:hover { background: var(--bg2); }
-
-  /* INFOGRAPHIC */
-  .infographic { padding: 20px; }
-  .info-title { font-size: 16px; font-weight: 700; color: var(--text); margin-bottom: 6px; }
-  .info-sub { font-size: 12px; color: var(--text3); margin-bottom: 20px; }
-  .argus-pillars { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; margin-bottom: 20px; }
-  .pillar { border: 1px solid var(--border); border-radius: var(--radius-lg); padding: 14px; background: var(--bg); }
-  .pillar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-  .pillar-name { font-size: 12px; font-weight: 700; color: var(--text); }
-  .pillar-max { font-size: 11px; color: var(--text3); }
-  .pillar-bar { height: 8px; background: var(--bg3); border-radius: 4px; overflow: hidden; margin-bottom: 6px; }
-  .pillar-fill { height: 100%; border-radius: 4px; }
-  .pillar-example { font-size: 11px; color: var(--text2); line-height: 1.5; }
-  .score-legend { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 20px; }
-  .legend-item { border-radius: var(--radius); padding: 10px; text-align: center; border: 1px solid; }
-  .leg-a { background: var(--green-bg); border-color: var(--green-border); }
-  .leg-b { background: var(--blue-bg); border-color: var(--blue-border); }
-  .leg-c { background: var(--amber-bg); border-color: var(--amber-border); }
-  .leg-d { background: var(--red-bg); border-color: var(--red-border); }
-  .leg-grade { font-size: 20px; font-weight: 700; margin-bottom: 2px; }
-  .leg-a .leg-grade { color: var(--green-dark); }
-  .leg-b .leg-grade { color: var(--blue-dark); }
-  .leg-c .leg-grade { color: var(--amber-dark); }
-  .leg-d .leg-grade { color: var(--red-dark); }
-  .leg-range { font-size: 11px; font-weight: 600; margin-bottom: 2px; }
-  .leg-a .leg-range { color: var(--green); }
-  .leg-b .leg-range { color: var(--blue); }
-  .leg-c .leg-range { color: var(--amber); }
-  .leg-d .leg-range { color: var(--red); }
-  .leg-action { font-size: 10px; }
-  .leg-a .leg-action { color: var(--green-dark); }
-  .leg-b .leg-action { color: var(--blue-dark); }
-  .leg-c .leg-action { color: var(--amber-dark); }
-  .leg-d .leg-action { color: var(--red-dark); }
-  .kill-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .kill-item { border-radius: var(--radius); padding: 10px; border: 1px solid; }
-  .kill-stop { background: var(--red-bg); border-color: var(--red-border); }
-  .kill-warn { background: var(--amber-bg); border-color: var(--amber-border); }
-  .kill-ok { background: var(--green-bg); border-color: var(--green-border); }
-  .kill-key { font-size: 11px; font-weight: 700; margin-bottom: 3px; }
-  .kill-stop .kill-key { color: var(--red-dark); }
-  .kill-warn .kill-key { color: var(--amber-dark); }
-  .kill-ok .kill-key { color: var(--green-dark); }
-  .kill-desc { font-size: 11px; color: var(--text2); line-height: 1.4; }
-
-  /* CLOSE */
-  .close-f1 { width: 100%; padding: 10px; background: var(--bg2); border: 1px solid var(--border); border-radius: var(--radius); font-size: 12px; color: var(--text3); cursor: pointer; margin-top: 16px; font-family: var(--font); }
-  .close-f1:hover { background: var(--bg3); color: var(--text); }
-
-  /* FOOTER */
-  .footer { background: var(--bg); border-top: 1px solid var(--border); padding: 12px 24px; display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: var(--text3); margin-top: 8px; }
-  .footer-actions { display: flex; gap: 12px; }
-  .footer-btn { padding: 6px 14px; border: 1px solid var(--border2); border-radius: var(--radius); font-size: 11px; font-weight: 600; cursor: pointer; background: var(--bg); color: var(--text2); font-family: var(--font); }
-  .footer-btn:hover { background: var(--bg2); }
-  .footer-btn.primary { background: var(--text); color: #fff; border-color: var(--text); }
-  .footer-btn.primary:hover { background: #333; }
-
-  /* RESPONSIVE */
-  @media (max-width: 768px) {
-    .metrics { grid-template-columns: repeat(2, 1fr); }
-    .main-grid { grid-template-columns: 1fr; }
-    .pos-grid { grid-template-columns: 1fr; }
-    .argus-pillars { grid-template-columns: 1fr; }
-    .score-legend { grid-template-columns: repeat(2, 1fr); }
-    .kill-grid { grid-template-columns: repeat(2, 1fr); }
-    .buckets { grid-template-columns: 1fr; }
-    .analogy-grid { grid-template-columns: 1fr; }
-    .ana-arrow { transform: rotate(90deg); }
-    .action-grid { grid-template-columns: 1fr; }
-  }
+  :root{--bg:#0f1419;--card:#1a2230;--card2:#222d3d;--line:#2e3c4f;--txt:#e8eef5;--mut:#8aa0b5;
+        --accent:#4ea1ff;--teal:#39d3c3;--gold:#ffcc4d;--green:#3ddc84;--amber:#ffb74d;--red:#ff6b6b}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:"Segoe UI",Arial,sans-serif;line-height:1.5}
+  header{padding:16px 22px;background:linear-gradient(135deg,#16202e,#0f1419);border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:12px}
+  header h1{margin:0;font-size:20px}
+  header .tools{display:flex;gap:8px;flex-wrap:wrap}
+  .btn{background:var(--accent);color:#06121f;border:none;border-radius:9px;padding:9px 14px;font-weight:700;cursor:pointer;font-size:13px}
+  .btn.sec{background:var(--card2);color:var(--txt);border:1px solid var(--line)}
+  .btn.danger{background:transparent;color:var(--red);border:1px solid var(--red)}
+  .btn:hover{filter:brightness(1.08)}
+  .wrap{max-width:1280px;margin:0 auto;padding:18px}
+  .kpis{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-bottom:16px}
+  @media(max-width:760px){.kpis{grid-template-columns:repeat(2,1fr)}}
+  .kpi{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px}
+  .kpi .l{font-size:12px;color:var(--mut)} .kpi .v{font-size:24px;font-weight:800;margin-top:3px}
+  .kpi.d .v{color:var(--green)} .kpi.b .v{color:var(--amber)} .kpi.r .v{color:var(--red)} .kpi.t .v{color:var(--accent)}
+  .filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px;align-items:center}
+  .filters input,.filters select{background:#0c1118;border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:8px 10px;font-size:13px}
+  .filters input{flex:1;min-width:160px}
+  table{width:100%;border-collapse:collapse;background:var(--card);border-radius:12px;overflow:hidden}
+  th,td{padding:10px 11px;text-align:right;font-size:13px;border-bottom:1px solid var(--line)}
+  th{background:var(--card2);color:var(--mut);font-weight:700;cursor:pointer;white-space:nowrap}
+  tr:hover td{background:#1e2836}
+  .badge{display:inline-block;padding:2px 9px;border-radius:20px;font-size:12px;font-weight:700}
+  .b-d{background:rgba(61,220,132,.15);color:var(--green)} .b-b{background:rgba(255,183,77,.15);color:var(--amber)} .b-r{background:rgba(255,107,107,.15);color:var(--red)} .b-h{background:rgba(57,211,195,.15);color:var(--teal)}
+  .ico{cursor:pointer;color:var(--mut);margin-inline-start:8px} .ico:hover{color:var(--txt)}
+  .empty{text-align:center;color:var(--mut);padding:40px}
+  /* modal */
+  .ov{position:fixed;inset:0;background:rgba(4,9,15,.75);display:none;align-items:flex-start;justify-content:center;z-index:30;overflow:auto;padding:24px}
+  .ov.open{display:flex}
+  .modal{background:var(--card);border:1px solid var(--line);border-radius:16px;width:100%;max-width:880px;padding:20px}
+  .modal h2{margin:0 0 4px;font-size:18px} .modal .sub{color:var(--mut);font-size:13px;margin-bottom:14px}
+  .mgrid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+  @media(max-width:720px){.mgrid{grid-template-columns:1fr}}
+  .fg{margin:8px 0} .fg label{display:block;font-size:12px;color:var(--mut);margin-bottom:4px}
+  .fg input,.fg textarea,.fg select{width:100%;background:#0c1118;border:1px solid var(--line);color:var(--txt);border-radius:8px;padding:8px 10px;font-size:13px;font-family:inherit}
+  .fg input.key{border-color:var(--gold)}
+  .fg textarea{min-height:46px;resize:vertical}
+  .sect{grid-column:1/-1;font-size:13px;font-weight:800;color:var(--accent);border-top:1px solid var(--line);padding-top:10px;margin-top:6px}
+  .sect.teal{color:var(--teal)} .sect.gold{color:var(--gold)}
+  .checks{grid-column:1/-1;display:flex;gap:16px;flex-wrap:wrap;font-size:13px}
+  .checks label{display:flex;gap:6px;align-items:center;color:var(--txt)}
+  .preview{grid-column:1/-1;background:#0c1118;border:1px solid var(--line);border-radius:10px;padding:12px;display:flex;gap:18px;flex-wrap:wrap;align-items:center}
+  .preview .pv{font-size:13px;color:var(--mut)} .preview .pv b{color:var(--txt);font-size:15px}
+  .preview .vbadge{font-size:18px;font-weight:800}
+  .mfoot{display:flex;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}
+  .hint{font-size:11px;color:var(--mut)}
+  .seed{color:var(--accent);cursor:pointer;text-decoration:underline;font-size:12px}
 </style>
 </head>
 <body>
-
-<div class="header">
-  <div>
-    <div class="header-logo">MAESTRO <span>v17.2 | DEMO</span></div>
-    <div class="header-date" style="margin-top:3px;">עודכן: 28/04/2026 08:17</div>
+<header>
+  <h1>🏘️ דשבורד לידים - מאסטרו נדל"ן</h1>
+  <div class="tools">
+    <button class="btn" onclick="openModal()">＋ ליד חדש</button>
+    <button class="btn sec" onclick="document.getElementById('agentsSection').scrollIntoView({behavior:'smooth'})">👥 מתווכים</button>
+    <button class="btn sec" onclick="openSync()">☁ סנכרון Sheets</button>
+    <button class="btn sec" onclick="exportCSV()">⬇ CSV</button>
+    <button class="btn sec" onclick="exportJSON()">⬇ גיבוי</button>
+    <button class="btn sec" onclick="document.getElementById('imp').click()">⬆ שחזור</button>
+    <input type="file" id="imp" accept=".json" style="display:none" onchange="importJSON(event)">
   </div>
-  <div style="display:flex;align-items:center;gap:12px;">
-    <div>
-      <div style="font-size:11px;color:#aaa;text-align:center;margin-bottom:3px;">SPY $715.17</div>
-      <div class="tl-pill tl-green">ירוק - Attack Mode</div>
+</header>
+<div class="wrap">
+  <div class="kpis">
+    <div class="kpi t"><div class="l">סה"כ לידים</div><div class="v" id="kTotal">0</div></div>
+    <div class="kpi d"><div class="l">💎 יהלומים</div><div class="v" id="kDiamond">0</div></div>
+    <div class="kpi b"><div class="l">🔍 גבוליים</div><div class="v" id="kBorder">0</div></div>
+    <div class="kpi r"><div class="l">❌ נדחו</div><div class="v" id="kReject">0</div></div>
+    <div class="kpi"><div class="l">📅 לביקור / מעקב</div><div class="v" id="kVisit">0</div></div>
+  </div>
+  <div id="syncBar" style="display:none;align-items:center;gap:12px;flex-wrap:wrap;background:var(--card);border:1px solid var(--line);border-radius:10px;padding:9px 13px;margin-bottom:12px;font-size:13px">
+    <span id="syncDot" style="width:9px;height:9px;border-radius:50%;background:var(--mut);display:inline-block"></span>
+    <span id="syncStatus" style="color:var(--mut)">לא מחובר לגיליון</span>
+    <button class="btn sec" style="padding:5px 10px" onclick="pullFromSheet()">⬇ משוך מהגיליון</button>
+    <a id="sheetLink" href="#" target="_blank" style="color:var(--accent);margin-inline-start:auto">פתח את הגיליון ↗</a>
+  </div>
+  <div class="filters">
+    <input type="text" id="q" placeholder="חיפוש: כתובת / אזור / מקור..." oninput="render()">
+    <select id="fStatus" onchange="render()">
+      <option value="">כל הסטטוסים</option>
+      <option value="💎 יהלום">💎 יהלום</option>
+      <option value="🔍 גבולי">🔍 גבולי</option>
+      <option value="❌ דחה">❌ דחה</option>
+      <option value="🏠 שכירות">🏠 שכירות</option>
+    </select>
+    <select id="sort" onchange="render()">
+      <option value="date">מיון: חדש ביותר</option>
+      <option value="margin">מיון: שוליים</option>
+      <option value="roi">מיון: ROI שנתי</option>
+      <option value="asking">מיון: מחיר מבוקש</option>
+    </select>
+  </div>
+  <div id="tableWrap"></div>
+  <p class="hint" style="margin-top:14px">הנתונים נשמרים אוטומטית בדפדפן הזה (localStorage). לגיבוי בין מכשירים - ייצא "גיבוי" מדי פעם. 3 העסקאות מתיק הצללים: <span class="seed" onclick="seedDemo()">טען את 3 המועמדים לדוגמה</span></p>
+
+  <div id="agentsSection" style="margin-top:28px">
+    <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:10px">
+      <h2 style="margin:0;font-size:18px">👥 מאגר מתווכים</h2>
+      <div style="display:flex;gap:8px">
+        <button class="btn" onclick="openAgent()">＋ מתווך</button>
+        <button class="btn sec" onclick="seedAgents()">טען מתווכים שאספנו</button>
+      </div>
+    </div>
+    <p class="hint" style="margin-top:0">מאגר המתווכים שמפנים אליך עסקאות. לכל ליד אפשר לשייך מתווך (בטופס הליד), וכאן רואים כמה עסקאות כל אחד הפנה. לחיצה על מספר העסקאות מסננת את טבלת הלידים.</p>
+    <div id="agentFilterNote" style="display:none;margin-bottom:8px;font-size:13px;color:var(--teal)"></div>
+    <div id="agentsWrap"></div>
+  </div>
+</div>
+
+<!-- MODAL -->
+<div class="ov" id="ov">
+  <div class="modal">
+    <h2 id="mTitle">ליד חדש</h2>
+    <div class="sub">מלא תוך כדי שיחה. השדות בזהב מזינים את מנוע היהלום (ARV/מ"ר חובה לאמת מ-Comps).</div>
+    <input type="hidden" id="fId">
+    <div class="mgrid">
+      <div class="fg" style="grid-column:1/-1;background:#0c1118;border:1px dashed var(--gold);border-radius:10px;padding:11px">
+        <label style="color:var(--gold)">📋 הדבק טקסט מודעה (יד2 / מדלן) - מילוי אוטומטי</label>
+        <textarea id="pasteBox" placeholder="העתק את כל טקסט המודעה והדבק כאן, ואז לחץ נתח..."></textarea>
+        <div style="margin-top:8px"><button class="btn" type="button" onclick="parseListing()">⚡ נתח ומלא</button>
+        <span id="parseMsg" class="hint" style="margin-inline-start:8px"></span></div>
+      </div>
+      <div class="sect">פרטי הנכס</div>
+      <div class="fg"><label>כתובת / מזהה</label><input id="fName" placeholder="רחוב, עיר"></div>
+      <div class="fg"><label>אזור</label><input id="fArea" placeholder="קרית מוצקין / חיפה / עכו"></div>
+      <div class="fg"><label>מתווך מפנה (מהמאגר)</label><select id="fAgent" onchange="onAgentPick()"><option value="">- ללא / מוכר פרטי -</option></select></div>
+      <div class="fg"><label>מקור</label><input id="fSource" placeholder="רימקס / יד2 פרטי / Top Home"></div>
+      <div class="fg"><label>טלפון ליצירת קשר</label><input id="fPhone" placeholder="טלפון מתווך/מוכר"></div>
+      <div class="fg"><label>מחיר מבוקש (₪)</label><input id="fAsking" type="number"></div>
+      <div class="fg"><label>שטח קיים (מ"ר)</label><input id="fM2" type="number"></div>
+
+      <div class="sect">תשובות מהשיחה</div>
+      <div class="fg"><label>מצב הדירה (משופצת/דורש שיפוץ)</label><input id="aCond" placeholder="מתי שופצה?"></div>
+      <div class="fg"><label>מוטיבציה / דחיפות מוכר</label><input id="aMot" placeholder="למה מוכרים?"></div>
+      <div class="fg" style="grid-column:1/-1"><label>Comps - מה נמכר ברחוב/בניין ובכמה למ"ר</label><textarea id="aComps"></textarea></div>
+      <div class="fg" style="grid-column:1/-1"><label>פוטנציאל בנייה / התחדשות / זכויות</label><textarea id="aBuild"></textarea></div>
+
+      <div class="sect gold">🔑 מספרים למנוע</div>
+      <div class="fg"><label>ARV - מחיר למ"ר אחרי השבחה (₪)</label><input id="fArv" type="number" class="key" oninput="livePreview()"></div>
+      <div class="fg"><label>שווי שוק נוכחי למ"ר (כמו שהוא / as-is)</label><input id="fAsIs" type="number" class="key" oninput="livePreview()"></div>
+      <div class="fg"><label>מחיר קנייה בפועל אחרי מו"מ (₪)</label><input id="fPrice" type="number" class="key" oninput="livePreview()"></div>
+      <div class="fg"><label>תוספת בנייה (מ"ר)</label><input id="fBuild" type="number" value="0" oninput="livePreview()"></div>
+      <div class="fg"><label>עלות בנייה למ"ר (₪)</label><input id="fBuildCost" type="number" value="9000" oninput="livePreview()"></div>
+      <div class="fg"><label>עלות שיפוץ למ"ר (₪)</label><input id="fReno" type="number" value="2500" oninput="livePreview()"></div>
+      <div class="fg"><label>חודשי החזקה</label><input id="fMonths" type="number" value="14" oninput="livePreview()"></div>
+      <div class="fg"><label>שכ"ד חודשי אפשרי (₪) - למסלול שכירות</label><input id="fRent" type="number" value="0" oninput="livePreview()"></div>
+
+      <div class="checks">
+        <label><input type="checkbox" id="fRenovated" onchange="livePreview()"> כבר משופצת</label>
+        <label><input type="checkbox" id="fHold" onchange="livePreview()"> מסלול שכירות (קנה-והחזק)</label>
+        <label style="color:var(--red)"><input type="checkbox" id="fHardstop" onchange="livePreview()"> 🚩 Hard Stop (פוסל)</label>
+      </div>
+
+      <div class="preview">
+        <div class="vbadge" id="pvVerdict">-</div>
+        <div class="pv">ARV: <b id="pvArv">-</b></div>
+        <div class="pv">רווח: <b id="pvProfit">-</b></div>
+        <div class="pv">שוליים: <b id="pvMargin">-</b></div>
+        <div class="pv">ROI שנתי: <b id="pvRoi">-</b></div>
+        <div class="pv">🛡️ מרווח ביטחון: <b id="pvMos">-</b></div>
+        <div class="pv" id="pvYieldWrap" style="display:none">תשואת שכירות: <b id="pvYield">-</b></div>
+      </div>
+
+      <div class="fg" style="grid-column:1/-1"><label>צעד הבא</label><input id="fNext" placeholder="לקבוע ביקור / להמשיך מו"מ / לדחות..."></div>
+    </div>
+    <div class="mfoot">
+      <button class="btn danger" id="delBtn" onclick="delCurrent()" style="display:none">מחק ליד</button>
+      <div style="margin-inline-start:auto;display:flex;gap:8px">
+        <button class="btn sec" onclick="closeModal()">ביטול</button>
+        <button class="btn" onclick="saveLead()">💾 שמור ליד</button>
+      </div>
     </div>
   </div>
 </div>
 
-<div class="container">
-
-  <!-- FOMC BAR -->
-  <div class="fomc-bar">
-    <span class="fomc-icon">⚠</span>
-    <strong>FOMC מחר 29/4 - אין כניסות עד 30/4.</strong>&nbsp; DOV + AMP ממתינות. VRT (94/100) ממתין מ-30/4. STLD בסכנת Dead Money.
-  </div>
-
-  <!-- METRICS -->
-  <div class="metrics">
-    <div class="metric-card">
-      <div class="metric-label">NAV תיק</div>
-      <div class="metric-value">₪XXX,XXX</div>
-      <div class="metric-sub">~$XXX,XXX USD</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">מזומן פנוי</div>
-      <div class="metric-value val-amber">74.8%</div>
-      <div class="metric-sub">$XXX,XXX USD מוכן</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">Drawdown</div>
-      <div class="metric-value val-amber">4.08%</div>
-      <div class="metric-sub">-₪XX,XXX מהשיא</div>
-    </div>
-    <div class="metric-card">
-      <div class="metric-label">VIX</div>
-      <div class="metric-value val-green">18.02</div>
-      <div class="metric-sub">SPY מעל MA200 ✓</div>
-    </div>
-  </div>
-
-  <!-- MAIN GRID -->
-  <div class="main-grid">
-
-    <!-- POSITIONS -->
-    <div class="card">
-      <div class="card-header">
-        <div class="card-title">פוזיציות פעילות</div>
-        <span style="font-size:11px;color:var(--text3)">1 פתוח / 3 מקסימום</span>
-      </div>
-      <div class="card-body">
-        <div class="pos-grid">
-
-          <!-- STLD -->
-          <div class="pos-card dead">
-            <div class="pos-head">
-              <div>
-                <div class="pos-ticker">STLD</div>
-                <div class="pos-name">Steel Dynamics</div>
-              </div>
-              <span class="badge badge-dead">Dead Money</span>
-            </div>
-            <div class="pos-pnl pos">+$XXX (+0.99%)</div>
-            <div class="pos-details">
-              <div class="pd"><span class="pd-l">כניסה: </span><span class="pd-v">$224.87</span></div>
-              <div class="pd"><span class="pd-l">מחיר: </span><span class="pd-v">$227.09</span></div>
-              <div class="pd"><span class="pd-l">SL: </span><span class="pd-v">$218.00 GTC</span></div>
-              <div class="pd"><span class="pd-l">Target: </span><span class="pd-v">$281.09</span></div>
-              <div class="pd"><span class="pd-l">כמות: </span><span class="pd-v">X</span></div>
-              <div class="pd"><span class="pd-l">ימים: </span><span class="pd-v">17 ימים</span></div>
-            </div>
-            <div class="progress-wrap">
-              <div class="progress-labels"><span>כניסה $224.87</span><span>Target $281.09</span></div>
-              <div class="progress-bar"><div class="progress-fill fill-amber" style="width:4%"></div></div>
-            </div>
-            <div class="dead-tag">⚠ 17 ימים, רק +0.99% — שקול מכירה</div>
-          </div>
-
-          <!-- NTRS SOLD -->
-          <div class="pos-card sold">
-            <div class="pos-head">
-              <div>
-                <div class="pos-ticker">NTRS</div>
-                <div class="pos-name">Northern Trust</div>
-              </div>
-              <span class="badge badge-sold">נמכר 27/4</span>
-            </div>
-            <div class="pos-pnl pos">+$XX (+0.24%)</div>
-            <div class="pos-details">
-              <div class="pd"><span class="pd-l">כניסה: </span><span class="pd-v">$164.01</span></div>
-              <div class="pd"><span class="pd-l">מכירה: </span><span class="pd-v">$164.40</span></div>
-              <div class="pd"><span class="pd-l">כמות: </span><span class="pd-v">X</span></div>
-              <div class="pd"><span class="pd-l">ימים: </span><span class="pd-v">26 ימים</span></div>
-            </div>
-            <div class="progress-wrap">
-              <div class="progress-labels"><span>P&L סגור</span><span>+$XX</span></div>
-              <div class="progress-bar"><div class="progress-fill fill-green" style="width:3%"></div></div>
-            </div>
-            <div style="font-size:11px;color:var(--text3);margin-top:8px;">Dead Money 26 ימים — נמכר נכון</div>
-          </div>
-
-          <!-- AMP -->
-          <div class="pos-card pending">
-            <div class="pos-head">
-              <div>
-                <div class="pos-ticker">AMP</div>
-                <div class="pos-name">Ameriprise Financial</div>
-              </div>
-              <span class="badge badge-pending">ממתין FOMC</span>
-            </div>
-            <div class="pos-pnl neutral">83/100 אושר Argus</div>
-            <div class="pos-details">
-              <div class="pd"><span class="pd-l">כניסה: </span><span class="pd-v">$477.86</span></div>
-              <div class="pd"><span class="pd-l">SL: </span><span class="pd-v">$453.97 (-5%)</span></div>
-              <div class="pd"><span class="pd-l">Target: </span><span class="pd-v">$597.33</span></div>
-              <div class="pd"><span class="pd-l">R:R: </span><span class="pd-v" style="color:var(--green)">5.0:1</span></div>
-              <div class="pd"><span class="pd-l">כמות: </span><span class="pd-v">X מניות</span></div>
-              <div class="pd"><span class="pd-l">הקצאה: </span><span class="pd-v">$X,XXX</span></div>
-            </div>
-            <div style="font-size:11px;color:var(--blue-dark);margin-top:10px;background:var(--blue-bg);padding:5px 8px;border-radius:4px;">קנה 30/4 אחרי FOMC אם עדיין מאושר</div>
-          </div>
-
-          <!-- DOV -->
-          <div class="pos-card pending">
-            <div class="pos-head">
-              <div>
-                <div class="pos-ticker">DOV</div>
-                <div class="pos-name">Dover Corporation</div>
-              </div>
-              <span class="badge badge-pending">ממתין FOMC</span>
-            </div>
-            <div class="pos-pnl neutral">83/100 אושר Argus</div>
-            <div class="pos-details">
-              <div class="pd"><span class="pd-l">כניסה: </span><span class="pd-v">$228.15</span></div>
-              <div class="pd"><span class="pd-l">SL: </span><span class="pd-v">$216.74 (-5%)</span></div>
-              <div class="pd"><span class="pd-l">Target: </span><span class="pd-v">$285.19</span></div>
-              <div class="pd"><span class="pd-l">R:R: </span><span class="pd-v" style="color:var(--green)">4.0:1</span></div>
-              <div class="pd"><span class="pd-l">Beta: </span><span class="pd-v">1.1</span></div>
-              <div class="pd"><span class="pd-l">מגזר: </span><span class="pd-v">Industrials</span></div>
-            </div>
-            <div style="font-size:11px;color:var(--blue-dark);margin-top:10px;background:var(--blue-bg);padding:5px 8px;border-radius:4px;">קנה 30/4 אחרי FOMC אם עדיין מאושר</div>
-          </div>
-
-        </div>
+<div class="ov" id="ovAgent">
+  <div class="modal" style="max-width:520px">
+    <h2 id="agTitle">מתווך חדש</h2>
+    <div class="sub">מי מפנה אליך עסקאות. אחר כך אפשר לשייך לידים אליו.</div>
+    <input type="hidden" id="agId">
+    <div class="fg"><label>שם המתווך</label><input id="agName" placeholder="שם מלא"></div>
+    <div class="fg"><label>משרד / חברה</label><input id="agOffice" placeholder="רימקס / Top Home / עצמאי"></div>
+    <div class="fg"><label>טלפון</label><input id="agPhone" placeholder="05_-_______"></div>
+    <div class="fg"><label>אזורי פעילות</label><input id="agArea" placeholder="עכו / קריות / חיפה"></div>
+    <div class="fg"><label>הערות</label><textarea id="agNotes" placeholder="התמחות, רושם, מה הבטיח..."></textarea></div>
+    <div class="mfoot">
+      <button class="btn danger" id="agDelBtn" onclick="delAgent()" style="display:none">מחק</button>
+      <div style="margin-inline-start:auto;display:flex;gap:8px">
+        <button class="btn sec" onclick="closeAgent()">ביטול</button>
+        <button class="btn" onclick="saveAgent()">💾 שמור מתווך</button>
       </div>
     </div>
-
-    <!-- ALERTS + PERF -->
-    <div style="display:flex;flex-direction:column;gap:18px;">
-
-      <!-- ALERTS -->
-      <div class="card">
-        <div class="card-header">
-          <div class="card-title">התראות פעילות</div>
-          <span style="font-size:11px;background:var(--red-bg);color:var(--red-dark);padding:2px 8px;border-radius:20px;font-weight:700;">4</span>
-        </div>
-        <div class="card-body">
-          <div class="alert-list">
-            <div class="alert-row alert-urgent">
-              <div class="alert-dot dot-r"></div>
-              <div class="alert-text"><strong>STLD Dead Money:</strong> 17 ימים, רווח +0.99% בלבד. אם לא יעלה תוך 3 ימים — מכור.</div>
-            </div>
-            <div class="alert-row alert-warn">
-              <div class="alert-dot dot-a"></div>
-              <div class="alert-text"><strong>FOMC מחר 29/4:</strong> אין כניסות. הרץ Argus Loop ב-30/4 מיד אחרי ההחלטה.</div>
-            </div>
-            <div class="alert-row alert-warn">
-              <div class="alert-dot dot-a"></div>
-              <div class="alert-text"><strong>VRT 94/100 A+:</strong> Kill #4 פג ב-30/4. בדוק מחיר נוכחי — כבר $316 vs כניסה $258.90.</div>
-            </div>
-            <div class="alert-row alert-info">
-              <div class="alert-dot dot-g"></div>
-              <div class="alert-text"><strong>74.8% מזומן פנוי:</strong> מוכן ל-2-3 פוזיציות חדשות אחרי FOMC. שוק ירוק.</div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- PERFORMANCE -->
-      <div class="card">
-        <div class="card-header"><div class="card-title">ביצועים ומצב הון</div></div>
-        <div class="card-body">
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px;">
-            <div style="background:var(--bg2);border-radius:var(--radius);padding:10px;text-align:center;">
-              <div style="font-size:10px;color:var(--text3);margin-bottom:4px;">P&L כולל</div>
-              <div style="font-size:18px;font-weight:700;color:var(--green)">+$XXX</div>
-            </div>
-            <div style="background:var(--bg2);border-radius:var(--radius);padding:10px;text-align:center;">
-              <div style="font-size:10px;color:var(--text3);margin-bottom:4px;">Win Rate</div>
-              <div style="font-size:18px;font-weight:700;color:var(--green)">100%</div>
-            </div>
-          </div>
-          <div style="font-size:11px;color:var(--text3);margin-bottom:4px;display:flex;justify-content:space-between;"><span>ניצול הון (1/3)</span><span>25.2%</span></div>
-          <div class="progress-bar" style="margin-bottom:10px;"><div class="progress-fill fill-green" style="width:25%"></div></div>
-          <div style="font-size:11px;color:var(--text3);margin-bottom:4px;display:flex;justify-content:space-between;"><span>מזומן פנוי</span><span>74.8%</span></div>
-          <div class="progress-bar" style="margin-bottom:10px;"><div class="progress-fill fill-amber" style="width:75%"></div></div>
-          <div style="font-size:11px;color:var(--text3);margin-bottom:4px;display:flex;justify-content:space-between;"><span>Drawdown מהשיא</span><span style="color:var(--amber)">4.08%</span></div>
-          <div class="progress-bar"><div class="progress-fill fill-red" style="width:4%"></div></div>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- CANDIDATES TABLE -->
-    <div class="card full-width">
-      <div class="card-header">
-        <div class="card-title">מועמדים בצנרת (Watchlist)</div>
-        <span style="font-size:11px;color:var(--text3)">5 מניות | 2 ממתינות FOMC | 1 לאחר Kill #4</span>
-      </div>
-      <div class="card-body" style="padding:0;">
-        <table class="cand-table">
-          <thead>
-            <tr>
-              <th style="padding-right:18px;">מניה</th>
-              <th>ציון Argus</th>
-              <th>כניסה</th>
-              <th>SL</th>
-              <th>Target</th>
-              <th>R:R</th>
-              <th>Beta</th>
-              <th>מגזר</th>
-              <th>סטטוס</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding-right:18px;"><strong>VRT</strong><br><span style="font-size:10px;color:var(--text3)">Vertiv Holdings</span></td>
-              <td><span class="score-chip chip-a">94 A+</span></td>
-              <td>$258.90</td>
-              <td>$245.96</td>
-              <td>$323.63</td>
-              <td class="rr-good">5.0:1</td>
-              <td>1.45</td>
-              <td>Industrials</td>
-              <td><span class="wait-chip">30/4 Kill#4 פג</span></td>
-            </tr>
-            <tr>
-              <td style="padding-right:18px;"><strong>AMP</strong><br><span style="font-size:10px;color:var(--text3)">Ameriprise Fin.</span></td>
-              <td><span class="score-chip chip-b">83 A-</span></td>
-              <td>$477.86</td>
-              <td>$453.97</td>
-              <td>$597.33</td>
-              <td class="rr-good">5.0:1</td>
-              <td>1.1</td>
-              <td>Financials</td>
-              <td><span class="wait-chip">אחרי FOMC</span></td>
-            </tr>
-            <tr>
-              <td style="padding-right:18px;"><strong>DOV</strong><br><span style="font-size:10px;color:var(--text3)">Dover Corp.</span></td>
-              <td><span class="score-chip chip-b">83 B+</span></td>
-              <td>$228.15</td>
-              <td>$216.74</td>
-              <td>$285.19</td>
-              <td class="rr-good">4.0:1</td>
-              <td>1.1</td>
-              <td>Industrials</td>
-              <td><span class="wait-chip">אחרי FOMC</span></td>
-            </tr>
-            <tr>
-              <td style="padding-right:18px;"><strong>CDNS</strong><br><span style="font-size:10px;color:var(--text3)">Cadence Design</span></td>
-              <td><span class="score-chip chip-c">75</span></td>
-              <td>$333.53</td>
-              <td>$316.85</td>
-              <td>$416.91</td>
-              <td>5.0:1</td>
-              <td>1.3</td>
-              <td>Technology</td>
-              <td><span class="kill-chip">ממתין Argus</span></td>
-            </tr>
-            <tr>
-              <td style="padding-right:18px;"><strong>NUE</strong><br><span style="font-size:10px;color:var(--text3)">Nucor</span></td>
-              <td><span class="score-chip chip-c">76</span></td>
-              <td>$215.77</td>
-              <td>$204.98</td>
-              <td>$269.71</td>
-              <td>5.0:1</td>
-              <td>1.25</td>
-              <td>Materials</td>
-              <td><span class="kill-chip">ממתין Argus</span></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </div>
-
-  </div>
-
-  <!-- F1 TREASURY BUTTON -->
-  <button class="f1-btn" onclick="toggleF1()">
-    <span class="f1-key">F1</span>
-    <span>Treasury - ניהול הון, כללים, דוגמאות ואינפוגרפיקה</span>
-  </button>
-  <div class="f1-sub">לחץ לפתיחת מדריך מלא — גם ילד בן 10 יבין</div>
-
-  <!-- F1 PANEL -->
-  <div class="f1-panel" id="f1panel">
-    <div class="f1-tabs">
-      <div class="f1-tab active" onclick="showF1('what', this)">מה זה Treasury?</div>
-      <div class="f1-tab" onclick="showF1('rules', this)">5 כללי ברזל</div>
-      <div class="f1-tab" onclick="showF1('examples', this)">דוגמאות חיות</div>
-      <div class="f1-tab" onclick="showF1('flow', this)">תהליך יומי</div>
-      <div class="f1-tab" onclick="showF1('infographic', this)">Argus אינפוגרפיקה</div>
-      <div class="f1-tab" onclick="showF1('now', this)">מצב עכשיו</div>
-    </div>
-
-    <!-- WHAT -->
-    <div class="f1-section active" id="sec-what">
-      <div class="hero-box">
-        <h3>F1 Treasury - ניהול אוצר התיק</h3>
-        <p>Treasury = ניהול חכם של כמה כסף להשקיע, כמה לשמור, וכמה מותר להפסיד.<br>
-        המטרה: לעולם לא להפסיד יותר מ-5% מהתיק — גם אם כל המניות ילכו לאפס.</p>
-      </div>
-
-      <div class="analogy-box">
-        <div class="analogy-title">המשל לילד בן 10: קופסת החיסכון של MAESTRO</div>
-        <div class="analogy-grid">
-          <div class="analogy-col">
-            <div class="analogy-label">ילד עם 100 שקל</div>
-            <div class="analogy-val">קנה ממתק ב-5 שקל. נשאר 95.<br>לא שם הכל על ממתק אחד.</div>
-          </div>
-          <div class="ana-arrow">→</div>
-          <div class="analogy-col">
-            <div class="analogy-label">MAESTRO עם $XXX,XXX</div>
-            <div class="analogy-val">קנה STLD ב-$XX,XXX. נשאר $XXX,XXX מזומן.<br>SL מגן שלא נפסיד יותר מ-$X,XXX.</div>
-          </div>
-        </div>
-      </div>
-
-      <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">3 הדליים — איך הכסף מחולק</div>
-      <div class="buckets">
-        <div class="bucket bk-r">
-          <div class="bk-icon">▶</div>
-          <div class="bk-name">פוזיציות פעילות</div>
-          <div class="bk-pct">~25%</div>
-          <div class="bk-desc">כסף שמושקע כרגע. מקסימום 3 מניות. כל פוזיציה עם SL מיידי.</div>
-        </div>
-        <div class="bucket bk-a">
-          <div class="bk-icon">⏸</div>
-          <div class="bk-name">מוכן לקנות</div>
-          <div class="bk-pct">~50%</div>
-          <div class="bk-desc">מזומן שמחכה לפוזיציות שעברו Argus. לאחר FOMC ייכנס לעבוד.</div>
-        </div>
-        <div class="bucket bk-g">
-          <div class="bk-icon">🛡</div>
-          <div class="bk-name">עתודת ברזל</div>
-          <div class="bk-pct">~25%</div>
-          <div class="bk-desc">לעולם לא נוגעים. הגנה מוחלטת. גם אם הכל קורס — זה נשאר.</div>
-        </div>
-      </div>
-
-      <div style="background:var(--bg2);border-radius:var(--radius);padding:14px;font-size:12px;color:var(--text2);line-height:1.8;border:1px solid var(--border);">
-        <strong style="color:var(--text)">מצב עכשיו:</strong> NAV $XXX,XXX. רק $XX,XXX במניות (STLD). $XXX,XXX מזומן (74.8%). <br>
-        זה הרבה מזומן — אבל מוצדק כי FOMC מחר ואנחנו מחכים להזדמנויות הנכונות.
-      </div>
-    </div>
-
-    <!-- RULES -->
-    <div class="f1-section" id="sec-rules">
-      <div class="rule">
-        <div class="rule-num">1</div>
-        <div class="rule-body">
-          <div class="rule-title">מקסימום 3 פוזיציות בו-זמנית</div>
-          <div class="rule-desc">ריכוז = שליטה. יותר מניות = פחות שליטה. MAESTRO מרוויח מ-3 בחירות מצוינות, לא מ-20 בינוניות.</div>
-          <div class="rule-example">כרגע: STLD פתוח (1/3). יש מקום ל-AMP + DOV/VRT = 3/3 מלא.</div>
-        </div>
-      </div>
-      <div class="rule">
-        <div class="rule-num">2</div>
-        <div class="rule-body">
-          <div class="rule-title">Stop Loss = 5% מהכניסה — תוך 5 דקות מהקנייה</div>
-          <div class="rule-desc">זה כלל ברזל מספר אחד. קנית מניה? תוך 5 דקות SL נמצא ב-IBKR. בלי זה — אין עסקה. זה ה-Zero Gap Rule.</div>
-          <div class="rule-example">AMP @ $477.86 → SL @ $453.97 (5% מטה). הפסד מקסימלי: $454. זה הכל.</div>
-        </div>
-      </div>
-      <div class="rule">
-        <div class="rule-num">3</div>
-        <div class="rule-body">
-          <div class="rule-title">R:R מינימום 3:1 — אנחנו מחפשים 5:1</div>
-          <div class="rule-desc">על כל שקל שמסתכנים — צריך פוטנציאל של לפחות 3 שקל רווח. זה אומר שגם אם מפסידים 40% מהעסקאות, עדיין מרוויחים כסף.</div>
-          <div class="rule-example">DOV: SL -$11.41 → Target +$57. R:R = 5:1. גם אם 3 עסקאות מסיות ו-2 מרוויחות = רווח נטו.</div>
-        </div>
-      </div>
-      <div class="rule">
-        <div class="rule-num">4</div>
-        <div class="rule-body">
-          <div class="rule-title">מגזר אחד = מקסימום 30% מהתיק</div>
-          <div class="rule-desc">לא שמים את כל הביצים בסל אחד. אם STLD ו-DOV שניהם Industrials — יש סיכון מגזרי. פיזור = שרידות.</div>
-          <div class="rule-example">STLD (Industrials) + AMP (Financials) + VRT (Industrials/Tech) = שני מגזרים שונים. בסדר.</div>
-        </div>
-      </div>
-      <div class="rule">
-        <div class="rule-num">5</div>
-        <div class="rule-body">
-          <div class="rule-title">Dead Money: 10 ימים + פחות מ-5% = מכור ותפנה הון</div>
-          <div class="rule-desc">כסף תקוע הוא כסף שלא עובד. מניה שלא זזת 10 ימים אומרת שהאנלי שגוי. עדיף לממש הפסד קטן ולהיכנס למניה חזקה יותר.</div>
-          <div class="rule-example">STLD: 17 ימים, +0.99%. VRT: 94/100 ממתין. כל יום שלא מוכרים STLD = יום שלא קונים VRT.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- EXAMPLES -->
-    <div class="f1-section" id="sec-examples">
-
-      <div class="ex-card">
-        <div class="ex-head">
-          <div><div class="ex-ticker">AMP — Ameriprise Financial</div><div class="ex-sub">פוזיציה ממתינה — קנייה אחרי FOMC 30/4</div></div>
-          <span class="badge badge-pending">83/100 A-</span>
-        </div>
-        <div class="ex-flow">
-          <div class="ex-box box-entry">כניסה $477.86</div>
-          <div class="ex-arr">→</div>
-          <div class="ex-box box-sl">SL $453.97</div>
-          <div class="ex-arr">→</div>
-          <div class="ex-box box-t1">T1 $537</div>
-          <div class="ex-arr">→</div>
-          <div class="ex-box box-t2">T2 $597.33</div>
-        </div>
-        <div class="ex-stats">
-          <div class="ex-stat"><div class="ex-stat-label">הפסד מקסימלי</div><div class="ex-stat-val" style="color:var(--red-dark)">-$XXX</div></div>
-          <div class="ex-stat"><div class="ex-stat-label">רווח מטרה</div><div class="ex-stat-val" style="color:var(--green)">+$X,XXX</div></div>
-          <div class="ex-stat"><div class="ex-stat-label">R:R יחס</div><div class="ex-stat-val" style="color:var(--green)">5.0:1</div></div>
-        </div>
-        <div class="sc sc-win"><div class="sc-label">תרחיש הצלחה — נסגר ב-$597.33</div>X מניות × +$119.47 = <strong>+$X,XXX רווח</strong> = +1.2% מהתיק</div>
-        <div class="sc sc-loss"><div class="sc-label">תרחיש SL — נסגר ב-$453.97</div>X מניות × -$23.89 = <strong>-$XXX הפסד</strong> = -0.24% מהתיק</div>
-      </div>
-
-      <div class="ex-card">
-        <div class="ex-head">
-          <div><div class="ex-ticker">STLD — Steel Dynamics</div><div class="ex-sub">פוזיציה פתוחה — בסכנת Dead Money</div></div>
-          <span class="badge badge-dead">Dead Money</span>
-        </div>
-        <div class="ex-flow">
-          <div class="ex-box box-entry">כניסה $224.87</div>
-          <div class="ex-arr">→</div>
-          <div class="ex-box box-sl">SL $218.00</div>
-          <div class="ex-arr">→</div>
-          <div class="ex-box box-t1">T1 $258</div>
-          <div class="ex-arr">→</div>
-          <div class="ex-box box-t2">T2 $281.09</div>
-        </div>
-        <div class="ex-stats">
-          <div class="ex-stat"><div class="ex-stat-label">ימים מהכניסה</div><div class="ex-stat-val" style="color:var(--amber)">17 ימים</div></div>
-          <div class="ex-stat"><div class="ex-stat-label">רווח עד כה</div><div class="ex-stat-val" style="color:var(--green)">+$XXX</div></div>
-          <div class="ex-stat"><div class="ex-stat-label">% מהמטרה</div><div class="ex-stat-val">4% מ-25%</div></div>
-        </div>
-        <div class="sc sc-win"><div class="sc-label">אם תמכור עכשיו</div>+$XXX רווח. משחרר $XX,XXX הון לפוזיציה חזקה יותר (VRT 94/100 מחכה).</div>
-        <div class="sc sc-loss"><div class="sc-label">אם ממשיכים ו-SL נסגר</div>-$X,XXX הפסד. 17 ימים בזבוז + הפסד + פספוס VRT = כפל הפסד.</div>
-      </div>
-
-      <div class="ex-card">
-        <div class="ex-head">
-          <div><div class="ex-ticker">VRT — Vertiv Holdings</div><div class="ex-sub">94/100 A+ — Kill #4 פג ב-30/4</div></div>
-          <span class="badge badge-ok" style="background:var(--green-bg);color:var(--green-dark);">94/100 A+</span>
-        </div>
-        <div class="ex-flow">
-          <div class="ex-box box-entry">כניסה $258.90</div>
-          <div class="ex-arr">→</div>
-          <div class="ex-box box-sl">SL $245.96</div>
-          <div class="ex-arr">→</div>
-          <div class="ex-box box-t2">Target $323.63</div>
-        </div>
-        <div class="ex-stats">
-          <div class="ex-stat"><div class="ex-stat-label">ציון Argus</div><div class="ex-stat-val" style="color:var(--green)">94/100</div></div>
-          <div class="ex-stat"><div class="ex-stat-label">מחיר נוכחי</div><div class="ex-stat-val" style="color:var(--amber)">$316.20</div></div>
-          <div class="ex-stat"><div class="ex-stat-label">R:R</div><div class="ex-stat-val" style="color:var(--green)">5.0:1</div></div>
-        </div>
-        <div style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius);padding:10px;font-size:12px;color:var(--amber-dark);">
-          <strong>שים לב:</strong> מחיר עלה ל-$316 (מ-$258.90 בכניסה). לפני קנייה ב-30/4 — בדוק שלא מדובר בחדירה פרבולית. אם מחיר גבוה מ-1% מהכניסה — אל תרדוף.
-        </div>
-      </div>
-
-    </div>
-
-    <!-- FLOW -->
-    <div class="f1-section" id="sec-flow">
-      <div class="flow-step">
-        <div class="flow-line"><div class="flow-dot fd-gray">1</div><div class="flow-conn"></div></div>
-        <div class="flow-content">
-          <div class="flow-title">14:00 — סריקת שוק ובדיקת VIX</div>
-          <div class="flow-detail">VIX &lt;18 = ירוק (כנס עם 80+). VIX 18-25 = צהוב (צריך 90+). VIX &gt;25 = אדום (אסור לקנות).</div>
-          <div class="flow-code">python MORNING_SCAN.py</div>
-        </div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-line"><div class="flow-dot fd-blue">2</div><div class="flow-conn"></div></div>
-        <div class="flow-content">
-          <div class="flow-title">14:15 — Argus Loop (Claude API)</div>
-          <div class="flow-detail">Claude מנתח כל מועמד לפי 4 עמודות. עובר 80+ = APPROVE. מתחת = REJECT. מחפש עד 5 סיבובים.</div>
-          <div class="flow-code">python maestro_argus_loop.py</div>
-        </div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-line"><div class="flow-dot fd-amber">3</div><div class="flow-conn"></div></div>
-        <div class="flow-content">
-          <div class="flow-title">14:30 — קרא את הדוח</div>
-          <div class="flow-detail">פתח ARGUS_UNIFIED_REPORT.md. ראה מי אושר ומי נדחה. קרא את הנימוקים. קבל החלטה.</div>
-          <div class="flow-code">01_הרצה\ARGUS_UNIFIED_REPORT.md</div>
-        </div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-line"><div class="flow-dot fd-amber">4</div><div class="flow-conn"></div></div>
-        <div class="flow-content">
-          <div class="flow-title">14:45 — OODA Loop + Treasury Check</div>
-          <div class="flow-detail">בדוק Dead Money. בדוק אם יש פוזיציות לסגור. תכנן הקצאת הון. בדוק קורלציות.</div>
-          <div class="flow-code">python maestro_monitor.py</div>
-        </div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-line"><div class="flow-dot fd-red">5</div><div class="flow-conn"></div></div>
-        <div class="flow-content">
-          <div class="flow-title">15:30 — ביצוע ב-IBKR + SL מיידי</div>
-          <div class="flow-detail">קנה לפי ההוראות. תוך 5 דקות — SL GTC ב-IBKR. בלי SL = אסור. Zero Gap Rule.</div>
-          <div class="flow-code">IBKR TWS → Market Order → SL GTC מיידי</div>
-        </div>
-      </div>
-      <div class="flow-step">
-        <div class="flow-line"><div class="flow-dot fd-green">6</div></div>
-        <div class="flow-content">
-          <div class="flow-title">16:30+ — עדכון IBKR + רישום</div>
-          <div class="flow-detail">שלוף NAV, P&L, פוזיציות. עדכן WATCHLIST.json. סמן NTRS כ-SOLD. תכנן למחר.</div>
-          <div class="flow-code">python ibkr_auto_fetch.py</div>
-        </div>
-      </div>
-
-      <div class="sizing-box">
-        <div class="sizing-title">חישוב גודל פוזיציה — Position Sizing</div>
-        <div class="sizing-row"><span class="sizing-label">NAV כולל</span><span class="sizing-val">$XXX,XXX</span></div>
-        <div class="sizing-row"><span class="sizing-label">סיכון מקסימלי לפוזיציה (0.5% מהNAV)</span><span class="sizing-val">$XXX</span></div>
-        <div class="sizing-row"><span class="sizing-label">SL = 5% מהכניסה</span><span class="sizing-val">$XXX ÷ 5% = $XX,XXX גודל מקסימלי</span></div>
-        <div class="sizing-row"><span class="sizing-label">דוגמה AMP @ $477.86</span><span class="sizing-val">$X,XXX ÷ $477.86 = X מניות</span></div>
-        <div class="sizing-row"><span class="sizing-label">3 פוזיציות מלא = ניצול הון</span><span class="sizing-val">~$XX,XXX = ~14% מהתיק</span></div>
-      </div>
-    </div>
-
-    <!-- INFOGRAPHIC -->
-    <div class="f1-section" id="sec-infographic">
-      <div class="info-title">Argus — מערכת הניקוד</div>
-      <div class="info-sub">כל מניה מקבלת ציון 0-100 לפי 4 עמודות. רק 80+ עוברת.</div>
-
-      <div class="argus-pillars">
-        <div class="pillar">
-          <div class="pillar-header"><div class="pillar-name">טכני (Technical)</div><div class="pillar-max">35 נקודות</div></div>
-          <div class="pillar-bar"><div class="pillar-fill fill-blue" style="width:83%;background:var(--blue)"></div></div>
-          <div class="pillar-example">תבנית מחיר, מגמה, MA200, RSI, נפח מסחר. AMP קיבל 29/35 — עלייה נקייה ב-+4.7% בלי chase.</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-header"><div class="pillar-name">פונדמנטלי (Fundamental)</div><div class="pillar-max">35 נקודות</div></div>
-          <div class="pillar-bar"><div class="pillar-fill" style="width:86%;background:var(--green)"></div></div>
-          <div class="pillar-example">ROE, מכפיל, FCF, מאזן, צמיחה הכנסות. AMP קיבל 30/35 — ROE 40%+, ניהול עושר חזק.</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-header"><div class="pillar-name">מומנטום (Momentum)</div><div class="pillar-max">20 נקודות</div></div>
-          <div class="pillar-bar"><div class="pillar-fill fill-amber" style="width:80%;background:var(--amber)"></div></div>
-          <div class="pillar-example">ביצועים יחסיים vs SPY. האם המניה חזקה יחסית? AMP קיבל 16/20. PG נדחה עם 11/20 — מפגר.</div>
-        </div>
-        <div class="pillar">
-          <div class="pillar-header"><div class="pillar-name">סנטימנט (Sentiment)</div><div class="pillar-max">10 נקודות</div></div>
-          <div class="pillar-bar"><div class="pillar-fill fill-red" style="width:80%;background:var(--red)"></div></div>
-          <div class="pillar-example">אנליסטים, insider buying/selling, קטליסטורים. AMP קיבל 8/10 — כיסוי חיובי, tailwinds.</div>
-        </div>
-      </div>
-
-      <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">ציוני Argus — מה המשמעות</div>
-      <div class="score-legend">
-        <div class="legend-item leg-a">
-          <div class="leg-grade">A</div>
-          <div class="leg-range">90-100</div>
-          <div class="leg-action">כנס מיד</div>
-        </div>
-        <div class="legend-item leg-b">
-          <div class="leg-grade">B</div>
-          <div class="leg-range">80-89</div>
-          <div class="leg-action">כנס (שוק ירוק)</div>
-        </div>
-        <div class="legend-item leg-c">
-          <div class="leg-grade">C</div>
-          <div class="leg-range">70-79</div>
-          <div class="leg-action">דחה — חלש</div>
-        </div>
-        <div class="legend-item leg-d">
-          <div class="leg-grade">D</div>
-          <div class="leg-range">מתחת 70</div>
-          <div class="leg-action">דחה — מיד</div>
-        </div>
-      </div>
-
-      <div style="font-size:13px;font-weight:700;color:var(--text2);margin-bottom:12px;text-transform:uppercase;letter-spacing:0.5px;">8 Kill Switches — מניות שנפסלות אוטומטית</div>
-      <div class="kill-grid">
-        <div class="kill-item kill-stop">
-          <div class="kill-key">K1 — VIX &gt;25</div>
-          <div class="kill-desc">שוק אדום. אין כניסות חדשות בכלל.</div>
-        </div>
-        <div class="kill-item kill-stop">
-          <div class="kill-key">K2 — SPY -2% ביום</div>
-          <div class="kill-desc">יום ירידה חדה. אין כניסות.</div>
-        </div>
-        <div class="kill-item kill-warn">
-          <div class="kill-key">K4 — דוח רווחים &lt;7 ימים</div>
-          <div class="kill-desc">סיכון Gap. ממתינים 7 ימים אחרי הדוח.</div>
-        </div>
-        <div class="kill-item kill-warn">
-          <div class="kill-key">K5 — Beta &gt;1.8</div>
-          <div class="kill-desc">מסוכן מדי. מניה תנודתית מדי.</div>
-        </div>
-        <div class="kill-item kill-warn">
-          <div class="kill-key">K6 — Insider מכר &gt;20%</div>
-          <div class="kill-desc">הנהלה מוכרת = אות אזהרה.</div>
-        </div>
-        <div class="kill-item kill-stop">
-          <div class="kill-key">FOMC — יום החלטה</div>
-          <div class="kill-desc">אין כניסות לפני/אחרי ריבית Fed.</div>
-        </div>
-        <div class="kill-item kill-warn">
-          <div class="kill-key">Dead Money — 10+ ימים</div>
-          <div class="kill-desc">מניה שלא זזה 10 ימים ו-&lt;5% — מכור.</div>
-        </div>
-        <div class="kill-item kill-stop">
-          <div class="kill-key">Zero Gap — SL &gt;5 דקות</div>
-          <div class="kill-desc">קנית בלי SL? סיכון מקסימלי. SL מיד!</div>
-        </div>
-        <div class="kill-item kill-ok">
-          <div class="kill-key">Trailing Stop — אחרי +10%</div>
-          <div class="kill-desc">SL מתהדק ב-5% מהשיא. מגן על רווחים.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- NOW -->
-    <div class="f1-section" id="sec-now">
-      <div class="now-bad">
-        <div class="now-title">בעיות עכשיו — דורשות טיפול</div>
-        <div class="now-row"><span class="now-label">STLD Dead Money</span><span class="now-val">17 ימים, +0.99% — שקול מכירה</span></div>
-        <div class="now-row"><span class="now-label">ניצול הון</span><span class="now-val">רק 25% פעיל — 75% יושב</span></div>
-        <div class="now-row"><span class="now-label">VRT מחיר</span><span class="now-val">$316 vs כניסה $258 — בדוק chase</span></div>
-        <div class="now-row"><span class="now-label">NTRS SL</span><span class="now-val">בטל הוראת SL $158 ב-IBKR</span></div>
-        <div class="now-row"><span class="now-label">FOMC מחר</span><span class="now-val">29/4 — אפס כניסות היום</span></div>
-      </div>
-
-      <div class="now-good">
-        <div class="now-title">יעד Treasury ל-30/4 אחרי FOMC</div>
-        <div class="now-row"><span class="now-label">פוזיציות</span><span class="now-val">STLD + AMP + DOV = 3/3 מלא</span></div>
-        <div class="now-row"><span class="now-label">ניצול הון</span><span class="now-val">~50% פעיל (3 פוזיציות)</span></div>
-        <div class="now-row"><span class="now-label">SL מוגדר</span><span class="now-val">כל פוזיציה עם SL GTC ב-IBKR</span></div>
-        <div class="now-row"><span class="now-label">מגזרים</span><span class="now-val">Industrials + Financials + Tech</span></div>
-        <div class="now-row"><span class="now-label">P&L מטרה</span><span class="now-val">+X% עד X% תוך 3 שבועות</span></div>
-      </div>
-
-      <div style="background:var(--amber-bg);border:1px solid var(--amber-border);border-radius:var(--radius);padding:14px;font-size:12px;color:var(--amber-dark);line-height:1.8;">
-        <strong>תכנית פעולה ל-30/4:</strong><br>
-        1. הגדר API Key ב-PowerShell<br>
-        2. הרץ <code>python MORNING_SCAN.py</code> (14:00)<br>
-        3. הרץ <code>python maestro_argus_loop.py</code> (14:15)<br>
-        4. קרא ARGUS_UNIFIED_REPORT.md — אשר/דחה AMP, DOV, VRT<br>
-        5. ב-15:30 — קנה ב-IBKR + SL מיידי
-      </div>
-
-      <div class="action-grid">
-        <button class="act-btn" onclick="alert('פתח PowerShell:\n$env:ANTHROPIC_API_KEY = \"sk-ant-api03-...\"\ncd \"C:\\...\\01_הרצה\"\npython maestro_argus_loop.py')">הצג פקודות PowerShell</button>
-        <button class="act-btn" onclick="alert('STLD Dead Money:\nמחיר כניסה: $224.87\nמחיר נוכחי: $227.09\nרווח: +$XXX (+0.99%)\nימים: 17\n\nהחלטה: אם עד 30/4 לא עלה מעל $230 — מכור ב-IBKR.')">חישוב STLD Dead Money</button>
-      </div>
-    </div>
-
-    <button class="close-f1" onclick="toggleF1()">סגור F1 Treasury ↑</button>
-  </div>
-
-</div>
-
-<!-- FOOTER -->
-<div class="footer">
-  <div>MAESTRO v17.2 — Trading System Demo</div>
-  <div class="footer-actions">
-    <button class="footer-btn" onclick="window.location.reload()">רענן נתונים</button>
-    <button class="footer-btn" onclick="window.print()">הדפס</button>
-    <button class="footer-btn primary" onclick="toggleF1(); document.getElementById('f1panel').scrollIntoView({behavior:'smooth'})">פתח F1 Treasury</button>
   </div>
 </div>
 
 <script>
-function toggleF1() {
-  var p = document.getElementById('f1panel');
-  p.classList.toggle('open');
-  if (p.classList.contains('open')) {
-    setTimeout(function(){ p.scrollIntoView({behavior:'smooth', block:'start'}); }, 50);
-  }
-}
-function showF1(id, el) {
-  document.querySelectorAll('.f1-section').forEach(function(s){ s.classList.remove('active'); });
-  document.querySelectorAll('.f1-tab').forEach(function(t){ t.classList.remove('active'); });
-  document.getElementById('sec-' + id).classList.add('active');
-  el.classList.add('active');
-}
-</script>
+const KEY='maestro_leads_v1';
+const fmt=n=>isFinite(n)?Math.round(n).toLocaleString('he-IL'):'-';
+const fmtK=n=>isFinite(n)?'₪'+Math.round(n).toLocaleString('he-IL'):'-';
+let DB=load();
 
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||[]}catch(e){return[]}}
+function save(){try{localStorage.setItem(KEY,JSON.stringify(DB))}catch(e){alert('שגיאת שמירה')}}
+
+// ===== ENGINE (identical to מנוע_השבחה_ARV_v2.xlsx) =====
+function engine(o){
+  const renoM2=o.renovated?0:o.renoM2;
+  const arv=(o.m2+o.buildM2)*o.arvM2;
+  const renoCost=o.m2*renoM2;
+  const buildCost=o.buildM2*o.buildCost+(o.buildM2>0?o.permit:0);
+  const ptax=Math.min(o.price,6055070)*0.08+Math.max(o.price-6055070,0)*0.1;
+  const buyAgent=o.price*0.02*1.18, lawyer=o.price*0.005*1.18, sellAgent=arv*0.02*1.18;
+  const fin=o.price*o.ltv*o.interest*o.months/12, holding=1500*o.months;
+  const conting=(renoCost+buildCost)*0.1;
+  const taxable=Math.max(arv-o.price-renoCost-buildCost-ptax-buyAgent-lawyer-sellAgent-fin,0);
+  const betterment=taxable*0.25;
+  const totalCost=renoCost+buildCost+ptax+buyAgent+lawyer+sellAgent+fin+holding+conting+betterment;
+  const equity=o.price-o.price*o.ltv+ptax+renoCost+buildCost+buyAgent+lawyer;
+  const profit=arv-o.price-totalCost;
+  const margin=arv===0?0:profit/arv, roiEq=equity===0?0:profit/equity, roiAnn=o.months===0?0:roiEq*12/o.months;
+  let verdict;
+  if(margin>=0.10&&roiAnn>=0.15&&profit>=100000)verdict='💎 יהלום';
+  else if(margin>=0.06&&profit>0)verdict='🔍 גבולי';
+  else verdict='❌ דחה';
+  return{arv,profit,margin,roiAnn,equity,verdict};
+}
+function calc(L){
+  // מרווח ביטחון (Exit-Whole): אם תיאלץ למכור כמו-שהוא במחיר שוק נוכחי, כמה מהקנייה תחזיר
+  const asIs=(L.m2||0)*(L.asIsM2||0); let mos=null;
+  if(asIs>0){const price=L.price||0;
+    const ptax=Math.min(price,6055070)*0.08+Math.max(price-6055070,0)*0.1;
+    const round=ptax+price*0.02*1.18+price*0.005*1.18+asIs*0.02*1.18;
+    mos=(asIs-price-round)/(price||1);}
+  if(L.hold){
+    const total=(L.price||0)+(L.price||0)*0.08+(L.m2||0)*(L.renoM2||0);
+    const yld=total>0?(L.rent*12/total*100):0;
+    return{verdict:'🏠 שכירות',arv:0,profit:0,margin:0,roiAnn:0,equity:total,yield:yld,mos,asIs};
+  }
+  const r=engine({price:L.price||0,m2:L.m2||0,arvM2:L.arvM2||0,buildM2:L.buildM2||0,buildCost:L.buildCost||9000,
+    permit:25000,renoM2:L.renoM2||0,ltv:0.5,interest:0.06,months:L.months||14,renovated:!!L.renovated});
+  r.mos=mos; r.asIs=asIs;
+  if(L.hardstop)r.verdict='❌ דחה';
+  return r;
+}
+
+// ===== modal =====
+function openModal(L){
+  document.getElementById('ov').classList.add('open');
+  const e=id=>document.getElementById(id);
+  fillAgentSelect();
+  if(e('pasteBox'))e('pasteBox').value=''; if(e('parseMsg'))e('parseMsg').textContent='';
+  if(L){
+    e('mTitle').textContent='עריכת ליד'; e('delBtn').style.display='inline-block'; e('fId').value=L.id;
+    e('fName').value=L.name||''; e('fArea').value=L.area||''; e('fSource').value=L.source||''; e('fPhone').value=L.phone||''; e('fAgent').value=L.agentId||'';
+    e('fAsking').value=L.asking||''; e('fM2').value=L.m2||''; e('aCond').value=L.cond||''; e('aMot').value=L.mot||'';
+    e('aComps').value=L.comps||''; e('aBuild').value=L.buildNote||''; e('fArv').value=L.arvM2||''; e('fAsIs').value=L.asIsM2||''; e('fPrice').value=L.price||'';
+    e('fBuild').value=L.buildM2||0; e('fBuildCost').value=L.buildCost||9000; e('fReno').value=L.renoM2||2500;
+    e('fMonths').value=L.months||14; e('fRent').value=L.rent||0; e('fNext').value=L.next||'';
+    e('fRenovated').checked=!!L.renovated; e('fHold').checked=!!L.hold; e('fHardstop').checked=!!L.hardstop;
+  }else{
+    e('mTitle').textContent='ליד חדש'; e('delBtn').style.display='none';
+    ['fId','fName','fArea','fSource','fPhone','fAsking','fM2','aCond','aMot','aComps','aBuild','fArv','fAsIs','fPrice','fNext'].forEach(i=>e(i).value=''); e('fAgent').value='';
+    e('fBuild').value=0; e('fBuildCost').value=9000; e('fReno').value=2500; e('fMonths').value=14; e('fRent').value=0;
+    e('fRenovated').checked=false; e('fHold').checked=false; e('fHardstop').checked=false;
+  }
+  livePreview();
+}
+function closeModal(){document.getElementById('ov').classList.remove('open')}
+function readForm(){
+  const v=id=>document.getElementById(id).value, n=id=>+document.getElementById(id).value||0, c=id=>document.getElementById(id).checked;
+  return{id:v('fId')||('L'+Date.now()),name:v('fName'),area:v('fArea'),source:v('fSource'),phone:v('fPhone'),agentId:v('fAgent'),
+    asking:n('fAsking'),m2:n('fM2'),cond:v('aCond'),mot:v('aMot'),comps:v('aComps'),buildNote:v('aBuild'),
+    arvM2:n('fArv'),asIsM2:n('fAsIs'),price:n('fPrice'),buildM2:n('fBuild'),buildCost:n('fBuildCost'),renoM2:n('fReno'),
+    months:n('fMonths'),rent:n('fRent'),next:v('fNext'),renovated:c('fRenovated'),hold:c('fHold'),hardstop:c('fHardstop')};
+}
+function livePreview(){
+  const L=readForm(), r=calc(L), e=id=>document.getElementById(id);
+  e('pvArv').textContent=L.hold?'-':fmtK(r.arv); e('pvProfit').textContent=L.hold?'-':fmtK(r.profit);
+  e('pvMargin').textContent=L.hold?'-':(r.margin*100).toFixed(1)+'%'; e('pvRoi').textContent=L.hold?'-':(r.roiAnn*100).toFixed(1)+'%';
+  e('pvYieldWrap').style.display=L.hold?'block':'none'; if(L.hold)e('pvYield').textContent=(r.yield||0).toFixed(1)+'%';
+  if(e('pvMos')){ if(r.mos==null){e('pvMos').textContent='הזן as-is'; e('pvMos').style.color='var(--mut)';}
+    else{const m=r.mos*100; e('pvMos').textContent=(m>=0?'+':'')+m.toFixed(0)+'%'+(m>=10?' 🛡️מוגן':m>=0?' ✔צא-שלם':' ⚠️חשוף'); e('pvMos').style.color=m>=10?'var(--green)':m>=0?'var(--amber)':'var(--red)';} }
+  const vb=e('pvVerdict'); vb.textContent=r.verdict;
+  vb.style.color=r.verdict.includes('יהלום')?'var(--green)':r.verdict.includes('גבולי')?'var(--amber)':r.verdict.includes('שכירות')?'var(--teal)':'var(--red)';
+}
+function saveLead(){
+  const L=readForm();
+  if(!L.name){alert('הזן כתובת/מזהה');return}
+  L.verdict=calc(L).verdict; L.date=L.date||new Date().toISOString();
+  const i=DB.findIndex(x=>x.id===L.id);
+  if(i>=0){L.date=DB[i].date; DB[i]=L;} else DB.unshift(L);
+  save(); pushLead(L); closeModal(); render();
+}
+function delCurrent(){const id=document.getElementById('fId').value; if(confirm('למחוק ליד זה?')){DB=DB.filter(x=>x.id!==id);save();closeModal();render();}}
+
+// ===== table =====
+function render(){
+  const q=document.getElementById('q').value.trim(), fs=document.getElementById('fStatus').value, sort=document.getElementById('sort').value;
+  let rows=DB.map(L=>({L,r:calc(L)}));
+  if(q)rows=rows.filter(x=>(x.L.name+' '+x.L.area+' '+x.L.source).includes(q));
+  if(fs)rows=rows.filter(x=>x.r.verdict===fs);
+  const afn=document.getElementById('agentFilterNote');
+  if(agentFilter){const a=AG.find(x=>x.id===agentFilter);rows=rows.filter(x=>x.L.agentId===agentFilter);
+    if(afn){afn.style.display='block';afn.innerHTML='מסונן לפי מתווך: <b>'+(a?a.name:'')+'</b> · <span class="seed" onclick="clearAgentFilter()">הצג הכל</span>';}}
+  else if(afn){afn.style.display='none';}
+  rows.sort((a,b)=> sort==='date'?(new Date(b.L.date)-new Date(a.L.date))
+    : sort==='margin'?(b.r.margin-a.r.margin) : sort==='roi'?(b.r.roiAnn-a.r.roiAnn) : (b.L.asking-a.L.asking));
+  // kpis
+  const all=DB.map(L=>calc(L).verdict);
+  document.getElementById('kTotal').textContent=DB.length;
+  document.getElementById('kDiamond').textContent=all.filter(v=>v.includes('יהלום')).length;
+  document.getElementById('kBorder').textContent=all.filter(v=>v.includes('גבולי')).length;
+  document.getElementById('kReject').textContent=all.filter(v=>v.includes('דחה')).length;
+  document.getElementById('kVisit').textContent=DB.filter(L=>(L.next||'').includes('ביקור')||(L.next||'').includes('מעקב')).length;
+  renderAgents();
+  const tw=document.getElementById('tableWrap');
+  if(!rows.length){tw.innerHTML='<div class="empty">אין לידים עדיין. לחץ "＋ ליד חדש" כדי להתחיל, או טען את 3 המועמדים לדוגמה.</div>';return}
+  const cls=v=>v.includes('יהלום')?'b-d':v.includes('גבולי')?'b-b':v.includes('שכירות')?'b-h':'b-r';
+  tw.innerHTML=`<table><thead><tr>
+    <th>סטטוס</th><th>כתובת</th><th>אזור</th><th>מבוקש</th><th>מחיר נבדק</th><th>ARV/מ"ר</th><th>שוליים</th><th>ROI שנתי</th><th>מקור</th><th>צעד הבא</th><th></th>
+    </tr></thead><tbody>${rows.map(({L,r})=>`<tr>
+      <td><span class="badge ${cls(r.verdict)}">${r.verdict}</span></td>
+      <td>${L.name||'-'}</td><td>${L.area||'-'}</td>
+      <td>${L.asking?fmtK(L.asking):'-'}</td><td>${L.price?fmtK(L.price):'-'}</td>
+      <td>${L.hold?'-':fmt(L.arvM2)}</td>
+      <td>${L.hold?'-':(r.margin*100).toFixed(1)+'%'}</td>
+      <td>${L.hold?(r.yield||0).toFixed(1)+'% שכ\"ד':(r.roiAnn*100).toFixed(1)+'%'}</td>
+      <td>${L.source||'-'}</td><td>${L.next||'-'}</td>
+      <td><span class="ico" onclick='editLead("${L.id}")'>✏️</span></td>
+    </tr>`).join('')}</tbody></table>`;
+}
+function editLead(id){const L=DB.find(x=>x.id===id); if(L)openModal(L);}
+
+// ===== export / import =====
+function exportJSON(){dl(JSON.stringify(DB,null,2),'lead-backup-'+Date.now()+'.json','application/json')}
+function importJSON(ev){const f=ev.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const d=JSON.parse(rd.result);if(Array.isArray(d)){DB=d;save();render();alert('שוחזרו '+d.length+' לידים')}}catch(e){alert('קובץ לא תקין')}};rd.readAsText(f)}
+function exportCSV(){
+  const h=['סטטוס','כתובת','אזור','מקור','טלפון','מבוקש','מחיר_נבדק','שטח','ARV_למר','תוספת_בניה','שוליים','ROI_שנתי','רווח','מצב','מוטיבציה','Comps','בניה','שכד','צעד_הבא','תאריך'];
+  const lines=[h.join(',')].concat(DB.map(L=>{const r=calc(L);return[
+    r.verdict,L.name,L.area,L.source,L.phone,L.asking,L.price,L.m2,L.hold?'':L.arvM2,L.buildM2,
+    L.hold?'':(r.margin*100).toFixed(1)+'%',L.hold?'':(r.roiAnn*100).toFixed(1)+'%',L.hold?'':Math.round(r.profit),
+    L.cond,L.mot,L.comps,L.buildNote,L.rent,L.next,(L.date||'').slice(0,10)
+  ].map(x=>'"'+String(x==null?'':x).replace(/"/g,'""')+'"').join(',')}));
+  dl('﻿'+lines.join('\n'),'leads-'+Date.now()+'.csv','text/csv');
+}
+function dl(content,name,type){const b=new Blob([content],{type});const u=URL.createObjectURL(b);const a=document.createElement('a');a.href=u;a.download=name;a.click();URL.revokeObjectURL(u)}
+
+function seedDemo(){
+  if(DB.length && !confirm('להוסיף את 3 המועמדים לדוגמה?'))return;
+  const demo=[
+   {id:'demo1',name:'רחוב לדוגמה 10, עיר',area:'אזור לדוגמה',source:'יד2',phone:'',asking:950000,m2:80,arvM2:14000,price:880000,buildM2:12,buildCost:9000,renoM2:2500,months:14,rent:0,cond:'דורש שיפוץ',mot:'',comps:'הזן Comps ממדלן',buildNote:'פוטנציאל ממד/חדר',next:'דוגמה - מחק והזן עסקה אמיתית',hold:false,renovated:false,hardstop:false}
+  ];
+  demo.forEach(d=>{d.date=new Date().toISOString();d.verdict=calc(d).verdict;if(!DB.find(x=>x.id===d.id))DB.unshift(d);});
+  save();render();
+}
+// ===== Listing paste parser =====
+function parseListing(){
+  const t=document.getElementById('pasteBox').value||''; if(!t.trim()){document.getElementById('parseMsg').textContent='הדבק טקסט קודם';return}
+  const e=id=>document.getElementById(id); const filled=[];
+  // מחיר: הראשון בעל פסיקים ו-₪ (בדרך כלל הכותרת)
+  const pm=[...t.matchAll(/([\d]{1,3}(?:,\d{3})+)\s*₪/g)].map(m=>+m[1].replace(/,/g,'')).filter(n=>n>=200000);
+  if(pm.length){e('fAsking').value=pm[0]; if(!e('fPrice').value)e('fPrice').value=pm[0]; filled.push('מחיר '+pm[0].toLocaleString('he-IL'));}
+  // שטח: עדיפות ל"בנוי" / "בטאבו", אחרת מ"ר ראשון
+  let m2=null, mb=t.match(/בנוי[^\d]{0,8}(\d{2,3})/)||t.match(/(\d{2,3})\s*מ["״]?\s*ר\s*בטאבו/);
+  if(mb)m2=+mb[1]; if(!m2){const mm=t.match(/(\d{2,3})\s*מ["״]?\s*ר/); if(mm)m2=+mm[1];}
+  if(m2){e('fM2').value=m2; filled.push('שטח '+m2);}
+  // חדרים -> לכתובת/הערה אם ריק
+  // מצב
+  if(/משופצ/.test(t)){e('fRenovated').checked=true; if(!e('aCond').value)e('aCond').value='משופצת'; filled.push('משופצת');}
+  else if(/במצב שמור|מצב שמור/.test(t)){if(!e('aCond').value)e('aCond').value='במצב שמור';}
+  // מושכר -> מסלול החזק
+  if(/מושכר|שוכר|חוזה.*שנ|שכירות/.test(t)){e('fHold').checked=true; filled.push('מושכרת→החזק');}
+  // טלפון
+  const ph=t.match(/0\d{1,2}-?\d{6,7}/); if(ph && !e('fPhone').value){e('fPhone').value=ph[0]; filled.push('טלפון');}
+  // כתובת: שורת "רחוב X" או מחרוזת לפני פסיק עם מספר
+  const addr=t.match(/רחוב\s+([^\n,.]{2,30})/); if(addr && !e('fName').value){e('fName').value=addr[1].trim(); filled.push('כתובת');}
+  // דגלי בנייה
+  const fl=[]; if(/ממ["״]?ד/.test(t))fl.push('ממ"ד קיים'); if(/מרפסת/.test(t))fl.push('מרפסת'); if(/גג.*זכוי|זכוי.*בני/.test(t))fl.push('זכויות גג/בנייה');
+  if(fl.length){e('aBuild').value=(e('aBuild').value?e('aBuild').value+' · ':'')+fl.join(', '); filled.push(fl.join('/'));}
+  livePreview();
+  document.getElementById('parseMsg').textContent = filled.length ? ('✓ מולא: '+filled.join(' · ')+'  ·  השלם ARV מ-Comps ידנית') : 'לא זוהו שדות - מלא ידנית';
+}
+
+// ===== Agents registry =====
+const AKEY='maestro_agents_v1';
+let AG=loadAgents(); let agentFilter=null;
+function loadAgents(){try{return JSON.parse(localStorage.getItem(AKEY))||[]}catch(e){return[]}}
+function saveAgents(){try{localStorage.setItem(AKEY,JSON.stringify(AG))}catch(e){}}
+function fillAgentSelect(){
+  const sel=document.getElementById('fAgent'); if(!sel)return;
+  const cur=sel.value;
+  sel.innerHTML='<option value="">- ללא / מוכר פרטי -</option>'+AG.map(a=>`<option value="${a.id}">${a.name}${a.office?' · '+a.office:''}</option>`).join('');
+  sel.value=cur;
+}
+function onAgentPick(){
+  const a=AG.find(x=>x.id===document.getElementById('fAgent').value); if(!a)return;
+  const e=id=>document.getElementById(id);
+  if(a.office)e('fSource').value=a.office; if(a.phone)e('fPhone').value=a.phone;
+  if(a.area && !e('fArea').value)e('fArea').value=a.area;
+}
+function openAgent(a){
+  document.getElementById('ovAgent').classList.add('open');
+  const e=id=>document.getElementById(id);
+  if(a){e('agTitle').textContent='עריכת מתווך';e('agDelBtn').style.display='inline-block';
+    e('agId').value=a.id;e('agName').value=a.name||'';e('agOffice').value=a.office||'';e('agPhone').value=a.phone||'';e('agArea').value=a.area||'';e('agNotes').value=a.notes||'';}
+  else{e('agTitle').textContent='מתווך חדש';e('agDelBtn').style.display='none';
+    ['agId','agName','agOffice','agPhone','agArea','agNotes'].forEach(i=>e(i).value='');}
+}
+function closeAgent(){document.getElementById('ovAgent').classList.remove('open')}
+function saveAgent(){
+  const v=id=>document.getElementById(id).value;
+  if(!v('agName')){alert('הזן שם מתווך');return}
+  const a={id:v('agId')||('A'+Date.now()),name:v('agName'),office:v('agOffice'),phone:v('agPhone'),area:v('agArea'),notes:v('agNotes')};
+  const i=AG.findIndex(x=>x.id===a.id); if(i>=0)AG[i]=a; else AG.push(a);
+  saveAgents();closeAgent();fillAgentSelect();render();
+}
+function delAgent(){const id=document.getElementById('agId').value;if(confirm('למחוק מתווך זה? (הלידים יישארו)')){AG=AG.filter(x=>x.id!==id);saveAgents();closeAgent();fillAgentSelect();render();}}
+function editAgent(id){const a=AG.find(x=>x.id===id);if(a)openAgent(a);}
+function filterByAgent(id){agentFilter=(agentFilter===id)?null:id;render();document.getElementById('tableWrap').scrollIntoView({behavior:'smooth'});}
+function clearAgentFilter(){agentFilter=null;render();}
+function renderAgents(){
+  const w=document.getElementById('agentsWrap'); if(!w)return;
+  if(!AG.length){w.innerHTML='<div class="empty">אין מתווכים עדיין. לחץ "＋ מתווך" או "טען מתווכים שאספנו".</div>';return}
+  w.innerHTML=`<table><thead><tr><th>שם</th><th>משרד</th><th>טלפון</th><th>אזור</th><th>עסקאות שהפנה</th><th>הערות</th><th></th></tr></thead><tbody>${
+    AG.map(a=>{const cnt=DB.filter(l=>l.agentId===a.id).length;return`<tr>
+      <td><b>${a.name||'-'}</b></td><td>${a.office||'-'}</td><td>${a.phone||'-'}</td><td>${a.area||'-'}</td>
+      <td><span class="badge ${cnt?'b-d':'b-r'}" style="cursor:pointer" onclick="filterByAgent('${a.id}')">${cnt} עסקאות</span></td>
+      <td>${a.notes||'-'}</td><td><span class="ico" onclick="editAgent('${a.id}')">✏️</span></td></tr>`}).join('')}</tbody></table>`;
+}
+function seedAgents(){
+  if(AG.length && !confirm('להוסיף את המתווכים שאספנו?'))return;
+  const demo=[
+   {id:'demo_agent',name:'מתווך לדוגמה',office:'משרד תיווך',phone:'',area:'אזור',notes:'דוגמה - הוסף מתווכים אמיתיים'}
+  ];
+  demo.forEach(d=>{if(!AG.find(x=>x.id===d.id))AG.push(d)});
+  const map={seed1:'ag_tiktor',seed2:'ag_hiba',seed3:'ag_mor'};
+  DB.forEach(l=>{if(map[l.id]&&!l.agentId)l.agentId=map[l.id]});
+  saveAgents();save();fillAgentSelect();render();
+}
+document.getElementById('ovAgent').addEventListener('click',e=>{if(e.target.id==='ovAgent')closeAgent()});
+
+// ===== Google Sheets sync =====
+const SHEET_URL='';
+const SKEY='maestro_sync_url';
+function getSyncUrl(){try{return localStorage.getItem(SKEY)||''}catch(e){return''}}
+function setDot(c,t){const d=document.getElementById('syncDot'),s=document.getElementById('syncStatus');if(d)d.style.background=c;if(s)s.textContent=t}
+function initSync(){
+  document.getElementById('sheetLink').href=SHEET_URL;
+  const u=getSyncUrl();
+  if(u){document.getElementById('syncBar').style.display='flex';setDot('var(--green)','מחובר לגיליון · נשמר אוטומטית')}
+}
+function openSync(){
+  const cur=getSyncUrl();
+  const u=prompt('הדבק את כתובת ה-Web App מ-Apps Script (מסתיימת ב-/exec).\nראה את המדריך: מדריך_חיבור_Google_Sheets.txt\n\nלהשארה ריק = ניתוק סנכרון:',cur);
+  if(u===null)return;
+  try{localStorage.setItem(SKEY,u.trim())}catch(e){}
+  if(u.trim()){document.getElementById('syncBar').style.display='flex';setDot('var(--green)','מחובר · כל ליד יישמר לגיליון');alert('מחובר! מעכשיו כל ליד שתשמור יישלח גם לגיליון Google.')}
+  else{document.getElementById('syncBar').style.display='none'}
+}
+function pushLead(L){
+  const u=getSyncUrl();if(!u)return;
+  setDot('var(--amber)','שולח לגיליון...');
+  fetch(u,{method:'POST',mode:'no-cors',headers:{'Content-Type':'text/plain;charset=utf-8'},
+    body:JSON.stringify({action:'upsert',lead:{...L,verdict:calc(L).verdict,
+      margin:(calc(L).margin*100).toFixed(1),roiAnn:(calc(L).roiAnn*100).toFixed(1),profit:Math.round(calc(L).profit||0),equity:Math.round(calc(L).equity||0)}})})
+    .then(()=>setDot('var(--green)','נשמר לגיליון · '+new Date().toLocaleTimeString('he-IL')))
+    .catch(()=>setDot('var(--red)','שגיאת שליחה - בדוק את הכתובת'));
+}
+function pullFromSheet(){
+  const u=getSyncUrl();if(!u){alert('הגדר קודם סנכרון (☁ סנכרון Sheets)');return}
+  setDot('var(--amber)','מושך מהגיליון...');
+  fetch(u,{method:'GET'}).then(r=>r.json()).then(arr=>{
+    if(!Array.isArray(arr))throw 0;
+    let added=0;
+    arr.forEach(row=>{if(!row.id)return;const i=DB.findIndex(x=>x.id===row.id);
+      const L={...row,asking:+row.asking||0,price:+row.price||0,m2:+row.m2||0,arvM2:+row.arvM2||0,
+        buildM2:+row.buildM2||0,buildCost:+row.buildCost||9000,renoM2:+row.renoM2||2500,months:+row.months||14,rent:+row.rent||0,
+        hold:row.hold==true||row.hold==='true'||row.hold==='TRUE',renovated:row.renovated==true||row.renovated==='true'||row.renovated==='TRUE',hardstop:row.hardstop==true||row.hardstop==='true'||row.hardstop==='TRUE'};
+      if(i>=0)DB[i]={...DB[i],...L};else{DB.unshift(L);added++}});
+    save();render();setDot('var(--green)','סונכרן · נוספו '+added+' לידים');
+  }).catch(()=>setDot('var(--red)','משיכה נכשלה - ודא שה-Web App פרוס עם גישה "כל אחד"'));
+}
+
+document.getElementById('ov').addEventListener('click',e=>{if(e.target.id==='ov')closeModal()});
+initSync();
+fillAgentSelect();
+render();
+</script>
 </body>
 </html>
