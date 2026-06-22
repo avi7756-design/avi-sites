@@ -1,0 +1,455 @@
+﻿<!DOCTYPE html>
+<html dir="rtl" lang="he">
+<head>
+<meta charset="UTF-8">
+<title>AVI HUNTER PRO — אסטרטגיה לתשואה 12% שנתי</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Segoe UI', Arial, sans-serif;
+  background: #0f1117;
+  color: #e8eaf0;
+  padding: 24px;
+  direction: rtl;
+  font-size: 13px;
+}
+.wrap { max-width: 900px; margin: 0 auto; }
+
+.tabs { display: flex; gap: 6px; margin-bottom: 16px; flex-wrap: wrap; }
+.tab {
+  padding: 8px 18px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid rgba(255,255,255,0.1);
+  background: rgba(255,255,255,0.04);
+  color: #7a8299;
+  transition: all 0.2s;
+}
+.tab.active { background: #3b82f6; color: #fff; border-color: #3b82f6; }
+.tab:hover:not(.active) { background: rgba(255,255,255,0.08); color: #e8eaf0; }
+
+.page { display: none; }
+.page.active { display: block; }
+
+.card {
+  background: #1a1e2e;
+  border-radius: 10px;
+  padding: 16px;
+  border: 1px solid rgba(255,255,255,0.07);
+  margin-bottom: 12px;
+}
+.card-title {
+  font-size: 11px;
+  font-weight: 700;
+  color: #7a8299;
+  text-transform: uppercase;
+  letter-spacing: 0.7px;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+
+.grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 12px; }
+.grid3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; margin-bottom: 12px; }
+.grid4 { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; margin-bottom: 12px; }
+
+.diag-item {
+  display: flex; gap: 10px; align-items: flex-start;
+  padding: 10px; border-radius: 8px; margin-bottom: 8px;
+}
+.diag-icon { font-size: 22px; flex-shrink: 0; }
+.diag-title { font-size: 12px; font-weight: 800; margin-bottom: 3px; }
+.diag-desc { font-size: 10px; color: #7a8299; line-height: 1.5; }
+.diag-bad { background: rgba(248,113,113,0.07); border: 1px solid rgba(248,113,113,0.2); }
+.diag-good { background: rgba(74,222,128,0.07); border: 1px solid rgba(74,222,128,0.2); }
+
+.compare-row { display: flex; align-items: center; gap: 8px; margin-bottom: 9px; }
+.compare-label { width: 110px; font-size: 10px; color: #a0a8b8; flex-shrink: 0; text-align: right; }
+.bar-track { flex: 1; height: 22px; background: rgba(255,255,255,0.05); border-radius: 11px; overflow: hidden; }
+.bar-now { height: 100%; border-radius: 11px; background: #f87171; display: flex; align-items: center; padding-right: 10px; }
+.bar-target { height: 100%; border-radius: 11px; background: #4ade80; display: flex; align-items: center; padding-right: 10px; }
+.bar-text { font-size: 10px; font-weight: 800; color: #0f1117; white-space: nowrap; }
+.compare-val { width: 70px; font-size: 11px; font-weight: 700; text-align: left; flex-shrink: 0; }
+
+.rule-card {
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+  padding: 14px;
+  border: 1px solid rgba(255,255,255,0.07);
+  text-align: center;
+}
+.rule-icon { font-size: 32px; margin-bottom: 8px; }
+.rule-title { font-size: 12px; font-weight: 800; color: #e8eaf0; margin-bottom: 6px; }
+.rule-now { font-size: 10px; color: #f87171; margin-bottom: 3px; }
+.rule-fix { font-size: 10px; color: #4ade80; font-weight: 700; }
+.rule-desc { font-size: 9px; color: #7a8299; line-height: 1.5; margin-top: 8px; }
+
+.math-box {
+  background: rgba(59,130,246,0.08);
+  border: 1px solid rgba(59,130,246,0.25);
+  border-radius: 8px;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+}
+.math-title { font-size: 12px; font-weight: 800; color: #60a5fa; margin-bottom: 10px; }
+.math-row {
+  display: flex; justify-content: space-between;
+  font-size: 11px; margin-bottom: 5px;
+  padding-bottom: 5px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.math-row:last-child { border: none; margin: 0; padding: 0; }
+.math-key { color: #a0a8b8; }
+.math-val { font-weight: 700; }
+
+table { width: 100%; border-collapse: collapse; font-size: 11px; }
+th {
+  background: rgba(255,255,255,0.05);
+  color: #7a8299; font-size: 10px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+  padding: 8px 10px; text-align: right;
+}
+td { padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+tr:last-child td { border: none; }
+.highlight-row td { background: rgba(74,222,128,0.07); font-weight: 700; }
+
+.risk-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 0; border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.risk-item:last-child { border: none; }
+.risk-name { font-size: 11px; }
+.risk-badge { font-size: 9px; font-weight: 700; padding: 2px 9px; border-radius: 10px; }
+.rb-high { background: rgba(248,113,113,0.15); color: #f87171; border: 1px solid rgba(248,113,113,0.3); }
+.rb-med  { background: rgba(251,191,36,0.15);  color: #fbbf24; border: 1px solid rgba(251,191,36,0.3); }
+.rb-low  { background: rgba(74,222,128,0.15);  color: #4ade80; border: 1px solid rgba(74,222,128,0.3); }
+
+.tl { position: relative; padding-right: 22px; }
+.tl::before { content:''; position: absolute; right: 9px; top: 6px; bottom: 6px; width: 2px; background: rgba(255,255,255,0.08); }
+.tl-item { position: relative; margin-bottom: 14px; }
+.tl-dot { position: absolute; right: -18px; top: 3px; width: 11px; height: 11px; border-radius: 50%; border: 2px solid #0f1117; }
+.tl-time { font-size: 10px; font-weight: 800; margin-bottom: 2px; }
+.tl-text { font-size: 10px; color: #a0a8b8; line-height: 1.5; }
+
+.green { color: #4ade80; }
+.red   { color: #f87171; }
+.yellow{ color: #fbbf24; }
+.blue  { color: #60a5fa; }
+
+.header-banner {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #1a1e2e;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,0.07);
+}
+.header-banner h1 { font-size: 18px; font-weight: 900; color: #e8eaf0; margin-bottom: 4px; }
+.header-banner .sub { font-size: 11px; color: #7a8299; }
+
+.print-btn {
+  display: block; margin: 0 auto 16px auto;
+  padding: 10px 28px;
+  background: #3b82f6;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.print-btn:hover { background: #2563eb; }
+@media print {
+  .tabs, .print-btn { display: none !important; }
+  .page { display: block !important; page-break-after: always; }
+  body { background: #fff; color: #000; }
+  .card, .math-box, .rule-card { border: 1px solid #ddd; }
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="header-banner">
+  <h1>📊 AVI HUNTER PRO — אסטרטגיה לתשואה 12% שנתי</h1>
+  <div class="sub">ניתוח | שיפורים | יעדים | סיכוני שוק | 11.5.2026</div>
+</div>
+
+<button class="print-btn" onclick="window.print()">🖨️ הדפס / שמור כ-PDF</button>
+
+<div class="tabs">
+  <div class="tab active" onclick="showPage(0)">🔬 האבחנה</div>
+  <div class="tab" onclick="showPage(1)">⚙️ 4 כללי הזהב</div>
+  <div class="tab" onclick="showPage(2)">🎯 יעד 12% שנתי</div>
+  <div class="tab" onclick="showPage(3)">⚠️ סיכון שוק</div>
+</div>
+
+<!-- PAGE 0 -->
+<div class="page active" id="p0">
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">❌ מה לא עובד — הנתונים</div>
+      <div class="diag-item diag-bad">
+        <div class="diag-icon">📉</div>
+        <div>
+          <div class="diag-title" style="color:#f87171">ETFs בסחר Swing</div>
+          <div class="diag-desc">CSPX, VOO, QQQ, IUIT, EEM — כולן הפסד. סה"כ <strong style="color:#f87171">-$X,XXX</strong>. ETF אינו כלי Swing.</div>
+        </div>
+      </div>
+      <div class="diag-item diag-bad">
+        <div class="diag-icon">⏱️</div>
+        <div>
+          <div class="diag-title" style="color:#f87171">Stop קרוב מדי = יציאה מוקדמת</div>
+          <div class="diag-desc">RTX, JNJ, V, FTI — נסגרו תוך 1-5 ימים. Stop ב-5% לא מספיק. הפסד: <strong style="color:#f87171">-$443</strong></div>
+        </div>
+      </div>
+      <div class="diag-item diag-bad">
+        <div class="diag-icon">📊</div>
+        <div>
+          <div class="diag-title" style="color:#f87171">Win Rate 36.8% — לא בר-קיימא</div>
+          <div class="diag-desc">7 נצחונות מתוך 19. גם מניות טובות לא מרוויחות עם ניהול שגוי.</div>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">✅ מה עובד — למד מזה</div>
+      <div class="diag-item diag-good">
+        <div class="diag-icon">🏆</div>
+        <div>
+          <div class="diag-title" style="color:#4ade80">STLD — המודל המושלם</div>
+          <div class="diag-desc">הוחזק שבועיים, Stop נכון. רווח: <strong style="color:#4ade80">+$X,XXX</strong></div>
+        </div>
+      </div>
+      <div class="diag-item diag-good">
+        <div class="diag-icon">💡</div>
+        <div>
+          <div class="diag-title" style="color:#4ade80">GS, LMT, XLF — עסקאות נכונות</div>
+          <div class="diag-desc">מניות בודדות, כניסה מדויקת. רווח משולב: <strong style="color:#4ade80">+$466</strong></div>
+        </div>
+      </div>
+      <div class="diag-item diag-good">
+        <div class="diag-icon">🛡️</div>
+        <div>
+          <div class="diag-title" style="color:#4ade80">AVGO — בכיוון הנכון</div>
+          <div class="diag-desc">Stop ב-6% מרחק, רווח +$190. זה המודל.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📐 מצב נוכחי vs. יעד</div>
+    <div class="compare-row">
+      <div class="compare-label">Win Rate נוכחי</div>
+      <div class="bar-track"><div class="bar-now" style="width:36.8%"><span class="bar-text">36.8%</span></div></div>
+      <div class="compare-val red">36.8%</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">Win Rate יעד</div>
+      <div class="bar-track"><div class="bar-target" style="width:50%"><span class="bar-text">50%+</span></div></div>
+      <div class="compare-val green">50%+</div>
+    </div>
+    <div style="height:8px"></div>
+    <div class="compare-row">
+      <div class="compare-label">מרחק Stop נוכחי</div>
+      <div class="bar-track"><div class="bar-now" style="width:50%"><span class="bar-text">5%</span></div></div>
+      <div class="compare-val red">5%</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">מרחק Stop יעד</div>
+      <div class="bar-track"><div class="bar-target" style="width:70%"><span class="bar-text">7-8%</span></div></div>
+      <div class="compare-val green">7-8%</div>
+    </div>
+    <div style="height:8px"></div>
+    <div class="compare-row">
+      <div class="compare-label">ימי החזקה ממוצע</div>
+      <div class="bar-track"><div class="bar-now" style="width:20%"><span class="bar-text">3 ימים</span></div></div>
+      <div class="compare-val red">~3 ימים</div>
+    </div>
+    <div class="compare-row">
+      <div class="compare-label">יעד החזקה</div>
+      <div class="bar-track"><div class="bar-target" style="width:60%"><span class="bar-text">10-15 ימים</span></div></div>
+      <div class="compare-val green">10-15 ימים</div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 1 -->
+<div class="page" id="p1">
+  <div class="grid2">
+    <div class="rule-card">
+      <div class="rule-icon">📏</div>
+      <div class="rule-title">כלל 1 — Stop 7-8%</div>
+      <div class="rule-now">❌ עכשיו: 5% = יוצאים מוקדם</div>
+      <div class="rule-fix">✅ יעד: $415 כניסה → Stop $386</div>
+      <div class="rule-desc">פחות Stops מוקדמים. מניה טובה צריכה מרחק לנשום 2-3 ימים לפני שמחליטה לאן לנוע.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">⏰</div>
+      <div class="rule-title">כלל 2 — מינימום 10 ימים</div>
+      <div class="rule-now">❌ עכשיו: יוצאים תוך 1-5 ימים</div>
+      <div class="rule-fix">✅ יעד: לא נוגעים לפני 10 ימי מסחר</div>
+      <div class="rule-desc">STLD — הרווח הגדול ביותר — הוחזק שבועיים. הניצחונות תמיד על פוזיציות שהוחזקו.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">🎯</div>
+      <div class="rule-title">כלל 3 — יחס 1:2.5</div>
+      <div class="rule-now">❌ עכשיו: יוצאים בכל רווח קטן</div>
+      <div class="rule-fix">✅ יעד: סיכון $XK → יעד $X,XXX</div>
+      <div class="rule-desc">גם עם Win Rate 36.8% — אם כל נצחון שווה 2.5x ההפסד, מרוויחים לאורך זמן.</div>
+    </div>
+    <div class="rule-card">
+      <div class="rule-icon">🚫</div>
+      <div class="rule-title">כלל 4 — אפס ETFs</div>
+      <div class="rule-now">❌ CSPX/VOO/QQQ/IUIT = -$X,XXX</div>
+      <div class="rule-fix">✅ מניות בודדות בלבד, A+ מאומת</div>
+      <div class="rule-desc">ETF הוא כלי השקעה לטווח ארוך. ב-Swing — מתחרים מול אלגוריתמים. לא משחק הוגן.</div>
+    </div>
+  </div>
+
+  <div class="math-box">
+    <div class="math-title">📐 הוכחה מתמטית — למה 4 הכללים עובדים</div>
+    <div class="math-row"><span class="math-key">Win Rate נוכחי</span><span class="math-val red">36.8% (7/19)</span></div>
+    <div class="math-row"><span class="math-key">Win Rate עם כלל 10 ימים</span><span class="math-val yellow">50%+ (אומדן)</span></div>
+    <div class="math-row"><span class="math-key">ממוצע הפסד נוכחי</span><span class="math-val red">-$340 לעסקה</span></div>
+    <div class="math-row"><span class="math-key">ממוצע רווח נוכחי</span><span class="math-val yellow">+$255 לעסקה</span></div>
+    <div class="math-row"><span class="math-key">ממוצע רווח עם יחס 1:2.5</span><span class="math-val green">+$850 לעסקה</span></div>
+    <div class="math-row"><span class="math-key">תוחלת נוכחית</span><span class="math-val red">-$127 לעסקה ❌</span></div>
+    <div class="math-row"><span class="math-key" style="font-weight:800">תוחלת עם 4 כללים</span><span class="math-val green" style="font-size:14px">+$255 לעסקה ✅</span></div>
+  </div>
+</div>
+
+<!-- PAGE 2 -->
+<div class="page" id="p2">
+  <div class="grid2">
+    <div class="math-box" style="margin-bottom:0">
+      <div class="math-title">🎯 יעד: 12% שנתי = 1% לחודש</div>
+      <div class="math-row"><span class="math-key">NAV נוכחי</span><span class="math-val">₪XXX,XXX</span></div>
+      <div class="math-row"><span class="math-key">יעד חודשי (1%)</span><span class="math-val green">+₪X,XXX/חודש</span></div>
+      <div class="math-row"><span class="math-key">יעד שנתי (12%)</span><span class="math-val green">+₪XX,XXX/שנה</span></div>
+      <div class="math-row"><span class="math-key">NAV יעד סוף שנה</span><span class="math-val green">₪XXX,XXX</span></div>
+      <div class="math-row"><span class="math-key">עסקאות נדרשות/חודש</span><span class="math-val blue">1-2 בלבד</span></div>
+    </div>
+    <div class="card" style="margin-bottom:0">
+      <div class="card-title">💡 כמה עסקאות צריך?</div>
+      <div style="font-size:10px;color:#a0a8b8;margin-bottom:10px">עם כלל 1:2.5 וסיכון $X,XXX לעסקה:</div>
+      <div class="math-row" style="padding-bottom:8px;margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06)">
+        <span style="font-size:11px;color:#7a8299">עסקה מנצחת</span>
+        <span class="green" style="font-weight:800">+$X,XXX = +₪XX,XXX</span>
+      </div>
+      <div class="math-row" style="padding-bottom:8px;margin-bottom:8px;border-bottom:1px solid rgba(255,255,255,0.06)">
+        <span style="font-size:11px;color:#7a8299">עסקה מפסידה</span>
+        <span class="red" style="font-weight:800">-$X,XXX = -₪X,XXX</span>
+      </div>
+      <div style="font-size:11px;color:#a0a8b8;margin-top:10px;line-height:1.8">
+        2 עסקאות/חודש:<br>
+        <span class="green">1 WIN</span> + <span class="red">1 LOSS</span> = <span class="green" style="font-weight:800;font-size:13px">+₪X,XXX ✅</span><br>
+        <span class="blue">כמעט בדיוק 1% — פשוט ומדויק.</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="card" style="margin-top:12px">
+    <div class="card-title">📈 סימולציה — 12 חודשים עם 1% חודשי (ריבית דריבית)</div>
+    <table>
+      <tr><th>חודש</th><th>NAV פתיחה</th><th>+1%</th><th>NAV סגירה</th><th>צמיחה מהיום</th></tr>
+      <tr><td>מאי 2026</td><td>₪XXX,XXX</td><td class="green">+₪X,XXX</td><td>₪XXX,XXX</td><td>+1.0%</td></tr>
+      <tr><td>יוני 2026</td><td>₪XXX,XXX</td><td class="green">+₪X,XXX</td><td>₪XXX,XXX</td><td>+2.0%</td></tr>
+      <tr><td>יולי 2026</td><td>₪XXX,XXX</td><td class="green">+₪X,XXX</td><td>₪XXX,XXX</td><td>+3.0%</td></tr>
+      <tr><td>אוגוסט 2026</td><td>₪XXX,XXX</td><td class="green">+₪X,XXX</td><td>₪XXX,XXX</td><td>+4.1%</td></tr>
+      <tr><td>ספטמבר 2026</td><td>₪XXX,XXX</td><td class="green">+₪X,XXX</td><td>₪XXX,XXX</td><td>+5.1%</td></tr>
+      <tr><td>אוקטובר 2026</td><td>₪XXX,XXX</td><td class="green">+₪X,XXX</td><td>₪XXX,XXX</td><td>+6.2%</td></tr>
+      <tr><td>נובמבר 2026</td><td>₪XXX,XXX</td><td class="green">+₪X,XXX</td><td>₪XXX,XXX</td><td>+7.2%</td></tr>
+      <tr><td>דצמבר 2026</td><td>₪XXX,XXX</td><td class="green">+₪X,XXX</td><td>₪XXX,XXX</td><td>+8.3%</td></tr>
+      <tr><td>ינואר 2027</td><td>₪XXX,XXX</td><td class="green">+₪X,XXX</td><td>₪XXX,XXX</td><td>+9.4%</td></tr>
+      <tr><td>פברואר 2027</td><td>₪XXX,XXX</td><td class="green">+₪X,XXX</td><td>₪XXX,XXX</td><td>+10.5%</td></tr>
+      <tr><td>מרץ 2027</td><td>₪XXX,XXX</td><td class="green">+₪X,XXX</td><td>₪XXX,XXX</td><td>+11.6%</td></tr>
+      <tr class="highlight-row"><td><strong>אפריל 2027</strong></td><td>₪XXX,XXX</td><td class="green"><strong>+₪X,XXX</strong></td><td style="color:#4ade80;font-size:14px"><strong>₪XXX,XXX</strong></td><td class="green" style="font-size:14px"><strong>+12.7% ✅</strong></td></tr>
+    </table>
+  </div>
+</div>
+
+<!-- PAGE 3 -->
+<div class="page" id="p3">
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">⚠️ סיכוני שוק — S&P ליד שיא</div>
+      <div class="risk-item"><span class="risk-name">שוק ליד שיא כל הזמנים (7,415)</span><span class="risk-badge rb-high">סיכון גבוה</span></div>
+      <div class="risk-item"><span class="risk-name">VIX נמוך = שאננות</span><span class="risk-badge rb-med">לשים לב</span></div>
+      <div class="risk-item"><span class="risk-name">Fed — ריבית גבוהה עדיין</span><span class="risk-badge rb-med">לשים לב</span></div>
+      <div class="risk-item"><span class="risk-name">עונת רווחים — מאי/יוני</span><span class="risk-badge rb-low">הזדמנות</span></div>
+      <div class="risk-item"><span class="risk-name">גיאופוליטיקה (ארה"ב-אירן)</span><span class="risk-badge rb-med">לשים לב</span></div>
+      <div class="risk-item"><span class="risk-name">NFP חזק = כלכלה בריאה</span><span class="risk-badge rb-low">חיובי</span></div>
+    </div>
+    <div class="card">
+      <div class="card-title">🛡️ תוכנית הגנה לתיקון שוק</div>
+      <div class="tl">
+        <div class="tl-item">
+          <div class="tl-dot" style="background:#f87171"></div>
+          <div class="tl-time" style="color:#f87171">S&P יורד 5%+</div>
+          <div class="tl-text">Stops פועלים אוטומטית. מחכים בצד עם מזומן. לא קונים בנפילה ראשונה.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:#fbbf24"></div>
+          <div class="tl-time" style="color:#fbbf24">S&P יורד 10%</div>
+          <div class="tl-text">שוקלים כניסה לפוזיציות Defensive. לא טכנולוגיה.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:#4ade80"></div>
+          <div class="tl-time" style="color:#4ade80">S&P מתייצב + VIX יורד</div>
+          <div class="tl-text">חוזרים לסחר Swing. מנצלים 90% מזומן לקניות.</div>
+        </div>
+        <div class="tl-item">
+          <div class="tl-dot" style="background:#60a5fa"></div>
+          <div class="tl-time" style="color:#60a5fa">תמיד — כלל Drawdown</div>
+          <div class="tl-text">מעל 8% Drawdown = עוצר הכל. מחכה שבוע לפני כניסה חדשה.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">📐 מרקוביץ — מתי כן ומתי לא</div>
+    <div class="grid2" style="margin-bottom:0">
+      <div style="padding:12px;background:rgba(248,113,113,0.06);border-radius:8px;border:1px solid rgba(248,113,113,0.2)">
+        <div style="font-size:12px;font-weight:800;color:#f87171;margin-bottom:8px">❌ לא מתאים עכשיו</div>
+        <div style="font-size:10px;color:#a0a8b8;line-height:1.8">
+          מרקוביץ דורש 8-10+ נכסים<br>
+          מרקוביץ דורש אופק 6+ חודשים<br>
+          מרקוביץ לא פותר בעיות execution<br>
+          מרקוביץ לא מגן על Swing Trader
+        </div>
+      </div>
+      <div style="padding:12px;background:rgba(74,222,128,0.06);border-radius:8px;border:1px solid rgba(74,222,128,0.2)">
+        <div style="font-size:12px;font-weight:800;color:#4ade80;margin-bottom:8px">✅ מתאים בעתיד</div>
+        <div style="font-size:10px;color:#a0a8b8;line-height:1.8">
+          כשתיק יגדל ל-₪1M+<br>
+          כשיהיו 6+ מניות בו-זמנית<br>
+          לחלוקה Swing + השקעה ארוכה<br>
+          אחרי 12 חודשי נתונים עקביים
+        </div>
+      </div>
+    </div>
+    <div style="margin-top:12px;padding:12px;background:rgba(59,130,246,0.08);border-radius:8px;font-size:11px;color:#a0a8b8;line-height:1.6;border:1px solid rgba(59,130,246,0.2)">
+      <span style="color:#60a5fa;font-weight:700">המסקנה:</span> עם תיק של 2 פוזיציות ו-90% מזומן — הכלי שישפר את התשואה הוא <span style="color:#fbbf24;font-weight:700">4 כללי הזהב</span>, לא מרקוביץ. מרקוביץ לא יפתור בעיית ניהול פוזיציות — רק פיזור.
+    </div>
+  </div>
+
+  <div style="text-align:center;font-size:10px;color:#4a5568;margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.05)">
+    Hunter Strategy Report v17.3 | נוצר: 11.5.2026 | גרסת דמו לשיתוף
+  </div>
+</div>
+
+</div>
+
+<script>
+function showPage(n) {
+  document.querySelectorAll('.page').forEach((p,i) => p.classList.toggle('active', i===n));
+  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', i===n));
+}
+</script>
+</body>
+</html>
+

@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVI HUNTER — דשבורד v4</title>
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Arial,sans-serif;background:#0d1117;color:#e0e6f0;line-height:1.5;padding:16px;min-height:100vh}
+.doc{max-width:820px;margin:0 auto}
+.hdr{background:linear-gradient(135deg,#0f2e1d,#1d5a3a);border-radius:16px;padding:20px 24px;margin-bottom:14px}
+.hdr h1{font-size:20px;color:#fff}
+.hdr .sub{font-size:12px;color:#8fd5ab;margin-top:3px}
+.badge{display:inline-block;background:#16351f;color:#7fe0a5;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-top:8px;border:1px solid #2a6b40}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+.card{background:#131c2b;border:1px solid #233149;border-radius:12px;padding:13px 15px}
+.card b{display:block;font-size:11px;color:#7a8aa3;margin-bottom:3px}
+.card .v{font-size:19px;font-weight:800;color:#fff}
+.card .v.g{color:#2ecc71}
+.card .v.y{color:#f0c040}
+.panel{background:#131c2b;border:1px solid #233149;border-radius:14px;padding:15px 17px;margin-bottom:12px}
+.panel.core{border-color:#1d7a44;background:#10241a}
+.panel.prot{border-color:#2a5a8a;background:#101a28}
+.panel.fx{border-color:#7a5a1d;background:#241f10}
+.panel h2{font-size:14px;margin-bottom:9px;color:#9fe6bd}
+.panel.prot h2{color:#8fbce6}
+.panel.fx h2{color:#e6cd8f}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid #1c2940;gap:8px}
+.row:last-child{border:0}
+.row span:last-child{font-weight:700;color:#fff;text-align:left}
+.alloc .bar{height:9px;background:#1c2940;border-radius:6px;overflow:hidden;margin:3px 0 8px}
+.alloc .bar>div{height:100%;background:linear-gradient(90deg,#1d7a44,#2ecc71)}
+.st{font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;white-space:nowrap}
+.st.todo{background:#3a2a10;color:#f0c040;border:1px solid #6b5520}
+.st.next{background:#10243a;color:#6bb0f0;border:1px solid #244a6b}
+.st.done{background:#16351f;color:#7fe0a5;border:1px solid #2a6b40}
+input{background:#0d1117;border:1px solid #2a3a55;border-radius:8px;color:#fff;padding:6px 9px;font-size:14px;width:110px;text-align:center}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.links a{flex:1;min-width:130px;text-align:center;background:#1a2740;border:1px solid #2a3a55;color:#bcd2f5;text-decoration:none;padding:10px;border-radius:10px;font-size:13px;font-weight:600}
+.links a:hover{background:#22406a}
+.sub2{font-size:11px;color:#6a7894;margin:2px 0 8px}
+.note{font-size:11px;color:#6a7894;text-align:center;margin-top:12px}
+</style>
+</head>
+<body>
+<nav id="avi-nav" dir="rtl" style="position:sticky;top:0;z-index:99999;display:flex;gap:8px;justify-content:center;align-items:center;background:#15233f;padding:8px 10px;border-bottom:1px solid #2a3a55;font-family:'Segoe UI',Arial,sans-serif"><button onclick="history.back()" style="cursor:pointer;border:1px solid #34527d;border-radius:8px;background:#23386a;color:#fff;font-size:13px;font-weight:700;padding:7px 14px;font-family:inherit">◀ אחורה</button><a href="dashboard-v4.html" style="cursor:pointer;border:1px solid #2a6b40;border-radius:8px;background:#2ecc71;color:#0d1117;font-size:13px;font-weight:800;padding:7px 16px;text-decoration:none;display:inline-block">🏠 דשבורד (בית)</a><button onclick="history.forward()" style="cursor:pointer;border:1px solid #34527d;border-radius:8px;background:#23386a;color:#fff;font-size:13px;font-weight:700;padding:7px 14px;font-family:inherit">קדימה ▶</button></nav>
+
+<div class="doc">
+<div class="hdr">
+  <h1>🎯 AVI HUNTER — דשבורד v4</h1>
+  <div class="sub">תיק מדד מוגן · עצמאי (ללא n8n) · עודכן 20.6.26 בנתונים חיים</div>
+  <span class="badge">🟢 פעיל · אפס הרצות ענן · תמיד נפתח</span>
+</div>
+
+<div class="cards">
+  <div class="card"><b>NAV</b><span class="v" id="nav">—</span></div>
+  <div class="card"><b>ליבה (VOO)</b><span class="v g">+$57</span></div>
+  <div class="card"><b>פריסת ליבה</b><span class="v">~12%</span></div>
+  <div class="card"><b>USD/ILS</b><span class="v y">2.955</span></div>
+  <div class="card"><b>VIX</b><span class="v g">17.0</span></div>
+</div>
+
+<div class="panel fx">
+  <h2>📈 תמונת שוק — נכון ל-20.6.26 (נעילת 19.6)</h2>
+  <div class="sub2">⚠️ שבת — השוק סגור. המרות/פקודות מתבצעות מיום שני.</div>
+  <div class="row"><span>USD/ILS</span><span>2.955 · טווח 30 יום 2.80–2.97</span></div>
+  <div class="row"><span>שקל מול ממוצע 30 יום (2.895)</span><span style="color:#f0c040">חלש מהממוצע ↓</span></div>
+  <div class="row"><span>VIX</span><span style="color:#2ecc71">17.0 · שוק רגוע</span></div>
+  <div class="row"><span>מסקנה תזמון</span><span>הגנה: לפרוס · המרה: לפרוס בסולם</span></div>
+</div>
+
+<div class="panel core">
+  <h2>🟢 ליבה (VOO · S&amp;P 500) — המנוע</h2>
+  <div class="row"><span>מניות</span><span>41 VOO</span></div>
+  <div class="row"><span>עלות ממוצעת</span><span>$686.61</span></div>
+  <div class="row"><span>שווי</span><span>~$28,208</span></div>
+  <div class="row"><span>רווח לא-ממומש</span><span style="color:#2ecc71">+$57</span></div>
+  <div class="row"><span>פריסה מתוך יעד 75%</span><span>~12%</span></div>
+  <div class="row"><span>מנה 2 (VOO)</span><span><span class="st next">מתוזמן 2.7</span></span></div>
+</div>
+
+<div class="panel alloc">
+  <h2>🎯 הקצאת יעד v4</h2>
+  <div class="row"><span>ליבה (VOO)</span><span>נוכחי ~12% · יעד 75%</span></div>
+  <div class="bar"><div style="width:16%"></div></div>
+  <div class="row"><span>הגנה (אג"ח+זהב)</span><span>0% · יעד 15%</span></div>
+  <div class="bar"><div style="width:0%"></div></div>
+  <div class="row"><span>מזומן</span><span>~88% · יעד 10%</span></div>
+  <div class="row"><span>לוויין</span><span>0% · יעד 0% ✅</span></div>
+</div>
+
+<div class="panel prot">
+  <h2>🛡️ שכבת הגנה 15% (~$34.5K) — תוכנית פריסה (B מאוזן)</h2>
+  <div class="sub2">ממומן מהמזומן הדולרי הקיים ($121K) — לא תלוי בהמרת שקלים.</div>
+  <div class="row"><span><b>SHY</b> · אג"ח 1-3ש' · עוגן (40%)</span><span>~$13.8K <span class="st next">לפרוס מלא מיד</span></span></div>
+  <div class="row"><span><b>IEF</b> · אג"ח 7-10ש' · הגנת-קריסה (30%)</span><span>~$10.4K <span class="st todo">2 מנות / 4-6ש'</span></span></div>
+  <div class="row"><span><b>IAU</b> · זהב · הגנת-משבר (30%)</span><span>~$10.4K <span class="st todo">2 מנות — זהב בשיא</span></span></div>
+  <div class="sub2">מספרי מניות: SHY ~168 @ $82 · IEF/IAU — לתת limit order לפי סכום דולרי, אישור מחיר חי ב-IBKR.</div>
+</div>
+
+<div class="panel fx">
+  <h2>💱 סולם המרת שקלים — ₪79K → $ (~$26.7K @ 2.955)</h2>
+  <div class="sub2">הכרח לטווח: צריך ~$144K לליבה, יש $121K דולרי → רוב השקלים חייבים להפוך לדולר.</div>
+  <div class="row"><span>מנה א' (~₪26K)</span><span>יום שני · @שוק <span class="st next">הבא</span></span></div>
+  <div class="row"><span>מנה ב' (~₪26K)</span><span>בריבאונד ל-2.88–2.90 <span class="st todo">ממתין</span></span></div>
+  <div class="row"><span>מנה ג' (~₪27K)</span><span>גיבוי תוך 2-3 שב' <span class="st todo">ממתין</span></span></div>
+</div>
+
+<div class="panel">
+  <h2>💰 מחשבון NAV (עדכן שער/יתרות)</h2>
+  <div class="row"><span>מזומן שקלי ₪</span><span><input id="ils" type="number" value="237969"></span></div>
+  <div class="row"><span>מזומן דולרי $</span><span><input id="usd" type="number" value="121124"></span></div>
+  <div class="row"><span>שווי VOO $</span><span><input id="voo" type="number" value="28208"></span></div>
+  <div class="row"><span>שער USD/ILS</span><span><input id="fx" type="number" step="0.001" value="2.955"></span></div>
+  <div class="row" style="font-size:15px"><span><b>NAV מחושב</b></span><span class="g" id="nav2">—</span></div>
+  <div class="row" style="font-size:13px"><span>NAV ב-$</span><span class="g" id="navusd">—</span></div>
+</div>
+
+<div class="panel">
+  <h2>🔗 כלים</h2>
+  <div class="links">
+    <a href="checklist-v4.html">✅ צ'קליסט</a>
+    <a href="journal.html">📓 יומן</a>
+    <a href="doctrine-v4.html">🛡️ דוקטרינה v4</a>
+    <a href="index-5stars.html">🗂️ אינדקס</a>
+  </div>
+</div>
+
+<div class="note">דשבורד עצמאי · נפתח מהמחשב, אפס תלות ב-n8n · עדכן ידנית בעת פריסה · אין באמור ייעוץ השקעות</div>
+</div>
+<script>
+function calc(){
+ const ils=+document.getElementById('ils').value||0;
+ const usd=+document.getElementById('usd').value||0;
+ const voo=+document.getElementById('voo').value||0;
+ const fx=+document.getElementById('fx').value||0;
+ const nav=ils+(usd+voo)*fx;
+ const t='₪'+Math.round(nav).toLocaleString();
+ document.getElementById('nav').textContent=t;
+ document.getElementById('nav2').textContent=t;
+ document.getElementById('navusd').textContent= fx? '$'+Math.round(nav/fx).toLocaleString() : '—';
+}
+document.querySelectorAll('input').forEach(function(i){i.addEventListener('input',calc)});
+calc();
+</script>
+</body>
+</html>

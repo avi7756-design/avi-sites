@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>חוות דעת מומחה · מאסטרו נדל"ן - מנוע איתור והשבחה</title>
+<style>
+  :root{
+    --terra:#c1764c; --terra-d:#a05c3a; --brown:#4a382b; --brown-s:#78624f;
+    --gold:#c9a25a; --gold-d:#a07a1f; --cream:#fbf4e9; --card:#fff; --line:#e6d9c2;
+    --ink:#2a2118; --green:#2e7d32; --green-bg:#e9f5ec; --red:#c0392b; --red-bg:#fdecea;
+    --amber:#e08e0b; --amber-bg:#fff7e8; --blue:#2c6ca5; --blue-bg:#eaf2fa;
+    --shadow:0 2px 14px rgba(74,56,43,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{
+    font-family:'Segoe UI','Heebo',Arial,sans-serif;
+    background:var(--cream); color:var(--ink); line-height:1.75;
+    -webkit-font-smoothing:antialiased;
+  }
+  .page{max-width:920px;margin:0 auto;padding:0 18px 80px;}
+
+  /* Header */
+  header.top{
+    background:linear-gradient(135deg,var(--brown) 0%,var(--terra-d) 100%);
+    color:#fff;padding:38px 26px 30px;border-radius:0 0 26px 26px;
+    box-shadow:var(--shadow);text-align:center;
+  }
+  header.top .eyebrow{font-size:12.5px;letter-spacing:3px;opacity:.8;text-transform:uppercase;}
+  header.top h1{font-size:27px;margin:8px 0 6px;letter-spacing:.3px;font-weight:800;}
+  header.top .sub{font-size:14px;opacity:.9;max-width:620px;margin:0 auto;}
+  header.top .meta{
+    font-size:12px;opacity:.78;margin-top:14px;border-top:1px solid rgba(255,255,255,.22);
+    padding-top:12px;display:flex;gap:18px;justify-content:center;flex-wrap:wrap;
+  }
+
+  /* Section scaffolding */
+  section{margin-top:34px;}
+  .eyebrow-row{display:flex;align-items:center;gap:10px;margin-bottom:12px;}
+  .eyebrow-row .num{
+    background:var(--gold);color:#fff;font-weight:800;font-size:13px;
+    width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0;
+  }
+  h2{font-size:21px;color:var(--brown);font-weight:800;letter-spacing:.2px;}
+  h3{font-size:16.5px;color:var(--terra-d);margin:20px 0 6px;font-weight:700;}
+  p{margin:9px 0;}
+  .lead{font-size:15.5px;}
+  strong{color:var(--brown);}
+
+  .card{
+    background:var(--card);border:1px solid var(--line);border-radius:16px;
+    padding:20px 22px;box-shadow:var(--shadow);margin:14px 0;
+  }
+
+  /* Verdict box */
+  .verdict{
+    background:#fff;border:2px solid var(--gold);border-radius:18px;
+    padding:22px 24px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+  }
+  .verdict::before{content:"";position:absolute;top:0;right:0;width:6px;height:100%;background:var(--gold);}
+  .verdict .tag{font-size:12px;font-weight:800;color:var(--gold-d);letter-spacing:1.5px;text-transform:uppercase;}
+  .verdict h2{margin:6px 0 8px;}
+  .verdict .punch{font-size:16px;}
+  .verdict .punch b{color:var(--terra-d);}
+
+  /* Score band */
+  .scoreband{display:flex;gap:12px;flex-wrap:wrap;margin:16px 0;}
+  .scorebox{
+    flex:1;min-width:150px;background:#fff;border:1px solid var(--line);
+    border-radius:14px;padding:14px 16px;box-shadow:var(--shadow);border-top:4px solid var(--gold);
+  }
+  .scorebox .n{font-size:30px;font-weight:800;color:var(--brown);line-height:1;}
+  .scorebox .n small{font-size:15px;color:var(--brown-s);font-weight:600;}
+  .scorebox .l{font-size:12.5px;color:var(--brown-s);margin-top:5px;}
+  .scorebox.s-strong{border-top-color:var(--green);} .scorebox.s-strong .n{color:var(--green);}
+  .scorebox.s-gap{border-top-color:var(--red);} .scorebox.s-gap .n{color:var(--red);}
+  .scorebox.s-mid{border-top-color:var(--amber);} .scorebox.s-mid .n{color:var(--amber);}
+
+  /* The signature: value-add waterfall */
+  .waterfall{
+    background:linear-gradient(180deg,#fff 0%,#fdf8ef 100%);
+    border:1px solid var(--line);border-radius:18px;padding:24px 20px 18px;
+    box-shadow:var(--shadow);margin:16px 0;
+  }
+  .waterfall h3{margin-top:0;text-align:center;}
+  .wf-track{display:flex;align-items:flex-end;gap:6px;justify-content:center;margin:18px 0 6px;height:200px;}
+  .wf-bar{flex:1;max-width:130px;display:flex;flex-direction:column;justify-content:flex-end;align-items:center;height:100%;}
+  .wf-bar .bar{width:100%;border-radius:8px 8px 0 0;position:relative;transition:.3s;}
+  .wf-bar .val{font-size:13px;font-weight:800;color:var(--brown);margin-bottom:4px;white-space:nowrap;}
+  .wf-bar .cap{font-size:11.5px;color:var(--brown-s);margin-top:7px;text-align:center;line-height:1.35;}
+  .b-market{background:#d8c7a6;} .b-buy{background:var(--blue);} .b-reno{background:var(--terra);}
+  .b-arv{background:var(--gold);} .b-profit{background:var(--green);}
+  .wf-note{font-size:12px;color:var(--brown-s);text-align:center;border-top:1px dashed var(--line);padding-top:10px;margin-top:4px;}
+
+  /* Tables */
+  table{width:100%;border-collapse:collapse;font-size:13.5px;margin:12px 0;background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--shadow);}
+  th,td{padding:11px 13px;text-align:right;vertical-align:top;border-bottom:1px solid var(--line);}
+  th{background:#f3ead8;color:var(--brown);font-weight:700;font-size:13px;}
+  tr:last-child td{border-bottom:none;}
+  td .pill{display:inline-block;font-size:11px;font-weight:800;padding:2px 9px;border-radius:20px;}
+  .p-yes{background:var(--green-bg);color:var(--green);}
+  .p-partial{background:var(--amber-bg);color:var(--amber);}
+  .p-no{background:var(--red-bg);color:var(--red);}
+
+  /* Callouts */
+  .callout{border-radius:14px;padding:15px 18px;margin:14px 0;font-size:14px;border:1px solid;}
+  .c-truth{background:#fef6ec;border-color:#f0dcb8;}
+  .c-truth b{color:var(--terra-d);}
+  .c-good{background:var(--green-bg);border-color:#bfe3c7;}
+  .c-warn{background:var(--amber-bg);border-color:#f0e0bf;}
+  .c-info{background:var(--blue-bg);border-color:#c4ddf2;}
+
+  ul,ol{margin:10px 22px;}
+  li{margin:6px 0;}
+
+  /* Gap blocks */
+  .gap{display:flex;gap:14px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 18px;margin:12px 0;box-shadow:var(--shadow);}
+  .gap .rank{flex-shrink:0;width:38px;height:38px;border-radius:11px;background:var(--brown);color:#fff;font-weight:800;font-size:16px;display:flex;align-items:center;justify-content:center;}
+  .gap.crit .rank{background:var(--red);}
+  .gap h4{font-size:15.5px;color:var(--brown);margin-bottom:3px;}
+  .gap .now{font-size:13px;color:var(--red);margin:4px 0;}
+  .gap .fix{font-size:13px;color:var(--green);}
+  .gap .now b,.gap .fix b{font-weight:700;}
+
+  /* Roadmap */
+  .road{position:relative;margin:14px 0 0;padding-right:18px;border-right:3px solid var(--gold);}
+  .road .stop{position:relative;margin-bottom:18px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;box-shadow:var(--shadow);}
+  .road .stop::before{content:"";position:absolute;right:-27px;top:18px;width:13px;height:13px;border-radius:50%;background:var(--gold);border:3px solid var(--cream);}
+  .road .when{font-size:12px;font-weight:800;color:var(--gold-d);letter-spacing:.5px;}
+  .road .stop h4{font-size:15px;color:var(--brown);margin:3px 0 4px;}
+  .road .stop p{font-size:13px;margin:3px 0;}
+
+  footer{margin-top:40px;border-top:1px solid var(--line);padding-top:18px;font-size:12px;color:var(--brown-s);}
+  footer a{color:var(--terra-d);}
+  .src{font-size:12px;color:var(--brown-s);}
+  .src li{margin:4px 0;}
+
+  @media (max-width:560px){
+    header.top h1{font-size:22px;}
+    .wf-track{height:170px;}
+    .wf-bar .cap{font-size:10.5px;}
+    th,td{padding:9px 8px;font-size:12.5px;}
+  }
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="eyebrow">חוות דעת מומחה · איתור והשבחת עסקאות נדל"ן</div>
+  <h1>מאסטרו נדל"ן - איפה אתה עומד מול "הדשבורד הטוב בעולם"</h1>
+  <div class="sub">ניתוח עצמאי ובלתי תלוי של המערכת שבנית, מול הסטנדרט המקצועי לאיתור והשבחת נכסים בישראל - כולל הפער המרכזי, מפת דרכים מתועדפת, ובחירת אסטרטגיית בנייה.</div>
+  <div class="meta">
+    <span>נכתב עבור: אבי חזן</span>
+    <span>שוק: הקריות, ישראל</span>
+    <span>עודכן: יוני 2026</span>
+  </div>
+</header>
+
+<div class="page">
+
+  <!-- VERDICT -->
+  <section>
+    <div class="verdict">
+      <div class="tag">שורה תחתונה - האמת המקצועית</div>
+      <h2>בנית מערכת תפעולית אמיתית. אבל המנוע מודד "זול", לא "השבחה".</h2>
+      <p class="punch">המערכת שלך כבר עובדת בענן, עם מקורות הנתונים הנכונים, צ'קליסט משפטי עם פסילות, וסימולטור פיננסי - זה מרשים לעוסק יחיד. <b>אבל הלב של העסק שלך הוא "רכישה מתחת לשוק + השבחה", ובדיוק את ההשבחה המנוע עדיין לא מחשב.</b> "מד-היהלום" מגדיר יהלום כ-15% מתחת למחיר השוק <b>היום</b> - זו הגדרה של ציד מציאות, לא של יצירת ערך. עסקה יכולה לקבל 💎 ולהיות בור כסף (שיפוץ של 250 אלף), ועסקה במחיר הוגן עם פוטנציאל השבחה אדיר יכולה ליפול מתחת לראדאר. עד שהמנוע יחשב <b>שווי לאחר השבחה (ARV) פחות מלוא מבנה העלויות הישראלי</b> - הסיווג "יהלום" יהיה גם false-positive וגם false-negative.</p>
+    </div>
+  </section>
+
+  <!-- SCORE BAND -->
+  <section>
+    <div class="eyebrow-row"><div class="num">1</div><h2>הערכת מצב במספרים</h2></div>
+    <p class="lead">ציון בשלות לכל שכבה במודל היהלום שלך עצמך (איתור · הבנה · דירוג · שיווק · ניהול · למידה), בסולם של 1 עד 10 מול הסטנדרט המקצועי.</p>
+    <div class="scoreband">
+      <div class="scorebox s-strong"><div class="n">8<small>/10</small></div><div class="l">איתור<br>מקורות נכונים, ראדאר עדיין ידני</div></div>
+      <div class="scorebox s-gap"><div class="n">4<small>/10</small></div><div class="l">הבנה (הערכת שווי)<br>בנצ'מרק סטטי, אין מנוע השוואות</div></div>
+      <div class="scorebox s-mid"><div class="n">5<small>/10</small></div><div class="l">דירוג<br>בינארי במקום ועדה משוקללת</div></div>
+    </div>
+    <div class="scoreband">
+      <div class="scorebox s-strong"><div class="n">7<small>/10</small></div><div class="l">שיווק וניהול<br>דף נחיתה, לידים, בוט - חי ועובד</div></div>
+      <div class="scorebox s-gap"><div class="n">3<small>/10</small></div><div class="l">השבחה (ARV)<br>הליבה העסקית - כמעט לא ממומשת</div></div>
+      <div class="scorebox s-mid"><div class="n">5<small>/10</small></div><div class="l">למידה<br>יומן קיים, אבל לא מכייל משקלים</div></div>
+    </div>
+    <div class="callout c-info">השכבות החזקות שלך הן <b>איתור, שיווק וניהול</b> - שם בנית מוצר אמיתי. שתי השכבות החלשות הן בדיוק אלו שמכריעות אם עסקה תרוויח: <b>הערכת שווי מדויקת</b> ו<b>כימות ההשבחה</b>. כל מאמץ נוסף צריך להתנקז לשתיים האלה לפני כל דבר אחר.</div>
+  </section>
+
+  <!-- SIGNATURE WATERFALL -->
+  <section>
+    <div class="eyebrow-row"><div class="num">2</div><h2>הפער המרכזי, ויזואלית: מה המנוע רואה מול מה שקובע רווח</h2></div>
+    <div class="waterfall">
+      <h3>מפל הערך של עסקת השבחה - וזה מה שצריך להיות "מד-היהלום"</h3>
+      <div class="wf-track">
+        <div class="wf-bar"><div class="val">1.40M</div><div class="bar b-market" style="height:78%"></div><div class="cap">שווי שוק<br>(לפני)</div></div>
+        <div class="wf-bar"><div class="val">1.18M</div><div class="bar b-buy" style="height:66%"></div><div class="cap">מחיר קנייה<br>(15% מתחת)</div></div>
+        <div class="wf-bar"><div class="val">+0.34M</div><div class="bar b-reno" style="height:30%"></div><div class="cap">עלויות<br>(מס 8% + שיפוץ + נלוות)</div></div>
+        <div class="wf-bar"><div class="val">1.62M</div><div class="bar b-arv" style="height:90%"></div><div class="cap">שווי לאחר<br>השבחה (ARV)</div></div>
+        <div class="wf-bar"><div class="val">+0.10M</div><div class="bar b-profit" style="height:22%"></div><div class="cap">רווח אמיתי<br>אחרי הכל</div></div>
+      </div>
+      <div class="wf-note">המנוע הנוכחי עוצר בעמודה השנייה ("15% מתחת לשוק → יהלום"). אבל הרווח האמיתי נקבע רק בעמודה החמישית, אחרי שמורידים <b>מס רכישה של 8%</b>, שיפוץ, נלוות, מימון ומס שבח ביציאה. במספרים שלמעלה, "יהלום" של 15% מתחת לשוק מצטמצם לרווח של כ-100 אלף ש"ח - בריא, אבל רחוק מהרושם של "200 אלף הנחה". <b>זה ההבדל בין מחשבון מציאות למנוע השבחה.</b></div>
+    </div>
+  </section>
+
+  <!-- CAPABILITY MATRIX -->
+  <section>
+    <div class="eyebrow-row"><div class="num">3</div><h2>מטריצת יכולות: מה יש לך מול מנוע ברמה עולמית</h2></div>
+    <table>
+      <tr><th>יכולת ליבה</th><th>במערכת שלך</th><th>למה זה קריטי</th></tr>
+      <tr><td><b>מקורות איתור ישראליים</b> (נדל"ן.gov, מדלן, יד2, גוש-חלקה, מבא"ת, כונסים)</td><td><span class="pill p-yes">קיים</span></td><td>הבסיס לכל עסקה - ובחרת נכון את "מקור האמת" (nadlan.gov.il).</td></tr>
+      <tr><td><b>צ'קליסט משפטי עם פסילות (Hard Stops)</b></td><td><span class="pill p-yes">קיים</span></td><td>עיקול / חריגות / בעלות כפסילה מיידית - משמעת סיכון מצוינת. גם האזהרה נגד פיצול לא חוקי מקצועית.</td></tr>
+      <tr><td><b>סימולטור פיננסי</b> (השכרה + פליפ, NOI, Cash-on-Cash, ROI)</td><td><span class="pill p-yes">קיים</span></td><td>תשתית חישוב טובה לעוסק יחיד.</td></tr>
+      <tr><td><b>הערכת שווי מבוססת עסקאות השוואה (Comps) ברמת רחוב/בניין</b></td><td><span class="pill p-no">חסר</span></td><td>היום ההשוואה היא לממוצע עירוני קבוע בקוד. זה ההבדל בין אומדן לבין הערכה.</td></tr>
+      <tr><td><b>שווי לאחר השבחה (ARV) + מודל עלות שיפוץ</b></td><td><span class="pill p-no">חסר</span></td><td>זו הליבה של "השבחה". בלי זה אין מדידה של יצירת הערך.</td></tr>
+      <tr><td><b>חישוב אוטומטי של מבנה העלויות הישראלי</b> (מס רכישה 8%/10%, עו"ד, תיווך, מס שבח ביציאה)</td><td><span class="pill p-no">חסר</span></td><td>היום "עלויות רכישה" הן שדה חופשי שקל לטעות בו ב-100 אלף ש"ח.</td></tr>
+      <tr><td><b>ועדת השקעות משוקללת (7 ממדים)</b></td><td><span class="pill p-partial">חלקי</span></td><td>קיים בחוברת ובטופס n8n, אבל המד-יהלום החי הוא סף בינארי.</td></tr>
+      <tr><td><b>תיק עסקה אחוד</b> (אובייקט עסקה אחד שזורם בכל השכבות)</td><td><span class="pill p-no">חסר</span></td><td>היום הנתונים מפוזרים על פני שלושה כלים שלא מדברים.</td></tr>
+      <tr><td><b>מנוע תרחישים ורגישות</b> (פסימי/בסיס/אופטימי + ריבית/תפוסה/חריגת שיפוץ)</td><td><span class="pill p-partial">חלקי</span></td><td>בסימולטור יש דגלים, אין טבלת תרחישים שמלווה את ההחלטה.</td></tr>
+      <tr><td><b>לולאה לומדת שמכיילת משקלים</b></td><td><span class="pill p-partial">חלקי</span></td><td>יש יומן למידה, אבל הוא לא מעדכן את המשקלים או את הבנצ'מרק לפי תוצאות אמת.</td></tr>
+      <tr><td><b>חבילת משקיע אוטומטית</b> (One-pager + תבנית וואטסאפ) ומחיר-יעד למו"מ</td><td><span class="pill p-no">חסר</span></td><td>שכבת השיווק והמו"מ - חשובה, אבל במורד הזרם אחרי תיקון הליבה.</td></tr>
+    </table>
+  </section>
+
+  <!-- RANKED GAPS -->
+  <section>
+    <div class="eyebrow-row"><div class="num">4</div><h2>הפערים, לפי סדר ערך (לא לפי סדר קושי)</h2></div>
+
+    <div class="gap crit">
+      <div class="rank">1</div>
+      <div>
+        <h4>אין מודל השבחה / ARV - והגדרת ה"יהלום" שגויה ביסודה</h4>
+        <p class="now"><b>היום:</b> 💎 = מחיר למ"ר ≥15% מתחת לממוצע העירוני. מדד של מציאה, לא של ערך.</p>
+        <p class="fix"><b>תיקון:</b> 💎 = (שווי לאחר השבחה − מחיר קנייה − שיפוץ − מלוא העלויות − מס יציאה) ≥ סף רווח. הופך את הכלי ממחשבון מציאות למנוע השבחה.</p>
+      </div>
+    </div>
+
+    <div class="gap crit">
+      <div class="rank">2</div>
+      <div>
+        <h4>הערכת שווי סטטית וגסה במקום מנוע עסקאות השוואה</h4>
+        <p class="now"><b>היום:</b> טבלת בנצ'מרק קבועה בקוד (מוצקין ~17,500, ביאליק ~16,000...). "אמת מול nadlan.gov.il" הוא קישור ידני, לא הזנה.</p>
+        <p class="fix"><b>תיקון:</b> שכבת Comps שמושכת עסקאות אמת לרחוב/בניין, מתקנת לפי גודל/קומה/שנה/מצב, ומחזירה שווי + רמת ביטחון + תאריך תוקף. זה ההבדל בין אומדן להערכה.</p>
+      </div>
+    </div>
+
+    <div class="gap crit">
+      <div class="rank">3</div>
+      <div>
+        <h4>ההוצאה הגדולה ביותר - מס רכישה - לא מחושבת אוטומטית</h4>
+        <p class="now"><b>היום:</b> "עלויות רכישה" הן שדה חופשי. משקיע משלם <b>8% מהשקל הראשון</b> (ו-10% מעל ~6.05M) - זו ההוצאה הכי כבדה והיא נתונה לטעות ידנית.</p>
+        <p class="fix"><b>תיקון:</b> מנוע מס שמחשב אוטומטית 8%/10% לפי המדרגות 2026, מוסיף עו"ד/תיווך, ומס שבח משוער ביציאה. בלי זה ה-ROI מנופח שיטתית.</p>
+      </div>
+    </div>
+
+    <div class="gap">
+      <div class="rank">4</div>
+      <div>
+        <h4>שלושה משטחי ניתוח מנותקים - אין "תיק עסקה" אחד</h4>
+        <p class="now"><b>היום:</b> מד-יהלום, סימולטור, וטופס 7-הסוכנים ב-n8n - שלושה כלים, שלוש סכמות, לא מדברים.</p>
+        <p class="fix"><b>תיקון:</b> אובייקט עסקה קנוני אחד שזורם איתור→הבנה→דירוג→שיווק→ניהול→למידה. זה בדיוק החזון של החוברת.</p>
+      </div>
+    </div>
+
+    <div class="gap">
+      <div class="rank">5</div>
+      <div>
+        <h4>דירוג בינארי במקום ועדה משוקללת ומסתגלת</h4>
+        <p class="now"><b>היום:</b> סף יחיד (מעל/מתחת לשוק). החוברת מגדירה ועדה של 7 ממדים (מחיר 20%, פיננסים 20%, השבחה 15%, התחדשות 15%, משפטי 15%, התאמה למשקיע 10%, שיווק 5%).</p>
+        <p class="fix"><b>תיקון:</b> הפוך את הועדה המשוקללת לציון החי (0-100), והנח ללולאה הלומדת לכייל את המשקלים לפי מה שבאמת הרוויח.</p>
+      </div>
+    </div>
+
+    <div class="gap">
+      <div class="rank">6</div>
+      <div>
+        <h4>שבריריות תשתית - ליבת הנתונים על דייר n8n חינמי יחיד</h4>
+        <p class="now"><b>היום:</b> ה-UI עצמו מזהיר "ייתכן מכסת n8n". אין DB אמיתי, אין דה-דופליקציה לכתובת, אין היסטוריית מחיר לנכס (ירידת מחיר = סיגנל מוכר לחוץ).</p>
+        <p class="fix"><b>תיקון:</b> העבר את הנתונים הקנוניים למאגר אמיתי (גם גיליון מובנה זה שלב ביניים טוב), והשאר את n8n לאוטומציה בלבד.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- BLUEPRINT -->
+  <section>
+    <div class="eyebrow-row"><div class="num">5</div><h2>השרטוט: איך נראה "המנוע הטוב בעולם" לישראל</h2></div>
+    <p class="lead">שבעה רכיבים, מחוברים סביב אובייקט עסקה אחד. כל אחד מזין את הבא, והלולאה הלומדת סוגרת את המעגל.</p>
+    <div class="card">
+      <h3>1 · אובייקט עסקה קנוני (תיק עסקה)</h3>
+      <p>רשומה אחת לכל נכס, עם כתובת מנורמלת (מפתח ייחודי), שזורמת בכל השכבות. כל כלי קורא וכותב לאותה רשומה.</p>
+      <h3>2 · מנוע עסקאות השוואה (Comps)</h3>
+      <p>משיכת עסקאות אמת מ-nadlan.gov.il / מדלן לרחוב ולבניין, תיקון לפי גודל/קומה/שנה/מצב, פלט: שווי + רמת ביטחון + תאריך תוקף. מחליף את הבנצ'מרק הקבוע.</p>
+      <h3>3 · ליבת השבחה (ARV)</h3>
+      <p>שווי-לאחר-השבחה מ-comps של דירות משופצות באזור, מודל עלות שיפוץ (₪/מ"ר לפי היקף), מלוא מבנה העלויות הישראלי <b>אוטומטית</b> (מס רכישה 8%/10%, עו"ד, תיווך, החזקה, מימון), ומס שבח ביציאה → שולי רווח על ARV ועל ההון. <b>זה המד-יהלום החדש.</b></p>
+      <h3>4 · ועדת השקעות משוקללת</h3>
+      <p>ציון 0-100 על 7 הממדים, מוזן מהרכיבים שמעל. טבלת החלטה (90+ = יהלום, כניסה למו"מ).</p>
+      <h3>5 · מנוע תרחישים ורגישות</h3>
+      <p>פסימי / בסיס / אופטימי, ורגישות ל-4 משתנים: ריבית, תפוסה, חריגת שיפוץ, זמן יציאה. מלווה כל החלטה.</p>
+      <h3>6 · חבילת משקיע + מחיר-יעד למו"מ</h3>
+      <p>One-pager (PDF) ותבנית וואטסאפ שנוצרים מהתיק, ו"המחיר שצריך לשלם" כדי לפגוע ב-IRR יעד - מזין את סוכן המו"מ החסר.</p>
+      <h3>7 · לולאה לומדת מכיילת</h3>
+      <p>חזוי מול בפועל: כל רבעון, כיול מחדש של משקלי הועדה ושל הבנצ'מרק לפי תוצאות אמת. כך "הלמידה" הופכת מיומן לכלי שמשפר החלטות.</p>
+    </div>
+  </section>
+
+  <!-- ALTERNATIVES -->
+  <section>
+    <div class="eyebrow-row"><div class="num">6</div><h2>שלוש דרכים לבנות את זה - והמלצה</h2></div>
+    <table>
+      <tr><th>גישה</th><th>יתרונות</th><th>חסרונות</th><th>מתי</th></tr>
+      <tr>
+        <td><b>א. העמקת הקיים</b><br>דפי HTML + n8n + גיליון כ-DB</td>
+        <td>מהיר וזול, בלי כתיבה מחדש, שומר על תחושת ה-PWA הניידת</td>
+        <td>תקרת n8n חינמי, אוטומציית comps שברירית, קשה להתרחב להרבה עסקאות/משקיעים</td>
+        <td>טוב כשלב חיבור, לא כיעד</td>
+      </tr>
+      <tr>
+        <td><b>ב. גיליון-כמנוע + UI דק</b><br>אקסל/Sheets עושה את כל המתמטיקה והתיקונים, הדשבורד קורא ממנו</td>
+        <td>שקוף ובר-ביקורת, אתה שולט במודל, קל לכייל משקלים, מצוין לעד ~50 עסקאות</td>
+        <td>לא מוצר מלוטש למשקיע, הזנת comps ידנית, אוטומציה מוגבלת</td>
+        <td><b>עכשיו</b> - כדי לנעול את נכונות המודל</td>
+      </tr>
+      <tr>
+        <td><b>ג. אפליקציה אמיתית + DB</b><br>Postgres/Supabase + פרונט אמיתי + pipeline scraping</td>
+        <td>הנתיב ל"הטוב בעולם": מדרגי, מנוע comps אמיתי, ריבוי משקיעים, audit trail</td>
+        <td>מאמץ ועלות בנייה אמיתיים, דורש תחזוקה, מוגזם לפני אימות על 10 עסקאות</td>
+        <td>אחרי אימות על ~10 עסקאות אמת</td>
+      </tr>
+    </table>
+    <div class="callout c-truth"><b>המלצה מקצועית - רצף ב' ← א' ← ג':</b> נכון לעכשיו, לפני 10 עסקאות, צוואר הבקבוק שלך הוא <b>איכות המודל, לא התוכנה.</b> בנה את ליבת ההשבחה + מנוע המס + תיקוני ה-comps בגיליון שקוף (ב'), חבר אותו לאובייקט העסקה בדשבורד הקיים (א'), ושדרג ל-DB/אפליקציה (ג') רק כשהמודל אומת על כ-10 עסקאות אמת - שזה בדיוק הצעד הבא שהחוברת שלך מגדירה. אל תבנה תשתית ל"בעולם" לפני שהמתמטיקה מוכחת על הקריות.</div>
+  </section>
+
+  <!-- ROADMAP -->
+  <section>
+    <div class="eyebrow-row"><div class="num">7</div><h2>מפת דרכים ל-90 יום (מתועדף לפי ערך)</h2></div>
+    <div class="road">
+      <div class="stop">
+        <div class="when">ימים 1-15 · התשואה הגבוהה ביותר</div>
+        <h4>ליבת השבחה + מנוע מס</h4>
+        <p>הוסף שווי-לאחר-השבחה + מודל שיפוץ + חישוב אוטומטי של מבנה העלויות (כולל מס רכישה 8%/10%) → שולי רווח.</p>
+        <p><b>הגדר מחדש: 💎 = שולי רווח על ARV ≥ סף</b>, ולא "מתחת לשוק היום".</p>
+      </div>
+      <div class="stop">
+        <div class="when">ימים 15-30</div>
+        <h4>שכבת עסקאות השוואה (Comps)</h4>
+        <p>החלף את הבנצ'מרק הקבוע במנוע מבוסס nadlan.gov.il - גם חצי-ידני בהתחלה (הדבק עסקאות רחוב → ₪/מ"ר מתוקן + רמת ביטחון + תאריך).</p>
+      </div>
+      <div class="stop">
+        <div class="when">ימים 30-50</div>
+        <h4>איחוד לתיק עסקה + ועדה משוקללת</h4>
+        <p>אובייקט עסקה אחד; הפוך את ציון 7-הממדים לציון החי; ייצר אוטומטית One-pager + תבנית וואטסאפ למשקיע.</p>
+      </div>
+      <div class="stop">
+        <div class="when">ימים 50-70</div>
+        <h4>תרחישים, רגישות ומחיר-יעד</h4>
+        <p>פסימי/בסיס/אופטימי + רגישות ל-4 משתנים; "המחיר לשלם" כדי לפגוע ב-IRR יעד (בסיס לסוכן מו"מ).</p>
+      </div>
+      <div class="stop">
+        <div class="when">ימים 70-90</div>
+        <h4>סגירת הלולאה + חיזוק תשתית</h4>
+        <p>חזוי מול בפועל, כיול רבעוני של משקלים ובנצ'מרק; הוצאת הנתונים הקנוניים מדייר webhook חינמי יחיד.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHAT YOU DID RIGHT -->
+  <section>
+    <div class="eyebrow-row"><div class="num">8</div><h2>מה עשית נכון (ולא לשבור)</h2></div>
+    <div class="callout c-good">
+      <ul style="margin:4px 18px;">
+        <li><b>חזון ארכיטקטוני קוהרנטי</b> - 6 שכבות ו-11 סוכנים, נדיר לעוסק יחיד.</li>
+        <li><b>בחירת מקור אמת נכונה</b> - nadlan.gov.il כעוגן השווי, לא יד2.</li>
+        <li><b>משמעת סיכון משפטית</b> - פסילות קשיחות והאזהרה נגד הסתמכות על פיצול לא חוקי. זו בגרות מקצועית.</li>
+        <li><b>מערכת חיה, לא מצגת</b> - בוט טלגרם, דף נחיתה, דשבורד לידים, אוטומציה - אתה כבר מפעיל מערכת.</li>
+        <li><b>שמרנות בהנחות</b> - מינוף ≤75% מסומן כסביר, תשואה נטו עם סף 5%. הכיוון נכון.</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- SOURCES -->
+  <footer>
+    <p><b>מקורות (נתוני מס ומימון, 2026):</b></p>
+    <ul class="src">
+      <li>מס רכישה לדירה נוספת/להשקעה 2026: 8% עד 6,055,070 ₪, 10% מעל - מהשקל הראשון, ללא פטור. רשות המסים, סימולטור מיסוי מקרקעין (gov.il); וכן משרדי עו"ד אליהו ושות', עמית ורד, דניאל שגב.</li>
+      <li>מימון משכנתא למשקיע (דירה נוספת) מוגבל ל-50% מימון, מול 75% לדירה יחידה - מקור: קליקת הנדל"ן, סקירת מס רכישה 2026.</li>
+      <li>תקרת פטור מס שבח לדירת יוקרה הוקפאה על 5,008,000 ₪ עד 15.1.2028 (חוק ההסדרים 2025-2027).</li>
+      <li>מקור המערכת שנותחה: maestro-nadlan.html, deal-sourcing.html, simulator.html, ו-ai-real-estate-booklet (avi7756-design.github.io/avi-sites).</li>
+    </ul>
+    <p style="margin-top:12px;">המסמך אינדיקטיבי ואינו תחליף לייעוץ עו"ד מקרקעין / יועץ מס לעסקה ספציפית. את ערכי המס והמימון יש לאמת מול רשות המסים והבנק במועד העסקה.</p>
+    <p style="margin-top:8px;color:var(--terra-d);"><b>מאסטרו נדל"ן · חוות דעת מומחה · אבי חזן · יוני 2026</b></p>
+  </footer>
+
+</div>
+</body>
+</html>

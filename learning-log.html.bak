@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>🧠 יומן למידה - החלטות ותוצאות | אבי חזן</title>
+<meta name="theme-color" content="#5e3aa0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="יומן למידה">
+<style>
+  :root{
+    --ink:#241a33; --bg:#f3eefb; --card:#fff; --line:#e0d6ef; --muted:#6b5d80;
+    --purple:#7e57c2; --purple-d:#5e3aa0; --green:#2e7d32; --red:#c0392b; --amber:#e08e0b; --blue:#2c6ca5;
+    --shadow:0 2px 12px rgba(50,30,80,.09);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;}
+  body{background:var(--bg);color:var(--ink);line-height:1.55;padding:0 0 90px;-webkit-tap-highlight-color:transparent;}
+  header{background:linear-gradient(135deg,var(--purple-d),var(--purple));color:#fff;padding:18px 16px 14px;text-align:center;box-shadow:var(--shadow);}
+  header h1{font-size:21px;} header p{font-size:12px;opacity:.9;margin-top:2px;}
+  .wrap{max-width:840px;margin:0 auto;padding:14px;}
+  .tabs{display:flex;gap:6px;margin-bottom:14px;}
+  .tab{flex:1;background:var(--card);border:1px solid var(--line);border-radius:30px;padding:9px;font-size:14px;font-weight:bold;color:var(--purple-d);cursor:pointer;text-align:center;}
+  .tab.active{background:var(--purple);color:#fff;}
+  .panel{display:none;} .panel.active{display:block;}
+  .btn{border:none;border-radius:10px;padding:10px 15px;font-size:13px;font-weight:bold;cursor:pointer;color:#fff;background:var(--purple);font-family:inherit;}
+  .btn:active{transform:scale(.97);}
+  .btn.sm{padding:6px 11px;font-size:12px;} .btn.gray{background:#8a7d9e;} .btn.green{background:var(--green);} .btn.red{background:var(--red);} .btn.wide{width:100%;margin-top:7px;}
+  .bar{display:flex;gap:8px;margin-bottom:12px;flex-wrap:wrap;}
+  input,select,textarea{padding:9px;border:1px solid #cfc2e3;border-radius:9px;font-family:inherit;font-size:14px;background:#fff;width:100%;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+  .entry{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px;margin-bottom:10px;box-shadow:var(--shadow);border-right:5px solid var(--purple);cursor:pointer;}
+  .entry.bought{border-right-color:var(--green);} .entry.rejected{border-right-color:#9aa7b3;} .entry.wait{border-right-color:var(--amber);}
+  .entry h3{font-size:15px;display:flex;justify-content:space-between;gap:8px;align-items:center;flex-wrap:wrap;}
+  .entry .meta{font-size:12px;color:var(--muted);margin-top:3px;}
+  .dchip{font-size:11px;font-weight:bold;padding:2px 9px;border-radius:20px;}
+  .d-bought{background:#e6f4ea;color:var(--green);} .d-rejected{background:#eef0f3;color:var(--muted);} .d-wait{background:#fff7e8;color:var(--amber);}
+  .ochip{font-size:10.5px;font-weight:bold;padding:2px 8px;border-radius:20px;}
+  .o-pos{background:#e6f4ea;color:var(--green);} .o-neg{background:#fdeaea;color:var(--red);} .o-neu{background:#eef0f3;color:var(--muted);} .o-pend{background:#efe9f9;color:var(--purple-d);}
+  .chips{display:flex;gap:4px;flex-wrap:wrap;margin-top:6px;}
+  .fchip{font-size:10px;padding:1px 7px;border-radius:20px;background:#efe9f9;color:var(--purple-d);}
+  .stat{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:13px;text-align:center;box-shadow:var(--shadow);}
+  .stat .n{font-size:22px;font-weight:bold;color:var(--purple-d);} .stat .l{font-size:11px;color:var(--muted);}
+  .grid3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:9px;margin-bottom:12px;}
+  .insight{background:#f9f5ff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-bottom:9px;font-size:13.5px;}
+  .insight b{color:var(--purple-d);}
+  .barrow{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:12.5px;}
+  .barfill{height:13px;background:var(--green);border-radius:5px;min-width:3px;}
+  .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;padding:14px;overflow:auto;} .ov.show{display:block;}
+  .modal{max-width:540px;margin:18px auto;background:var(--card);border-radius:16px;padding:17px;box-shadow:0 12px 50px rgba(0,0,0,.35);}
+  .modal h2{color:var(--purple-d);font-size:17px;margin-bottom:5px;} .modal h3{color:var(--purple-d);font-size:13px;margin:12px 0 4px;}
+  .modal .x{float:left;background:var(--red);color:#fff;border:none;border-radius:50%;width:30px;height:30px;font-size:15px;cursor:pointer;}
+  label{display:block;font-size:12px;font-weight:bold;color:var(--muted);margin:7px 0 3px;}
+  .ck{display:flex;align-items:center;gap:8px;padding:5px 0;font-size:12.5px;} .ck input{width:18px;height:18px;}
+  .promptbox{background:#241a33;color:#e3d9f0;border-radius:10px;padding:11px;font-size:12px;line-height:1.5;white-space:pre-wrap;margin-top:8px;max-height:220px;overflow:auto;}
+  .hint{font-size:12px;color:var(--muted);background:#f9f5ff;border:1px solid var(--line);border-radius:10px;padding:9px 12px;margin-bottom:12px;}
+  footer{text-align:center;font-size:11px;color:var(--muted);margin-top:10px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>🧠 יומן למידה</h1>
+  <p>החלטה → תוצאה → תובנה · המערכת לומדת מהניסיון</p>
+</header>
+
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab active" data-p="log" onclick="tab('log')">📓 יומן החלטות</div>
+    <div class="tab" data-p="learn" onclick="tab('learn')">🧠 תובנות ולמידה</div>
+  </div>
+
+  <div class="panel active" id="log">
+    <div class="hint">📝 כל החלטה (קנית/דחית) נרשמת עם הגורמים והציון. כשתדע את התוצאה - עדכן. ככה לומדים מה באמת עבד.</div>
+    <div class="bar"><button class="btn" onclick="openAdd()">➕ החלטה חדשה</button><button class="btn gray" onclick="exportData()">📤 גיבוי</button></div>
+    <div id="list"></div>
+  </div>
+
+  <div class="panel" id="learn">
+    <div class="hint">📊 ניתוח הדפוסים: מה מאפיין את העסקאות שהצליחו, ומה את אלה שלא. ככל שתתעד יותר תוצאות - חכם יותר.</div>
+    <div id="learnBody"></div>
+  </div>
+
+  <footer>יומן למידה · v1.0 · נשמר מקומית · אבי חזן</footer>
+</div>
+
+<div class="ov" id="ov"><div class="modal" id="modal"></div></div>
+<div id="toast" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2e7d32;color:#fff;padding:11px 22px;border-radius:30px;font-weight:bold;opacity:0;transition:.3s;z-index:200">נשמר ✓</div>
+
+<script>
+var KEY='learning_log_v1';
+var FACTORS=[['transport','🚈 רכבת/תחבורה'],['renewal','🏗️ התחדשות'],['rights','📐 זכויות בנייה'],['jobs','💼 תעסוקה'],['below','💰 מתחת לשוק'],['env','🏭 מפגע סביבתי'],['supply','🏘️ עודף היצע'],['bureau','📋 בירוקרטיה'],['geo','🛡️ גאו-פוליטי']];
+var DEC=['קניתי','דחיתי','בהמתנה'];
+var OUT=['טרם ידוע','חיובי','שלילי','ניטרלי'];
+function fLabel(k){var f=FACTORS.find(function(x){return x[0]===k;});return f?f[1]:k;}
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||[];}catch(e){return [];}}
+function save(a){localStorage.setItem(KEY,JSON.stringify(a));}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
+function esc(s){return (s||'').replace(/[<>&"]/g,function(c){return({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'})[c];});}
+function toast(t){var e=document.getElementById('toast');e.textContent=t||'נשמר ✓';e.style.opacity='1';setTimeout(function(){e.style.opacity='0';},1500);}
+function fmtD(iso){if(!iso)return '';return new Date(iso).toLocaleDateString('he-IL');}
+
+function tab(p){document.querySelectorAll('.tab').forEach(function(t){t.classList.toggle('active',t.dataset.p===p);});document.querySelectorAll('.panel').forEach(function(x){x.classList.toggle('active',x.id===p);});if(p==='learn')renderLearn();}
+
+function decCls(d){return d==='קניתי'?'bought':(d==='דחיתי'?'rejected':'wait');}
+function decChip(d){return '<span class="dchip d-'+decCls(d)+'">'+d+'</span>';}
+function outChip(o){var m={'חיובי':'o-pos','שלילי':'o-neg','ניטרלי':'o-neu','טרם ידוע':'o-pend'};return '<span class="ochip '+(m[o]||'o-pend')+'">'+o+'</span>';}
+
+function render(){
+  var a=load();a.sort(function(x,y){return new Date(y.decidedAt||0)-new Date(x.decidedAt||0);});
+  document.getElementById('list').innerHTML=a.length?a.map(function(e,i){
+    var fch=(e.factors||[]).map(function(f){return '<span class="fchip">'+fLabel(f)+'</span>';}).join('');
+    return '<div class="entry '+decCls(e.decision)+'" onclick="openEdit('+i+')">'+
+      '<h3>'+esc(e.deal||'עסקה')+' '+decChip(e.decision)+'</h3>'+
+      '<div class="meta">'+esc(e.area||'')+(e.score?' · ציון '+e.score:'')+' · '+fmtD(e.decidedAt)+' · תוצאה: '+outChip(e.outcome||'טרם ידוע')+'</div>'+
+      (fch?'<div class="chips">'+fch+'</div>':'')+
+      (e.outcomeNotes?'<div class="meta" style="margin-top:5px">📌 '+esc(e.outcomeNotes)+'</div>':'')+
+    '</div>';
+  }).join(''):'<div class="hint" style="text-align:center">אין החלטות עדיין. כל עסקה שתקנה או תדחה - רשום כאן, וכשתדע את התוצאה תלמד ממנה.</div>';
+}
+
+function openAdd(){form(null);}
+function openEdit(i){form(i);}
+function form(i){
+  var a=load();var e=(i!==null)?a[i]:{deal:'',area:'',decision:'קניתי',score:'',factors:[],outcome:'טרם ידוע',outcomeNotes:''};
+  document.getElementById('modal').innerHTML=
+   '<button class="x" onclick="closeOv()">✕</button><h2>'+(i!==null?'✏️ עריכת החלטה':'➕ החלטה חדשה')+'</h2>'+
+   '<label>עסקה / נכס</label><input id="f_deal" value="'+esc(e.deal)+'">'+
+   '<div class="row2"><div><label>אזור</label><input id="f_area" value="'+esc(e.area||'')+'"></div><div><label>ציון יהלום (אם היה)</label><input id="f_score" value="'+esc(e.score||'')+'" placeholder="למשל 8% מתחת"></div></div>'+
+   '<label>ההחלטה</label><select id="f_decision">'+DEC.map(function(d){return '<option'+(d===e.decision?' selected':'')+'>'+d+'</option>';}).join('')+'</select>'+
+   '<h3>הגורמים שהשפיעו על ההחלטה</h3>'+FACTORS.map(function(f){return '<div class="ck"><input type="checkbox" id="fc_'+f[0]+'"'+((e.factors||[]).indexOf(f[0])>-1?' checked':'')+'><label style="margin:0">'+f[1]+'</label></div>';}).join('')+
+   '<h3>התוצאה בפועל (עדכן כשתדע)</h3>'+
+   '<select id="f_outcome">'+OUT.map(function(o){return '<option'+(o===(e.outcome||'טרם ידוע')?' selected':'')+'>'+o+'</option>';}).join('')+'</select>'+
+   '<label>מה קרה בפועל?</label><textarea id="f_onotes" style="min-height:55px" placeholder="לדוגמה: הערך עלה 12% תוך שנה אחרי שהוכרז פינוי-בינוי">'+esc(e.outcomeNotes||'')+'</textarea>'+
+   (i!==null&&e.decidedAt?'<div style="font-size:11px;color:var(--muted);margin-top:8px">🕒 הוחלט: '+new Date(e.decidedAt).toLocaleString('he-IL')+'</div>':'')+
+   '<button class="btn wide" onclick="saveEntry('+(i!==null?i:'-1')+')">💾 שמור</button>'+
+   (i!==null?'<button class="btn red wide" onclick="delEntry('+i+')">🗑️ מחק</button>':'');
+  document.getElementById('ov').classList.add('show');
+}
+function val(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+function chk(id){var e=document.getElementById(id);return e?e.checked:false;}
+function saveEntry(i){
+  var a=load();
+  var factors=FACTORS.filter(function(f){return chk('fc_'+f[0]);}).map(function(f){return f[0];});
+  var e={id:(i>-1&&a[i])?a[i].id:uid(),deal:val('f_deal')||'עסקה',area:val('f_area'),decision:val('f_decision'),score:val('f_score'),
+    factors:factors,outcome:val('f_outcome'),outcomeNotes:val('f_onotes'),
+    decidedAt:(i>-1&&a[i])?a[i].decidedAt:new Date().toISOString(),
+    outcomeAt:(val('f_outcome')!=='טרם ידוע')?new Date().toISOString():((i>-1&&a[i])?a[i].outcomeAt:null)};
+  if(i>-1)a[i]=e;else a.unshift(e);
+  save(a);closeOv();render();toast();
+}
+function delEntry(i){if(!confirm('למחוק?'))return;var a=load();a.splice(i,1);save(a);closeOv();render();}
+function closeOv(){document.getElementById('ov').classList.remove('show');}
+function exportData(){var d=localStorage.getItem(KEY)||'[]';var b=new Blob([d],{type:'application/json'});var u=URL.createObjectURL(b);var el=document.createElement('a');el.href=u;el.download='learning_log_'+new Date().toISOString().slice(0,10)+'.json';el.click();}
+
+function renderLearn(){
+  var a=load();
+  var bought=a.filter(function(e){return e.decision==='קניתי';}).length;
+  var withOut=a.filter(function(e){return e.outcome&&e.outcome!=='טרם ידוע';});
+  var pos=withOut.filter(function(e){return e.outcome==='חיובי';}).length;
+  var neg=withOut.filter(function(e){return e.outcome==='שלילי';}).length;
+  var rate=withOut.length?Math.round(pos/withOut.length*100):0;
+  // factors in positive vs negative
+  var posF={},negF={};
+  withOut.forEach(function(e){(e.factors||[]).forEach(function(f){if(e.outcome==='חיובי')posF[f]=(posF[f]||0)+1;if(e.outcome==='שלילי')negF[f]=(negF[f]||0)+1;});});
+  var maxP=Math.max(1,...Object.values(posF));
+  var posBars=Object.entries(posF).sort(function(a,b){return b[1]-a[1];}).map(function(en){
+    return '<div class="barrow"><span style="min-width:110px">'+fLabel(en[0])+'</span><div class="barfill" style="width:'+(en[1]/maxP*150)+'px"></div><b>'+en[1]+'</b></div>';
+  }).join('');
+  var insights=[];
+  if(a.length===0){insights.push('עדיין אין החלטות. כל עסקה שתרשום ותעדכן את תוצאתה - תבנה כאן בסיס ידע אישי שמשתפר.');}
+  else if(withOut.length===0){insights.push('רשמת '+a.length+' החלטות, אבל עוד לא עדכנת תוצאות. כשתדע מה קרה (הערך עלה? ירד?) - עדכן, וכאן יופיעו הדפוסים.');}
+  else{
+    insights.push('<b>שיעור הצלחה: '+rate+'%</b> ('+pos+' חיוביות מתוך '+withOut.length+' עם תוצאה ידועה).');
+    var topF=Object.entries(posF).sort(function(a,b){return b[1]-a[1];})[0];
+    if(topF)insights.push('🎯 הגורם שהכי חוזר בעסקאות מוצלחות: <b>'+fLabel(topF[0])+'</b>. שווה לחפש אותו.');
+    var topN=Object.entries(negF).sort(function(a,b){return b[1]-a[1];})[0];
+    if(topN)insights.push('⚠️ הגורם שהכי חוזר בעסקאות כושלות: <b>'+fLabel(topN[0])+'</b>. היזהר ממנו.');
+  }
+  document.getElementById('learnBody').innerHTML=
+    '<div class="grid3"><div class="stat"><div class="n">'+a.length+'</div><div class="l">החלטות</div></div><div class="stat"><div class="n">'+bought+'</div><div class="l">קניות</div></div><div class="stat"><div class="n">'+rate+'%</div><div class="l">שיעור הצלחה</div></div></div>'+
+    insights.map(function(t){return '<div class="insight">💡 '+t+'</div>';}).join('')+
+    (posBars?'<div style="font-size:13px;font-weight:bold;color:var(--purple-d);margin:12px 0 6px">גורמים בעסקאות מוצלחות:</div>'+posBars:'')+
+    '<button class="btn wide" style="margin-top:14px" onclick="genAnalysis()">🤖 צור פרומפט ניתוח עומק ל-ChatGPT/Claude</button><div id="anOut"></div>';
+}
+function genAnalysis(){
+  var a=load();
+  var data=a.map(function(e){return {deal:e.deal,area:e.area,decision:e.decision,factors:(e.factors||[]).map(fLabel),outcome:e.outcome,notes:e.outcomeNotes};});
+  var p='אני משקיע נדל"ן בקריות. להלן יומן ההחלטות שלי (עסקאות שקניתי/דחיתי, הגורמים שהשפיעו, והתוצאה בפועל). נתח כמומחה:\n\n'+
+    '1. אילו גורמים מנבאים תוצאה חיובית? אילו מנבאים כישלון?\n2. האם יש הטיה בהחלטות שלי (קונה/דוחה יותר מדי מהר)?\n3. 3 המלצות קונקרטיות לשיפור איתור היהלומים שלי.\n\nהנתונים:\n'+JSON.stringify(data,null,1);
+  navigator.clipboard.writeText(p).then(function(){toast('הפרומפט הועתק!');});
+  document.getElementById('anOut').innerHTML='<div class="promptbox">'+esc(p.slice(0,600))+(p.length>600?'\n... (הכל הועתק ללוח)':'')+'</div><div style="display:flex;gap:7px;margin-top:7px"><a class="btn sm" href="https://chatgpt.com" target="_blank" style="flex:1;text-align:center;text-decoration:none">ChatGPT</a><a class="btn sm gray" href="https://claude.ai" target="_blank" style="flex:1;text-align:center;text-decoration:none">Claude</a></div>';
+}
+render();
+</script>
+<script src="nav.js"></script>
+<script src="help.js"></script>
+</body>
+</html>

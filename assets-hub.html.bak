@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>🏘️ מרכז הנכסים | אבי חזן</title>
+<meta name="theme-color" content="#4a382b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="מרכז הנכסים">
+<style>
+  :root{
+    --ink:#2b2118; --bg:#fbf4e9; --card:#fff; --line:#e6d9c2; --muted:#78624f;
+    --terra:#c1764c; --terra-d:#a05c3a; --brown:#4a382b; --gold:#c9a25a;
+    --s1:#2c6ca5; --s2:#7e57c2; --s3:#c9a25a; --s4:#e08e0b; --s5:#2e7d32; --s6:#16a085;
+    --green:#2e7d32; --red:#c0392b; --shadow:0 2px 12px rgba(74,56,43,.10);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;}
+  body{background:var(--bg);color:var(--brown);line-height:1.6;padding:0 0 90px;-webkit-tap-highlight-color:transparent;}
+  header{background:linear-gradient(135deg,var(--brown),var(--terra-d));color:#fff;padding:20px 16px 16px;text-align:center;box-shadow:var(--shadow);}
+  header h1{font-size:23px;} header p{font-size:12.5px;opacity:.9;margin-top:3px;}
+  .wrap{max-width:860px;margin:0 auto;padding:16px 14px;}
+  .summary{display:grid;grid-template-columns:repeat(3,1fr);gap:9px;margin-bottom:18px;}
+  .sumcard{background:var(--card);border:1px solid var(--line);border-radius:13px;padding:13px 6px;text-align:center;box-shadow:var(--shadow);}
+  .sumcard .n{font-size:21px;font-weight:bold;color:var(--terra-d);} .sumcard .l{font-size:11px;color:var(--muted);}
+  .btn{border:none;border-radius:11px;padding:10px 16px;font-size:13px;font-weight:bold;cursor:pointer;color:#fff;background:var(--terra);font-family:inherit;}
+  .btn:active{transform:scale(.97);}
+  .btn.sm{padding:6px 11px;font-size:12px;} .btn.gray{background:#8a7a68;} .btn.green{background:var(--green);} .btn.red{background:var(--red);} .btn.wide{width:100%;margin-top:8px;} .btn.ghost{background:#fff;color:var(--terra-d);border:1px solid var(--gold);}
+  /* property card */
+  .pcard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:15px;margin-bottom:13px;box-shadow:var(--shadow);cursor:pointer;border-right:5px solid var(--terra);}
+  .pcard h3{font-size:18px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;}
+  .pcard .addr{font-size:12.5px;color:var(--muted);font-weight:normal;}
+  .stagebar{display:flex;gap:3px;margin-top:11px;}
+  .seg{flex:1;height:8px;border-radius:4px;background:#eee;}
+  .stagelabel{font-size:12px;font-weight:bold;margin-top:7px;}
+  .pmeta{display:flex;gap:14px;margin-top:8px;font-size:12.5px;color:var(--muted);flex-wrap:wrap;}
+  /* detail */
+  #detail{display:none;} #detail.show{display:block;}
+  #list.hide{display:none;}
+  .back{background:none;border:none;color:var(--terra-d);font-size:14px;font-weight:bold;cursor:pointer;margin-bottom:10px;}
+  .stage{background:var(--card);border:1px solid var(--line);border-radius:14px;margin-bottom:11px;box-shadow:var(--shadow);overflow:hidden;}
+  .stage-h{display:flex;align-items:center;gap:10px;padding:13px 15px;cursor:pointer;}
+  .stage-h .ico{width:34px;height:34px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;color:#fff;flex-shrink:0;}
+  .stage-h .t{flex:1;} .stage-h .t b{font-size:15px;display:block;} .stage-h .t small{font-size:11.5px;color:var(--muted);}
+  .stage-h .chev{color:var(--muted);font-size:13px;}
+  .stage-body{display:none;padding:0 15px 15px;}
+  .stage.open .stage-body{display:block;}
+  label{display:block;font-size:12px;font-weight:bold;color:var(--muted);margin:8px 0 3px;}
+  input,select,textarea{width:100%;padding:9px;border:1px solid #d8c8ad;border-radius:9px;font-family:inherit;font-size:14px;background:#fff;}
+  .row2{display:grid;grid-template-columns:1fr 1fr;gap:9px;}
+  .chk{display:flex;align-items:center;gap:9px;padding:6px 0;font-size:13px;}
+  .chk input{width:19px;height:19px;}
+  .minirow{display:flex;justify-content:space-between;align-items:center;background:var(--bg);border-radius:9px;padding:8px 11px;margin-bottom:6px;font-size:13px;}
+  .tools{display:flex;gap:7px;flex-wrap:wrap;margin-top:8px;}
+  .tool{text-decoration:none;background:var(--bg);border:1px solid var(--line);border-radius:9px;padding:7px 12px;font-size:12.5px;font-weight:bold;color:var(--terra-d);}
+  .ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;padding:16px;overflow:auto;} .ov.show{display:block;}
+  .modal{max-width:520px;margin:24px auto;background:var(--card);border-radius:16px;padding:18px;box-shadow:0 12px 50px rgba(0,0,0,.35);}
+  .modal .x{float:left;background:var(--red);color:#fff;border:none;border-radius:50%;width:30px;height:30px;font-size:15px;cursor:pointer;}
+  .hint{font-size:12px;color:var(--muted);background:#fff7e8;border:1px solid #f0e0bf;border-radius:10px;padding:9px 12px;margin-bottom:14px;}
+  footer{text-align:center;font-size:11px;color:var(--muted);margin-top:12px;}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏘️ מרכז הנכסים</h1>
+  <p>כל דירה לאורך כל המסע: איתור → רכישה → גיוס הון → שיפוץ → שיווק → ניהול</p>
+</header>
+
+<div class="wrap">
+  <!-- LIST VIEW -->
+  <div id="list">
+    <div class="hint">💡 כל נכס זורם בין 6 השלבים. לחץ על נכס לפתוח את כל מחזור החיים שלו. נשמר במכשיר.</div>
+    <div class="summary" id="summary"></div>
+    <div id="props"></div>
+    <button class="btn wide" onclick="openAddProp()">➕ הוסף נכס</button>
+    <button class="btn gray wide" onclick="exportData()">📤 גיבוי כל הנתונים</button>
+    <footer>מרכז הנכסים · v1.0 · נשמר מקומית · אבי חזן</footer>
+  </div>
+
+  <!-- DETAIL VIEW -->
+  <div id="detail">
+    <button class="back" onclick="closeDetail()">← חזרה לכל הנכסים</button>
+    <div id="detailContent"></div>
+  </div>
+</div>
+
+<div class="ov" id="ov"><div class="modal" id="modal"></div></div>
+<div id="toast" style="position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2e7d32;color:#fff;padding:11px 22px;border-radius:30px;font-weight:bold;opacity:0;transition:.3s;z-index:200">נשמר ✓</div>
+
+<script>
+var KEY='assets_hub_v1';
+var STAGES=[
+  {k:'source',name:'איתור',ico:'🔍',col:'var(--s1)',tool:['deals-db.html','מסד עסקאות']},
+  {k:'acq',name:'רכישה',ico:'🏢',col:'var(--s2)',tool:['simulator.html','סימולטור כדאיות']},
+  {k:'capital',name:'גיוס הון ומשקיעים',ico:'💰',col:'var(--s3)',tool:null},
+  {k:'reno',name:'שיפוץ והשבחה',ico:'🔨',col:'var(--s4)',tool:null},
+  {k:'market',name:'שיווק',ico:'📣',col:'var(--s5)',tool:['manage.html','מרכז שיווק']},
+  {k:'rental',name:'השכרה וניהול',ico:'🔑',col:'var(--s6)',tool:['cashflow.html','תזרים מזומנים']}
+];
+function load(){try{return JSON.parse(localStorage.getItem(KEY))||null;}catch(e){return null;}}
+function save(a){localStorage.setItem(KEY,JSON.stringify(a));}
+function uid(){return Date.now().toString(36)+Math.random().toString(36).slice(2,5);}
+function fmt(n){return Math.round(n||0).toLocaleString('he-IL');}
+function esc(s){return (s||'').replace(/[<>&"]/g,function(c){return({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'})[c];});}
+function toast(t){var e=document.getElementById('toast');e.textContent=t||'נשמר ✓';e.style.opacity='1';setTimeout(function(){e.style.opacity='0';},1400);}
+
+function seed(){
+  var a=load();
+  if(a)return a;
+  a=[
+    {id:uid(),name:'אחי אילת 5',addr:'קריית חיים מזרחית',stage:5,
+      acq:{price:0,sqm:42,rooms:2,bought:true},
+      capital:{target:0,investors:[]},
+      reno:{budget:0,tasks:[]},
+      market:{done:true},
+      rental:{rent:3700,tenant:'מאור (חתם 13.6.26)',status:'מושכרת'},
+      notes:'דירה ראשונה - מושכרת'},
+    {id:uid(),name:'דירה 2',addr:'(עדכן כתובת)',stage:5,
+      acq:{price:0,sqm:0,rooms:0,bought:true},
+      capital:{target:0,investors:[]},
+      reno:{budget:0,tasks:[]},
+      market:{done:true},
+      rental:{rent:3700,tenant:'',status:'מושכרת',contractEnd:'2027-08-10'},
+      notes:'דירה שנייה - מושכרת, חוזה עד 10/08/2027'}
+  ];
+  save(a);return a;
+}
+function getProps(){return load()||seed();}
+
+function render(){
+  var a=getProps();
+  var rented=a.filter(function(p){return p.rental&&p.rental.status==='מושכרת';}).length;
+  var totRent=a.reduce(function(s,p){return s+(+(p.rental&&p.rental.rent)||0);},0);
+  document.getElementById('summary').innerHTML=
+    '<div class="sumcard"><div class="n">'+a.length+'</div><div class="l">נכסים</div></div>'+
+    '<div class="sumcard"><div class="n">'+rented+'</div><div class="l">🔑 מושכרות</div></div>'+
+    '<div class="sumcard"><div class="n">'+fmt(totRent)+' ₪</div><div class="l">שכ"ד/חודש</div></div>';
+  document.getElementById('props').innerHTML=a.map(function(p,i){
+    var st=STAGES[p.stage||0];
+    var segs=STAGES.map(function(s,si){return '<div class="seg" style="background:'+(si<=(p.stage||0)?s.col:'#eee')+'"></div>';}).join('');
+    return '<div class="pcard" style="border-right-color:'+st.col+'" onclick="openDetail('+i+')">'+
+      '<h3>'+esc(p.name)+' <span style="font-size:12px;color:#fff;background:'+st.col+';padding:3px 11px;border-radius:20px">'+st.ico+' '+st.name+'</span></h3>'+
+      '<div class="addr">'+esc(p.addr||'')+'</div>'+
+      '<div class="stagebar">'+segs+'</div>'+
+      '<div class="pmeta">'+(p.rental&&p.rental.rent?'<span>🔑 '+fmt(p.rental.rent)+' ₪/ח</span>':'')+(p.rental&&p.rental.tenant?'<span>👤 '+esc(p.rental.tenant)+'</span>':'')+(p.rental&&p.rental.contractEnd?'<span>📅 חוזה עד '+new Date(p.rental.contractEnd).toLocaleDateString('he-IL')+'</span>':'')+'</div>'+
+    '</div>';
+  }).join('');
+}
+var curIdx=-1;
+function openDetail(i){
+  curIdx=i;var a=getProps();var p=a[i];
+  document.getElementById('list').classList.add('hide');
+  document.getElementById('detail').classList.add('show');
+  var h='<div class="pcard" style="cursor:default;border-right-color:var(--terra)"><h3>'+esc(p.name)+
+    ' <button class="btn sm ghost" onclick="editProp('+i+')">✏️ פרטים</button></h3><div class="addr">'+esc(p.addr||'')+'</div></div>';
+  STAGES.forEach(function(s,si){
+    var active=(p.stage||0)===si, done=(p.stage||0)>si;
+    h+='<div class="stage'+(active?' open':'')+'" id="stg'+si+'">'+
+      '<div class="stage-h" onclick="toggleStage('+si+')">'+
+        '<div class="ico" style="background:'+s.col+'">'+(done?'✓':s.ico)+'</div>'+
+        '<div class="t"><b>'+s.name+'</b><small>'+(done?'הושלם':(active?'שלב נוכחי':'ממתין'))+'</small></div>'+
+        '<div class="chev">▾</div>'+
+      '</div>'+
+      '<div class="stage-body">'+stageBody(s.k,p,i)+'</div>'+
+    '</div>';
+  });
+  document.getElementById('detailContent').innerHTML=h;
+  window.scrollTo(0,0);
+}
+function closeDetail(){document.getElementById('detail').classList.remove('show');document.getElementById('list').classList.remove('hide');render();}
+function toggleStage(si){document.getElementById('stg'+si).classList.toggle('open');}
+
+function stageBody(k,p,i){
+  if(k==='source'){
+    return field('מקור / איך מצאת','src_'+i,p.acq&&p.acq.source||'')+
+      tools([['deals-db.html','🏢 מסד עסקאות'],['https://www.nadlan.gov.il','נדל"ן ממשלתי']])+
+      saveBtn(i);
+  }
+  if(k==='acq'){
+    var aq=p.acq||{};
+    return '<div class="row2"><div>'+lbl('מחיר רכישה')+inp('aq_price_'+i,aq.price||'')+'</div><div>'+lbl('גודל מ"ר')+inp('aq_sqm_'+i,aq.sqm||'')+'</div></div>'+
+      '<div class="row2"><div>'+lbl('חדרים')+inp('aq_rooms_'+i,aq.rooms||'')+'</div><div>'+lbl('נקנתה?')+sel('aq_bought_'+i,['לא','כן'],aq.bought?'כן':'לא')+'</div></div>'+
+      tools([['simulator.html','🧮 סימולטור'],['deal-report.html','📑 דוח עסקה']])+saveBtn(i);
+  }
+  if(k==='capital'){
+    var c=p.capital||{investors:[]};var inv=c.investors||[];
+    var raised=inv.reduce(function(s,x){return s+(+x.amount||0);},0);
+    var list=inv.length?inv.map(function(x,xi){return '<div class="minirow"><span>👤 '+esc(x.name)+' · '+fmt(x.amount)+' ₪'+(x.pct?' ('+x.pct+'%)':'')+'</span><button class="btn sm red" onclick="delInv('+i+','+xi+')">✕</button></div>';}).join(''):'<div style="font-size:12.5px;color:var(--muted)">אין משקיעים עדיין.</div>';
+    return lbl('יעד גיוס (₪)')+inp('cap_target_'+i,c.target||'')+
+      '<div style="margin:8px 0;font-size:13px"><b>גויס: '+fmt(raised)+' ₪</b>'+(c.target>0?' מתוך '+fmt(c.target)+' ('+Math.round(raised/c.target*100)+'%)':'')+'</div>'+
+      list+
+      '<button class="btn sm green" style="margin-top:6px" onclick="addInv('+i+')">➕ הוסף משקיע</button>'+saveBtn(i);
+  }
+  if(k==='reno'){
+    var r=p.reno||{tasks:[]};var tasks=r.tasks||[];
+    var spent=tasks.reduce(function(s,x){return s+(+x.cost||0);},0);
+    var list=tasks.length?tasks.map(function(x,xi){return '<div class="minirow"><span>'+(x.done?'✅ ':'⬜ ')+esc(x.title)+' · '+fmt(x.cost)+' ₪</span><span><button class="btn sm" onclick="toggleTask('+i+','+xi+')">'+(x.done?'בטל':'בוצע')+'</button> <button class="btn sm red" onclick="delTask('+i+','+xi+')">✕</button></span></div>';}).join(''):'<div style="font-size:12.5px;color:var(--muted)">אין עבודות עדיין.</div>';
+    return lbl('תקציב שיפוץ (₪)')+inp('reno_budget_'+i,r.budget||'')+
+      '<div style="margin:8px 0;font-size:13px"><b>הוצא: '+fmt(spent)+' ₪</b>'+(r.budget>0?' מתוך '+fmt(r.budget):'')+'</div>'+
+      list+'<button class="btn sm green" style="margin-top:6px" onclick="addTask('+i+')">➕ הוסף עבודה</button>'+saveBtn(i);
+  }
+  if(k==='market'){
+    return lbl('סטטוס שיווק')+sel('mk_done_'+i,['בתהליך','הושלם / מושכרת'],(p.market&&p.market.done)?'הושלם / מושכרת':'בתהליך')+
+      tools([['manage.html','📣 מרכז שיווק'],['dashboard.html','📊 לידים'],['dira-gallery/','🏡 דף נחיתה']])+saveBtn(i);
+  }
+  if(k==='rental'){
+    var rt=p.rental||{};
+    var ceWarn='';
+    if(rt.contractEnd){var days=Math.round((new Date(rt.contractEnd)-new Date())/86400000);if(days<=120&&days>=0)ceWarn='<div style="font-size:12px;color:#c0392b;font-weight:bold;margin-top:5px">⏰ החוזה מסתיים בעוד '+days+' ימים - להתחיל לטפל בחידוש/שיווק</div>';}
+    return '<div class="row2"><div>'+lbl('שכ"ד חודשי')+inp('rt_rent_'+i,rt.rent||'')+'</div><div>'+lbl('סטטוס')+sel('rt_status_'+i,['','מושכרת','פנויה'],rt.status||'')+'</div></div>'+
+      lbl('שוכר')+inp('rt_tenant_'+i,esc(rt.tenant||''))+
+      lbl('תאריך סיום חוזה')+'<input type="date" id="rt_contract_'+i+'" value="'+esc(rt.contractEnd||'')+'">'+ceWarn+
+      tools([['cashflow.html','💰 תזרים מזומנים']])+saveBtn(i);
+  }
+  return '';
+}
+function lbl(t){return '<label>'+t+'</label>';}
+function inp(id,v){return '<input id="'+id+'" value="'+(v||'')+'">';}
+function field(t,id,v){return lbl(t)+inp(id,esc(v));}
+function sel(id,opts,cur){return '<select id="'+id+'">'+opts.map(function(o){return '<option'+(o===cur?' selected':'')+'>'+o+'</option>';}).join('')+'</select>';}
+function tools(arr){return '<div class="tools">'+arr.map(function(t){var ext=t[0].indexOf('http')===0?' target="_blank"':'';return '<a class="tool" href="'+t[0]+'"'+ext+'>'+t[1]+'</a>';}).join('')+'</div>';}
+function saveBtn(i){return '<button class="btn sm wide" onclick="saveStage('+i+')">💾 שמור שלב</button>';}
+function gv(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+function gn(id){return +gv(id)||0;}
+
+function saveStage(i){
+  var a=getProps();var p=a[i];
+  // collect any present fields
+  if(document.getElementById('src_'+i)){p.acq=p.acq||{};p.acq.source=gv('src_'+i);}
+  if(document.getElementById('aq_price_'+i)){p.acq=p.acq||{};p.acq.price=gn('aq_price_'+i);p.acq.sqm=gn('aq_sqm_'+i);p.acq.rooms=gn('aq_rooms_'+i);p.acq.bought=gv('aq_bought_'+i)==='כן';}
+  if(document.getElementById('cap_target_'+i)){p.capital=p.capital||{investors:[]};p.capital.target=gn('cap_target_'+i);}
+  if(document.getElementById('reno_budget_'+i)){p.reno=p.reno||{tasks:[]};p.reno.budget=gn('reno_budget_'+i);}
+  if(document.getElementById('mk_done_'+i)){p.market=p.market||{};p.market.done=gv('mk_done_'+i).indexOf('הושלם')>-1;}
+  if(document.getElementById('rt_rent_'+i)){p.rental=p.rental||{};p.rental.rent=gn('rt_rent_'+i);p.rental.status=gv('rt_status_'+i);p.rental.tenant=gv('rt_tenant_'+i);p.rental.contractEnd=gv('rt_contract_'+i);}
+  save(a);toast();openDetail(i);
+}
+function addInv(i){var name=prompt('שם המשקיע:');if(!name)return;var amt=+prompt('סכום שהתחייב (₪):')||0;var pct=+prompt('אחוז בעלות (אופציונלי):')||0;var a=getProps();a[i].capital=a[i].capital||{investors:[]};a[i].capital.investors=a[i].capital.investors||[];a[i].capital.investors.push({name:name,amount:amt,pct:pct});save(a);openDetail(i);}
+function delInv(i,xi){var a=getProps();a[i].capital.investors.splice(xi,1);save(a);openDetail(i);}
+function addTask(i){var t=prompt('עבודת שיפוץ:');if(!t)return;var c=+prompt('עלות (₪):')||0;var a=getProps();a[i].reno=a[i].reno||{tasks:[]};a[i].reno.tasks=a[i].reno.tasks||[];a[i].reno.tasks.push({title:t,cost:c,done:false});save(a);openDetail(i);}
+function toggleTask(i,xi){var a=getProps();var t=a[i].reno.tasks[xi];t.done=!t.done;save(a);openDetail(i);}
+function delTask(i,xi){var a=getProps();a[i].reno.tasks.splice(xi,1);save(a);openDetail(i);}
+
+function editProp(i){
+  var a=getProps();var p=a[i];
+  document.getElementById('modal').innerHTML='<button class="x" onclick="closeOv()">✕</button><h2 style="color:var(--terra-d)">✏️ פרטי נכס</h2>'+
+    lbl('שם')+inp('p_name',esc(p.name))+lbl('כתובת')+inp('p_addr',esc(p.addr||''))+
+    lbl('שלב נוכחי')+sel('p_stage',STAGES.map(function(s){return s.name;}),STAGES[p.stage||0].name)+
+    lbl('הערות')+'<textarea id="p_notes" style="min-height:50px">'+esc(p.notes||'')+'</textarea>'+
+    '<button class="btn wide" onclick="savePropDetail('+i+')">💾 שמור</button>'+
+    '<button class="btn red wide" onclick="delProp('+i+')">🗑️ מחק נכס</button>';
+  document.getElementById('ov').classList.add('show');
+}
+function savePropDetail(i){var a=getProps();a[i].name=gv('p_name')||'נכס';a[i].addr=gv('p_addr');a[i].notes=gv('p_notes');var si=STAGES.findIndex(function(s){return s.name===gv('p_stage');});a[i].stage=si<0?0:si;save(a);closeOv();openDetail(i);}
+function openAddProp(){
+  document.getElementById('modal').innerHTML='<button class="x" onclick="closeOv()">✕</button><h2 style="color:var(--terra-d)">➕ נכס חדש</h2>'+
+    lbl('שם')+inp('p_name','')+lbl('כתובת')+inp('p_addr','')+lbl('שלב')+sel('p_stage',STAGES.map(function(s){return s.name;}),'איתור')+
+    '<button class="btn wide" onclick="createProp()">💾 צור נכס</button>';
+  document.getElementById('ov').classList.add('show');
+}
+function createProp(){var a=getProps();var si=STAGES.findIndex(function(s){return s.name===gv('p_stage');});a.unshift({id:uid(),name:gv('p_name')||'נכס חדש',addr:gv('p_addr'),stage:si<0?0:si,acq:{},capital:{investors:[]},reno:{tasks:[]},market:{},rental:{},notes:''});save(a);closeOv();render();}
+function delProp(i){if(!confirm('למחוק את הנכס לצמיתות?'))return;var a=getProps();a.splice(i,1);save(a);closeOv();closeDetail();}
+function closeOv(){document.getElementById('ov').classList.remove('show');}
+function exportData(){var data=localStorage.getItem(KEY)||'[]';var b=new Blob([data],{type:'application/json'});var u=URL.createObjectURL(b);var el=document.createElement('a');el.href=u;el.download='assets_hub_backup_'+new Date().toISOString().slice(0,10)+'.json';el.click();}
+document.addEventListener('keydown',function(e){if(e.key==='Escape'){closeOv();}});
+render();
+</script>
+<script src="nav.js"></script>
+<script src="help.js"></script>
+</body>
+</html>

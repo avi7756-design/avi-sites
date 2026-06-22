@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVI HUNTER — דוקטרינה v4 (19.6.26)</title>
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Arial,sans-serif;background:#eef1f7;color:#1a2030;line-height:1.65;padding:16px}
+.doc{max-width:880px;margin:0 auto;background:#fff;border-radius:16px;box-shadow:0 4px 24px rgba(20,30,60,.08);overflow:hidden}
+.hdr{background:linear-gradient(135deg,#0f2e1d,#1d5a3a);color:#fff;padding:24px 30px}
+.hdr h1{font-size:21px;margin-bottom:4px}
+.hdr .sub{font-size:12.5px;color:#bfe9cf}
+.hdr .ver{display:inline-block;margin-top:9px;background:#1d7a44;font-size:11.5px;font-weight:700;padding:4px 11px;border-radius:20px}
+.banner{background:#eafaf0;border-right:4px solid #1d7a44;padding:11px 18px;font-size:13px;color:#155}
+.body{padding:22px 30px}
+h2{font-size:16px;color:#15603a;margin:22px 0 9px;padding-bottom:5px;border-bottom:2px solid #e6eaf3}
+h2:first-child{margin-top:0}
+p{font-size:13px;margin-bottom:7px}
+ul{margin:4px 22px 9px}
+li{font-size:13px;margin-bottom:4px}
+table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+th,td{border:1px solid #e3e9f4;padding:7px 9px;text-align:right}
+th{background:#eafaf0;color:#15603a}
+.big{background:#f5fbf7;border:1px solid #bfe9cf;border-radius:12px;padding:14px 16px;margin:10px 0}
+.callout{background:#eef4ff;border-right:4px solid #3a5bb0;border-radius:0 10px 10px 0;padding:11px 16px;margin:11px 0;font-size:13px}
+.kill{background:#f1f3f7;border-right:4px solid #9aa0a6;border-radius:0 10px 10px 0;padding:11px 16px;margin:11px 0;font-size:13px;color:#555}
+.foot{padding:14px 30px;background:#f5fbf7;border-top:1px solid #e6eaf3;font-size:11px;color:#7a8398;text-align:center}
+@media print{body{background:#fff;padding:0}.doc{box-shadow:none}}
+</style>
+</head>
+<body>
+<nav id="avi-nav" dir="rtl" style="position:sticky;top:0;z-index:99999;display:flex;gap:8px;justify-content:center;align-items:center;background:#15233f;padding:8px 10px;border-bottom:1px solid #2a3a55;font-family:'Segoe UI',Arial,sans-serif"><button onclick="history.back()" style="cursor:pointer;border:1px solid #34527d;border-radius:8px;background:#23386a;color:#fff;font-size:13px;font-weight:700;padding:7px 14px;font-family:inherit">◀ אחורה</button><a href="dashboard-v4.html" style="cursor:pointer;border:1px solid #2a6b40;border-radius:8px;background:#2ecc71;color:#0d1117;font-size:13px;font-weight:800;padding:7px 16px;text-decoration:none;display:inline-block">🏠 דשבורד (בית)</a><button onclick="history.forward()" style="cursor:pointer;border:1px solid #34527d;border-radius:8px;background:#23386a;color:#fff;font-size:13px;font-weight:700;padding:7px 14px;font-family:inherit">קדימה ▶</button></nav>
+
+<div class="doc">
+<div class="hdr">
+  <h1>🛡️ AVI HUNTER — דוקטרינה: תיק מדד מוגן</h1>
+  <div class="sub">אמינות · פשטות · מבוסס-ראיות · חשבון IBKR U24234851</div>
+  <span class="ver">v4 · 19.6.2026 · מחליף v3</span>
+</div>
+<div class="banner"><b>השינוי המרכזי v3→v4:</b> <b>הלוויין בוטל לחלוטין</b> (אין רוטציה, אין מגה-קאפ, אין כסף אמיתי). <b>סורק 5★ והתראות - כובו.</b> המטרה: תשואת שוק בסיכון נמוך, בפשטות מוחלטת.</div>
+<div class="body">
+
+  <div class="big">
+    <b>🎯 המטרה (מוגדרת מחדש בכנות):</b> להשיג <b>תשואת שוק (~8-10%) בסיכון נמוך</b> - ובכך לנצח ~88% מהמשקיעים בכך ש<b>לא מפסידים לשוק.</b> אין מרדף אחרי אלפא. אין "ודאות". יש משמעת ופשטות.
+  </div>
+
+  <h2>0 · ההקצאה</h2>
+  <table>
+    <tr><th>שכבה</th><th>%</th><th>מכשיר</th><th>תפקיד</th></tr>
+    <tr><td><b>ליבה</b></td><td>75%</td><td><b>VOO</b></td><td>המנוע. תשואת שוק. אחזקה, לא תזמון.</td></tr>
+    <tr><td><b>הגנה</b></td><td>15%</td><td>אג"ח קצר (SHY/IEF) + מעט זהב (IAU)</td><td>מוריד Drawdown - האמינות.</td></tr>
+    <tr><td><b>מזומן</b></td><td>10%</td><td>₪ / $</td><td>כרית + תחמושת לאיזון.</td></tr>
+    <tr style="background:#f1f3f7"><td><b>לוויין</b></td><td>0%</td><td>—</td><td><b>בוטל.</b></td></tr>
+  </table>
+
+  <h2>1 · חוקי הליבה (VOO)</h2>
+  <ul>
+    <li>פריסה ב-DCA לפי לוח. <b>אין תזמון</b> - לא כפופה לרמזור/חדשות.</li>
+    <li>אחזקה ארוכת-טווח. אין כניסה/יציאה טקטית.</li>
+    <li>מנה 1 ✅ בוצעה 18.6 (41 VOO @686.59). מנות הבאות לפי לוח.</li>
+    <li>איזון מחדש <b>רבעוני</b> - להחזיר אחוזים ליעד.</li>
+  </ul>
+
+  <h2>2 · שכבת ההגנה (15%)</h2>
+  <ul>
+    <li><b>אג"ח קצר-בינוני</b> (SHY/IEF): תשואה ~4.4% היום, כרית מול נפילת מניות. <b>להימנע מדיורציה ארוכה</b> (TLT) - פד ניצי.</li>
+    <li><b>זהב</b> (IAU): ~5-7%, גידור זנב גאופוליטי. <b>להיכנס במנות</b> (זהב ליד שיא).</li>
+    <li>נפרסת במקביל לליבה, מ-USD.</li>
+  </ul>
+
+  <h2>3 · מטבע ופריסה</h2>
+  <p>ברוקר אמריקאי בלבד → הכל נקוב-דולר. $121K דולר נפרס במקומו. שקלים: להמיר חלק (~₪70-130K) במנות, בעוד השקל חזק. שאר השקלים = כרית.</p>
+
+  <h2>4 · מה הדוקטרינה מבטלת</h2>
+  <ul>
+    <li><b>הלוויין</b> (רוטציית מומנטום / מגה-קאפ / נייר) - מבוטל. אין כסף אמיתי, אין מעקב.</li>
+    <li><b>סורק 5★ + התראות</b> - כובו ב-n8n (19.6). אין יותר אימיילים.</li>
+    <li>כל תזמון, בחירת מניות, ומרדף אחרי "להכות את SPY".</li>
+  </ul>
+
+  <div class="callout">
+    <b>למה זה הדבר הנכון (מבוסס-ראיות):</b> 5 בדיקות שלך הוכיחו שלסווינג אין אלפא (1.47% מול 9-10%). אפילו וריאנט החוזק-היחסי נתן +3.16% - עדיין מתחת ל-SPY. ספר הצללים מדד וקבע: הסווינג מפסיד לשוק. <b>חוות דעת חיצונית על "שיפור הסורק" לא משנה זאת - היא מכווננת 0.5% בשיטה שמפסידה.</b>
+  </div>
+
+  <div class="kill">
+    <b>האמת היפה:</b> המערכת עכשיו <b>פשוטה, אמינה, ושקטה.</b> פורסים VOO + הגנה במנות, מאזנים רבעוני, וחיים את החיים. אין מסכים לבהות בהם, אין התראות, אין פאניקה. זה מה שמנצח את רוב המשקיעים - לא חוכמה, אלא משמעת.
+  </div>
+
+</div>
+<div class="foot">AVI HUNTER · דוקטרינה v4 (תיק מדד מוגן) · 19.6.2026 · מחליף v3 · אין באמור ייעוץ השקעות - ההחלטות והביצוע באחריות אבי בלבד</div>
+</div>
+</body>
+</html>

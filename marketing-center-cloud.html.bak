@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>מרכז ניהול שיווק - דירה אחי אילת 5</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#c1764c">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="מרכז שיווק">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="apple-touch-icon.png">
+<style>
+  :root{
+    --terra:#c1764c; --terra-d:#a05c3a; --brown:#4a382b; --brown-s:#78624f;
+    --gold:#c9a25a; --cream:#fbf4e9; --card:#f5ecd9; --white:#fff;
+    --green:#25d366; --blue:#2563eb; --ok:#2e7d32; --red:#c0392b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;}
+  body{background:var(--cream);color:var(--brown);line-height:1.6;padding:0 0 40px;}
+  header{background:var(--terra);color:#fff;padding:14px 20px;text-align:center;position:sticky;top:0;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.2);}
+  header h1{font-size:21px;}
+  header p{font-size:13px;opacity:.9;}
+  .hbtns{margin-top:8px;display:flex;gap:8px;justify-content:center;}
+  .hbtn{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.5);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:bold;cursor:pointer;}
+  .wrap{max-width:1000px;margin:0 auto;padding:16px;}
+  .tabs{display:flex;flex-wrap:wrap;gap:6px;justify-content:center;margin:14px 0;}
+  .tab{background:var(--card);border:1px solid var(--gold);border-radius:30px;padding:8px 16px;font-size:14px;font-weight:bold;color:var(--terra-d);cursor:pointer;}
+  .tab.active{background:var(--terra);color:#fff;}
+  .panel{display:none;}
+  .panel.active{display:block;}
+  .grid-actions{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:18px;}
+  .action{display:block;text-decoration:none;background:var(--white);border:1px solid #e6d9c2;border-radius:14px;padding:16px;text-align:center;color:var(--brown);box-shadow:0 1px 4px rgba(0,0,0,.05);}
+  .action:hover{border-color:var(--terra);}
+  .action .ico{font-size:30px;}
+  .action b{display:block;font-size:15px;margin-top:6px;color:var(--terra-d);}
+  .action small{color:var(--brown-s);font-size:12px;}
+  .msgcard{background:var(--white);border:1px solid #e6d9c2;border-radius:14px;padding:14px 16px;margin-bottom:14px;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+  .msgcard h3{font-size:15px;color:var(--terra-d);margin-bottom:8px;display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;}
+  .msgbody{background:var(--cream);border-radius:10px;padding:12px;font-size:14px;white-space:pre-wrap;border:1px dashed #ddc9a8;}
+  .btn{border:none;border-radius:30px;padding:8px 16px;font-size:13px;font-weight:bold;cursor:pointer;color:#fff;background:var(--terra);text-decoration:none;display:inline-block;}
+  .btn.copy{background:var(--blue);}
+  .btn.ok{background:var(--ok);}
+  .btn.sm{padding:5px 12px;font-size:12px;}
+  .btn.gray{background:#8a7a68;}
+  .btn.red{background:var(--red);}
+  .btn.wa{background:var(--green);}
+  .photos{display:grid;grid-template-columns:repeat(auto-fill,minmax(130px,1fr));gap:10px;}
+  .photos figure{background:var(--white);border:1px solid #e6d9c2;border-radius:10px;overflow:hidden;text-align:center;}
+  .photos img{width:100%;height:110px;object-fit:cover;display:block;cursor:pointer;}
+  .photos figcaption{font-size:11px;padding:5px 4px;color:var(--brown-s);}
+  .photos .pbtns{display:flex;gap:4px;padding:0 6px 8px;justify-content:center;}
+  table{width:100%;border-collapse:collapse;background:var(--white);border-radius:12px;overflow:hidden;font-size:13px;}
+  th,td{padding:8px 6px;border-bottom:1px solid #eee;text-align:right;}
+  th{background:var(--card);color:var(--terra-d);}
+  tr.clk{cursor:pointer;} tr.clk:hover{background:#fbf4e9;}
+  select,input,textarea{font-family:inherit;font-size:13px;padding:7px;border:1px solid #ccc;border-radius:8px;width:100%;}
+  .badge{padding:3px 9px;border-radius:20px;font-size:11px;font-weight:bold;color:#fff;display:inline-block;}
+  .b-new{background:#2563eb;} .b-contacted{background:#c9a25a;} .b-visit{background:#7e57c2;}
+  .b-closed{background:#2e7d32;} .b-lost{background:#9e9e9e;}
+  .t-hot{background:#e53935;} .t-warm{background:#fb8c00;} .t-cold{background:#90a4ae;}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2e7d32;color:#fff;padding:12px 24px;border-radius:30px;font-weight:bold;opacity:0;transition:.3s;z-index:120;}
+  .toast.show{opacity:1;}
+  .hint{font-size:12px;color:var(--brown-s);background:#fff7e8;border:1px solid #f0e0bf;border-radius:10px;padding:10px;margin-bottom:14px;}
+  h2.sec{font-size:18px;color:var(--terra-d);margin:6px 0 12px;}
+  .setlink{display:flex;gap:6px;align-items:center;margin-bottom:8px;}
+  .setlink label{min-width:120px;font-size:13px;font-weight:bold;}
+  .linkrow{display:flex;align-items:center;gap:8px;background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:9px 12px;margin-bottom:8px;box-shadow:0 1px 3px rgba(0,0,0,.04);}
+  .linkrow .lnk{flex:1;text-decoration:none;color:var(--brown);font-weight:bold;font-size:14px;min-width:0;}
+  .linkrow .lnk:hover{color:var(--terra-d);}
+  .linkrow .lnk small{display:block;font-weight:normal;color:var(--brown-s);font-size:11px;word-break:break-all;}
+  .linkrow .go{flex:0 0 auto;}
+  /* modal */
+  .overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:100;padding:20px;overflow:auto;}
+  .overlay.show{display:block;}
+  .modal{max-width:640px;margin:30px auto;background:var(--cream);border-radius:16px;padding:20px;box-shadow:0 10px 40px rgba(0,0,0,.3);}
+  .modal h2{color:var(--terra-d);font-size:20px;margin-bottom:4px;}
+  .modal .x{float:left;background:var(--red);color:#fff;border:none;border-radius:50%;width:32px;height:32px;font-size:16px;cursor:pointer;}
+  .helpItem{background:var(--white);border:1px solid #e6d9c2;border-radius:10px;padding:10px 12px;margin-bottom:8px;}
+  .helpItem b{color:var(--terra-d);display:block;margin-bottom:3px;}
+  .helpItem p{font-size:13px;color:var(--brown-s);}
+  .tl{background:var(--white);border-right:3px solid var(--gold);border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:13px;}
+  .tl small{color:var(--brown-s);}
+  .obj{background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:12px 14px;margin-bottom:10px;}
+  .obj b{color:var(--terra-d);font-size:15px;}
+  .obj p{font-size:14px;margin-top:5px;}
+  /* TODAY - daily mission wizard */
+  .todaywrap{max-width:600px;margin:0 auto;}
+  .dayprog{background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:12px 14px;margin-bottom:14px;text-align:center;}
+  .dayprog .pt{color:var(--terra-d);font-size:16px;font-weight:bold;}
+  .dayprog .pbar{background:#eee;border-radius:20px;height:14px;margin-top:8px;overflow:hidden;}
+  .dayprog .pbar>div{height:100%;background:var(--ok);width:0;transition:.3s;}
+  .mcard{background:var(--white);border:2px solid var(--gold);border-radius:18px;padding:18px;box-shadow:0 4px 16px rgba(0,0,0,.08);text-align:center;}
+  .mcard .step{display:inline-block;font-size:13px;color:#fff;background:var(--terra);border-radius:20px;padding:3px 14px;font-weight:bold;margin-bottom:8px;}
+  .mcard .mtitle{font-size:22px;color:var(--terra-d);margin:4px 0;font-weight:bold;}
+  .mcard .mexp{font-size:14px;color:var(--brown-s);margin-bottom:14px;}
+  .mtext{background:var(--cream);border:1px dashed #ddc9a8;border-radius:10px;padding:12px;font-size:14px;white-space:pre-wrap;text-align:right;margin-bottom:12px;line-height:1.5;}
+  .bigcopy{font-size:17px;padding:14px 20px;width:100%;margin-bottom:10px;}
+  .mphotos{display:grid;grid-template-columns:repeat(5,1fr);gap:6px;margin:12px 0;align-items:start;}
+  .mphotos img{width:100%;height:58px;object-fit:cover;border-radius:8px;border:1px solid #e6d9c2;cursor:pointer;}
+  .mphotos .cap{grid-column:1/-1;font-size:12px;color:var(--brown-s);font-weight:bold;text-align:right;}
+  .bigdone{background:var(--green);color:#fff;font-size:20px;font-weight:bold;border:none;border-radius:16px;padding:18px;width:100%;cursor:pointer;box-shadow:0 4px 12px rgba(37,211,102,.4);margin-top:8px;}
+  .bigdone:active{transform:scale(.98);}
+  .skiptoday{background:none;border:none;color:#aaa;font-size:13px;cursor:pointer;margin-top:10px;text-decoration:underline;}
+  .timerbox{font-size:46px;font-weight:bold;color:var(--terra-d);font-variant-numeric:tabular-nums;margin:10px 0;}
+  .donescreen{text-align:center;padding:24px 12px;}
+  .donescreen .trophy{font-size:64px;}
+  .hist h2.sec{margin-top:20px;}
+  .histrow{display:flex;justify-content:space-between;background:var(--white);border:1px solid #e6d9c2;border-radius:8px;padding:8px 12px;margin-bottom:6px;font-size:13px;}
+  .histrow.istoday{border-color:var(--terra);background:#fff7e8;}
+  /* TODAY - manual control bar + journal (v2.7) */
+  .todaynav{background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:10px 12px;margin-bottom:12px;}
+  .navjumps{display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:8px;}
+  .navjump{width:38px;height:38px;border-radius:50%;border:2px solid var(--gold);background:var(--cream);color:var(--terra-d);font-weight:bold;font-size:15px;cursor:pointer;line-height:1;}
+  .navjump.cur{background:var(--terra);color:#fff;border-color:var(--terra);transform:scale(1.08);}
+  .navjump.done{background:var(--ok);color:#fff;border-color:var(--ok);}
+  .navjump.done.cur{box-shadow:0 0 0 2px #fff,0 0 0 4px var(--terra);}
+  .navjump.skip{background:#ddd;color:#888;border-color:#ccc;}
+  .navarrows{display:flex;gap:8px;justify-content:center;margin-bottom:8px;}
+  .navchecks{display:flex;flex-direction:column;gap:4px;margin-bottom:8px;border-top:1px dashed #e6d9c2;padding-top:8px;}
+  .navchk{display:flex;align-items:center;gap:8px;font-size:14px;cursor:pointer;}
+  .navchk input{width:auto;flex:0 0 auto;transform:scale(1.2);}
+  .navchk.isdone span{color:var(--ok);font-weight:bold;}
+  .navstatus{font-size:13px;font-weight:bold;color:var(--terra-d);background:var(--cream);border-radius:8px;padding:8px 10px;text-align:center;}
+  .todayjournal{background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:10px 12px;margin-bottom:12px;}
+  .jrow{font-size:13px;border-right:3px solid var(--gold);background:var(--cream);border-radius:6px;padding:6px 9px;margin-bottom:5px;}
+  /* bottom navigation (mobile PWA) */
+  .bottomnav{display:none;position:fixed;bottom:0;left:0;right:0;z-index:90;
+    background:var(--terra);box-shadow:0 -2px 12px rgba(0,0,0,.25);
+    padding-bottom:env(safe-area-inset-bottom);
+    grid-template-columns:repeat(4,1fr);}
+  .bottomnav button{background:none;border:none;color:rgba(255,255,255,.85);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;
+    padding:8px 4px 6px;font-size:11px;font-weight:bold;cursor:pointer;min-height:56px;}
+  .bottomnav button .bico{font-size:22px;line-height:1;}
+  .bottomnav button.active{color:#fff;}
+  .bottomnav button.active .bico{transform:scale(1.12);}
+  @media(max-width:768px){
+    body{padding-bottom:calc(72px + env(safe-area-inset-bottom));}
+    .bottomnav{display:grid;}
+    header h1{font-size:17px;}
+    header p{font-size:12px;}
+    .hbtns{flex-wrap:wrap;}
+    .hbtn{padding:5px 10px;font-size:12px;}
+    .tabs{flex-wrap:nowrap;overflow-x:auto;-webkit-overflow-scrolling:touch;
+      justify-content:flex-start;padding-bottom:4px;scrollbar-width:none;}
+    .tabs::-webkit-scrollbar{display:none;}
+    .tab{flex:0 0 auto;white-space:nowrap;}
+  }
+</style>
+</head>
+<body>
+<header>
+  <h1>🎯 מרכז ניהול שיווק - דירה אחי אילת 5</h1>
+  <p>קריית חיים מזרחית · 3,700 ₪ כולל הכל · 052-594-4424</p>
+  <div class="hbtns">
+    <button class="hbtn" onclick="openHelp()">❓ עזרה (F1)</button>
+    <button class="hbtn" onclick="goHome()">🏠 מסך ראשי (F2)</button>
+  </div>
+</header>
+
+<div class="wrap">
+  <div class="tabs">
+    <div class="tab active" data-p="today">🎯 היום</div>
+    <div class="tab" data-p="msgs">💬 הודעות</div>
+    <div class="tab" data-p="qa">❓ שו"ת</div>
+    <div class="tab" data-p="photos">📸 מדיה ופרסום</div>
+    <div class="tab" data-p="leads">👥 לידים (חי)</div>
+    <div class="tab" data-p="objections">🧠 התנגדויות</div>
+    <div class="tab" data-p="channels">📢 ערוצי פרסום</div>
+    <div class="tab" data-p="links">🔗 קישורים</div>
+  </div>
+
+  <!-- TODAY (daily mission wizard) -->
+  <div class="panel active" id="today">
+    <div class="todaywrap">
+      <div class="dayprog" id="todayProg"></div>
+      <div class="todaynav" id="todayNav"></div>
+      <div id="todayCard"></div>
+      <div class="todayjournal" id="todayJournal"></div>
+      <div class="hist" id="todayHist"></div>
+    </div>
+  </div>
+
+  <!-- MESSAGES -->
+  <div class="panel" id="msgs">
+    <div class="hint">לחץ "העתק" וההודעה נכנסת ללוח. עבור לוואטסאפ והדבק (Ctrl+V). הכוכביות *...* הופכות למודגש בוואטסאפ.</div>
+    <div class="msgcard">
+      <h3>⚡ פתיח מהיר (פנייה ראשונה / ליד 2) <button class="btn copy sm" onclick="cp('m_quick')">📋 העתק</button></h3>
+      <div class="msgbody" id="m_quick">היי! 😊 הדירה עדיין פנויה.
+2 חד' מרוהטת קומפלט + מרפסת 20 מ"ר, שדרות אחי אילת 5 קריית חיים.
+3,700 ₪ כולל הכל (חוץ מחשמל), כניסה מיידית, ללא תיווך, חניון תת-קרקעי שמור.
+רוצה לקבוע ביקור? אני גמיש בשעות 📞 052-594-4424
+🔗 כל התמונות: https://avi7756-design.github.io/avi-sites/dira-gallery/</div>
+    </div>
+    <div class="msgcard">
+      <h3>🎥 מסנן לפני ביקור (חובה לכל ליד לפני תיאום) <button class="btn copy sm" onclick="cp('m_filter')">📋 העתק</button></h3>
+      <div class="msgbody" id="m_filter">לפני שנקבע ביקור - תציץ רגע בגלריה ובסרטון (30 שניות), כולל הסעיף 'שקיפות מלאה - חשוב לדעת לפני ביקור': https://avi7756-design.github.io/avi-sites/dira-gallery/
+אם אחרי זה זה נשמע מתאים - אשמח לקבוע לך ביקור עוד היום 😊</div>
+    </div>
+    <div class="msgcard">
+      <h3>📄 מידע מלא (למתעניין רציני) <button class="btn copy sm" onclick="cp('m_full')">📋 העתק</button></h3>
+      <div class="msgbody" id="m_full">🏠 *דירה מרוהטת קומפלט להשכרה - קריית חיים מזרחית*
+
+היי 😊 תודה על ההתעניינות! הנה כל המידע:
+
+📍 *כתובת:* שדרות אחי אילת 5, קריית חיים מזרחית, חיפה
+🛏️ *גודל:* 2 חדרים, 40 מ"ר + מרפסת ענקית 20 מ"ר
+🛗 *קומה:* 2 עם מעלית
+🅿️ *חניה:* חניון תת-קרקעי שמור
+🛡️ *ממ"ד:* קומתי בבניין
+♿ *נגישות:* מלאה - מתאים גם למבוגרים ולאנשים עם מוגבלות
+🛋️ *ריהוט:* מרוהטת קומפלט - נכנסים עם מזוודה בלבד
+
+💰 *מחיר: 3,700 ₪ לחודש - כולל הכל:*
+✅ ארנונה ✅ ועד בית (411₪) ✅ מים ✅ כבלים ✅ אינטרנט
+👈 רק חשמל בנפרד
+
+📅 *כניסה:* מיידית
+🤝 *ללא תיווך* - ישירות מהבעלים
+🔗 *כל התמונות:* https://avi7756-design.github.io/avi-sites/dira-gallery/
+📞 052-594-4424</div>
+    </div>
+    <div class="msgcard">
+      <h3>🌅 תזכורת / מעקב (אם לא ענה) <button class="btn copy sm" onclick="cp('m_follow')">📋 העתק</button></h3>
+      <div class="msgbody" id="m_follow">היי 😊 רק לוודא שראית - הדירה באחי אילת 5 עדיין פנויה לכניסה מיידית.
+אם זה רלוונטי, אשמח לתאם ביקור קצר השבוע. 📞 052-594-4424</div>
+    </div>
+  </div>
+
+  <!-- Q&A -->
+  <div class="panel" id="qa">
+    <div class="hint">תשובות מדויקות ומאומתות. כל תשובה עם כפתור העתקה. <button class="btn ok sm" onclick="cpAllQA()">📋 העתק את כל השו"ת</button></div>
+    <div id="qaList"></div>
+  </div>
+
+  <!-- PHOTOS -->
+  <div class="panel" id="photos">
+    <div class="hint">לחיצה על תמונה פותחת אותה בגדול (לשמירה/שליחה). "קישור" מעתיק כתובת ישירה לתמונה.</div>
+    <!-- פוסטים לקבוצות -->
+    <div id="groupPosts" style="margin-bottom:14px;">
+      <h2 class="sec" style="font-size:16px;margin:0 0 6px;">📝 פוסטים לקבוצות (העתק בלחיצה)</h2>
+      <div class="hint" style="margin-bottom:10px;"><b>חוק זהב:</b> לא אותה גרסה בשתי קבוצות באותו יום. צרף 4-5 תמונות כולל המטבחון.</div>
+      <div id="postCards"></div>
+    </div>
+    <div class="linkrow" style="margin-bottom:14px;border:2px solid var(--gold);"><a class="lnk" href="https://avi7756-design.github.io/avi-sites/dira-gallery/" target="_blank" rel="noopener">🖼️ גלריית הדירה<small>https://avi7756-design.github.io/avi-sites/dira-gallery/</small></a><button class="btn copy sm go" onclick="cpText('https://avi7756-design.github.io/avi-sites/dira-gallery/')">📋</button><a class="btn sm go" style="background:#2563eb" href="https://avi7756-design.github.io/avi-sites/dira-gallery/" target="_blank" rel="noopener">🔗</a></div>
+    <div style="background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin-bottom:14px;"><b style="color:var(--terra-d);font-size:15px">⚡ ערכת שיתוף מהירה</b><div style="margin-top:8px;display:flex;gap:6px;flex-wrap:wrap;"><button class="btn copy sm" onclick="cpText('https://avi7756-design.github.io/avi-sites/dira-gallery/')">📋 קישור לגלריה המלאה</button><button class="btn ok sm" onclick="cpShareKit()">📋 ריל ראשי + טקסט</button><button class="btn copy sm" onclick="cp('m_full')">📋 מידע מלא</button><button class="btn sm" style="background:#25d366" onclick="waShare()">📤 שלח בוואטסאפ</button></div></div><h2 class="sec" style="font-size:16px">📄 עלון ופלייר</h2><div class="photos" id="fileGrid"><div style="color:#888;font-size:13px;padding:8px">טוען...</div></div><h2 class="sec" style="font-size:16px;margin-top:14px">🎬 סרטונים</h2><div class="photos" id="videoGrid"><div style="color:#888;font-size:13px;padding:8px">טוען סרטונים...</div></div><h2 class="sec" style="font-size:16px;margin-top:14px">📸 תמונות</h2><div class="photos" id="photoGrid"></div>
+  </div>
+
+  <!-- LEADS -->
+  <div class="panel" id="leads">
+    <div class="hint">לידים <b>חיים מהמערכת</b>. 🔥 חם = רוצה לסגור עכשיו (מופיע ראשון). <b>לחץ על ליד</b> כדי לפתוח כרטיס מעקב עם היסטוריה, חיוג/וואטסאפ וקביעת חום.</div>
+    <div style="background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin-bottom:14px;">
+      <b id="leadStats" style="color:var(--terra-d);font-size:16px;">טוען לידים...</b>
+      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="btn ok sm" onclick="fetchLeads()">🔄 רענן</button>
+        <a class="btn copy sm" href="https://avi7756-design.github.io/avi-sites/lead-entry.html" target="_blank">➕ רשום ליד חדש</a>
+        <a class="btn copy sm" href="https://t.me/Avi_eilat5_bot" target="_blank">🤖 רישום מהיר בטלגרם</a>
+        <button class="btn sm" style="background:#25d366" onclick="toggleImport()">📥 ייבוא מרשימה</button>
+        <a class="btn gray sm" href="https://avi7756-design.github.io/avi-sites/dashboard.html" target="_blank">📊 דשבורד מלא</a>
+      </div>
+    </div>
+    <div id="importBox" style="display:none;background:#fff;border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin-bottom:14px;">
+      <div class="hint" style="margin-bottom:8px">הדבק רשימה - שורה לכל ליד. כל שורה צריכה להכיל <b>טלפון</b>, ואפשר גם שם והערה. דוגמאות:<br>ישראל ישראלי 052-1234567 מחפש מיידי<br>0501112233 - דנה - בעלת כלב<br>המערכת תזהה את הטלפון, תבדוק כפילויות מול הקיים, ותכניס רק חדשים (מקור: וואטסאפ).</div>
+      <textarea id="importText" placeholder="הדבק כאן את הרשימה..." style="width:100%;min-height:120px;margin-bottom:8px"></textarea>
+      <button class="btn ok sm" onclick="runImport()">🔎 בדוק וייבא</button>
+      <div id="importResult" style="margin-top:8px;font-size:13px;font-weight:bold;color:var(--terra-d)"></div>
+    </div>
+    <div style="display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap">
+      <input id="leadSearch" placeholder="🔍 חיפוש לפי שם / טלפון / הערה" oninput="renderLeadRows()" style="flex:1;min-width:160px">
+      <select id="leadFilter" onchange="renderLeadRows()" style="max-width:170px">
+        <option value="">כל הלידים</option>
+        <option value="hot">🔥 חמים בלבד</option>
+        <option value="active">פעילים בלבד</option>
+        <option value="פנייה חדשה">חדשים</option>
+        <option value="מעוניין">מעוניינים</option>
+        <option value="לא מתאים">לא מתאים</option>
+      </select>
+    </div>
+    <table>
+      <thead><tr><th>חום</th><th>שם</th><th>טלפון</th><th>מקור</th><th>סטטוס</th><th>הערה</th></tr></thead>
+      <tbody id="leadRows"><tr><td colspan="6" style="text-align:center;padding:18px;">טוען...</td></tr></tbody>
+    </table>
+  </div>
+
+  <!-- OBJECTIONS -->
+  <div class="panel" id="objections">
+    <div class="hint">📚 ספר התנגדויות עם תשובות מומחה. למטה - <b>יומן אישי</b>: רשום מה שמעת ומה ענית, וזה בונה לך פלייבוק. 💬 לחידוד חי: לחץ "התייעץ עם העוזר" והבא את ההתנגדות לצ'אט.</div>
+    <h2 class="sec">תשובות מומחה להתנגדויות נפוצות</h2>
+    <div id="objList"></div>
+    <div style="background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin:12px 0;">
+      <b style="color:var(--terra-d)">➕ הוסף התנגדות חדשה לספר</b>
+      <input id="ex_obj_q" placeholder="ההתנגדות (לדוגמה: האם יש ממד?)" style="margin:6px 0;">
+      <textarea id="ex_obj_a" placeholder="התשובה (לדוגמה: יש בקומה הראשונה)" style="margin-bottom:6px;min-height:60px"></textarea>
+      <div style="display:flex;gap:6px"><button class="btn ok sm" onclick="addExpertObj()">➕ הוסף לספר</button><button class="btn gray sm" onclick="resetExpertObjs()">🔄 אפס לברירת מחדל</button></div>
+    </div>
+    <div style="background:var(--white);border:2px solid #7e57c2;border-radius:14px;padding:14px;margin:12px 0;">
+      <h2 class="sec" style="margin:0 0 4px;cursor:pointer;color:#7e57c2" onclick="toggleAiPanel()">🤖 יועץ AI להתנגדויות <span id="aiToggle" style="font-size:12px">▼ פתח</span></h2>
+      <div id="aiPanel" style="display:none">
+        <div class="hint" style="margin-bottom:8px">כתוב התנגדות ששמעת - המערכת תחפש קודם בספר ההתנגדויות. אם אין תשובה מוכנה, לחץ "העתק שאלה ליועץ AI" והדבק בצ'אט Claude / ChatGPT.</div>
+        <input id="aiQ" placeholder="כתוב את ההתנגדות כאן..." oninput="searchAiObj()" style="margin:0 0 6px;">
+        <div id="aiResults"></div>
+        <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap;">
+          <button class="btn sm" style="background:#7e57c2" onclick="copyForAi()">🤖 העתק שאלה ליועץ AI</button>
+          <button class="btn gray sm" onclick="clearAiPanel()">🧹 נקה</button>
+        </div>
+      </div>
+    </div>
+    <h2 class="sec">📝 היומן הלומד שלי</h2>
+    <div style="background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin-bottom:12px;">
+      <input id="o_obj" placeholder="ההתנגדות ששמעתי (לדוגמה: יקר לי)" style="margin-bottom:6px;">
+      <input id="o_ans" placeholder="מה עניתי" style="margin-bottom:6px;">
+      <div style="display:flex;gap:6px;align-items:center;">
+        <select id="o_out" style="max-width:160px;"><option value="worked">✅ עבד</option><option value="no">❌ לא עבד</option><option value="unsure">🤔 לא בטוח</option></select>
+        <button class="btn ok sm" onclick="addObj()">➕ הוסף ליומן</button>
+        <button class="btn copy sm" onclick="consult()">💬 התייעץ עם העוזר</button>
+      </div>
+    </div>
+    <div id="objLog"></div>
+  </div>
+
+  <!-- CHANNELS -->
+  <div class="panel" id="channels">
+    <div class="hint">כל ערוצי הפרסום במקום אחד. "סמן" אחרי פרסום - <b>מתאפס כל בוקר</b>. ⚠️ קבוצות פייסבוק/וואטסאפ - ידני בלבד. חסר קישור? ✏️ והדבק פעם אחת.</div>
+    <div style="background:#fff7e8;border:1px solid #e8c97a;border-right:4px solid #c9a25a;border-radius:10px;padding:12px 14px;margin-bottom:14px;font-size:13px;font-weight:bold;color:var(--brown);">⚠️ עדכון 06/06: מדלן פעילה בתשלום (בוסטר) עד 19/06 - לא לפרסם בה שוב · ביפ-ביפ שבור בצד שלהם - לדלג · Meta Ads מושהה בכוונה עד הודעה חדשה</div>
+    <div style="background:var(--white);border:1px solid #e6d9c2;border-radius:12px;padding:14px;margin-bottom:14px;">
+      <b id="chProg" style="color:var(--terra-d);font-size:16px;"></b>
+      <div style="background:#eee;border-radius:20px;height:14px;margin-top:8px;overflow:hidden;"><div id="chBar" style="height:100%;background:var(--ok);width:0;transition:.3s;"></div></div>
+      <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap;">
+        <button class="btn copy sm" onclick="cp('m_full')">📋 העתק הודעת פרסום</button>
+        <button class="btn gray sm" onclick="resetDay()">🔄 אפס יום ידנית</button>
+      </div>
+    </div>
+    <table>
+      <thead><tr><th>ערוץ</th><th>סוג</th><th>עדיפות</th><th>פעולה</th><th>פורסם היום</th><th>אחרון</th></tr></thead>
+      <tbody id="chRows"></tbody>
+    </table>
+  </div>
+
+  <!-- LINKS -->
+  <div class="panel" id="links">
+    <div class="hint">כל הקישורים מאורגנים לפי קטגוריה. כל קישור נפתח בלשונית חדשה (🔗), וכפתור 📋 מעתיק את הכתובת ללוח.</div>
+    <div id="linksContainer"></div>
+    <h2 class="sec">📝 Google (טופס סינון + גיליון)</h2>
+    <div class="grid-actions">
+      <a class="action" id="lnk_form" href="#" target="_blank"><div class="ico">📝</div><b>טופס סינון לידים</b><small>הגדר קישור למטה</small></a>
+      <a class="action" id="lnk_sheet" href="#" target="_blank"><div class="ico">📈</div><b>גיליון לידים</b><small>הגדר קישור למטה</small></a>
+    </div>
+    <h2 class="sec">⚙️ הגדרת קישורים (פעם אחת)</h2>
+    <div class="hint">הדבק את הקישורים לטופס Google ולגיליון, לחץ שמור, והכפתורים למעלה יעבדו. נשמר בדפדפן.</div>
+    <div class="setlink"><label>קישור לטופס:</label><input id="set_form" placeholder="https://docs.google.com/forms/..."></div>
+    <div class="setlink"><label>קישור לגיליון:</label><input id="set_sheet" placeholder="https://docs.google.com/spreadsheets/..."></div>
+    <button class="btn ok" onclick="saveLinks()">💾 שמור קישורים</button>
+  </div>
+</div>
+
+<!-- HELP OVERLAY -->
+<div class="overlay" id="helpOv">
+  <div class="modal">
+    <button class="x" onclick="closeHelp()">✕</button>
+    <h2>❓ מרכז עזרה</h2>
+    <p style="font-size:13px;color:var(--brown-s);margin-bottom:10px;">חפש נושא או גלול. (F1 לפתיחה · Esc לסגירה)</p>
+    <input id="helpSearch" placeholder="🔍 חפש... (לידים, התנגדות, פרסום, העתק...)" oninput="renderHelp()" style="margin-bottom:12px;">
+    <div id="helpList"></div>
+  </div>
+</div>
+
+<!-- LEAD MODAL -->
+<div class="overlay" id="leadOv">
+  <div class="modal" id="leadModal"></div>
+</div>
+
+<!-- BOTTOM NAV (mobile) -->
+<nav class="bottomnav" id="bottomnav">
+  <button data-nav="today" onclick="goHome()"><span class="bico">🏠</span>ראשי</button>
+  <button data-nav="leads" onclick="activate('leads')"><span class="bico">👥</span>לידים</button>
+  <button data-nav="today" onclick="activate('today')"><span class="bico">🎯</span>היום</button>
+  <button data-nav="links" onclick="activate('links')"><span class="bico">🔗</span>קישורים</button>
+</nav>
+
+<div class="toast" id="toast">הועתק! ✓</div>
+
+<script>
+const QA=[
+ ["יש חניה?","כן - חניון תת-קרקעי שמור בבניין. שקט נפשי לרכב שלך."],
+ ["יש ממ\"ד / מקלט?","כן - ממ\"ד (ממ\"ק) קומתי בבניין, בקומה הראשונה."],
+ ["למי הדירה מתאימה?","מתאימה במיוחד ליחיד - אלמן/פרוד/רווק שמחפש פתרון איכותי, שקט ומיידי. מתאימה גם למבוגרים ולאנשים עם מוגבלות (בניין נגיש - מעלית רחבה מהחניון, מעברים רחבים, מקלחת מותאמת)."],
+ ["הבניין נגיש?","כן, לחלוטין. נבנה במתכונת דיור מוגן: מעלית רחבה מקומת החניון, מקלחת מותאמת עם ידיות אחיזה וללא מדרגה, מעברים רחבים, חניון נגיש. מתאים גם להליכון/כיסא גלגלים."],
+ ["אפשר לבשל?","כן - כיריים חשמליות, טוסטר אובן ומיקרוגל. המטבח קומפקטי, מתאים לבישול יומיומי (לא לארוחות גדולות)."],
+ ["יש תחבורה ציבורית?","כן, מצוינת - רכבת ומטרונית קרובות, וגישה נוחה לצירי התנועה המרכזיים."],
+ ["קרוב לים?","כן! 6 דקות הליכה ברגל לים."],
+ ["מה כלול ב-3,700 ₪?","הכל חוץ מחשמל: שכר דירה, ארנונה, ועד בית (411₪), מים, כבלים ואינטרנט. תשלום אחד קבוע, בלי הפתעות."],
+ ["מה הריהוט? אפשר להחליף?","מרוהטת קומפלט: מקרר, מיקרוגל, מכשירי חשמל, ספה, מיטה, ארון, וילונות. ניתן להחליף/להתאים רהיטים בתיאום מראש."],
+ ["יש מרפסת?","כן! מרפסת שמש ענקית 20 מ\"ר - כמעט כמו חצי דירה נוספת. מושלם לישיבה בחוץ."],
+ ["מתי אפשר להיכנס?","מיידי. אפשר לתאם כניסה כבר השבוע."],
+ ["אפשר לשכור לחודש?","מינימום 3 חודשים. לתקופה קצרה יותר - התעריף משתנה. נדבר."],
+ ["צריך לשלם דמי תיווך?","לא! ישירות מהבעלים. אין תיווך ואין דמי תיווך."],
+ ["איך קובעים ביקור?","שלח הודעה בוואטסאפ או התקשר: 052-594-4424. גמיש בשעות."]
+];
+const BASE="https://avi7756-design.github.io/avi-sites/dira-gallery/images/";
+const PHOTOS=[
+ ["06_balcony.jpg","מרפסת 20 מ\"ר"],["01_salon.jpg","סלון"],
+ ["04_bedroom.jpg","חדר שינה"],["05_kitchen.jpg","מטבח"],
+ ["09_entrance.jpg","כניסה - פרחים"],["07_bathroom.jpg","מקלחת"],
+ ["02_salon2.jpg","סלון - זווית"],["03_salon3.jpg","סלון - זווית"],
+ ["11_street_view.jpg","הבניין מבחוץ"],["08_building.jpg","הבניין ונוף"],
+ ["10_street.jpg","מבט על השדרה"]
+];
+const HELP=[
+ ["מסכים וניווט","הלשונית 🎯 היום היא ברירת המחדל. בנוסף: הודעות, שו\"ת, תמונות, לידים, התנגדויות, ערוצי פרסום, קישורים. F2 או 🏠 מחזיר ללשונית היום. F1 או ❓ פותח עזרה."],
+ ["🎯 היום - מסך משימות יומי","מציג משימה אחת בכל פעם: פרסום בשתי קבוצות היום (מתחלפות אוטומטית לפי רוטציה), המתנה 7 דק' עם טיימר, סטטוס וואטסאפ, ובימים מסוימים פוסט בפרופיל/תזמון שבועי. לכל משימה: 'העתק טקסט', צירוף 5 תמונות לפי הסדר, ו'פתח קבוצה'. 'בוצע' שומר התקדמות (מתאפס כל בוקר) ומסנכרן עם ערוצי פרסום. בתחתית - היסטוריית 7 ימים."],
+ ["הודעות מוכנות","3 הודעות לוואטסאפ (פתיח מהיר, מידע מלא, תזכורת). 'העתק' מעתיק ללוח - הדבק בוואטסאפ ב-Ctrl+V. הכוכביות הופכות למודגש."],
+ ["שאלות ותשובות","14 תשובות מדויקות. 'העתק' לכל אחת או 'העתק הכל' למענה מהיר ללקוחות."],
+ ["תמונות","11 תמונות נבחרות. לחיצה פותחת בגדול לשמירה/שליחה. 'קישור' מעתיק כתובת ישירה."],
+ ["לידים - איך עובד","הרשימה חיה מהמערכת ומתעדכנת לבד. הלידים ממוינים לפי חום: 🔥 חם ראשון. לחיצה על ליד פותחת כרטיס מעקב."],
+ ["ליד חם","ליד חם = רוצה לסגור כאן ועכשיו (סטטוס 'מעוניין' או פוטנציאל גבוה). מסומן 🔥 וקופץ לראש. עליו להתקשר מיד ולקבוע ביקור/חוזה."],
+ ["כרטיס ליד והיסטוריה","בכרטיס הליד: חיוג ישיר, וואטסאפ, קביעת חום (חם/בינוני/קר), פעולה הבאה, והוספת רשומות מעקב מתוארכות. כל זה נשמר אצלך בדפדפן."],
+ ["התנגדויות","ספר תשובות מומחה + יומן אישי. רשום מה שמעת ומה ענית - בונה פלייבוק. 'התייעץ עם העוזר' לחידוד חי בצ'אט."],
+ ["ערוצי פרסום","35 ערוצים. 'סמן' אחרי פרסום - מתאפס כל בוקר. קבוצות/וואטסאפ ידני בלבד (סיכון חסימה). ✏️ להוספת קישור."],
+ ["קישורים","דף נחיתה, דשבורד, טופס, וואטסאפ. אפשר לשמור קישור לטופס/גיליון Google."],
+ ["איפה נשמר המידע","מעקב לידים, ערוצים, התנגדויות וקישורים נשמרים בדפדפן הזה (גם אחרי סגירה). הלידים עצמם מגיעים חי מהמערכת. שמור את הדף כסימנייה."]
+];
+const OBJS=[
+ ["💰 \"יקר / 3,700 ₪ זה הרבה\"","אל תתנצל ואל תוריד מחיר. הסבר שהכל כלול: ארנונה, ועד, מים, כבלים, אינטרנט (~800₪ שלא משולמים בנפרד), והדירה מרוהטת קומפלט (חיסכון אלפי ₪ בריהוט). 'בדירה ריקה תשלם ~3,200 + 800 תשלומים + ריהוט - יקר יותר בפועל.' הוסף ערך: חניון שמור + מרפסת 20 מ\"ר."],
+ ["🛏️ \"רק 2 חדרים, רציתי 3\"","הדירה אינה למשפחה - פתרון איכותי ליחיד/זוג. 40 מ\"ר + מרפסת 20 מ\"ר = הרבה שטח שימושי. מי שצריך 3 חדרים אינו קהל היעד - אל תשקיע בו, חפש את היחיד/הפרוד/הזוג שצריך מיידי ואיכותי."],
+ ["📍 \"רחוק / לא מכיר את האזור\"","6 דק' הליכה מהים, רכבת ומטרונית קרובות, גישה לצירי תנועה, שכונה שקטה, בניין נגיש עם חניון שמור. הצע ביקור - הביקור מוכר את המיקום."],
+ ["🤔 \"אני רק מסתכל / אחשוב\"","דחיפות עדינה ואמינה: 'הדירה פנויה מיידית ויש עוד כמה פניות. אם רלוונטי לך, בוא נקבע ביקור קצר השבוע, בלי התחייבות.' המטרה: להזיז לביקור, לא לסגור בטלפון."],
+ ["🛋️ \"רוצה להביא רהיטים שלי\"","אפשר להחליף/להתאים רהיטים בתיאום. אבל הדגש שהריהוט הקיים חוסך כסף וכניסה מיידית 'עם מזוודה'."],
+ ["📅 \"צריך רק לחודש-חודשיים\"","מינימום 3 חודשים, קצר יותר משנה תעריף. אם הוא נואש לטווח קצר - הזדמנות לתמחר גבוה יותר, לא לוותר."]
+];
+function toast(t){var e=document.getElementById('toast');e.textContent=t||'הועתק! ✓';e.classList.add('show');setTimeout(()=>e.classList.remove('show'),1400);}
+function cp(id){var t=document.getElementById(id).innerText;navigator.clipboard.writeText(t).then(()=>toast());}
+function cpText(t){navigator.clipboard.writeText(t).then(()=>toast());}
+function cpAllQA(){cpText(QA.map(q=>"*"+q[0]+"*\n"+q[1]).join("\n\n"));}
+function esc(s){return (s||'').replace(/[<>&"]/g,c=>({'<':'&lt;','>':'&gt;','&':'&amp;','"':'&quot;'}[c]));}
+document.getElementById('qaList').innerHTML=QA.map((q,idx)=>
+ '<div class="msgcard"><h3>🔹 '+q[0]+' <button class="btn copy sm" onclick="cpText(QA['+idx+'][1])">📋 העתק</button></h3><div class="msgbody">'+q[1]+'</div></div>').join('');
+document.getElementById('photoGrid').innerHTML=PHOTOS.map(p=>
+ '<figure><img src="'+BASE+p[0]+'" alt="'+p[1]+'" onclick="window.open(this.src)"><figcaption>'+p[1]+'</figcaption><div class="pbtns"><button class="btn copy sm" onclick="cpText(\''+BASE+p[0]+'\')">קישור</button></div></figure>').join('');
+initExpertObjs();renderExpertObjs();
+
+function activate(p){
+ document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('active',x.dataset.p===p));
+ document.querySelectorAll('.panel').forEach(x=>x.classList.toggle('active',x.id===p));
+ document.querySelectorAll('.bottomnav button').forEach(x=>x.classList.toggle('active',x.dataset.nav===p));
+ if(p==='leads'){startLeadAuto();}else{stopLeadAuto();}
+ if(p==='today'){renderToday();pullToday();}else{clearTimer();}
+}
+document.querySelectorAll('.tab').forEach(t=>t.onclick=()=>activate(t.dataset.p));
+function goHome(){activate('today');window.scrollTo(0,0);closeHelp();}
+
+// HELP
+function openHelp(){document.getElementById('helpOv').classList.add('show');renderHelp();}
+function closeHelp(){document.getElementById('helpOv').classList.remove('show');}
+function renderHelp(){
+ var q=(document.getElementById('helpSearch').value||'').trim();
+ var list=HELP.filter(h=>!q||(h[0]+h[1]).indexOf(q)>-1);
+ document.getElementById('helpList').innerHTML=list.map(h=>'<div class="helpItem"><b>'+h[0]+'</b><p>'+h[1]+'</p></div>').join('')||'<p style="color:#888">לא נמצא. נסה מילה אחרת.</p>';
+}
+document.addEventListener('keydown',function(e){
+ if(e.key==='F1'){e.preventDefault();openHelp();}
+ else if(e.key==='F2'){e.preventDefault();goHome();}
+ else if(e.key==='Escape'){closeHelp();document.getElementById('leadOv').classList.remove('show');}
+});
+
+// LEADS LIVE + tracking
+const LEAD_API='https://avi-hazan.app.n8n.cloud/webhook/leads-data-eilat5';
+const UPD_API='https://avi-hazan.app.n8n.cloud/webhook/lead-update-eilat5';
+const DEL_API='https://avi-hazan.app.n8n.cloud/webhook/lead-delete-eilat5';
+// ===== SERVER STATE SYNC (v2.7) - same mechanism as leads (n8n webhook + data table) =====
+const STATE_GET='https://avi-hazan.app.n8n.cloud/webhook/state-get-eilat5';
+const STATE_SET='https://avi-hazan.app.n8n.cloud/webhook/state-set-eilat5';
+const DEVICE=/Mobi|Android|iPhone|iPad|iPod/i.test(navigator.userAgent)?'phone':'desktop';
+const DEVHE=DEVICE==='phone'?'טלפון':'מחשב';
+var _syncState='ok';
+function paintSync(){var e=document.getElementById('syncBadge');if(!e)return;var s=_syncState;
+ if(s==='saving'){e.textContent='⏳ שומר...';e.style.color='#a87d1d';}
+ else if(s==='loading'){e.textContent='⏳ טוען מהשרת...';e.style.color='#a87d1d';}
+ else if(s==='err'){e.textContent='⚠️ לא סונכרן (נשמר מקומית)';e.style.color='var(--red)';}
+ else{e.textContent='☁️ מסונכרן ✓';e.style.color='var(--ok)';}}
+function setSync(s){_syncState=s;paintSync();}
+function stateGet(key){
+ return fetch(STATE_GET+'?key='+encodeURIComponent(key)+'&t='+Date.now(),{cache:'no-store'})
+  .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);return r.json();})
+  .then(function(rows){if(Array.isArray(rows)&&rows.length&&rows[0]&&rows[0].value){try{return JSON.parse(rows[0].value);}catch(e){return null;}}return null;});
+}
+function stateSet(key,obj){
+ setSync('saving');
+ return fetch(STATE_SET,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({key:key,value:JSON.stringify(obj),updatedBy:DEVICE})})
+  .then(function(r){if(!r.ok)throw new Error('HTTP '+r.status);setSync('ok');return true;})
+  .catch(function(e){setSync('err');return false;});
+}
+const ACTIVE=['חדש','דיברנו','ביקור נקבע','מעוניין'];
+let LEADS=[];
+function key(l){return (l.phone||l.name||'').replace(/[^0-9a-zא-ת]/gi,'');}
+function getLog(){try{return JSON.parse(localStorage.getItem('eilat_leadlog')||'{}');}catch(e){return {};}}
+function saveLog(o){localStorage.setItem('eilat_leadlog',JSON.stringify(o));stateSet('leadlog',o);}
+function mergeLog(server,local){
+ if(!server||typeof server!=='object')return local;
+ if(!local||typeof local!=='object')return server;
+ var m=Object.assign({},local);
+ Object.keys(server).forEach(function(k){
+  if(!m[k]){m[k]=server[k];return;}
+  var sl=(server[k].log||[]).length,ll=(m[k].log||[]).length;
+  if(sl>ll)m[k]=server[k];
+ });
+ return m;
+}
+function nowTS(){return new Date().toLocaleString('he-IL');}
+// editable category lists
+const DEF_OBJ=['מחיר','דירה קטנה / גודל','בעל חיים','מאוחר יותר','לא בשל / חושב','לא מתאים','בטחונות','דירה מפוצלת'];
+const DEF_DONE=['שלחתי חומר פרסומי','דיברנו בטלפון','לא עונה','שלחתי תזכורת','שלחתי תמונות','קבעתי ביקור'];
+const DEF_TODO=['להתקשר','לשלוח מידע','לשלוח תמונות','לתזכר','לקבוע ביקור'];
+function getList(k,def){try{var v=JSON.parse(localStorage.getItem(k));return Array.isArray(v)&&v.length?v:def;}catch(e){return def;}}
+function setList(k,a){localStorage.setItem(k,JSON.stringify(a));}
+function objTypes(){return getList('eilat_objtypes',DEF_OBJ);}
+function doneTypes(){return getList('eilat_donetypes',DEF_DONE);}
+function todoTypes(){return getList('eilat_todotypes',DEF_TODO);}
+function editList(k,def,title){var cur=getList(k,def);var v=prompt('ערוך '+title+'\nרשימה מופרדת בפסיקים - הוסף או מחק לפי הצורך:',cur.join(', '));if(v===null)return;setList(k,v.split(',').map(s=>s.trim()).filter(Boolean));toast('הרשימה עודכנה ✓');if(window._curLead>-1&&LEADS[window._curLead])openLead(window._curLead);}
+function recOf(k){var o=getLog();o[k]=o[k]||{};o[k].log=o[k].log||[];o[k].obj=o[k].obj||[];o[k].todos=o[k].todos||[];return o;}
+function toggleObj(k,o,on){var d=recOf(k),r=d[k];var i=r.obj.indexOf(o);if(on&&i<0){r.obj.push(o);r.log.push({d:nowTS(),t:'🏷️ התנגדות סומנה: '+o});}if(!on&&i>-1){r.obj.splice(i,1);r.log.push({d:nowTS(),t:'🏷️ התנגדות הוסרה: '+o});}saveLog(d);if(window._curLead>-1)openLead(window._curLead);}
+function addDone(k){var t=document.getElementById('done_sel').value;var d=recOf(k);d[k].log.push({d:nowTS(),t:'✅ בוצע: '+t});saveLog(d);toast('נרשם עם חותמת זמן ✓');if(window._curLead>-1)openLead(window._curLead);}
+function addTodo(k){var a=document.getElementById('todo_sel').value;var due=document.getElementById('todo_due').value;var d=recOf(k);d[k].todos.push({d:nowTS(),action:a,due:due,done:false});d[k].log.push({d:nowTS(),t:'📌 משימה נקבעה: '+a+(due?(' · יעד '+due):'')});saveLog(d);toast('משימה נוספה ✓');if(window._curLead>-1)openLead(window._curLead);}
+function doneTodo(k,ti){var d=recOf(k),t=d[k].todos[ti];if(!t)return;t.done=true;t.doneAt=nowTS();d[k].log.push({d:nowTS(),t:'✅ משימה הושלמה: '+t.action});saveLog(d);if(window._curLead>-1)openLead(window._curLead);}
+function delTodo(k,ti){var d=recOf(k);d[k].todos.splice(ti,1);saveLog(d);if(window._curLead>-1)openLead(window._curLead);}
+function temp(l){
+ var o=getLog()[key(l)];if(o&&o.temp)return o.temp;
+ var s=(l.status||'').trim(),p=(l.potential||'');
+ if(s==='מעוניין'||(p.indexOf('גבוה')>-1&&ACTIVE.indexOf(s)>-1))return 'hot';
+ if(s==='לא מתאים'||p.indexOf('נמוך')>-1)return 'cold';
+ return 'warm';
+}
+const TEMPB={hot:['🔥 חם','t-hot'],warm:['🟠 בינוני','t-warm'],cold:['🧊 קר','t-cold']};
+const TORD={hot:0,warm:1,cold:2};
+function fetchLeads(){
+ var tb=document.getElementById('leadRows');tb.innerHTML='<tr><td colspan="6" style="text-align:center;padding:18px;">טוען...</td></tr>';
+ fetch(LEAD_API+'?t='+Date.now(),{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('HTTP '+r.status);return r.json();}).then(rows=>{
+  if(!Array.isArray(rows))throw new Error('format');
+  LEADS=rows;
+  lastLeadLoad=Date.now();
+  rows.sort((a,b)=>{var d=TORD[temp(a)]-TORD[temp(b)];return d!==0?d:new Date(b.createdAt||b.date)-new Date(a.createdAt||a.date);});
+  var hot=rows.filter(l=>temp(l)==='hot').length;
+  var active=rows.filter(l=>ACTIVE.indexOf((l.status||'').trim())>-1).length;
+  document.getElementById('leadStats').innerHTML='סה"כ '+rows.length+' לידים · '+active+' פעילים · <span style="color:#e53935">🔥 '+hot+' חמים</span>';
+  tb.innerHTML=rows.map((l,i)=>{
+   var t=temp(l),tb2=TEMPB[t];
+   return '<tr class="clk" onclick="openLead('+i+')"><td><span class="badge '+tb2[1]+'">'+tb2[0]+'</span></td><td>'+esc(l.name)+'</td><td>'+esc(l.phone)+'</td><td>'+esc(l.source)+'</td><td>'+esc(l.status)+'</td><td style="font-size:12px">'+esc((l.notes||'').slice(0,30))+'</td></tr>';
+  }).join('')||'<tr><td colspan="6" style="text-align:center;padding:18px;">אין לידים עדיין</td></tr>';
+ }).catch(e=>{
+  document.getElementById('leadStats').textContent='לא הצלחתי לטעון לידים';
+  tb.innerHTML='<tr><td colspan="6" style="color:#c0392b;text-align:center;padding:18px;">❌ לא ניתן לטעון לידים. סיבות אפשריות: (1) מכסת ההרצות ב-n8n נגמרה - בדוק ב-app.n8n.cloud, (2) אין אינטרנט. הנתונים עצמם שמורים ולא נמחקו.</td></tr>';
+ });
+}
+let lastLeadLoad=Date.now();
+function startLeadAuto(){fetchLeads();}
+function stopLeadAuto(){}
+document.addEventListener('visibilitychange',()=>{if(!document.hidden&&Date.now()-lastLeadLoad>600000){var el=document.getElementById('leads');if(el&&el.classList.contains('active'))fetchLeads();}});
+function toggleImport(){var b=document.getElementById('importBox');b.style.display=(b.style.display==='none'||!b.style.display)?'block':'none';}
+async function runImport(){
+ var raw=document.getElementById('importText').value;var res=document.getElementById('importResult');
+ var lines=(raw||'').split(/\r?\n/).map(function(s){return s.trim();}).filter(Boolean);
+ if(!lines.length){res.textContent='הדבק רשימה קודם.';return;}
+ res.textContent='בודק מול המערכת...';
+ var existing=[];try{existing=await fetch(LEAD_API+'?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();});}catch(e){res.textContent='שגיאה בחיבור. נסה שוב.';return;}
+ function norm(p){var d=(p||'').replace(/\D/g,'');if(d.indexOf('972')===0)d='0'+d.slice(3);return d;}
+ var have={};existing.forEach(function(l){var n=norm(l.phone);if(n.length>=9)have[n]=1;});
+ var add=[],dup=0,bad=0,seen={};
+ lines.forEach(function(line){
+  var m=line.match(/(?:\+?972[\s\-]?|0)\d[\d\s\-]{7,11}/);
+  if(!m){bad++;return;}
+  var np=norm(m[0]);
+  if(np.length<9||np.length>11){bad++;return;}
+  if(have[np]||seen[np]){dup++;return;}
+  seen[np]=1;
+  var rest=line.replace(m[0],' ').replace(/[,\|\-–:]/g,' ').replace(/\s+/g,' ').trim();
+  var name=rest.split(' ').slice(0,3).join(' ')||'(ללא שם)';
+  add.push({name:name,phone:np,note:rest});
+ });
+ if(!add.length){res.innerHTML='לא נמצאו לידים חדשים לייבוא.<br>כפילויות: '+dup+' · שורות ללא טלפון תקין: '+bad;return;}
+ res.textContent='מייבא '+add.length+' לידים חדשים...';
+ var ok=0;
+ for(var i=0;i<add.length;i++){
+  try{await fetch('https://avi-hazan.app.n8n.cloud/webhook/new-lead-eilat5',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({name:add[i].name,phone:add[i].phone,source:'וואטסאפ',status:'פנייה חדשה',potential:'בינוני',notes:add[i].note})});ok++;}catch(e){}
+ }
+ res.innerHTML='✅ יובאו '+ok+' לידים חדשים · דילגתי על '+dup+' כפילויות · '+bad+' ללא טלפון.';
+ document.getElementById('importText').value='';
+ fetchLeads();
+}
+function renderLeadRows(){
+ var qe=document.getElementById('leadSearch'),fe=document.getElementById('leadFilter');
+ var q=(qe?qe.value:'').trim().toLowerCase(),f=(fe?fe.value:'');
+ var tb=document.getElementById('leadRows');if(!tb||typeof LEADS==='undefined')return;
+ var html=LEADS.map(function(l,i){
+  var t=temp(l),st=(l.status||'').trim();
+  if(f==='hot'&&t!=='hot')return '';
+  if(f==='active'&&ACTIVE.indexOf(st)<0)return '';
+  if(f&&f!=='hot'&&f!=='active'&&st!==f)return '';
+  if(q){var hay=((l.name||'')+' '+(l.phone||'')+' '+(l.notes||'')+' '+(l.source||'')).toLowerCase();if(hay.indexOf(q)<0)return '';}
+  var tb2=TEMPB[t];
+  return '<tr class="clk" onclick="openLead('+i+')"><td><span class="badge '+tb2[1]+'">'+tb2[0]+'</span></td><td>'+esc(l.name)+'</td><td>'+esc(l.phone)+'</td><td>'+esc(l.source)+'</td><td>'+esc(l.status)+'</td><td style="font-size:12px">'+esc((l.notes||'').slice(0,30))+'</td></tr>';
+ }).join('');
+ tb.innerHTML=html||'<tr><td colspan="6" style="text-align:center;padding:18px;color:#888">לא נמצאו לידים תואמים.</td></tr>';
+}
+function closeLeadModal(){document.getElementById('leadOv').classList.remove('show');}
+function val(id){var e=document.getElementById(id);return e?e.value.trim():'';}
+function opts(arr,cur){return arr.map(o=>'<option'+(o===(cur||'').trim()?' selected':'')+'>'+o+'</option>').join('');}
+const SRCS=['יד2','Meta Ads','פייסבוק','פייסבוק קבוצות','עמוד נחיתה','לוחות','המלצה','אחר'];
+const STATS=['חדש','דיברנו','ביקור נקבע','ביקר','מעוניין','לא מתאים','סגרנו חוזה'];
+const POTS=['גבוה','בינוני','נמוך'];
+function openLead(i){
+ window._curLead=i;
+ var l=LEADS[i],k=key(l),log=getLog(),rec=log[k]||{temp:null,obj:[],todos:[],log:[]};
+ rec.obj=rec.obj||[];rec.todos=rec.todos||[];rec.log=rec.log||[];
+ var tel=(l.phone||'').replace(/[^0-9]/g,'');var wa=tel.replace(/^0/,'972');
+ var t=temp(l),tb2=TEMPB[t];
+ var nm=(l.name||'').replace(/'/g,'’');
+ var objBoxes=objTypes().map(o=>'<label style="display:inline-flex;align-items:center;gap:4px;font-size:12px;margin:3px 4px 3px 0;background:#fff;border:1px solid #e6d9c2;border-radius:14px;padding:3px 9px;cursor:pointer"><input type="checkbox" style="width:auto" '+(rec.obj.indexOf(o)>-1?'checked':'')+' onchange="toggleObj(\''+k+'\',\''+o.replace(/'/g,'’')+'\',this.checked)">'+esc(o)+'</label>').join('');
+ var doneOpts=doneTypes().map(o=>'<option>'+esc(o)+'</option>').join('');
+ var todoOpts=todoTypes().map(o=>'<option>'+esc(o)+'</option>').join('');
+ var todoHtml=rec.todos.length?rec.todos.map((td,ti)=>'<div class="tl">'+(td.done?'✅ ':'⬜ ')+esc(td.action)+(td.due?' · יעד: <b>'+td.due+'</b>':'')+' <small>(נקבע '+td.d+(td.done&&td.doneAt?' · בוצע '+td.doneAt:'')+')</small> '+(td.done?'':'<button class="btn ok sm" onclick="doneTodo(\''+k+'\','+ti+')">בוצע</button> ')+'<button class="btn red sm" onclick="delTodo(\''+k+'\','+ti+')">✕</button></div>').join(''):'<p style="color:#888;font-size:13px">אין משימות פתוחות.</p>';
+ var hist=rec.log.slice().reverse().map(e=>'<div class="tl">'+esc(e.t)+'<br><small>🕒 '+e.d+'</small></div>').join('')||'<p style="color:#888;font-size:13px">אין רשומות מעקב עדיין.</p>';
+ document.getElementById('leadModal').innerHTML=
+  '<button class="x" onclick="closeLeadModal()">✕</button>'+
+  '<h2>'+esc(l.name||'ליד')+' <span class="badge '+tb2[1]+'">'+tb2[0]+'</span></h2>'+
+  '<p style="font-size:12px;color:var(--brown-s)">🕒 נכנס: '+(l.createdAt?new Date(l.createdAt).toLocaleString('he-IL'):'')+' · מזהה #'+l.id+'</p>'+
+  '<div style="display:flex;gap:6px;flex-wrap:wrap;margin:8px 0">'+
+   (tel?'<a class="btn sm" href="tel:'+tel+'">📞 חייג</a><a class="btn wa sm" href="https://wa.me/'+wa+'" target="_blank">💬 וואטסאפ</a>':'')+
+   '<button class="btn red sm" onclick="deleteLead('+l.id+',\''+nm+'\')">🗑️ מחק ליד</button>'+
+  '</div>'+
+  '<h2 class="sec" style="font-size:15px">✏️ עריכת פרטים</h2>'+
+  '<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:6px">'+
+   '<input id="ed_name" value="'+esc(l.name||'')+'" placeholder="שם">'+
+   '<input id="ed_phone" value="'+esc(l.phone||'')+'" placeholder="טלפון">'+
+   '<select id="ed_source">'+opts(SRCS,l.source)+'</select>'+
+   '<select id="ed_status">'+opts(STATS,l.status)+'</select>'+
+   '<select id="ed_potential">'+opts(POTS,l.potential)+'</select>'+
+  '</div>'+
+  '<textarea id="ed_notes" placeholder="הערה" style="min-height:50px;margin-bottom:6px">'+esc(l.notes||'')+'</textarea>'+
+  '<button class="btn ok sm" onclick="saveLead('+l.id+')">💾 שמור שינויים</button>'+
+  '<h2 class="sec" style="font-size:15px">🌡️ חום</h2>'+
+  '<div style="display:flex;gap:6px;margin-bottom:8px">'+
+   '<button class="btn red sm" onclick="setTemp(\''+k+'\',\'hot\')">🔥 חם</button>'+
+   '<button class="btn sm" style="background:#fb8c00" onclick="setTemp(\''+k+'\',\'warm\')">🟠 בינוני</button>'+
+   '<button class="btn gray sm" onclick="setTemp(\''+k+'\',\'cold\')">🧊 קר</button>'+
+   '<button class="btn gray sm" onclick="setTemp(\''+k+'\',null)">אוטומטי</button>'+
+  '</div>'+
+  '<h2 class="sec" style="font-size:15px">🏷️ סוג התנגדות <button class="btn gray sm" onclick="editList(\'eilat_objtypes\',DEF_OBJ,\'סוגי התנגדות\')">✏️ ערוך רשימה</button></h2>'+
+  '<div style="margin-bottom:8px">'+objBoxes+'</div>'+
+  '<h2 class="sec" style="font-size:15px">✅ מה בוצע <button class="btn gray sm" onclick="editList(\'eilat_donetypes\',DEF_DONE,\'פעולות שבוצעו\')">✏️ ערוך רשימה</button></h2>'+
+  '<div style="display:flex;gap:6px;margin-bottom:8px"><select id="done_sel" style="flex:1">'+doneOpts+'</select><button class="btn ok sm" onclick="addDone(\''+k+'\')">סמן בוצע (עם זמן)</button></div>'+
+  '<h2 class="sec" style="font-size:15px">📌 פעולה לבצע <button class="btn gray sm" onclick="editList(\'eilat_todotypes\',DEF_TODO,\'פעולות לביצוע\')">✏️ ערוך רשימה</button></h2>'+
+  '<div style="display:flex;gap:6px;margin-bottom:6px;flex-wrap:wrap"><select id="todo_sel" style="flex:1;min-width:120px">'+todoOpts+'</select><input type="date" id="todo_due" style="max-width:150px"><button class="btn ok sm" onclick="addTodo(\''+k+'\')">➕ הוסף משימה</button></div>'+
+  '<div style="margin-bottom:8px">'+todoHtml+'</div>'+
+  '<h2 class="sec" style="font-size:15px">🕒 היסטוריית מעקב (עם חותמת זמן)</h2>'+
+  '<textarea id="ld_note" placeholder="מה קרה בשיחה? (יתועד עם תאריך ושעה)" style="margin-bottom:6px;min-height:55px"></textarea>'+
+  '<button class="btn ok sm" onclick="addNote(\''+k+'\')">➕ הוסף רשומה</button>'+
+  '<div style="margin-top:10px">'+hist+'</div>';
+ document.getElementById('leadOv').classList.add('show');
+}
+function saveLead(id){
+ var p={id:id,name:val('ed_name'),phone:val('ed_phone'),source:val('ed_source'),status:val('ed_status'),potential:val('ed_potential'),notes:val('ed_notes')};
+ var lk=(p.phone||p.name||'').replace(/[^0-9a-zא-ת]/gi,'');var d=recOf(lk);d[lk].log.push({d:nowTS(),t:'✏️ עודכנו פרטים · סטטוס: '+p.status+' · פוטנציאל: '+p.potential});saveLog(d);
+ toast('שומר...');
+ fetch(UPD_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(p)})
+  .then(()=>{setTimeout(()=>{fetchLeads();closeLeadModal();toast('נשמר ועודכן בכל המסכים ✓');},1200);})
+  .catch(()=>toast('שגיאה בשמירה - בדוק אינטרנט'));
+}
+function deleteLead(id,name){
+ if(!confirm('למחוק את הליד "'+name+'"?\nהפעולה בלתי הפיכה ותעדכן את כל המסכים.'))return;
+ toast('מוחק...');
+ fetch(DEL_API,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({id:id})})
+  .then(()=>{setTimeout(()=>{fetchLeads();closeLeadModal();toast('הליד נמחק ✓');},1200);})
+  .catch(()=>toast('שגיאה במחיקה - בדוק אינטרנט'));
+}
+function setTemp(k,t){var d=recOf(k);d[k].temp=t;d[k].log.push({d:nowTS(),t:'🌡️ חום שונה ל: '+(t?({hot:'🔥 חם',warm:'🟠 בינוני',cold:'🧊 קר'}[t]):'אוטומטי')});saveLog(d);fetchLeads();toast('עודכן ✓');if(window._curLead>-1)openLead(window._curLead);}
+function setNext(k){var o=getLog();o[k]=o[k]||{log:[]};o[k].next=document.getElementById('ld_next').value;saveLog(o);toast('נשמר ✓');}
+function addNote(k){var v=document.getElementById('ld_note').value.trim();if(!v){toast('כתוב משהו');return;}var o=getLog();o[k]=o[k]||{log:[]};o[k].log=o[k].log||[];o[k].log.push({d:new Date().toLocaleString('he-IL'),t:v});saveLog(o);var idx=LEADS.findIndex(l=>key(l)===k);if(idx>-1)openLead(idx);toast('רשומה נוספה ✓');}
+
+// OBJECTIONS log
+function getObj(){try{return JSON.parse(localStorage.getItem('eilat_objlog')||'[]');}catch(e){return [];}}
+function saveObj(a){localStorage.setItem('eilat_objlog',JSON.stringify(a));}
+const OUT={worked:['✅ עבד','t-hot'],no:['❌ לא עבד','t-cold'],unsure:['🤔 לא בטוח','t-warm']};
+function renderObjLog(){
+ var a=getObj();
+ document.getElementById('objLog').innerHTML=a.length?a.slice().reverse().map((o,ri)=>{var i=a.length-1-ri;var ou=OUT[o.out]||OUT.unsure;return '<div class="obj"><b>'+esc(o.obj)+'</b> <span class="badge '+ou[1]+'">'+ou[0]+'</span><p>התשובה שלי: '+esc(o.ans)+'</p><small style="color:#888">'+o.d+'</small> <button class="btn red sm" style="float:left" onclick="delObj('+i+')">מחק</button></div>';}).join(''):'<p style="color:#888;font-size:13px">היומן ריק. הוסף התנגדות ששמעת.</p>';
+}
+function addObj(){var ob=document.getElementById('o_obj').value.trim();if(!ob){toast('כתוב התנגדות');return;}var a=getObj();a.push({obj:ob,ans:document.getElementById('o_ans').value.trim(),out:document.getElementById('o_out').value,d:new Date().toLocaleDateString('he-IL')});saveObj(a);document.getElementById('o_obj').value='';document.getElementById('o_ans').value='';renderObjLog();toast('נוסף ליומן ✓');}
+function delObj(i){var a=getObj();a.splice(i,1);saveObj(a);renderObjLog();}
+function consult(){var ob=document.getElementById('o_obj').value.trim();var ans=document.getElementById('o_ans').value.trim();var msg='התנגדות ששמעתי: '+(ob||'(כתוב בשדה ההתנגדות)')+(ans?('\nמה עניתי: '+ans):'')+'\nתחדד אותי - האם אני בכיוון הנכון?';cpText(msg);toast('הועתק - הדבק בצ\'אט עם העוזר');}
+function toggleAiPanel(){var p=document.getElementById('aiPanel'),t=document.getElementById('aiToggle');if(p.style.display==='none'){p.style.display='block';t.textContent='▲ סגור';document.getElementById('aiQ').focus();}else{p.style.display='none';t.textContent='▼ פתח';}}
+function searchAiObj(){var q=(document.getElementById('aiQ').value||'').trim().toLowerCase();var el=document.getElementById('aiResults');if(!q||q.length<2){el.innerHTML='';return;}var objs=getExpertObjs()||[];var words=q.split(/\s+/);var matches=objs.filter(function(o){var txt=(o.q+' '+o.a).toLowerCase();return words.some(function(w){return w.length>1&&txt.indexOf(w)>-1;});});if(matches.length){el.innerHTML='<div style="margin-top:4px"><b style="color:var(--ok)">✅ נמצאו '+matches.length+' תשובות מהספר:</b></div>'+matches.map(function(o,i){return '<div style="background:#f9f5ff;border:1px solid #d4c4f0;border-radius:10px;padding:10px;margin-top:6px"><b>'+esc(o.q)+'</b><p style="margin:4px 0 0;font-size:13px">'+esc(o.a)+'</p><button class="btn copy sm" style="margin-top:4px" onclick="cpAiResult('+i+')">📋 העתק תשובה</button></div>';}).join('');window._aiMatches=matches;}else{el.innerHTML='<div style="margin-top:4px;color:var(--muted)">🔍 לא נמצאה תשובה מוכנה בספר. לחץ "העתק שאלה ליועץ AI" לקבלת תשובה חכמה.</div>';}}
+function copyForAi(){var q=(document.getElementById('aiQ').value||'').trim();if(!q){toast('כתוב התנגדות קודם');return;}var msg='אני משכיר דירה (2 חד\', 40 מ"ר + מרפסת 20 מ"ר, 3,700 ₪ כולל הכל, קריית חיים, מרוהטת קומפלט עם חניון שמור).\n\nשמעתי את ההתנגדות הבאה מלקוח פוטנציאלי:\n"'+q+'"\n\nתן לי תשובה שכנועית, קצרה ומקצועית שאוכל להגיד למתעניין. כלול גם טיפ למשא ומתן.';navigator.clipboard.writeText(msg).then(function(){toast('הועתק! הדבק בצ\'אט AI');});}
+function cpAiResult(i){if(window._aiMatches&&window._aiMatches[i])cpText(window._aiMatches[i].a);}
+function clearAiPanel(){document.getElementById('aiQ').value='';document.getElementById('aiResults').innerHTML='';window._aiMatches=null;}
+
+// Expert objections (editable)
+function getExpertObjs(){try{var v=JSON.parse(localStorage.getItem('eilat_expert_objs'));return Array.isArray(v)?v:null;}catch(e){return null;}}
+function saveExpertObjs(a){localStorage.setItem('eilat_expert_objs',JSON.stringify(a));}
+function initExpertObjs(){if(!getExpertObjs())saveExpertObjs(OBJS.map(function(o){return {q:o[0],a:o[1]};}));}
+function renderExpertObjs(){
+ var objs=getExpertObjs()||[];
+ document.getElementById('objList').innerHTML=objs.map(function(o,i){
+  return '<div class="obj"><b>'+esc(o.q)+'</b><p>'+esc(o.a)+'</p>'+
+   '<div style="margin-top:6px;display:flex;gap:6px;flex-wrap:wrap">'+
+   '<button class="btn copy sm" onclick="cpText(getExpertObjs()['+i+'].a)">📋 העתק</button>'+
+   '<button class="btn sm gray" onclick="editExpertObj('+i+')">✏️ ערוך</button>'+
+   '<button class="btn red sm" onclick="delExpertObj('+i+')">🗑️ מחק</button>'+
+   '</div></div>';
+ }).join('')||'<p style="color:#888">אין התנגדויות. הוסף חדשה.</p>';
+}
+function addExpertObj(){
+ var q=document.getElementById('ex_obj_q').value.trim(),a=document.getElementById('ex_obj_a').value.trim();
+ if(!q){toast('כתוב התנגדות');return;}if(!a){toast('כתוב תשובה');return;}
+ var objs=getExpertObjs()||[];objs.push({q:q,a:a});saveExpertObjs(objs);
+ document.getElementById('ex_obj_q').value='';document.getElementById('ex_obj_a').value='';
+ renderExpertObjs();toast('התנגדות נוספה לספר ✓');
+}
+function editExpertObj(i){
+ var objs=getExpertObjs()||[];if(!objs[i])return;
+ var nq=prompt('ערוך התנגדות:',objs[i].q);if(nq===null)return;
+ var na=prompt('ערוך תשובה:',objs[i].a);if(na===null)return;
+ objs[i].q=nq.trim();objs[i].a=na.trim();saveExpertObjs(objs);renderExpertObjs();toast('עודכן ✓');
+}
+function delExpertObj(i){
+ if(!confirm('למחוק התנגדות זו?'))return;
+ var objs=getExpertObjs()||[];objs.splice(i,1);saveExpertObjs(objs);renderExpertObjs();toast('נמחק ✓');
+}
+function resetExpertObjs(){
+ if(!confirm('לאפס את כל ההתנגדויות לברירת המחדל? כל השינויים שלך יימחקו.'))return;
+ saveExpertObjs(OBJS.map(function(o){return {q:o[0],a:o[1]};}));renderExpertObjs();toast('אופס לברירת מחדל ✓');
+}
+
+// Post cards with expand/collapse
+function renderGroupPosts(){
+ var el=document.getElementById('postCards');if(!el)return;
+ el.innerHTML=POSTS.map(function(p,i){
+  return '<div class="msgcard"><h3>גרסה '+esc(p.v)+' · '+esc(p.name)+
+   ' <span style="display:flex;gap:6px"><button class="btn copy sm" onclick="copyPost('+i+')">📋 העתק</button>'+
+   '<button class="btn sm gray" onclick="togglePostPreview('+i+')" id="postToggle'+i+'">▼ תצוגה</button></span></h3>'+
+   '<div class="msgbody" id="postBody'+i+'" style="display:none">'+esc(p.body)+'</div></div>';
+ }).join('');
+}
+function togglePostPreview(i){
+ var body=document.getElementById('postBody'+i),btn=document.getElementById('postToggle'+i);
+ if(!body||!btn)return;
+ if(body.style.display==='none'){body.style.display='block';btn.textContent='▲ סגור';}
+ else{body.style.display='none';btn.textContent='▼ תצוגה';}
+}
+
+// LINKS
+const LINK_GROUPS=[
+ {t:'🏘️ קבוצות פייסבוק - קריות',ic:'📘',items:[
+  ['קרית ים וקריית חיים מערבית בלבד','https://www.facebook.com/groups/842840749613605/'],
+  ['דירות מפה לאוזן בקריות','https://www.facebook.com/groups/125793327613639/'],
+  ['דירות להשכרה בקריות וחיפה','https://www.facebook.com/groups/1896414753945570/'],
+  ['דירות להשכרה מכירה חיפה קריות נשר','https://www.facebook.com/groups/3387613464901265/'],
+  ['דירה להשכיר חיפה קריות','https://www.facebook.com/groups/438774037334934/']
+ ]},
+ {t:'🌆 קבוצות פייסבוק - חיפה',ic:'📘',items:[
+  ['דירות יחידות דיור חיפה קריות - לא למתווכים','https://www.facebook.com/groups/1697699190534876/'],
+  ['דירות להשכרה בחיפה ללא תיווך','https://www.facebook.com/groups/1734519960003504/'],
+  ['דירות להשכרה בחיפה והקריות','https://www.facebook.com/groups/302498687310251/'],
+  ['דירות להשכרה חיפה והקריות','https://www.facebook.com/groups/726151022194957/'],
+  ['דירות להשכרה בחיפה עם מחיר','https://www.facebook.com/groups/1316280659214308/'],
+  ['דירות להשכרה בחיפה','https://www.facebook.com/groups/570905303053795/']
+ ]},
+ {t:'📋 לוחות נדל"ן',ic:'🏷️',items:[
+  ['יד2 - השכרה','https://www.yad2.co.il/realestate/rent'],
+  ['מדלן','https://www.madlan.co.il'],
+  ['הומלס (Homeless)','https://www.homeless.co.il'],
+  ['WinWin','https://www.winwin.co.il'],
+  ['OnMap','https://www.onmap.co.il'],
+  ['מרקטפלייס (Facebook Marketplace)','https://www.facebook.com/marketplace/category/propertyrentals']
+ ]},
+ {t:'🏠 הנכסים שלי',ic:'',items:[
+  ['🖼️ גלריית הדירה','https://avi7756-design.github.io/avi-sites/dira-gallery/'],
+  ['🎯 מרכז שיווק','https://avi7756-design.github.io/avi-sites/manage.html'],
+  ['📊 דשבורד לידים','https://avi7756-design.github.io/avi-sites/dashboard.html'],
+  ['📥 רישום ליד','https://avi7756-design.github.io/avi-sites/lead-entry.html'],
+  ['📝 תבנית חוזה שכירות','https://avi7756-design.github.io/avi-sites/contract-template.docx'],
+  ['📝 שטר ערבות להחתמה','https://avi7756-design.github.io/avi-sites/guarantor-template.docx'],
+  ['🤖 בוט טלגרם','https://t.me/Avi_eilat5_bot'],
+  ['⚙️ n8n - מנוע אוטומציה','https://avi-hazan.app.n8n.cloud'],
+  ['💬 וואטסאפ שלי','https://wa.me/972525944424']
+ ]}
+];
+function renderLinks(){
+ var c=document.getElementById('linksContainer');if(!c)return;
+ c.innerHTML=LINK_GROUPS.map(function(g){
+  return '<h2 class="sec">'+g.t+'</h2>'+g.items.map(function(it){
+   var label=(g.ic?g.ic+' ':'')+esc(it[0]);
+   return '<div class="linkrow"><a class="lnk" href="'+it[1]+'" target="_blank" rel="noopener">'+label+'<small>'+esc(it[1])+'</small></a>'+
+    '<button class="btn copy sm go" onclick="cpText(\''+it[1]+'\')">📋</button>'+
+    '<a class="btn sm go" style="background:#2563eb" href="'+it[1]+'" target="_blank" rel="noopener">🔗</a></div>';
+  }).join('');
+ }).join('');
+}
+function loadLinks(){var f=localStorage.getItem('eilat_form')||'',s=localStorage.getItem('eilat_sheet')||'';var sf=document.getElementById('set_form'),ss=document.getElementById('set_sheet'),lf=document.getElementById('lnk_form'),ls=document.getElementById('lnk_sheet');if(sf)sf.value=f;if(ss)ss.value=s;if(f&&lf)lf.href=f;if(s&&ls)ls.href=s;}
+function saveLinks(){var f=document.getElementById('set_form').value.trim(),s=document.getElementById('set_sheet').value.trim();localStorage.setItem('eilat_form',f);localStorage.setItem('eilat_sheet',s);stateSet('links',{form:f,sheet:s});loadLinks();toast('נשמר ✓');}
+
+// CHANNELS
+const CHANNELS=[
+ {n:"יד2 - פרסום מודעה",t:"paid",p:3,l:"https://www.yad2.co.il/realestate/rent"},
+ {n:"מדלן",t:"site",p:3,l:"https://www.madlan.co.il"},
+ {n:"הומלס (Homeless)",t:"site",p:3,l:"https://www.homeless.co.il"},
+ {n:"דף עסקי פייסבוק - דירות להשכרה בקריות (הזן קישור ✏️)",t:"fbpage",p:3,l:""},
+ {n:"קבוצה: דירות להשכרה בקריות ללא תיווך",t:"fb",p:3,l:"https://www.facebook.com/groups/1591401697779759/"},
+ {n:"קבוצה: להשכרה דירות בקריות ללא תיווך",t:"fb",p:3,l:"https://www.facebook.com/groups/3035567756713270/"},
+ {n:"OnMap",t:"site",p:2,l:"https://www.onmap.co.il"},
+ {n:"קומו (Komo)",t:"site",p:2,l:"https://www.komo.co.il"},
+ {n:"BipBip",t:"site",p:2,l:"https://www.bipbip.co.il"},
+ {n:"זה כאן (Zehcan)",t:"site",p:2,l:"https://www.zehcan.co.il"},
+ {n:"WinWin",t:"site",p:2,l:"https://www.winwin.co.il"},
+ {n:"כל ישראל (Callil)",t:"site",p:2,l:"https://www.callil.co.il"},
+ {n:"נדל\"ן מרקט",t:"site",p:2,l:"https://www.nadlan-market.com"},
+ {n:"iRoom (חדרים חיפה)",t:"site",p:2,l:"https://www.iroom.co.il"},
+ {n:"קבוצה: יד2 דירות בקריות בלבד",t:"fb",p:2,l:"https://www.facebook.com/groups/219035039168909/"},
+ {n:"קבוצה: תושבי קריית ביאליק",t:"fb",p:2,l:"https://www.facebook.com/groups/670047909760338/"},
+ {n:"ImmoIsrael (קהל בינ\"ל)",t:"site",p:1,l:"https://www.immoisrael.com"},
+ {n:"fb-nadlan.com (אגרגטור קבוצות)",t:"forum",p:1,l:"https://www.fb-nadlan.com"},
+ {n:"וואטסאפ: krayotrent + אינדקסים (הזן קישור ✏️)",t:"wa",p:1,l:""},
+ {n:"קבוצה: קרית ים וקריית חיים מערבית בלבד",t:"fb",p:3,l:"https://www.facebook.com/groups/842840749613605/"},
+ {n:"קבוצה: דירות מפה לאוזן בקריות",t:"fb",p:3,l:"https://www.facebook.com/groups/125793327613639/"},
+ {n:"קבוצה: דירות יחידות דיור חיפה קריות - לא למתווכים",t:"fb",p:3,l:"https://www.facebook.com/groups/1697699190534876/"},
+ {n:"קבוצה: דירות להשכרה בחיפה ללא תיווך",t:"fb",p:3,l:"https://www.facebook.com/groups/1734519960003504/"},
+ {n:"קבוצה: דירות להשכרה מכירה חיפה קריות נשר",t:"fb",p:3,l:"https://www.facebook.com/groups/3387613464901265/"},
+ {n:"קבוצה: דירות להשכרה בקריות וחיפה",t:"fb",p:2,l:"https://www.facebook.com/groups/1896414753945570/"},
+ {n:"קבוצה: דירה להשכיר חיפה קריות",t:"fb",p:2,l:"https://www.facebook.com/groups/438774037334934/"},
+ {n:"קבוצה: דירות להשכרה בחיפה והקריות",t:"fb",p:2,l:"https://www.facebook.com/groups/302498687310251/"},
+ {n:"קבוצה: דירות להשכרה חיפה והקריות",t:"fb",p:2,l:"https://www.facebook.com/groups/726151022194957/"},
+ {n:"קבוצה: דירות להשכרה בחיפה עם מחיר",t:"fb",p:2,l:"https://www.facebook.com/groups/1316280659214308/"},
+ {n:"קבוצה: דירות להשכרה בחיפה (570)",t:"fb",p:1,l:"https://www.facebook.com/groups/570905303053795/"}
+];
+const CT={site:["אתר לוח","#2563eb"],paid:["לוח (תשלום)","#a05c3a"],fb:["קבוצת פייסבוק","#7e57c2"],fbpage:["דף עסקי","#7e57c2"],forum:["פורום/אגרגטור","#8a7a68"],wa:["וואטסאפ","#25d366"]};
+const PRIO={3:["גבוה","b-closed"],2:["בינוני","b-contacted"],1:["נמוך","b-lost"]};
+function today(){return new Date().toISOString().slice(0,10);}
+function getCh(){try{return JSON.parse(localStorage.getItem('eilat_ch')||'{}');}catch(e){return {};}}
+function saveCh(o){localStorage.setItem('eilat_ch',JSON.stringify(o));stateSet('channels',o);}
+function chLink(i){var o=getCh();return (o[i]&&o[i].link)||CHANNELS[i].l||"";}
+function setLink(i){var cur=chLink(i);var v=prompt("הדבק קישור לערוץ:\n"+CHANNELS[i].n,cur);if(v===null)return;var o=getCh();o[i]=o[i]||{};o[i].link=v.trim();saveCh(o);renderCh();toast('קישור נשמר ✓');}
+function togglePub(i){var o=getCh();o[i]=o[i]||{};if(o[i].lastPub===today()){o[i].lastPub='';}else{o[i].lastPub=today();o[i].count=(o[i].count||0)+1;}saveCh(o);renderCh();}
+function resetDay(){if(!confirm('לאפס את כל הסימונים של היום?'))return;var o=getCh();Object.keys(o).forEach(k=>{if(o[k])o[k].lastPub='';});saveCh(o);renderCh();toast('אופס ✓');}
+function renderCh(){
+ var o=getCh();var td=today();var doneHigh=0,totHigh=0,doneAll=0;
+ var rows=CHANNELS.map((c,i)=>{
+  var rec=o[i]||{};var done=rec.lastPub===td;if(done)doneAll++;
+  if(c.p===3){totHigh++;if(done)doneHigh++;}
+  var link=chLink(i);var ct=CT[c.t],pr=PRIO[c.p];
+  var open=link?'<a class="btn sm" style="background:#2563eb" href="'+link+'" target="_blank">פתח</a>':'<span style="color:#bbb;font-size:12px">אין קישור</span>';
+  var edit='<button class="btn gray sm" onclick="setLink('+i+')">✏️</button>';
+  var quickBtn=(c.t==='fb'&&link)?'<button class="btn sm" style="background:#7e57c2" onclick="quickPub('+i+')">⚡ פרסם</button> ':'';
+  var pubBtn=quickBtn+'<button class="btn sm '+(done?'ok':'gray')+'" onclick="togglePub('+i+')">'+(done?'✓ פורסם':'סמן')+'</button>';
+  var last=rec.lastPub?rec.lastPub:(rec.count?'—':'');
+  return '<tr style="'+(done?'opacity:.55':'')+'"><td>'+esc(c.n)+'</td><td><span class="badge" style="background:'+ct[1]+'">'+ct[0]+'</span></td><td><span class="badge '+pr[1]+'">'+pr[0]+'</span></td><td style="white-space:nowrap">'+open+' '+edit+'</td><td>'+pubBtn+'</td><td style="font-size:12px">'+last+'</td></tr>';
+ }).join('');
+ document.getElementById('chRows').innerHTML=rows;
+ document.getElementById('chProg').textContent='היום פורסמו '+doneAll+'/'+CHANNELS.length+' ערוצים · עדיפות גבוהה: '+doneHigh+'/'+totHigh;
+ document.getElementById('chBar').style.width=(totHigh?Math.round(doneHigh/totHigh*100):0)+'%';
+}
+var MEDIAV=[];var MEDIAF=[];var WAT='';var q=String.fromCharCode(39);var NLx=String.fromCharCode(10);
+function waOpen(t){window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank');}
+function waShare(){var g='https://avi7756-design.github.io/avi-sites/dira-gallery/';waOpen((WAT||'')+NLx+'📸 גלריה: '+g);}
+function cpShareKit(){var u=MEDIAV[0]?MEDIAV[0].url:'';cpText((WAT||'')+NLx+'🎬 סרטון: '+u);}
+function loadMedia(){fetch('dira-gallery/media.json?t='+Date.now(),{cache:'no-store'}).then(function(r){return r.json();}).then(function(m){var base=m.base||'https://avi7756-design.github.io/avi-sites/dira-gallery/';WAT=m.waText||'';MEDIAV=(m.videos||[]).map(function(v){return {title:v.title,url:base+v.file,dur:v.dur||''};});MEDIAF=(m.files||[]).map(function(f){return {title:f.title,url:base+f.file,type:f.type||''};});var g=document.getElementById('videoGrid');if(g)g.innerHTML=MEDIAV.map(function(v){return '<figure><video src="'+v.url+'#t=0.1" preload="metadata" controls style="width:100%;height:150px;object-fit:cover;background:#000"></video><figcaption>'+v.title+' · '+v.dur+'</figcaption><div class="pbtns" style="flex-wrap:wrap;gap:4px"><button class="btn copy sm" onclick="cpText('+q+v.url+q+')">📋 קישור</button><button class="btn sm" style="background:#25d366" onclick="waOpen('+q+v.url+q+')">📤 וואטסאפ</button><a class="btn sm" href="'+v.url+'" target="_blank">פתח</a></div></figure>';}).join('')||'<div style="color:#888">אין סרטונים.</div>';var fg=document.getElementById('fileGrid');if(fg)fg.innerHTML=MEDIAF.map(function(f){var prev=f.type==='image'?'<img src="'+f.url+'" style="width:100%;height:150px;object-fit:cover;cursor:pointer" onclick="window.open('+q+f.url+q+')">':'<div onclick="window.open('+q+f.url+q+')" style="height:150px;display:flex;align-items:center;justify-content:center;font-size:46px;background:#f5ecd9;cursor:pointer">📄</div>';return '<figure>'+prev+'<figcaption>'+f.title+'</figcaption><div class="pbtns" style="flex-wrap:wrap;gap:4px"><button class="btn copy sm" onclick="cpText('+q+f.url+q+')">📋 קישור</button><button class="btn sm" style="background:#25d366" onclick="waOpen('+q+f.url+q+')">📤 וואטסאפ</button><a class="btn sm" href="'+f.url+'" download target="_blank">הורד</a></div></figure>';}).join('')||'<div style="color:#888">אין קבצים.</div>';}).catch(function(e){var g=document.getElementById('videoGrid');if(g)g.innerHTML='<div style="color:#c0392b;font-size:13px;padding:8px">לא ניתן לטעון מדיה כרגע.</div>';});}
+// ===== TODAY - daily mission wizard (matches Telegram bot logic) =====
+const POST_END='\n\n👈 כל התמונות, סרטון ושקיפות מלאה: https://avi7756-design.github.io/avi-sites/dira-gallery/\n📞 אבי: 052-594-4424';
+const POSTS=[
+ {v:'A',name:'קטנה וחכמה',body:`🏠 דירה קטנה וחכמה - בדיוק בשביל מי שמחפש בדיוק את זה.
+
+40 מ"ר של 2 חדרים מרוהטים קומפלט + מרפסת שמש 20 מ"ר - שדרות אחי אילת 5, קריית חיים מזרחית.
+
+נכון, היא קומפקטית. בכוונה. כי מי שגר לבד או בזוג לא צריך לשלם על מטרים שהוא לא משתמש בהם - הוא צריך שהכל יהיה מסודר, מאובזר וכלול במחיר:
+
+💰 3,700 ₪ בתשלום אחד - ארנונה, ועד, מים, כבלים, אינטרנט (רק חשמל בנפרד)
+🅿️ חניון תת-קרקעי שמור · 🛡️ ממ"ד קומתי · ♿ נגישות מלאה · 🌊 6 דק' מהים
+🔑 כניסה מיידית · ללא תיווך
+
+❗ חשוב והוגן לדעת מראש: הדירה מתאימה ליחיד או זוג בלבד. המטבח קומפקטי (כיריים, טוסטר אובן, מיקרו - לא תנור מלא). למשפחות או למי שצריך 3 חדרים - זו לא הדירה.`+POST_END},
+ {v:'B',name:'נכנסים עם מזוודה',body:`📍 להשכרה: 2 חד' מרוהטת קומפלט, 40 מ"ר + מרפסת 20 מ"ר - אחי אילת 5, קריית חיים מזרחית
+
+✅ מרוהטת עד הפרט האחרון - נכנסים עם מזוודה
+✅ 3,700 ₪ כולל הכל: ארנונה, ועד, מים, כבלים, אינטרנט (חשמל בנפרד)
+✅ חניון תת-קרקעי שמור · ממ"ד · מעלית · נגישות מלאה
+✅ כניסה מיידית · ללא תיווך · 6 דק' הליכה מהים
+
+🎯 למי זה מושלם: יחיד/ה או זוג שרוצים פתרון איכותי ומיידי בלי כאב ראש.
+🚫 למי זה לא: משפחות עם ילדים, מי שצריך מטבח גדול לבישולים כבדים.
+החיסכון האמיתי: בדירה "זולה יותר" תשלמו ארנונה+ועד+חשבונות+ריהוט - וזה ייצא יותר.`+POST_END},
+ {v:'C',name:'החשבון הפשוט',body:`🧮 בואו נעשה חשבון אמיתי לרגע.
+
+דירה "רגילה" ב-3,200 ₪: + ארנונה ~250 + ועד 411 + מים + כבלים + אינטרנט ~150 = מעל 4,200 ₪. ועוד לקנות מקרר, מיטה, ספה, ארון...
+
+הדירה שלי באחי אילת 5: 3,700 ₪. נקודה. הכל בפנים - גם החשבונות וגם הריהוט המלא (רק חשמל בנפרד).
+
+2 חדרים, 40 מ"ר קומפקטיים ומסודרים + מרפסת שמש ענקית, חניון שמור, ממ"ד, 6 דק' מהים. כניסה מיידית, בלי תיווך.
+
+מתאים ליחיד או זוג. לא מתאים למשפחות - והמטבח קומפקטי (בלי תנור מלא). אומר את זה מראש כי אני מעדיף שתבואו לראות רק אם זה באמת בשבילכם 🤝`+POST_END},
+ {v:'D',name:'שקיפות מלאה',body:`💬 אני אגיד לכם בדיוק מה יש ומה אין - ואתם תחליטו.
+
+מה יש: 2 חד' מרוהטים קומפלט (40 מ"ר), מרפסת שמש 20 מ"ר עם כיוון מעולה, חניון תת-קרקעי שמור, ממ"ד בקומה, מעלית רחבה, נגישות מלאה, 6 דק' הליכה מהים. 3,700 ₪ שכוללים ארנונה, ועד, מים, כבלים ואינטרנט.
+
+מה אין: חדר שלישי. מטבח גדול עם תנור בילט-אין. מקום למשפחה עם ילדים.
+
+מי שזה מתאים לו - מקבל דירה שאפשר להיכנס אליה מחר עם מזוודה ולחיות בשקט.
+לפני ביקור אני שולח סרטון מלא של הדירה - שתדעו בדיוק מה אתם באים לראות.`+POST_END},
+ {v:'E',name:'קצרה (וואטסאפ/סטטוס)',body:`🏠 דירה מרוהטת להשכרה בק. חיים - 3,700₪ כולל הכל!
+✅ מרוהטת קומפלט - נכנסים עם מזוודה
+✅ חניון תת-קרקעי שמור
+✅ מרפסת ענקית 20 מ"ר
+✅ 6 דק' הליכה מהים
+✅ ללא תיווך - ישירות מהבעלים
+📸 כל התמונות + פרטים מלאים כאן:
+https://avi7756-design.github.io/avi-sites/dira-gallery/
+📞 052-594-4424`}
+];
+const GROUPS=[
+ {n:'דירות להשכרה בקריות ללא תיווך',l:'https://www.facebook.com/groups/1591401697779759'},
+ {n:'להשכרה דירות בקריות ללא תיווך',l:'https://www.facebook.com/groups/3035567756713270'},
+ {n:'יד2 דירות בקריות בלבד',l:'https://www.facebook.com/groups/219035039168909/'},
+ {n:'קרית ים וקריית חיים מערבית בלבד',l:'https://www.facebook.com/groups/842840749613605/'},
+ {n:'דירות מפה לאוזן בקריות',l:'https://www.facebook.com/groups/125793327613639/'},
+ {n:'דירות יחידות דיור חיפה קריות - לא למתווכים',l:'https://www.facebook.com/groups/1697699190534876/'},
+ {n:'דירות להשכרה בחיפה ללא תיווך',l:'https://www.facebook.com/groups/1734519960003504/'},
+ {n:'דירות להשכרה מכירה חיפה קריות נשר',l:'https://www.facebook.com/groups/3387613464901265/'},
+ {n:'דירות להשכרה בקריות וחיפה',l:'https://www.facebook.com/groups/1896414753945570/'},
+ {n:'דירה להשכיר חיפה קריות',l:'https://www.facebook.com/groups/438774037334934/'},
+ {n:'דירות להשכרה בחיפה והקריות',l:'https://www.facebook.com/groups/302498687310251/'},
+ {n:'דירות להשכרה חיפה והקריות',l:'https://www.facebook.com/groups/726151022194957/'},
+ {n:'דירות להשכרה בחיפה עם מחיר',l:'https://www.facebook.com/groups/1316280659214308/'},
+ {n:'דירות להשכרה בחיפה (570)',l:'https://www.facebook.com/groups/570905303053795/'}
+];
+const GCHIDX=[4,5,14,19,20,21,22,23,24,25,26,27,28,29]; // GROUPS index -> CHANNELS index (for togglePub sync)
+const MPHOTOS=[['06_balcony.jpg','מרפסת'],['01_salon.jpg','סלון'],['04_bedroom.jpg','חדר שינה'],['05_kitchen.jpg','מטבח'],['11_street_view.jpg','הבניין']];
+function todayTasks(){
+ var day=Math.floor(Date.now()/86400000);
+ var n=GROUPS.length,gi1=(day*2)%n,gi2=(day*2+1)%n,pi1=day%4,pi2=(day+2)%4,dow=new Date().getDay();
+ var t=[{kind:'pub',gi:gi1,pi:pi1,num:1},{kind:'wait',num:2},{kind:'pub',gi:gi2,pi:pi2,num:3},{kind:'wa',num:4}];
+ if(dow===0)t.push({kind:'profile',pi:0,num:5});
+ if(dow===1)t.push({kind:'meta',num:6});
+ return t;
+}
+function dKey(){return 'eilat_daily_'+today();}
+function dServerKey(){return 'daily_'+today();}
+var _viewTask=null; // 1-based position currently displayed (manual nav); null => auto/trophy
+function normalizeDaily(o){
+ o=(o&&typeof o==='object')?o:{};
+ o.date=o.date||today();
+ if(!Array.isArray(o.tasksDone)){var td=[];var od=o.done;if(od&&typeof od==='object'){Object.keys(od).forEach(function(k){if(od[k])td.push(parseInt(k,10)+1);});}o.tasksDone=td;}
+ if(!Array.isArray(o.skip)){var sk=[];var os=o.skip;if(os&&typeof os==='object'){Object.keys(os).forEach(function(k){if(os[k])sk.push(parseInt(k,10)+1);});}o.skip=sk;}
+ o.log=Array.isArray(o.log)?o.log:[];
+ return o;
+}
+function getDaily(){var o;try{o=JSON.parse(localStorage.getItem(dKey()));}catch(e){o=null;}return normalizeDaily(o);}
+function saveDaily(o,push){o=normalizeDaily(o);o.updatedAt=new Date().toISOString();o.updatedBy=DEVICE;o.currentTask=_viewTask;localStorage.setItem(dKey(),JSON.stringify(o));if(push!==false)stateSet(dServerKey(),o);}
+function tsNow(){var d=new Date();function z(n){return (n<10?'0':'')+n;}return z(d.getDate())+'/'+z(d.getMonth()+1)+' '+z(d.getHours())+':'+z(d.getMinutes());}
+function logDaily(o,p,action){o.log=o.log||[];o.log.push({ts:tsNow(),num:p,action:action,by:DEVHE});}
+function firstIncomplete(d,total){for(var p=1;p<=total;p++){if(d.tasksDone.indexOf(p)<0&&d.skip.indexOf(p)<0)return p;}return null;}
+function curView(){var total=todayTasks().length,d=getDaily();var show=_viewTask;if(show==null||show<1||show>total){var fi=firstIncomplete(d,total);show=(fi==null)?null:fi;}return show;}
+function markChannelPub(ci){var o=getCh();o[ci]=o[ci]||{};if(o[ci].lastPub!==today()){o[ci].lastPub=today();o[ci].count=(o[ci].count||0)+1;saveCh(o);}if(document.getElementById('channels').classList.contains('active'))renderCh();}
+function copyPost(pi){cpText(POSTS[pi].body);}
+function copyQuick(){cpText(document.getElementById('m_quick').textContent);}
+function openGroup(gi){var g=GROUPS[gi];if(g.l){window.open(g.l,'_blank');}else{navigator.clipboard.writeText(g.n).then(()=>toast('שם הקבוצה הועתק 📋 חפש בפייסבוק'));}}
+function copyAndOpen(pi,gi){navigator.clipboard.writeText(POSTS[pi].body).then(function(){toast('✅ הטקסט הועתק! הקבוצה נפתחת - הדבק ופרסם');setTimeout(function(){openGroup(gi);},400);});}
+function quickPub(ci){var day=Math.floor(Date.now()/86400000);var pi=day%4;navigator.clipboard.writeText(POSTS[pi].body).then(function(){toast('✅ טקסט גרסה '+POSTS[pi].v+' הועתק! פותח...');var link=chLink(ci);if(link)setTimeout(function(){window.open(link,'_blank');},400);togglePub(ci);});}
+function mphotosHtml(){return '<div class="mphotos"><span class="cap">📎 צרף 5 תמונות לפי הסדר:</span>'+MPHOTOS.map(p=>'<img src="'+BASE+p[0]+'" title="'+p[1]+'" onclick="window.open(this.src)">').join('')+'</div>';}
+// timer (7 min countdown)
+var _timerInt=null,_timerLeft=420;
+function clearTimer(){if(_timerInt){clearInterval(_timerInt);_timerInt=null;}}
+function updTimer(){var d=document.getElementById('timerDisp');if(!d)return;var m=Math.floor(_timerLeft/60),s=_timerLeft%60;d.textContent=(m<10?'0':'')+m+':'+(s<10?'0':'')+s;}
+function startTimer(){clearTimer();_timerLeft=420;updTimer();_timerInt=setInterval(function(){_timerLeft--;updTimer();if(_timerLeft<=0){clearTimer();var d=document.getElementById('timerDisp');if(d)d.textContent='00:00';toast('✅ עברו 7 דקות - אפשר להמשיך לקבוצה הבאה');}},1000);}
+function taskCard(t,cur,total){
+ var head='<div class="step">משימה '+(cur+1)+' מתוך '+total+'</div>';
+ var foot='<button class="bigdone" onclick="doneTask('+cur+')">✅ בוצע - למשימה הבאה</button>'+
+          '<button class="skiptoday" onclick="skipTask('+cur+')">דלג היום</button>';
+ if(t.kind==='pub'){
+  var g=GROUPS[t.gi],p=POSTS[t.pi];
+  var openBtn=g.l?'<button class="btn bigcopy" style="background:#7e57c2" onclick="openGroup('+t.gi+')">🔗 פתח את הקבוצה</button>'
+                 :'<button class="btn bigcopy gray" onclick="openGroup('+t.gi+')">🔍 העתק שם הקבוצה לחיפוש בפייסבוק</button>';
+  return head+
+   '<div class="mtitle">📢 פרסום בקבוצה '+(t.num===1?'1':'2')+'</div>'+
+   '<div class="mexp">קבוצה: <b>'+esc(g.n)+'</b><br>גרסה '+p.v+' · '+esc(p.name)+'</div>'+
+   '<div class="mtext">'+esc(p.body)+'</div>'+
+   '<button class="btn bigcopy" style="background:#7e57c2;font-size:18px" onclick="copyAndOpen('+t.pi+','+t.gi+')">📋 העתק טקסט + 🔗 פתח קבוצה</button>'+
+   '<div style="display:flex;gap:6px;margin:8px 0;justify-content:center"><button class="btn copy sm" onclick="copyPost('+t.pi+')">📋 רק העתק טקסט</button>'+openBtn+'</div>'+mphotosHtml()+foot;
+ }
+ if(t.kind==='wait'){
+  return head+
+   '<div class="mtitle">⏳ סימון והשהיה 7 דקות</div>'+
+   '<div class="mexp">סמן שפרסמת בקבוצה הראשונה, והמתן 7 דקות לפני הקבוצה הבאה - כדי להימנע מחסימה.</div>'+
+   '<div class="timerbox" id="timerDisp">07:00</div>'+
+   '<button class="btn bigcopy" onclick="startTimer()">▶️ התחל טיימר 7 דקות</button>'+foot;
+ }
+ if(t.kind==='wa'){
+  return head+
+   '<div class="mtitle">📱 סטטוס וואטסאפ</div>'+
+   '<div class="mexp">פרסם סטטוס וואטסאפ עם הפתיח המהיר.</div>'+
+   '<div class="mtext">'+esc(document.getElementById('m_quick').textContent)+'</div>'+
+   '<button class="btn copy bigcopy" onclick="copyQuick()">📋 העתק טקסט</button>'+foot;
+ }
+ if(t.kind==='profile'){
+  var pp=POSTS[0];
+  return head+
+   '<div class="mtitle">👤 פוסט בפרופיל האישי</div>'+
+   '<div class="mexp">פרסם בפרופיל האישי שלך (1,200 חברים) - גרסה A.</div>'+
+   '<div class="mtext">'+esc(pp.body)+'</div>'+
+   '<button class="btn copy bigcopy" onclick="copyPost(0)">📋 העתק טקסט</button>'+
+   '<button class="btn bigcopy" style="background:#7e57c2" onclick="window.open(\'https://www.facebook.com\',\'_blank\')">🔗 פתח פייסבוק</button>'+
+   mphotosHtml()+foot;
+ }
+ if(t.kind==='meta'){
+  return head+
+   '<div class="mtitle">🗓️ תזמון שבועי בדף העסקי</div>'+
+   '<div class="mexp">דרך Meta Business Suite: תזמן 7 פוסטים, אחד לכל יום, לסירוגין A/B/C/D.</div>'+
+   '<div class="hint" style="text-align:right">פתח את הקומפוזר, בחר את הדף העסקי, והעלה 7 פוסטים מתוזמנים (יום אחרי יום). העתק כל גרסה בכפתורים:</div>'+
+   '<div style="display:flex;gap:6px;flex-wrap:wrap;justify-content:center;margin-bottom:10px">'+
+    POSTS.map((p,i)=>'<button class="btn copy sm" onclick="copyPost('+i+')">📋 גרסה '+p.v+'</button>').join('')+'</div>'+
+   '<button class="btn bigcopy" style="background:#7e57c2" onclick="window.open(\'https://business.facebook.com/latest/composer\',\'_blank\')">🔗 פתח Meta Business Suite</button>'+foot;
+ }
+ return head;
+}
+function navTitle(t){if(!t)return '';if(t.kind==='pub')return 'פרסום בקבוצה';if(t.kind==='wait')return 'המתנה 7 דקות';if(t.kind==='wa')return 'סטטוס וואטסאפ';if(t.kind==='profile')return 'פוסט בפרופיל';if(t.kind==='meta')return 'תזמון שבועי';return 'משימה';}
+function renderNav(d,total,show){
+ var el=document.getElementById('todayNav');if(!el)return;var tasks=todayTasks();
+ var jumps='';
+ for(var p=1;p<=total;p++){
+  var done=d.tasksDone.indexOf(p)>-1,sk=d.skip.indexOf(p)>-1,iscur=(p===show);
+  var cls='navjump'+(iscur?' cur':'')+(done?' done':'')+((sk&&!done)?' skip':'');
+  jumps+='<button class="'+cls+'" onclick="goToTask('+p+')" title="'+esc(navTitle(tasks[p-1]))+'">'+(done?'✓':p)+'</button>';
+ }
+ var checks=tasks.map(function(t,idx){var p=idx+1;var done=d.tasksDone.indexOf(p)>-1;
+  return '<label class="navchk'+(done?' isdone':'')+'"><input type="checkbox" '+(done?'checked':'')+' onchange="toggleDone('+p+')"> <span>'+p+'. '+esc(navTitle(t))+'</span></label>';
+ }).join('');
+ var doneList=d.tasksDone.filter(function(p){return p>=1&&p<=total;}).sort(function(a,b){return a-b;});
+ var leftList=[];for(var q=1;q<=total;q++){if(doneList.indexOf(q)<0)leftList.push(q);}
+ var status='אתה במשימה '+(show||'-')+' · בוצעו: '+(doneList.join(',')||'—')+' · נותרו: '+(leftList.join(',')||'—');
+ el.innerHTML='<div class="navjumps">'+jumps+'</div>'+
+  '<div class="navarrows"><button class="btn sm gray" onclick="navPrev()">◀ הקודם</button><button class="btn sm gray" onclick="navNext()">הבא ▶</button></div>'+
+  '<div class="navchecks">'+checks+'</div>'+
+  '<div class="navstatus">'+status+'</div>';
+}
+function renderJournal(d){
+ var el=document.getElementById('todayJournal');if(!el)return;
+ var log=(d.log||[]).slice().reverse();
+ el.innerHTML='<h2 class="sec" style="font-size:15px">📒 יומן היום</h2>'+(log.length?log.map(function(e){return '<div class="jrow">'+esc(e.ts)+' - משימה '+e.num+' '+esc(e.action)+' ('+esc(e.by)+')</div>';}).join(''):'<p style="color:#888;font-size:13px">אין פעולות היום עדיין.</p>');
+}
+function renderToday(){
+ var tasks=todayTasks(),total=tasks.length,d=getDaily();
+ if(d.total!==total){d.total=total;saveDaily(d,false);}
+ var doneCount=d.tasksDone.filter(function(p){return p>=1&&p<=total;}).length;
+ var pct=total?Math.round(doneCount/total*100):0;
+ var pe=document.getElementById('todayProg');
+ if(pe)pe.innerHTML='<div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:6px"><span class="pt">היום: '+doneCount+'/'+total+' בוצעו</span><span id="syncBadge" style="font-size:12px;font-weight:bold"></span></div><div class="pbar"><div style="width:'+pct+'%"></div></div>';
+ paintSync();
+ var show=curView();
+ renderNav(d,total,show);
+ var card=document.getElementById('todayCard');
+ if(card){
+  if(show==null){
+   card.innerHTML='<div class="mcard donescreen"><div class="trophy">🏆</div><h2 style="color:var(--terra-d);font-size:24px">סיימת את היום!</h2><p style="font-size:18px;margin:10px 0"><b>'+doneCount+'/'+total+'</b> משימות בוצעו</p><div class="hint" style="text-align:right">💡 אל תשכח לרשום כל פנייה שקיבלת בבוט הטלגרם - כדי שלא יאבד אף ליד. אפשר לחזור לכל משימה דרך פס הניווט למעלה.</div><a class="btn copy" href="https://t.me/Avi_eilat5_bot" target="_blank" style="margin-top:8px">🤖 פתח את בוט הטלגרם</a></div>';
+   clearTimer();
+  }else{
+   card.innerHTML='<div class="mcard">'+taskCard(tasks[show-1],show-1,total)+'</div>';
+   if(tasks[show-1].kind!=='wait')clearTimer();
+  }
+ }
+ renderJournal(d);
+ renderHist();
+}
+function doneTask(i){
+ var tasks=todayTasks(),total=tasks.length,p=i+1,t=tasks[i],d=getDaily();d.total=total;
+ if(d.tasksDone.indexOf(p)<0){d.tasksDone.push(p);logDaily(d,p,'בוצעה');}
+ var si=d.skip.indexOf(p);if(si>-1)d.skip.splice(si,1);
+ _viewTask=firstIncomplete(d,total);
+ saveDaily(d);
+ if(t&&t.kind==='pub')markChannelPub(GCHIDX[t.gi]);
+ clearTimer();toast('בוצע ✓');renderToday();
+}
+function toggleDone(p){
+ var tasks=todayTasks(),total=tasks.length,d=getDaily();d.total=total;
+ var idx=d.tasksDone.indexOf(p);
+ if(idx>-1){d.tasksDone.splice(idx,1);logDaily(d,p,'בוטלה');}
+ else{d.tasksDone.push(p);logDaily(d,p,'בוצעה');var si=d.skip.indexOf(p);if(si>-1)d.skip.splice(si,1);var t=tasks[p-1];if(t&&t.kind==='pub')markChannelPub(GCHIDX[t.gi]);}
+ _viewTask=p;
+ saveDaily(d);toast('עודכן ✓');renderToday();
+}
+function skipTask(i){
+ var tasks=todayTasks(),total=tasks.length,p=i+1,d=getDaily();d.total=total;
+ if(d.skip.indexOf(p)<0){d.skip.push(p);logDaily(d,p,'דולגה');}
+ _viewTask=firstIncomplete(d,total);
+ saveDaily(d);clearTimer();renderToday();
+}
+function goToTask(p){var total=todayTasks().length;if(p<1)p=1;if(p>total)p=total;_viewTask=p;renderToday();}
+function navPrev(){var c=curView();goToTask((c||1)-1);}
+function navNext(){var c=curView();goToTask((c||0)+1);}
+function mergeDailies(local,server){
+ var m=normalizeDaily(local);if(!server)return m;var sv=normalizeDaily(server);
+ sv.tasksDone.forEach(function(p){if(m.tasksDone.indexOf(p)<0)m.tasksDone.push(p);});
+ sv.skip.forEach(function(p){if(m.skip.indexOf(p)<0&&m.tasksDone.indexOf(p)<0)m.skip.push(p);});
+ var seen={};m.log.forEach(function(e){seen[(e.ts||'')+':'+(e.num||'')]=1;});
+ (sv.log||[]).forEach(function(e){if(!seen[(e.ts||'')+':'+(e.num||'')])m.log.push(e);});
+ m.log.sort(function(a,b){return (a.ts||'')<(b.ts||'')?-1:1;});
+ return m;
+}
+function pullToday(){
+ setSync('loading');
+ var localBefore=getDaily();
+ return stateGet(dServerKey()).then(function(sv){
+  if(sv&&typeof sv==='object'){
+   var merged=mergeDailies(localBefore,sv);
+   localStorage.setItem(dKey(),JSON.stringify(merged));
+   if(_viewTask==null&&typeof sv.currentTask==='number')_viewTask=sv.currentTask;
+   if(merged.tasksDone.length>((normalizeDaily(sv)).tasksDone.length))stateSet(dServerKey(),merged);
+   setSync('ok');
+  }else{
+   if(localBefore.tasksDone.length||localBefore.skip.length||(localBefore.log&&localBefore.log.length))stateSet(dServerKey(),localBefore);
+   else setSync('ok');
+  }
+ }).catch(function(e){setSync('err');}).then(function(){renderToday();});
+}
+function bootSync(){
+ stateGet('channels').then(function(ch){if(ch&&typeof ch==='object'){localStorage.setItem('eilat_ch',JSON.stringify(ch));renderCh();}}).catch(function(e){});
+ stateGet('links').then(function(lk){if(lk&&typeof lk==='object'){if(typeof lk.form==='string')localStorage.setItem('eilat_form',lk.form);if(typeof lk.sheet==='string')localStorage.setItem('eilat_sheet',lk.sheet);loadLinks();}}).catch(function(e){});
+ stateGet('leadlog').then(function(sv){if(sv&&typeof sv==='object'){var local=getLog();var merged=mergeLog(sv,local);localStorage.setItem('eilat_leadlog',JSON.stringify(merged));}}).catch(function(e){});
+}
+function fmtD(iso){var p=(iso||'').split('-');return p.length===3?p[2]+'/'+p[1]:iso;}
+function renderHist(){
+ var el=document.getElementById('todayHist');if(!el)return;
+ var arr=[];
+ for(var i=0;i<localStorage.length;i++){var k=localStorage.key(i);if(k&&k.indexOf('eilat_daily_')===0){try{var v=JSON.parse(localStorage.getItem(k));var dc=0;if(v){if(Array.isArray(v.tasksDone))dc=v.tasksDone.filter(function(x){return typeof x==='number';}).length;else if(v.done&&typeof v.done==='object')Object.keys(v.done).forEach(function(x){if(v.done[x])dc++;});}arr.push({date:k.replace('eilat_daily_',''),done:dc,total:(v&&v.total)||'?'});}catch(e){}}}
+ arr.sort(function(a,b){return a.date<b.date?1:-1;});arr=arr.slice(0,7);
+ el.innerHTML='<h2 class="sec" style="font-size:15px">📅 7 הימים האחרונים</h2>'+(arr.length?arr.map(function(r){return '<div class="histrow'+(r.date===today()?' istoday':'')+'"><span>'+fmtD(r.date)+(r.date===today()?' (היום)':'')+'</span><span><b>'+r.done+'/'+r.total+'</b> בוצעו</span></div>';}).join(''):'<p style="color:#888;font-size:13px">אין היסטוריה עדיין.</p>');
+}
+renderCh();fetchLeads();renderLinks();loadLinks();renderObjLog();loadMedia();renderGroupPosts();activate('today');bootSync();
+</script>
+<footer style="font-size:10px;color:#999;text-align:center;padding:10px 0;margin-bottom:8px;">גרסה <span id="siteVer"></span></footer>
+<script src="version.js"></script>
+<script>(function(){if(window.SITE_VERSION){document.getElementById('siteVer').textContent=SITE_VERSION.num+' · '+SITE_VERSION.date+' '+SITE_VERSION.time;}})();</script>
+</body>
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>📈 מרכז שליטה — שוק ההון | AVI HUNTER</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Segoe UI',Arial,sans-serif;background:#0b0e14;color:#e2e8f4;direction:rtl;padding-bottom:40px}
+.hero{background:linear-gradient(135deg,#101a2e,#16203c);padding:26px 22px;border-bottom:2px solid #1f3a5a;text-align:center}
+.hero h1{font-size:25px;color:#7fc0f8;font-weight:800}
+.hero .s{font-size:13px;color:#7a90b0;margin-top:5px}
+.wrap{max-width:1080px;margin:0 auto;padding:0 16px}
+.tip{background:#14202e;border:1px solid #25506a;border-radius:10px;padding:12px 16px;margin:18px 0;font-size:13px;color:#a8c8dc}
+.tip b{color:#5fd0e8}
+.sep{background:#1a1420;border:1px solid #3a2a4a;border-radius:10px;padding:10px 16px;margin:14px 0;font-size:12px;color:#b09ac8}
+.sec{margin:24px 0 10px;font-size:17px;font-weight:700;display:flex;align-items:center;gap:9px;padding-bottom:8px;border-bottom:1px solid #1c2a40;color:#7fc0f8}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.card{display:block;background:#111824;border:1px solid #1b2638;border-radius:12px;padding:16px;text-decoration:none;color:inherit;transition:all .15s;border-right:3px solid #2a4a6a}
+.card:hover{transform:translateY(-2px);border-color:#3a78b0;border-right-color:#7fc0f8;box-shadow:0 6px 20px #2a6ab025}
+.card.live{border-right-color:#2ecc71}.card.live:hover{border-right-color:#2ecc71}
+.card.doc{border-right-color:#f0a040}.card.doc:hover{border-right-color:#f0a040}
+.card .ic{font-size:26px}
+.card .t{font-size:15px;font-weight:700;color:#e8eefc;margin:6px 0 3px}
+.card .d{font-size:12px;color:#9aa6bc;line-height:1.5}
+.card .ex{font-size:11px;color:#6a8a70;margin-top:7px;background:#0e1a12;border-radius:6px;padding:5px 8px}
+.card .u{font-size:10px;color:#5a6a88;margin-top:8px;word-break:break-all;direction:ltr;text-align:left;font-family:monospace}
+.card .go{display:inline-block;margin-top:9px;font-size:12px;font-weight:700;color:#7fc0f8}
+.foot{text-align:center;font-size:11px;color:#4a5a78;margin-top:34px;padding:16px;border-top:1px solid #1a2032}
+</style></head><body>
+<nav id="avi-nav" dir="rtl" style="position:sticky;top:0;z-index:99999;display:flex;gap:8px;justify-content:center;align-items:center;background:#15233f;padding:8px 10px;border-bottom:1px solid #2a3a55;font-family:'Segoe UI',Arial,sans-serif"><button onclick="history.back()" style="cursor:pointer;border:1px solid #34527d;border-radius:8px;background:#23386a;color:#fff;font-size:13px;font-weight:700;padding:7px 14px;font-family:inherit">◀ אחורה</button><a href="dashboard-v4.html" style="cursor:pointer;border:1px solid #2a6b40;border-radius:8px;background:#2ecc71;color:#0d1117;font-size:13px;font-weight:800;padding:7px 16px;text-decoration:none;display:inline-block">🏠 דשבורד (בית)</a><button onclick="history.forward()" style="cursor:pointer;border:1px solid #34527d;border-radius:8px;background:#23386a;color:#fff;font-size:13px;font-weight:700;padding:7px 14px;font-family:inherit">קדימה ▶</button></nav>
+
+<div class="hero"><h1>📈 מרכז שליטה — שוק ההון</h1>
+<div class="s">AVI HUNTER · מסחר בבורסה בלבד · עודכן 17.6.2026</div></div>
+<div class="wrap">
+
+<div class="sep">🔒 מרכז זה הוא <b>לשוק ההון בלבד</b>. שיווק הנדל"ן מנוהל בנפרד בספריות שלו ואינו מופיע כאן - כדי למנוע ערבוב.</div>
+
+<div class="tip">📱 <b>הוספה כאפליקציה באייפון:</b> פתח בספארי → שיתוף (□↑) → "הוסף למסך הבית". פתיחת המרכז או הדשבורד תיצור אייקון אפליקציה מלא.</div>
+
+<div class="sec">🟢 מערכות חיות</div>
+<div class="grid">
+  <a class="card live" href="https://avi-hazan.app.n8n.cloud/webhook/cc-avi-x9k27q?t=NOW" target="_blank" id="dash">
+    <div class="ic">🖥️</div><div class="t">מרכז שליטה — דשבורד ראשי</div>
+    <div class="d">הדשבורד החי: NAV, מזומן, רמזור, אינדקס מעקב 5★, התראות, וספר צללים.</div>
+    <div class="ex">תראה: כרטיסי מצב + טבלת מעקב + פאנל "🌑 ספר צללים". לחץ 🔄 לרענון נקי.</div>
+    <div class="u">webhook/cc-avi-x9k27q</div><span class="go">פתח ↗</span>
+  </a>
+  <a class="card live" href="https://avi-hazan.app.n8n.cloud/webhook/maestro" target="_blank">
+    <div class="ic">🎼</div><div class="t">מאסטרו — כל העוזרים</div>
+    <div class="d">נקודת כניסה אחת לכל הסוכנים והכלים של שוק ההון.</div>
+    <div class="ex">תראה: ריכוז העוזרים (Maestro).</div>
+    <div class="u">webhook/maestro</div><span class="go">פתח ↗</span>
+  </a>
+  <a class="card live" href="https://avi-hazan.app.n8n.cloud/webhook/shadow-book" target="_blank">
+    <div class="ic">🌑</div><div class="t">ספר צללים (נתונים חיים)</div>
+    <div class="d">מנוע מדידת הלוויין: פוזיציות צל $1,000, P&L, השוואה מול SPY.</div>
+    <div class="ex">תראה: JSON — openCount, satellite מול core, verdict.</div>
+    <div class="u">webhook/shadow-book</div><span class="go">פתח ↗</span>
+  </a>
+  <a class="card live" href="https://avi-hazan.app.n8n.cloud/webhook/five-star-stocks" target="_blank">
+    <div class="ic">📄</div><div class="t">דוח סריקה מלא 5★</div>
+    <div class="d">הדוח המלא של סריקת מניות 5 הכוכבים האחרונה.</div>
+    <div class="ex">תראה: רשימת המניות עם ציונים ופירוט K1-K5.</div>
+    <div class="u">webhook/five-star-stocks</div><span class="go">פתח ↗</span>
+  </a>
+  <a class="card live" href="https://avi-hazan.app.n8n.cloud/webhook/five-star-watchlist" target="_blank">
+    <div class="ic">🔢</div><div class="t">API מועמדות (JSON)</div>
+    <div class="d">רשימת המועמדות הגולמית בפורמט JSON.</div>
+    <div class="ex">תראה: מערך JSON של מניות המעקב.</div>
+    <div class="u">webhook/five-star-watchlist</div><span class="go">פתח ↗</span>
+  </a>
+  <a class="card live" href="https://avi-hazan.app.n8n.cloud" target="_blank">
+    <div class="ic">☁️</div><div class="t">ניהול n8n (ענן)</div>
+    <div class="d">ניהול ה-workflows, הפעלה (Active), והיסטוריית הרצות.</div>
+    <div class="ex">תראה: רשימת ה-workflows של המערכת.</div>
+    <div class="u">avi-hazan.app.n8n.cloud</div><span class="go">פתח ↗</span>
+  </a>
+</div>
+
+<div class="sec">⭐ אינדקס וקבצים</div>
+<div class="grid">
+  <a class="card" href="INDEX_5_כוכבים.html">
+    <div class="ic">⭐</div><div class="t">אינדקס מאסטר</div>
+    <div class="d">כל קבצי הפרויקט: חיפוש, סינון, סטטוס (פעיל/כפול/ארכיון).</div>
+    <div class="ex">תראה: 66 קבצים בכרטיסים + כפתור "כפולים בלבד".</div>
+    <div class="u">INDEX_5_כוכבים.html</div><span class="go">פתח ↗</span>
+  </a>
+</div>
+
+<div class="sec">📄 מסמכי אסטרטגיה ותיעוד</div>
+<div class="grid">
+  <a class="card doc" href="03_מדריכים_ודוחות/אבולוציית_הדוקטרינה_והלוגיקה_17.6.26.html">
+    <div class="ic">🧬</div><div class="t">אבולוציית הדוקטרינה</div>
+    <div class="d">ציר זמן ויזואלי + לוג גרסאות המודל.</div><div class="u">HTML</div><span class="go">פתח ↗</span>
+  </a>
+  <a class="card doc" href="03_מדריכים_ודוחות/דוקטרינת_Core_Satellite_ותוכנית_פריסה_16.6.26.pdf">
+    <div class="ic">📘</div><div class="t">דוקטרינת Core-Satellite + פריסה</div>
+    <div class="d">75/10/15, תוכנית מנות DCA, שאלת המטבע.</div><div class="u">PDF</div><span class="go">פתח ↗</span>
+  </a>
+  <a class="card doc" href="03_מדריכים_ודוחות/Trading_Commander_v17.3_CoreSatellite_מסונכרן_16.6.26.pdf">
+    <div class="ic">📕</div><div class="t">Trading Commander v17.3</div>
+    <div class="d">מסונכרן לדוקטרינה (יעד 30% בוטל).</div><div class="u">PDF</div><span class="go">פתח ↗</span>
+  </a>
+  <a class="card doc" href="03_מדריכים_ודוחות/דוח_מסע_ואבחון_AVI_HUNTER_17.6.26.pdf">
+    <div class="ic">🗺️</div><div class="t">דוח מסע + אבחון ארכיטקטוני</div>
+    <div class="d">מה השגת, ציר זמן, צ'ק-ליסט בוצע/חסר.</div><div class="u">PDF</div><span class="go">פתח ↗</span>
+  </a>
+  <a class="card doc" href="03_מדריכים_ודוחות/סיכום_מדעי_ופאנל_מומחים_ATR_5כוכבים_17.6.26.pdf">
+    <div class="ic">🔬</div><div class="t">סיכום מדעי + פאנל מומחים</div>
+    <div class="d">היפותזת ATR, פאנל 5 מומחים, שאלות לדיון.</div><div class="u">PDF</div><span class="go">פתח ↗</span>
+  </a>
+</div>
+
+</div>
+<div class="foot">📈 מרכז שליטה — שוק ההון · AVI HUNTER · 17.6.2026 · נדל"ן מנוהל בנפרד<br><span id="ts"></span></div>
+<script>
+// cache-buster for the live dashboard link
+var t=Date.now();var d=document.getElementById('dash');
+if(d){d.href=d.href.replace('t=NOW','t='+t);}
+document.getElementById('ts').textContent='קישורים מקומיים יחסיים לתיקיית הדשבורד · web בלשונית חדשה';
+</script>
+<div id="avinav" dir="rtl" style="position:fixed;top:10px;left:10px;z-index:2147483647;font-family:Arial,sans-serif"><a href="javascript:history.back()" style="background:#1f2940;color:#cfe0ff;text-decoration:none;padding:7px 13px;border-radius:9px;font-size:13px;font-weight:700;border:1px solid #3a4a6a;box-shadow:0 2px 8px #0006">← חזור</a></div>
+</body></html>

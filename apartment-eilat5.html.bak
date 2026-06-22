@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דירה להשכרה | שדרות אחי אילת 5, קריית חיים</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@300;400;500;600;700;800;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'Heebo', sans-serif;
+    background: #0a1628;
+    color: #fff;
+    min-height: 100vh;
+  }
+
+  /* HERO SECTION */
+  .hero {
+    position: relative;
+    background: linear-gradient(135deg, #0a1628 0%, #1a2d4a 50%, #0a1628 100%);
+    padding: 30px 20px 20px;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at 30% 50%, rgba(212, 175, 55, 0.08) 0%, transparent 50%);
+    animation: shimmer 8s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { transform: translateX(-10%); }
+    50% { transform: translateX(10%); }
+  }
+
+  .badge-urgent {
+    display: inline-block;
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    color: #fff;
+    padding: 6px 20px;
+    border-radius: 30px;
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 15px;
+    animation: pulse 2s infinite;
+    position: relative;
+    z-index: 1;
+  }
+
+  @keyframes pulse {
+    0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(231, 76, 60, 0.5); }
+    50% { transform: scale(1.03); box-shadow: 0 0 20px 5px rgba(231, 76, 60, 0.3); }
+  }
+
+  .hero h1 {
+    font-size: 32px;
+    font-weight: 900;
+    color: #d4af37;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero h2 {
+    font-size: 22px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 5px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero .address {
+    font-size: 16px;
+    color: #a0b4cc;
+    margin-bottom: 15px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .hero .address span {
+    color: #d4af37;
+  }
+
+  /* PRICE BANNER */
+  .price-banner {
+    background: linear-gradient(135deg, #d4af37, #f0d060, #d4af37);
+    padding: 15px;
+    text-align: center;
+    position: relative;
+  }
+
+  .price-banner .price {
+    font-size: 38px;
+    font-weight: 900;
+    color: #0a1628;
+    line-height: 1;
+  }
+
+  .price-banner .price-sub {
+    font-size: 16px;
+    color: #1a2d4a;
+    font-weight: 600;
+  }
+
+  .price-banner .was-price {
+    font-size: 14px;
+    color: #5a4a1a;
+    text-decoration: line-through;
+    opacity: 0.7;
+  }
+
+  /* FEATURES GRID */
+  .features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    padding: 2px;
+    background: #1a2d4a;
+  }
+
+  .feature {
+    background: #0f1d30;
+    padding: 15px 10px;
+    text-align: center;
+  }
+
+  .feature .icon {
+    font-size: 28px;
+    margin-bottom: 5px;
+  }
+
+  .feature .label {
+    font-size: 13px;
+    color: #a0b4cc;
+    font-weight: 400;
+  }
+
+  .feature .value {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  /* HIGHLIGHTS */
+  .highlights {
+    padding: 25px 20px;
+    background: linear-gradient(180deg, #0f1d30, #0a1628);
+  }
+
+  .highlights h3 {
+    color: #d4af37;
+    font-size: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+
+  .highlight-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+
+  .highlight-item {
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.2);
+    border-radius: 12px;
+    padding: 12px;
+    text-align: center;
+    transition: transform 0.2s;
+  }
+
+  .highlight-item:hover {
+    transform: scale(1.03);
+    border-color: rgba(212, 175, 55, 0.5);
+  }
+
+  .highlight-item .hi-icon {
+    font-size: 30px;
+    margin-bottom: 5px;
+  }
+
+  .highlight-item .hi-text {
+    font-size: 14px;
+    font-weight: 600;
+    color: #e0d0a0;
+  }
+
+  .highlight-item .hi-sub {
+    font-size: 12px;
+    color: #8090a0;
+    margin-top: 2px;
+  }
+
+  /* URGENCY BAR */
+  .urgency {
+    background: linear-gradient(135deg, #e74c3c, #c0392b);
+    padding: 15px 20px;
+    text-align: center;
+  }
+
+  .urgency p {
+    font-size: 16px;
+    font-weight: 700;
+    color: #fff;
+  }
+
+  .urgency .counter {
+    font-size: 13px;
+    color: rgba(255,255,255,0.85);
+    margin-top: 3px;
+  }
+
+  /* VIDEO SECTION */
+  .video-section {
+    padding: 20px;
+    background: #0a1628;
+    text-align: center;
+  }
+
+  .video-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: linear-gradient(135deg, #ff0000, #cc0000);
+    color: #fff;
+    text-decoration: none;
+    padding: 14px 30px;
+    border-radius: 50px;
+    font-size: 16px;
+    font-weight: 700;
+    transition: all 0.3s;
+    box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3);
+  }
+
+  .video-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 25px rgba(255, 0, 0, 0.4);
+  }
+
+  .video-btn .play-icon {
+    font-size: 22px;
+  }
+
+  /* CTA BUTTONS */
+  .cta-section {
+    padding: 25px 20px;
+    background: linear-gradient(180deg, #0a1628, #0f1d30);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+
+  .cta-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    padding: 18px;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 800;
+    transition: all 0.3s;
+    cursor: pointer;
+  }
+
+  .cta-phone {
+    background: linear-gradient(135deg, #d4af37, #f0d060);
+    color: #0a1628;
+    box-shadow: 0 4px 20px rgba(212, 175, 55, 0.4);
+    animation: glow 2s infinite alternate;
+  }
+
+  @keyframes glow {
+    from { box-shadow: 0 4px 20px rgba(212, 175, 55, 0.3); }
+    to { box-shadow: 0 4px 35px rgba(212, 175, 55, 0.6); }
+  }
+
+  .cta-phone:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(212, 175, 55, 0.5);
+  }
+
+  .cta-whatsapp {
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: #fff;
+    box-shadow: 0 4px 20px rgba(37, 211, 102, 0.3);
+  }
+
+  .cta-whatsapp:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 30px rgba(37, 211, 102, 0.4);
+  }
+
+  .cta-btn .btn-icon {
+    font-size: 24px;
+  }
+
+  .cta-btn .btn-sub {
+    font-size: 12px;
+    font-weight: 400;
+    opacity: 0.8;
+  }
+
+  /* FOOTER TRUST */
+  .trust {
+    padding: 20px;
+    text-align: center;
+    background: #0a1628;
+    border-top: 1px solid rgba(212, 175, 55, 0.15);
+  }
+
+  .trust p {
+    font-size: 13px;
+    color: #607080;
+  }
+
+  .trust .owner {
+    color: #d4af37;
+    font-weight: 600;
+    font-size: 14px;
+    margin-bottom: 5px;
+  }
+
+  /* RESPONSIVE */
+  @media (min-width: 600px) {
+    body {
+      display: flex;
+      justify-content: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 480px;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="badge-urgent">🔥 הדירה עדיין פנויה — לזמן מוגבל!</div>
+    <h1>להשכרה מיידית</h1>
+    <h2>שדרות אחי אילת 5</h2>
+    <div class="address">📍 <span>קריית חיים, חיפה</span> • קומה 2 עם מעלית</div>
+  </div>
+
+  <!-- PRICE -->
+  <div class="price-banner">
+    <div class="price">3,700 ₪</div>
+    <div class="price-sub">לחודש בלבד • מרוהטת קומפלט — רק להיכנס!</div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="features">
+    <div class="feature">
+      <div class="icon">🏠</div>
+      <div class="value">2 חדרים</div>
+      <div class="label">מרווחים ומוארים</div>
+    </div>
+    <div class="feature">
+      <div class="icon">☀️</div>
+      <div class="value">מרפסת 20 מ״ר</div>
+      <div class="label">שמש + נוף ירוק</div>
+    </div>
+    <div class="feature">
+      <div class="icon">🅿️</div>
+      <div class="value">חניה</div>
+      <div class="label">פרטית</div>
+    </div>
+    <div class="feature">
+      <div class="icon">❄️</div>
+      <div class="value">מיזוג</div>
+      <div class="label">חם + קר</div>
+    </div>
+    <div class="feature">
+      <div class="icon">🛗</div>
+      <div class="value">מעלית</div>
+      <div class="label">נגישות מלאה</div>
+    </div>
+    <div class="feature">
+      <div class="icon">🪑</div>
+      <div class="value">מרוהטת</div>
+      <div class="label">קומפלט!</div>
+    </div>
+  </div>
+
+  <!-- HIGHLIGHTS -->
+  <div class="highlights">
+    <h3>✨ למה הדירה הזו מיוחדת?</h3>
+    <div class="highlight-grid">
+      <div class="highlight-item">
+        <div class="hi-icon">🛋️</div>
+        <div class="hi-text">סלון מרווח ומואר</div>
+        <div class="hi-sub">אור טבעי כל היום</div>
+      </div>
+      <div class="highlight-item">
+        <div class="hi-icon">🌿</div>
+        <div class="hi-text">מרפסת שמש ענקית</div>
+        <div class="hi-sub">נוף עירוני יפהפה</div>
+      </div>
+      <div class="highlight-item">
+        <div class="hi-icon">🍳</div>
+        <div class="hi-text">מטבח מאובזר</div>
+        <div class="hi-sub">משטחי עבודה + ארונות</div>
+      </div>
+      <div class="highlight-item">
+        <div class="hi-icon">🚿</div>
+        <div class="hi-text">חדר רחצה משופץ</div>
+        <div class="hi-sub">נקי ומודרני</div>
+      </div>
+      <div class="highlight-item">
+        <div class="hi-icon">🏫</div>
+        <div class="hi-text">קרוב לכל השירותים</div>
+        <div class="hi-sub">סופר, תחבורה, בתי ספר</div>
+      </div>
+      <div class="highlight-item">
+        <div class="hi-icon">🌳</div>
+        <div class="hi-text">בניין מטופח</div>
+        <div class="hi-sub">גינה ירוקה + שביל פרחים</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- URGENCY -->
+  <div class="urgency">
+    <p>⚡ כבר קיבלנו עשרות פניות — אל תפספסו!</p>
+    <div class="counter">הדירות הטובות נלקחות מהר • תאמו ביקור היום</div>
+  </div>
+
+  <!-- VIDEO -->
+  <div class="video-section">
+    <a href="https://youtube.com/shorts/brW8EAspJZA" target="_blank" class="video-btn">
+      <span class="play-icon">▶️</span>
+      <span>צפו בסרטון הדירה — 30 שניות!</span>
+    </a>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta-section">
+    <a href="tel:0525944424" class="cta-btn cta-phone">
+      <span class="btn-icon">📞</span>
+      <div>
+        <div>התקשרו עכשיו — 052-594-4424</div>
+        <div class="btn-sub">זמינים גם בערב ובשבת</div>
+      </div>
+    </a>
+    <a href="https://wa.me/972525944424?text=%D7%A9%D7%9C%D7%95%D7%9D%2C%20%D7%A8%D7%90%D7%99%D7%AA%D7%99%20%D7%90%D7%AA%20%D7%94%D7%A4%D7%A8%D7%A1%D7%95%D7%9D%20%D7%A9%D7%9C%20%D7%94%D7%93%D7%99%D7%A8%D7%94%20%D7%91%D7%90%D7%97%D7%99%20%D7%90%D7%99%D7%9C%D7%AA%205%20%D7%95%D7%90%D7%A9%D7%9E%D7%97%20%D7%9C%D7%AA%D7%90%D7%9D%20%D7%91%D7%99%D7%A7%D7%95%D7%A8" target="_blank" class="cta-btn cta-whatsapp">
+      <span class="btn-icon">💬</span>
+      <div>
+        <div>WhatsApp — שלחו הודעה</div>
+        <div class="btn-sub">תגובה תוך דקות</div>
+      </div>
+    </a>
+  </div>
+
+  <!-- TRUST -->
+  <div class="trust">
+    <p class="owner">🏠 מושכר ישירות מבעל הדירה — ללא תיווך!</p>
+    <p>שדרות אחי אילת 5, קריית חיים מזרחית, חיפה</p>
+  </div>
+
+</div>
+
+</body>
+</html>
