@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מאסטרו נדל"ן - המערכת במבט אחד</title>
+<style>
+  :root{--navy:#16233a;--navy2:#22304b;--ink:#1a2230;--mut:#5a6b7d;--line:#dde5ef;--bg:#eef2f8;
+        --gold:#c08a3e;--goldbg:#fbf3e4;--teal:#0d8a7e;--tealbg:#e3f5f2;--green:#1e8e4e;--greenbg:#e6f5ec;
+        --red:#c0392b;--redbg:#fbeae8;--blue:#1d5fad;--bluebg:#e8f0fa}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif;line-height:1.6}
+  .topnav{display:flex;gap:8px;padding:10px 18px;background:var(--navy)}
+  .topnav a,.topnav button{background:#2c3e5c;color:#fff;border:1px solid #3a4d70;border-radius:8px;padding:6px 12px;font-size:13px;font-family:inherit;cursor:pointer;text-decoration:none}
+  .topnav a.home{background:var(--gold);color:#1a1206;font-weight:700;border:none}
+  .sheet{max-width:1000px;margin:0 auto;padding:0 16px 30px}
+  .hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;border-radius:0 0 20px 20px;padding:30px 30px 34px;text-align:center}
+  .hero h1{margin:0 0 8px;font-size:30px}
+  .hero p{margin:0;font-size:16px;color:#cddcf0;max-width:680px;margin-inline:auto}
+  .hero .tagline{margin-top:14px;display:inline-block;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);border-radius:30px;padding:7px 18px;font-size:14px;font-weight:600}
+  h2{font-size:21px;color:var(--navy);text-align:center;margin:34px 0 6px}
+  .sub{text-align:center;color:var(--mut);font-size:14px;margin-bottom:18px}
+  /* workflow pipeline */
+  .flow{display:flex;align-items:stretch;gap:0;flex-wrap:wrap;justify-content:center}
+  .stage{flex:1;min-width:150px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px 14px;text-align:center;position:relative;box-shadow:0 4px 14px rgba(22,35,58,.06);margin:6px}
+  .stage .ico{font-size:30px}
+  .stage .t{font-weight:800;font-size:15px;margin:6px 0 4px;color:var(--navy)}
+  .stage .d{font-size:12.5px;color:var(--mut)}
+  .stage .num{position:absolute;top:-11px;right:50%;transform:translateX(50%);background:var(--gold);color:#fff;width:24px;height:24px;border-radius:50%;font-size:13px;font-weight:700;display:flex;align-items:center;justify-content:center}
+  .arrow{align-self:center;color:var(--gold);font-size:26px;font-weight:700}
+  @media(max-width:760px){.arrow{transform:rotate(90deg)}}
+  .loopnote{text-align:center;color:var(--teal);font-size:13px;margin-top:10px;font-weight:600}
+  /* formula */
+  .formula{background:var(--navy);color:#fff;border-radius:16px;padding:22px;text-align:center}
+  .formula .eq{font-size:18px;font-weight:700;letter-spacing:.3px;direction:rtl}
+  .formula .eq b{color:var(--gold)}
+  .gauges{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:16px}
+  .gauge{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.18);border-radius:12px;padding:12px 18px;min-width:200px}
+  .gauge .gt{font-size:13px;color:#cdd9e6} .gauge .gv{font-size:16px;font-weight:800;margin-top:3px}
+  .gauge.up .gv{color:#7fe0a8} .gauge.safe .gv{color:#ffcf7a}
+  /* cards grid */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+  .card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:0 4px 14px rgba(22,35,58,.05)}
+  .card .ci{font-size:24px} .card h3{margin:8px 0 5px;font-size:15px;color:var(--navy)} .card p{margin:0;font-size:13px;color:var(--mut)}
+  /* safety bar */
+  .safebar{display:flex;border-radius:12px;overflow:hidden;border:1px solid var(--line);font-size:13px;font-weight:700;text-align:center}
+  .safebar div{padding:14px 8px;color:#fff}
+  .sb-r{background:var(--red);flex:1} .sb-o{background:var(--gold);flex:1} .sb-g{background:var(--green);flex:1.4}
+  .safecap{display:flex;justify-content:space-between;font-size:12px;color:var(--mut);margin-top:6px;padding:0 4px}
+  /* phases */
+  .phases{display:flex;gap:14px;flex-wrap:wrap;align-items:stretch}
+  .phase{flex:1;min-width:260px;background:#fff;border:1px solid var(--line);border-radius:14px;padding:18px;box-shadow:0 4px 14px rgba(22,35,58,.05);position:relative}
+  .phase .pl{font-size:12px;font-weight:700;color:#fff;background:var(--blue);border-radius:20px;padding:3px 12px;display:inline-block}
+  .phase.two .pl{background:var(--gold)}
+  .phase h3{margin:10px 0 6px;font-size:17px;color:var(--navy)}
+  .phase ul{margin:8px 0 0;padding-inline-start:18px;font-size:13.5px;color:var(--mut)}
+  .phase li{margin:5px 0}
+  .phasearrow{align-self:center;font-size:26px;color:var(--gold)}
+  .warnbox{background:var(--redbg);border:1px solid #e7b7b0;border-radius:10px;padding:10px 14px;font-size:13px;color:#8a2b20;margin-top:14px}
+  /* faq */
+  .faq{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  @media(max-width:680px){.faq{grid-template-columns:1fr}}
+  .qa{background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 15px}
+  .qa .q{font-weight:700;font-size:14px;color:var(--blue);margin-bottom:4px}
+  .qa .a{font-size:13px;color:var(--mut)}
+  .foot{text-align:center;color:var(--mut);font-size:12px;margin:28px 0 6px}
+  .badge{display:inline-block;background:var(--goldbg);color:var(--gold);border:1px solid #e3c894;border-radius:6px;padding:1px 8px;font-size:12px;font-weight:700}
+  @media print{.topnav{display:none}body{background:#fff}.stage,.card,.qa,.phase{box-shadow:none}}
+</style>
+</head>
+<body>
+<div class="topnav">
+  <a class="home" href="https://avi7756-design.github.io/avi-sites/maestro-nadlan.html">🏠 מסך ראשי</a>
+  <button onclick="history.back()">◀ אחורה</button>
+  <button onclick="history.forward()">קדימה ▶</button>
+  <button onclick="window.print()" style="margin-inline-start:auto">🖨 הדפס / PDF</button>
+</div>
+
+<div class="hero">
+  <h1>🏘️ מאסטרו נדל"ן</h1>
+  <p>מערכת לאיתור, ניתוח וביצוע עסקאות נדל"ן "יהלום" - מתחת לשוק, עם מנוף השבחה, והגנה על ההון.</p>
+  <div class="tagline">מודדים רווח, לא הנחה · מגינים על הקרן בכל עסקה</div>
+</div>
+
+<div class="sheet">
+
+  <!-- WORKFLOW -->
+  <h2>🔄 תזרים העבודה - מעסקה להחלטה</h2>
+  <div class="sub">חמישה שלבים, מעגל שמשתפר מכל עסקה אמיתית</div>
+  <div class="flow">
+    <div class="stage"><div class="num">1</div><div class="ico">🔍</div><div class="t">מצא</div><div class="d">עסקאות מתחת לשוק<br>יד2 (היצע) + מדלן (אמת)</div></div>
+    <div class="arrow">←</div>
+    <div class="stage"><div class="num">2</div><div class="ico">🧮</div><div class="t">נתח</div><div class="d">מנוע ARV: קנייה + שיפוץ + בנייה + מס + עלויות</div></div>
+    <div class="arrow">←</div>
+    <div class="stage"><div class="num">3</div><div class="ico">💎</div><div class="t">פסיקה</div><div class="d">יהלום / גבולי / דחה<br>+ מרווח ביטחון</div></div>
+    <div class="arrow">←</div>
+    <div class="stage"><div class="num">4</div><div class="ico">📞</div><div class="t">בצע</div><div class="d">מו"מ (3 מחירים) + בדיקות עו"ד/שמאי</div></div>
+    <div class="arrow">←</div>
+    <div class="stage"><div class="num">5</div><div class="ico">📈</div><div class="t">למד</div><div class="d">תוצאה אמיתית מכיילת את המודל</div></div>
+  </div>
+  <div class="loopnote">↻ כל עסקה שנסגרת מדייקת את ה-ARV ואת הקריטריונים - המערכת לומדת</div>
+
+  <!-- DIAMOND MODEL -->
+  <h2>💎 מודל היהלום</h2>
+  <div class="sub">עסקה עוברת רק אם היא רווחית (upside) וגם מוגנת (downside)</div>
+  <div class="formula">
+    <div class="eq">רווח = <b>ARV</b> − מחיר קנייה − שיפוץ − בנייה − עלויות − מס</div>
+    <div class="gauges">
+      <div class="gauge up"><div class="gt">רווחיות (Upside)</div><div class="gv">שוליים ≥ 10% וגם ROI שנתי ≥ 15%</div></div>
+      <div class="gauge safe"><div class="gt">הגנה (Downside)</div><div class="gv">מרווח ביטחון ≥ 15%</div></div>
+    </div>
+  </div>
+
+  <!-- PRINCIPLES -->
+  <h2>🧭 4 העקרונות</h2>
+  <div class="grid">
+    <div class="card"><div class="ci">💰</div><h3>רווח, לא הנחה</h3><p>נכס זול יכול להפסיד אחרי שיפוץ ומס. מודדים את הרווח בפועל, לא את גודל ההנחה.</p></div>
+    <div class="card"><div class="ci">📊</div><h3>ARV מ-Comps שנמכרו</h3><p>השווי נקבע מעסקאות אמת ברמת רחוב (מדלן/רשות המסים) - לא ממחיר מבוקש.</p></div>
+    <div class="card"><div class="ci">🏗️</div><h3>בנייה = מנוף הערך</h3><p>תוספת מ"ר (ממ"ד/חדר/גג) יוצרת ערך אמיתי. קוסמטיקה לבדה כמעט תמיד מפסידה.</p></div>
+    <div class="card"><div class="ci">🛡️</div><h3>הגנה על ההון</h3><p>קונים מתחת לשוק כך שגם אם עסקה נכשלת - מוכרים כמו-שהוא ומחזירים את הקרן.</p></div>
+  </div>
+
+  <!-- MARGIN OF SAFETY -->
+  <h2>🛡️ מרווח ביטחון - הגנת ההון</h2>
+  <div class="sub">השאלה היחידה שמגנה על הכסף: אם אמכור כמו-שהוא היום, אחזיר את ההון?</div>
+  <div class="safebar">
+    <div class="sb-r">⚠️ חשוף<br><span style="font-weight:400;font-size:12px">מתחת ל-0%</span></div>
+    <div class="sb-o">✔ צא-שלם<br><span style="font-weight:400;font-size:12px">0% - 15%</span></div>
+    <div class="sb-g">🛡️ מוגן<br><span style="font-weight:400;font-size:12px">15% ומעלה</span></div>
+  </div>
+  <div class="safecap"><span>סיכון להפסד אם נכשל</span><span>הקרן מוגנת גם בכישלון</span></div>
+
+  <!-- BUSINESS MODEL -->
+  <h2>🤝 המבנה העסקי</h2>
+  <div class="sub">מתחילים מהון עצמי, בונים track record, ואז מגייסים</div>
+  <div class="phases">
+    <div class="phase one">
+      <span class="pl">שלב 1 · עכשיו</span>
+      <h3>הוכחה מהון עצמי</h3>
+      <ul>
+        <li>1-3 עסקאות יהלום מהון עצמי</li>
+        <li>סיכון מבוקר: עד 500K לעסקה (50% הון)</li>
+        <li>כל עסקה מתועדת: תחזית מול תוצאה</li>
+        <li>אפס סיכון רגולטורי</li>
+      </ul>
+    </div>
+    <div class="phasearrow">←</div>
+    <div class="phase two">
+      <span class="pl">שלב 2 · הקרן</span>
+      <h3>קרן משקיעים</h3>
+      <ul>
+        <li>הצגת המודל + ההיסטוריה למשקיעים</li>
+        <li>עד 35 משקיעים (פטור ניצעים)</li>
+        <li>המשקיע: הון → תשואה פסיבית</li>
+        <li>היזם: ניהול + שכר + חלק מהרווח</li>
+      </ul>
+    </div>
+  </div>
+  <div class="warnbox">⚖️ הערה משפטית: גיוס ממשקיעים כפוף לחוק ניירות ערך. חובה ליווי עו"ד נ"ע ורו"ח לפני גיוס. המערכת היא שכבת סינון - לא תחליף לעו"ד, שמאי או יועץ מס.</div>
+
+  <!-- FAQ -->
+  <h2>❓ שאלות שמשקיע שואל</h2>
+  <div class="faq">
+    <div class="qa"><div class="q">מה זה ARV?</div><div class="a">השווי הצפוי למ"ר אחרי שיפוץ ובנייה, מבוסס עסקאות שנמכרו באזור.</div></div>
+    <div class="qa"><div class="q">איך מוגנת ההשקעה?</div><div class="a">קונים מתחת לשוק עם מרווח ביטחון ≥15% - אפשר למכור כמו-שהוא ולהחזיר את הקרן.</div></div>
+    <div class="qa"><div class="q">מאיפה הרווח?</div><div class="a">פער בין מחיר קנייה ל-ARV אחרי השבחה (בעיקר תוספת בנייה), בניכוי מס ועלויות.</div></div>
+    <div class="qa"><div class="q">כמה זמן לעסקה?</div><div class="a">פליפ ~12-14 חודשים. מסלול שכירות לטווח ארוך לתשואה שוטפת.</div></div>
+    <div class="qa"><div class="q">מה התשואה הנדרשת?</div><div class="a">סף יהלום: שולי רווח ≥10% וגם ROI שנתי ≥15%. רק עסקאות שעוברות נכנסות.</div></div>
+    <div class="qa"><div class="q">מה מונע טעויות?</div><div class="a">Hard Stops (עיקול/חריגה/נסח) פוסלים מיידית, ובדיקת עו"ד/שמאי לפני כל רכישה.</div></div>
+    <div class="qa"><div class="q">מי מנהל את הכסף?</div><div class="a">היזם מבצע ומנהל; המשקיע פסיבי. כל עסקה שקופה עם מספרים ותרחישים.</div></div>
+    <div class="qa"><div class="q">למה עכשיו?</div><div class="a">מגמת ריבית יורדת: מימון זול יותר ומחירים בעלייה - חלון לקנות לפני הגל.</div></div>
+  </div>
+
+  <div class="foot">מאסטרו נדל"ן · המערכת במבט אחד · אבי חזן · 22.06.2026 · להדפסה ל-PDF: 🖨 למעלה</div>
+</div>
+</body>
+</html>
