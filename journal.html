@@ -257,3 +257,42 @@ button{cursor:pointer;border:none;border-radius:9px;font-size:12.5px;font-weight
 <textarea id="aitext" style="position:absolute;left:-9999px">AVI HUNTER — יומן החלטות (18.6.2026)
 משקיע: אבי חזן · IBKR U24234851 (US-broker בלבד) · NAV ~₪679K.
 אסטרטגיה: Core-Satellite. ליבה 75% VOO (אחזקה, לא תזמון). לוויין 10-15% רוטציית מומנטום-איכות (ספסל 28 מגה-קאפ + מסנן Argus
+</textarea>
+
+<script>
+function filt(btn){
+  // עדכן מצב "פעיל" של הכפתורים
+  document.querySelectorAll('.btn-f').forEach(b => b.classList.remove('on'));
+  btn.classList.add('on');
+  var cat = btn.getAttribute('data-f');
+  // הראה/הסתר את הכרטיסים לפי קטגוריה
+  document.querySelectorAll('#timeline .card').forEach(function(card){
+    var t = card.getAttribute('data-t');
+    if(cat === 'all' || t === cat){
+      card.style.display = '';
+    } else {
+      card.style.display = 'none';
+    }
+  });
+}
+
+function copyAI(){
+  var ta = document.getElementById('aitext');
+  if(!ta){ alert('לא נמצא טקסט להעתקה'); return; }
+  ta.style.position = 'static'; ta.style.left = '0';
+  ta.select(); ta.setSelectionRange(0, 99999);
+  try {
+    var ok = document.execCommand('copy');
+    if(!ok && navigator.clipboard){
+      navigator.clipboard.writeText(ta.value);
+    }
+    alert('✅ הועתק ללוח! עכשיו תוכל להדביק ב-Claude/ChatGPT');
+  } catch(e){
+    alert('שגיאה בהעתקה: ' + e.message);
+  }
+  ta.style.position = 'absolute'; ta.style.left = '-9999px';
+}
+</script>
+
+</body>
+</html>
