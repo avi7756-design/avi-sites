@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🛡️ כללי דיסציפלינה · AVI HUNTER</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",Arial,sans-serif;background:#0d1117;color:#e6edf3;padding:20px;direction:rtl;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto}
+  h1{font-size:24px;margin-bottom:6px;color:#fff}
+  h2{font-size:18px;margin:12px 0 10px;color:#fff}
+  h3{font-size:15px;margin:8px 0 6px;color:#fff}
+  .sub{color:#9aa0a6;font-size:13px;margin-bottom:18px}
+  .panel{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:16px;margin-bottom:14px}
+  .panel.warn{background:#1f1a10;border-color:#5a4a20}
+  .panel.danger{background:#1a1320;border-color:#5a2a2a}
+  .scenarios{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;margin-bottom:14px}
+  .scn{border-radius:10px;padding:14px;border:1px solid;border-top:4px solid}
+  .scn.green{background:#0f1f17;border-color:#1d5a3a;border-top-color:#2ecc71}
+  .scn.yellow{background:#1f1a10;border-color:#5a4a20;border-top-color:#f0c040}
+  .scn.orange{background:#1f1610;border-color:#5a3a20;border-top-color:#f0883e}
+  .scn.red{background:#1a1320;border-color:#5a2a2a;border-top-color:#c0334a}
+  .scn.purple{background:#161226;border-color:#5a4a7a;border-top-color:#c7b3f0}
+  .scn .name{font-size:18px;font-weight:800;color:#fff;margin-bottom:6px}
+  .scn .triggers{font-size:12px;color:#9aa0b3;margin-bottom:8px;padding:6px 8px;background:rgba(0,0,0,0.3);border-radius:6px}
+  .scn .ok{color:#9fe6bd;font-size:12px;margin:4px 0}
+  .scn .no{color:#f5a8a8;font-size:12px;margin:4px 0}
+  .rule{background:#1a1f28;border:1px solid #21262d;border-radius:8px;padding:12px;margin-bottom:8px}
+  .rule .num{display:inline-block;width:24px;height:24px;background:#2ecc71;color:#0d1117;border-radius:50%;text-align:center;line-height:24px;font-weight:800;margin-left:8px}
+  .rule b{color:#fff}
+  .qbox{background:#1a1f28;border:1px solid #21262d;border-radius:8px;padding:14px;margin-top:8px}
+  .qbox label{display:block;font-size:13px;color:#cdd6e6;margin:8px 0 4px;cursor:pointer}
+  .qbox input[type=radio]{margin-left:6px}
+  .qbox .ans{margin-top:10px;padding:10px;border-radius:8px;font-size:13px;display:none}
+  .qbox .ans.go{background:#0f1f17;border:1px solid #2ecc71;color:#9fe6bd;display:block}
+  .qbox .ans.stop{background:#1a1320;border:1px solid #c0334a;color:#f5a8a8;display:block}
+  .btn{cursor:pointer;border:1px solid #2a6b40;background:#2ecc71;color:#0d1117;font-weight:800;padding:9px 16px;border-radius:8px;font-size:13px;font-family:inherit}
+  .btn.alt{background:#23386a;color:#fff;border-color:#34527d}
+  .stat{background:#1a1320;color:#fff;padding:14px;border-radius:10px;border-right:4px solid #c0334a;margin:12px 0}
+  .stat b{color:#f5a8a8}
+  .nav-bar{position:sticky;top:0;z-index:99;display:flex;gap:8px;justify-content:center;align-items:center;background:#15233f;padding:8px 10px;border-bottom:1px solid #2a3a55;margin:-20px -20px 16px}
+  .nav-bar a,.nav-bar button{cursor:pointer;border:1px solid #34527d;border-radius:8px;background:#23386a;color:#fff;font-size:13px;font-weight:700;padding:7px 14px;font-family:inherit;text-decoration:none}
+  .nav-bar a.home{background:#2ecc71;color:#0d1117;border-color:#2a6b40}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+  @media(max-width:600px){.grid2{grid-template-columns:1fr}}
+  .foot{text-align:center;color:#9aa0a6;font-size:11px;padding:14px 0}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <button onclick="history.back()">◀ אחורה</button>
+  <a class="home" href="dashboard-v4.html">🏠 דשבורד</a>
+  <button onclick="history.forward()">קדימה ▶</button>
+</nav>
+
+<div class="wrap">
+
+<h1>🛡️ כללי דיסציפלינה — AVI HUNTER</h1>
+<div class="sub">המסמך שמגן עליך מעצמך · עודכן 23.6.2026 · אין באמור ייעוץ השקעות</div>
+
+<div class="panel danger">
+  <h2>🚨 הסיבה שהמסמך הזה קיים</h2>
+  <div class="stat">
+    <b>27 עסקאות סווינג, P&L ריאלי: −$4,308.05</b> · Win Rate: 36% (9/27) · 6 עסקאות ETF = −$2,317<br>
+    זו לא תיאוריה - <b>זה כסף שאיבדת בפועל</b> מנסיון להכות את השוק. v4 נולדה מההפסד הזה.
+  </div>
+  <div style="margin-top:8px">
+    לפני שאתה משנה דוקטרינה - תקרא את החלק הזה שוב. הרגש שאתה מרגיש עכשיו ("אני מפסיד תשואה!", "הזדמנות אחרונה!") - <b>זה אותו רגש בדיוק שהוביל ל-$4,308 הקודמים</b>.
+  </div>
+</div>
+
+<div class="panel">
+  <h2>🔍 איפה אני כרגע? · בדיקה מהירה</h2>
+  <div class="sub" style="margin-bottom:10px">הזן את 3 הנתונים מהדשבורד וקבל את שם התרחיש שבו אתה.</div>
+  <div class="grid2">
+    <div>
+      <label style="font-size:12px;color:#9aa0a6">VIX</label>
+      <input type="number" step="0.01" id="i-vix" value="17.3" style="width:100%;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#e6edf3;padding:8px 10px;font-size:14px">
+    </div>
+    <div>
+      <label style="font-size:12px;color:#9aa0a6">SPY מעל MA-200?</label>
+      <select id="i-spy" style="width:100%;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#e6edf3;padding:8px 10px;font-size:14px">
+        <option value="above">כן, מעל MA-200</option>
+        <option value="test">נוגע ב-MA-200</option>
+        <option value="below">לא, מתחת MA-200</option>
+      </select>
+    </div>
+    <div>
+      <label style="font-size:12px;color:#9aa0a6">PCE שנתי %</label>
+      <input type="number" step="0.1" id="i-pce" value="2.6" style="width:100%;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#e6edf3;padding:8px 10px;font-size:14px">
+    </div>
+    <div>
+      <label style="font-size:12px;color:#9aa0a6">תקופת VIX גבוה (ימים)</label>
+      <input type="number" id="i-vixdays" value="0" style="width:100%;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#e6edf3;padding:8px 10px;font-size:14px">
+    </div>
+  </div>
+  <button class="btn" onclick="detectScenario()" style="margin-top:12px">🎯 איפה אני?</button>
+  <div id="result" style="margin-top:12px"></div>
+</div>
+
+<h2>📊 5 התרחישים שלך</h2>
+<div class="scenarios">
+
+  <div class="scn green">
+    <div class="name">🟢 שקט</div>
+    <div class="triggers">VIX&lt;20 · SPY&gt;MA200 · PCE&lt;4%</div>
+    <h3>מה זה אומר</h3>
+    <div style="font-size:12px;color:#cdd6e6;margin-bottom:8px">השוק בריא, אין סימני סכנה. זה התרחיש שאתה אמור לראות 70% מהזמן.</div>
+    <h3>✓ מותר</h3>
+    <div class="ok">✓ DCA רגיל ל-VOO לפי הלוח</div>
+    <div class="ok">✓ השלמת שכבת הגנה ל-15%</div>
+    <div class="ok">✓ המרה בסולם בדיפ ל-2.88-2.90</div>
+    <h3>✗ אסור</h3>
+    <div class="no">✗ פתיחת לוויין/5★</div>
+    <div class="no">✗ שינוי דוקטרינה</div>
+    <div class="no">✗ "אני מפסיד תשואה" - לא, אתה בדיוק במקום</div>
+  </div>
+
+  <div class="scn yellow">
+    <div class="name">🟡 ערב</div>
+    <div class="triggers">VIX 20-25 · או PCE 4-5% · או SPY בודק MA-200</div>
+    <h3>מה זה אומר</h3>
+    <div style="font-size:12px;color:#cdd6e6;margin-bottom:8px">סימני אזהרה מוקדמים. עוד לא משבר, אבל לא רגיל.</div>
+    <h3>✓ מותר</h3>
+    <div class="ok">✓ DCA ל-VOO ממשיך</div>
+    <div class="ok">✓ השלמת הגנה - בהדרגה</div>
+    <div class="ok">✓ המתנה להזדמנות המרה</div>
+    <h3>✗ אסור</h3>
+    <div class="no">✗ "להעמיס" VOO על דיפ</div>
+    <div class="no">✗ פתיחת לוויין</div>
+    <div class="no">✗ המרה מואצת</div>
+  </div>
+
+  <div class="scn orange">
+    <div class="name">🟠 רוח</div>
+    <div class="triggers">VIX 25-30 שבוע+ · או SPY&lt;MA50 · או PCE&gt;5%</div>
+    <h3>מה זה אומר</h3>
+    <div style="font-size:12px;color:#cdd6e6;margin-bottom:8px">סכנה מתקרבת. עוד לא משבר אבל צריך להתכופף.</div>
+    <h3>✓ מותר</h3>
+    <div class="ok">✓ DCA - חצי קצב</div>
+    <div class="ok">✓ הגדלת IAU (זהב) ב-+5%</div>
+    <div class="ok">✓ ביטול הזמנות פתוחות</div>
+    <h3>✗ אסור</h3>
+    <div class="no">✗ "לתפוס תחתית"</div>
+    <div class="no">✗ כל פוזיציה חדשה</div>
+    <div class="no">✗ DCA אגרסיבי</div>
+  </div>
+
+  <div class="scn red">
+    <div class="name">🔴 סופה</div>
+    <div class="triggers">VIX&gt;30 חודש · או SPY&lt;MA200 חצי שנה · או PCE&gt;5% מתמשך</div>
+    <h3>מה זה אומר</h3>
+    <div style="font-size:12px;color:#cdd6e6;margin-bottom:8px">משבר אמיתי. כאן הדוקטרינה שלך נבחנת. 2008, 2020 (קצר), 2022.</div>
+    <h3>✓ מותר</h3>
+    <div class="ok">✓ עצירת DCA לחלוטין</div>
+    <div class="ok">✓ הגדלת IAU ל-50% מההגנה</div>
+    <div class="ok">✓ מזומן עד 25%</div>
+    <h3>✗ אסור</h3>
+    <div class="no">✗ מכירת VOO (אסור!)</div>
+    <div class="no">✗ "סופה היא הזדמנות" - לפעמים כן, אבל לא לך</div>
+    <div class="no">✗ פאניקה</div>
+  </div>
+
+  <div class="scn purple">
+    <div class="name">🟣 שינוי</div>
+    <div class="triggers">אתה השתנית · לא השוק</div>
+    <h3>מה זה אומר</h3>
+    <div style="font-size:12px;color:#cdd6e6;margin-bottom:8px">סיימת קורס, יש כלי חדש (Hunter Pro v3 הוכיח WR&gt;55%), יש לך יותר זמן.</div>
+    <h3>✓ מותר (בכפוף ל-6 הכללים)</h3>
+    <div class="ok">✓ ניסוי 10 עסקאות בלבד</div>
+    <div class="ok">✓ עד 3% מהתיק</div>
+    <div class="ok">✓ stop loss כתוב מראש</div>
+    <h3>✗ אסור</h3>
+    <div class="no">✗ "השתניתי" כי המניות עולות</div>
+    <div class="no">✗ לגעת ב-VOO</div>
+    <div class="no">✗ לוותר על תיעוד</div>
+  </div>
+
+</div>
+
+<div class="panel">
+  <h2>📜 6 כללי הברזל לפני שינוי דוקטרינה</h2>
+  <div class="sub">אם תרצה לחזור ל-5★/לוויין - אלה התנאים. בלי אחד מאלה - אני מסרב ומזכיר את ה-$4,308.</div>
+
+  <div class="rule"><span class="num">1</span><b>3 חודשי v4 מלאים לפחות</b><br><span style="font-size:12px;color:#9aa0a6">בלי זה - זה רגש, לא נתון. תאריך מינימום: 18.9.2026.</span></div>
+  <div class="rule"><span class="num">2</span><b>תיעוד הטריגר ב-journal.html</b><br><span style="font-size:12px;color:#9aa0a6">איזה תנאי התקיים? תאריך? צילום מסך?</span></div>
+  <div class="rule"><span class="num">3</span><b>ניסוי מוגדר מראש - 10 עסקאות מקס</b><br><span style="font-size:12px;color:#9aa0a6">אם WR&lt;50% אחרי 10 - עוצר. בלי "עוד אחת".</span></div>
+  <div class="rule"><span class="num">4</span><b>גודל פוזיציה ≤ 3% מהתיק</b><br><span style="font-size:12px;color:#9aa0a6">היום זה ~$6.9K לפוזיציה. לא יותר.</span></div>
+  <div class="rule"><span class="num">5</span><b>Stop Loss כתוב מראש</b><br><span style="font-size:12px;color:#9aa0a6">לא "אצמצם אם יחמיר". מספר מדויק.</span></div>
+  <div class="rule"><span class="num">6</span><b>VOO לא נגרע</b><br><span style="font-size:12px;color:#9aa0a6">הניסוי מהמזומן, לא מהליבה.</span></div>
+</div>
+
+<div class="panel warn">
+  <h2>💬 שאל את עצמך - לפני כל פעולה חריגה</h2>
+  <div class="qbox">
+    <div style="font-size:14px;color:#fff;margin-bottom:6px"><b>שאלה 1:</b> איזה תנאי מספציפי התקיים?</div>
+    <label><input type="radio" name="q1" value="ok">תנאי שכתוב בתרחיש (VIX מעל X, וכו')</label>
+    <label><input type="radio" name="q1" value="bad">תחושה / חדשות / "כולם אומרים"</label>
+
+    <div style="font-size:14px;color:#fff;margin:14px 0 6px"><b>שאלה 2:</b> האם הוכחתי כשרון?</div>
+    <label><input type="radio" name="q2" value="ok">כן, יש Win Rate מתועד &gt;55% בכלי חדש</label>
+    <label><input type="radio" name="q2" value="bad">לא, אבל הפעם זה אחרת</label>
+
+    <div style="font-size:14px;color:#fff;margin:14px 0 6px"><b>שאלה 3:</b> מה Stop ה-Loss הכתוב?</div>
+    <label><input type="radio" name="q3" value="ok">מספר מדויק (למשל $X)</label>
+    <label><input type="radio" name="q3" value="bad">"אצמצם אם יחמיר" / לא יודע</label>
+
+    <button class="btn" onclick="checkQuestions()" style="margin-top:14px">🎯 קבל תשובה</button>
+    <div id="q-result" class="ans"></div>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>📞 משפט אחד שצריך לזכור</h2>
+  <div style="font-size:16px;color:#fff;padding:14px;background:#0f1f17;border:1px solid #2ecc71;border-radius:8px;text-align:center;font-weight:800">
+    "סבלנות עכשיו = $4,308 שלא אאבד שוב"
+  </div>
+</div>
+
+<div class="foot">discipline-rules · v1 · 23.6.2026 · נכתב כשהיית מחויב</div>
+
+</div>
+
+<script>
+"use strict";
+
+function detectScenario(){
+  const vix = parseFloat(document.getElementById("i-vix").value) || 0;
+  const spy = document.getElementById("i-spy").value;
+  const pce = parseFloat(document.getElementById("i-pce").value) || 0;
+  const vixdays = parseInt(document.getElementById("i-vixdays").value) || 0;
+
+  let scenario, color, name, action;
+
+  if(vix > 30 && vixdays >= 30){
+    scenario = "red"; color = "#c0334a"; name = "🔴 סופה";
+    action = "משבר אמיתי - עצירת DCA, הגדלת IAU, מזומן עד 25%. <b>VOO לא נמכר!</b>";
+  } else if(spy === "below" && vixdays >= 180){
+    scenario = "red"; color = "#c0334a"; name = "🔴 סופה";
+    action = "SPY מתחת MA200 חצי שנה - Bear Market רשמי. דוקטרינה נבחנת.";
+  } else if(vix >= 25 && vix <= 30 && vixdays >= 7){
+    scenario = "orange"; color = "#f0883e"; name = "🟠 רוח";
+    action = "סכנה מתקרבת. DCA חצי קצב, הגדל IAU +5%, בטל הזמנות פתוחות.";
+  } else if(pce > 5){
+    scenario = "orange"; color = "#f0883e"; name = "🟠 רוח";
+    action = "PCE גבוה - לחץ אינפלציוני. הגדל IAU, האט DCA.";
+  } else if(vix >= 20 && vix < 25){
+    scenario = "yellow"; color = "#f0c040"; name = "🟡 ערב";
+    action = "סימני אזהרה מוקדמים. ממשיך כרגיל אבל בלי 'להעמיס'.";
+  } else if(pce >= 4 && pce <= 5){
+    scenario = "yellow"; color = "#f0c040"; name = "🟡 ערב";
+    action = "PCE מעט גבוה. ממשיך v4, ממתין ל-Fed.";
+  } else if(spy === "test"){
+    scenario = "yellow"; color = "#f0c040"; name = "🟡 ערב";
+    action = "SPY בודק MA-200. ממשיך DCA אבל לא בכמות גדולה.";
+  } else {
+    scenario = "green"; color = "#2ecc71"; name = "🟢 שקט";
+    action = "השוק בריא. <b>ממשיך v4 בדיוק כפי שתכננת.</b> זה הזמן לסבלנות, לא להזדמנויות.";
+  }
+
+  const html = '<div style="background:#1a1f28;border:2px solid '+color+';border-radius:10px;padding:14px">' +
+    '<div style="font-size:22px;font-weight:800;color:#fff;margin-bottom:8px">'+name+'</div>' +
+    '<div style="color:#cdd6e6;font-size:13px">'+action+'</div>' +
+    '<div style="margin-top:10px;font-size:11px;color:#9aa0a6">VIX='+vix+' · SPY '+(spy==='above'?'מעל':spy==='test'?'נוגע':'מתחת')+' MA-200 · PCE='+pce+'% · ימי VIX גבוה='+vixdays+'</div>' +
+    '</div>';
+  document.getElementById("result").innerHTML = html;
+}
+
+function checkQuestions(){
+  const q1 = document.querySelector('input[name=q1]:checked');
+  const q2 = document.querySelector('input[name=q2]:checked');
+  const q3 = document.querySelector('input[name=q3]:checked');
+  if(!q1 || !q2 || !q3){
+    alert("ענה על כל 3 השאלות");
+    return;
+  }
+  const allOk = q1.value === "ok" && q2.value === "ok" && q3.value === "ok";
+  const res = document.getElementById("q-result");
+  res.className = "ans " + (allOk ? "go" : "stop");
+  if(allOk){
+    res.innerHTML = "<b>✅ ירוק - אפשר לפעול</b><br>" +
+      "אבל לפני שאתה לוחץ - תעד ב-journal.html (תאריך, נימוק, גודל). אם לא מתעדים - לא קרה.";
+  } else {
+    res.innerHTML = "<b>🚫 אדום - עצור</b><br>" +
+      "שאלה שלא ענית 'תנאי כתוב' עליה - זה רגש, לא נתון. תזכור: $4,308 הופסדו בדיוק כך. " +
+      "אם אתה מרגיש דחיפות לפעול - <b>שב על הגדר 24 שעות</b>. הדחיפות תיעלם.";
+  }
+}
+
+// אתחל - הצג את התרחיש הנוכחי
+detectScenario();
+</script>
+
+</body>
+</html>

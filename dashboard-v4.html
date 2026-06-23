@@ -66,6 +66,18 @@ input{background:#0d1117;border:1px solid #2a3a55;border-radius:8px;color:#fff;p
   <div class="card"><b>VIX</b><span class="v" style="color:#f0c040">17.3↑</span></div>
 </div>
 
+<div class="panel" id="discipline-panel" style="border-color:#2ecc71;background:#0f1f17">
+  <h2 style="color:#9fe6bd">🛡️ מצב דיסציפלינה — איפה אתה כעת</h2>
+  <div id="d-badge" style="font-size:22px;font-weight:800;color:#fff;padding:10px;background:#1a2030;border-radius:10px;text-align:center;margin-bottom:8px">🟢 שקט · ממשיך v4 כמתוכנן</div>
+  <div id="d-action" style="font-size:13px;color:#cdd6e6;margin-bottom:8px"></div>
+  <div class="row"><span>✓ מותר</span><span id="d-ok" style="color:#9fe6bd;text-align:left;font-size:12px">DCA רגיל · השלמת הגנה</span></div>
+  <div class="row"><span>✗ אסור</span><span id="d-no" style="color:#f5a8a8;text-align:left;font-size:12px">פתיחת לוויין · שינוי דוקטרינה</span></div>
+  <div class="row"><span>זכור</span><span style="color:#f0c040;font-size:12px;text-align:left">"סבלנות עכשיו = $4,308 שלא אאבד שוב"</span></div>
+  <div style="margin-top:10px;text-align:center">
+    <a href="discipline-rules.html" style="display:inline-block;background:#23386a;color:#fff;text-decoration:none;padding:8px 16px;border-radius:8px;font-size:12px;font-weight:700;border:1px solid #34527d">📜 כל הכללים והשאלון</a>
+  </div>
+</div>
+
 <div class="panel fx">
   <h2>📈 תמונת שוק — 23.6.26 · BOOT (שלישי)</h2>
   <div class="sub2">⚠️ תנודתיות עולה. תשואת 10ש' ~4.48%, נתוני PCE השבוע. פיוצ'רס S&P קלות אדומים.</div>
@@ -151,7 +163,8 @@ input{background:#0d1117;border:1px solid #2a3a55;border-radius:8px;color:#fff;p
     <a href="checklist-v4.html">✅ צ'קליסט</a>
     <a href="journal.html">📓 יומן</a>
     <a href="nav-tracker.html">📊 מעקב NAV</a>
-    <a href="doctrine-v4.html">🛡️ דוקטרינה v4</a>
+    <a href="discipline-rules.html">🛡️ דיסציפלינה</a>
+    <a href="doctrine-v4.html">📖 דוקטרינה v4</a>
     <a href="index-5stars.html">🗂️ אינדקס</a>
   </div>
 </div>
@@ -172,6 +185,40 @@ function calc(){
 }
 document.querySelectorAll('input').forEach(function(i){i.addEventListener('input',calc)});
 calc();
+
+// זיהוי תרחיש דיסציפלינה - מבוסס על VIX הנוכחי שמוצג בדשבורד
+function detectDiscipline(){
+  // קריאת VIX מטקסט הקארד (תומך 17.3↑ או 17.04)
+  var vixText = document.querySelector('.cards .card:nth-child(5) .v');
+  var vix = vixText ? parseFloat(vixText.textContent.replace(/[^0-9.]/g,'')) : 17;
+  var scenario, action, ok, no;
+  if(vix > 30){
+    scenario = '🔴 סופה · משבר אמיתי';
+    action = 'עצירת DCA, הגדלת IAU ל-50% מההגנה, מזומן עד 25%. <b>VOO לא נמכר!</b>';
+    ok = 'עצירת DCA · הגדלת IAU · מזומן';
+    no = 'מכירת VOO · "סופה=הזדמנות" · פאניקה';
+  } else if(vix >= 25){
+    scenario = '🟠 רוח · סכנה מתקרבת';
+    action = 'DCA בחצי קצב, הגדל IAU +5%, בטל הזמנות פתוחות. לא "לתפוס תחתית".';
+    ok = 'DCA חצי קצב · הגדלת זהב · ביטול הזמנות';
+    no = '"לתפוס תחתית" · פוזיציה חדשה · DCA אגרסיבי';
+  } else if(vix >= 20){
+    scenario = '🟡 ערב · סימני אזהרה מוקדמים';
+    action = 'ממשיך v4 כרגיל, אבל בלי "להעמיס" על דיפים. השלמת הגנה - בהדרגה.';
+    ok = 'DCA רגיל · הגנה הדרגתית · המתנה';
+    no = '"להעמיס" VOO · לוויין · המרה מואצת';
+  } else {
+    scenario = '🟢 שקט · ממשיך v4 כמתוכנן';
+    action = 'השוק בריא. זה הזמן לסבלנות, לא להזדמנויות. ממשיך DCA רגיל.';
+    ok = 'DCA רגיל · השלמת הגנה · המרה בסולם';
+    no = 'פתיחת לוויין · שינוי דוקטרינה · "מפסיד תשואה"';
+  }
+  document.getElementById('d-badge').textContent = scenario;
+  document.getElementById('d-action').innerHTML = action;
+  document.getElementById('d-ok').textContent = ok;
+  document.getElementById('d-no').textContent = no;
+}
+detectDiscipline();
 </script>
 </body>
 </html>
