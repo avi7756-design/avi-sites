@@ -135,6 +135,8 @@
       </div>
       <div class="sect">פרטי הנכס</div>
       <div class="fg"><label>כתובת / מזהה</label><input id="fName" placeholder="רחוב, עיר"></div>
+      <div class="fg" style="grid-column:1/-1"><label>🔗 קישור למודעה (URL)</label><input id="fLink" placeholder="הדבק כתובת המודעה מ-יד2 (כדי להגיע לטלפון)"></div>
+      <div class="fg"><label>📅 תאריך פרסום המודעה</label><input id="fAdDate" placeholder="למשל 07/01/26"></div>
       <div class="fg"><label>אזור</label><input id="fArea" placeholder="קרית מוצקין / חיפה / עכו"></div>
       <div class="fg"><label>מתווך מפנה (מהמאגר)</label><select id="fAgent" onchange="onAgentPick()"><option value="">- ללא / מוכר פרטי -</option></select></div>
       <div class="fg"><label>מקור</label><input id="fSource" placeholder="רימקס / יד2 פרטי / Top Home"></div>
@@ -147,6 +149,22 @@
       <div class="fg"><label>מוטיבציה / דחיפות מוכר</label><input id="aMot" placeholder="למה מוכרים?"></div>
       <div class="fg" style="grid-column:1/-1"><label>Comps - מה נמכר ברחוב/בניין ובכמה למ"ר</label><textarea id="aComps"></textarea></div>
       <div class="fg" style="grid-column:1/-1"><label>פוטנציאל בנייה / התחדשות / זכויות</label><textarea id="aBuild"></textarea></div>
+
+      <div class="sect">🔎 בדיקת מקורות רשמיים (רמה א' - הצלבה מול הרישום)</div>
+      <div class="fg" style="grid-column:1/-1;display:flex;gap:6px;flex-wrap:wrap">
+        <a class="btn sec" href="https://www.govmap.gov.il/" target="_blank" style="text-decoration:none;font-size:12px">🗺️ GovMap</a>
+        <a class="btn sec" href="https://www.nadlan.gov.il/" target="_blank" style="text-decoration:none;font-size:12px">📊 רשות המסים (Comps)</a>
+        <a class="btn sec" href="https://mavat.iplan.gov.il/" target="_blank" style="text-decoration:none;font-size:12px">📐 מינהל התכנון</a>
+        <a class="btn sec" href="https://www.gov.il/he/service/land-registration-extract" target="_blank" style="text-decoration:none;font-size:12px">📜 טאבו</a>
+        <a class="btn sec" href="https://www.google.com/search?q=ועדה+מקומית+קריות+התחדשות+עירונית" target="_blank" style="text-decoration:none;font-size:12px">🏛️ ועדה מקומית / התחדשות</a>
+      </div>
+
+      <div class="sect">🗺️ מפת SWOT</div>
+      <div class="fg" style="grid-column:1/-1;margin-bottom:-2px"><button class="btn sec" type="button" onclick="autoSwot()" style="font-size:12px;padding:5px 10px">⚡ מלא SWOT אוטומטי (ממה שידוע)</button></div>
+      <div class="fg"><label style="color:var(--green)">💪 חוזקות</label><textarea id="swS" placeholder="דיסקאונט, תחבורה, שכונה נזילה"></textarea></div>
+      <div class="fg"><label style="color:var(--amber)">⚠️ חולשות</label><textarea id="swW" placeholder="אין מעלית, בניין חלש, רעש, מסמכים חסרים"></textarea></div>
+      <div class="fg"><label style="color:var(--accent)">🚀 הזדמנויות</label><textarea id="swO" placeholder="השבחת שכ&quot;ד, חלוקה, זכויות, JV"></textarea></div>
+      <div class="fg"><label style="color:var(--red)">🔻 איומים</label><textarea id="swT" placeholder="פיצול לא חוקי, אכיפה, מחיר יתר, שמועת התחדשות"></textarea></div>
 
       <div class="sect gold">🔑 מספרים למנוע</div>
       <div class="fg"><label>ARV - מחיר למ"ר אחרי השבחה (₪)</label><input id="fArv" type="number" class="key" oninput="livePreview()"></div>
@@ -161,7 +179,15 @@
       <div class="checks">
         <label><input type="checkbox" id="fRenovated" onchange="livePreview()"> כבר משופצת</label>
         <label><input type="checkbox" id="fHold" onchange="livePreview()"> מסלול שכירות (קנה-והחזק)</label>
-        <label style="color:var(--red)"><input type="checkbox" id="fHardstop" onchange="livePreview()"> 🚩 Hard Stop (פוסל)</label>
+      </div>
+      <div class="sect" style="color:var(--red)">🚩 Hard Stops - כל סימון פוסל מיידית</div>
+      <div class="checks" style="flex-direction:column;align-items:flex-start;gap:6px;color:var(--txt)">
+        <label><input type="checkbox" class="hs" id="hs1" onchange="livePreview()"> אין זיהוי ודאי של הנכס (גוש/חלקה/תת-חלקה)</label>
+        <label><input type="checkbox" class="hs" id="hs2" onchange="livePreview()"> אי-התאמה בין המודעה לרישום בטאבו</label>
+        <label><input type="checkbox" class="hs" id="hs3" onchange="livePreview()"> יחידות/פיצול בפועל ללא היתר</label>
+        <label><input type="checkbox" class="hs" id="hs4" onchange="livePreview()"> אין מרווח ביטחון (חשוף)</label>
+        <label><input type="checkbox" class="hs" id="hs5" onchange="livePreview()"> התחדשות/פינוי-בינוי כשמועה (תומחר כאפסייד)</label>
+        <label><input type="checkbox" class="hs" id="hs6" onchange="livePreview()"> אין גישה לתיק בניין/מסמך תכנוני</label>
       </div>
 
       <div class="preview">
@@ -264,27 +290,33 @@ function openModal(L){
   if(e('pasteBox'))e('pasteBox').value=''; if(e('parseMsg'))e('parseMsg').textContent='';
   if(L){
     e('mTitle').textContent='עריכת ליד'; e('delBtn').style.display='inline-block'; e('fId').value=L.id;
-    e('fName').value=L.name||''; e('fArea').value=L.area||''; e('fSource').value=L.source||''; e('fPhone').value=L.phone||''; e('fAgent').value=L.agentId||'';
+    e('fName').value=L.name||''; e('fArea').value=L.area||''; e('fSource').value=L.source||''; e('fPhone').value=L.phone||''; e('fAgent').value=L.agentId||''; e('fLink').value=L.link||''; e('fAdDate').value=L.adDate||'';
     e('fAsking').value=L.asking||''; e('fM2').value=L.m2||''; e('aCond').value=L.cond||''; e('aMot').value=L.mot||'';
     e('aComps').value=L.comps||''; e('aBuild').value=L.buildNote||''; e('fArv').value=L.arvM2||''; e('fAsIs').value=L.asIsM2||''; e('fPrice').value=L.price||'';
     e('fBuild').value=L.buildM2||0; e('fBuildCost').value=L.buildCost||9000; e('fReno').value=L.renoM2||2500;
     e('fMonths').value=L.months||14; e('fRent').value=L.rent||0; e('fNext').value=L.next||'';
-    e('fRenovated').checked=!!L.renovated; e('fHold').checked=!!L.hold; e('fHardstop').checked=!!L.hardstop;
+    e('fRenovated').checked=!!L.renovated; e('fHold').checked=!!L.hold;
+    ['hs1','hs2','hs3','hs4','hs5','hs6'].forEach(h=>e(h).checked=!!L[h]);
+    e('swS').value=L.swotS||''; e('swW').value=L.swotW||''; e('swO').value=L.swotO||''; e('swT').value=L.swotT||'';
   }else{
     e('mTitle').textContent='ליד חדש'; e('delBtn').style.display='none';
-    ['fId','fName','fArea','fSource','fPhone','fAsking','fM2','aCond','aMot','aComps','aBuild','fArv','fAsIs','fPrice','fNext'].forEach(i=>e(i).value=''); e('fAgent').value='';
+    ['fId','fName','fArea','fSource','fPhone','fLink','fAdDate','fAsking','fM2','aCond','aMot','aComps','aBuild','fArv','fAsIs','fPrice','fNext','swS','swW','swO','swT'].forEach(i=>e(i).value=''); e('fAgent').value='';
     e('fBuild').value=0; e('fBuildCost').value=9000; e('fReno').value=2500; e('fMonths').value=14; e('fRent').value=0;
-    e('fRenovated').checked=false; e('fHold').checked=false; e('fHardstop').checked=false;
+    e('fRenovated').checked=false; e('fHold').checked=false;
+    ['hs1','hs2','hs3','hs4','hs5','hs6'].forEach(h=>e(h).checked=false);
   }
   livePreview();
 }
 function closeModal(){document.getElementById('ov').classList.remove('open')}
 function readForm(){
   const v=id=>document.getElementById(id).value, n=id=>+document.getElementById(id).value||0, c=id=>document.getElementById(id).checked;
-  return{id:v('fId')||('L'+Date.now()),name:v('fName'),area:v('fArea'),source:v('fSource'),phone:v('fPhone'),agentId:v('fAgent'),
+  return{id:v('fId')||('L'+Date.now()),name:v('fName'),area:v('fArea'),source:v('fSource'),phone:v('fPhone'),agentId:v('fAgent'),link:v('fLink'),adDate:v('fAdDate'),
     asking:n('fAsking'),m2:n('fM2'),cond:v('aCond'),mot:v('aMot'),comps:v('aComps'),buildNote:v('aBuild'),
     arvM2:n('fArv'),asIsM2:n('fAsIs'),price:n('fPrice'),buildM2:n('fBuild'),buildCost:n('fBuildCost'),renoM2:n('fReno'),
-    months:n('fMonths'),rent:n('fRent'),next:v('fNext'),renovated:c('fRenovated'),hold:c('fHold'),hardstop:c('fHardstop')};
+    months:n('fMonths'),rent:n('fRent'),next:v('fNext'),renovated:c('fRenovated'),hold:c('fHold'),
+    hs1:c('hs1'),hs2:c('hs2'),hs3:c('hs3'),hs4:c('hs4'),hs5:c('hs5'),hs6:c('hs6'),
+    hardstop:(c('hs1')||c('hs2')||c('hs3')||c('hs4')||c('hs5')||c('hs6')),
+    swotS:v('swS'),swotW:v('swW'),swotO:v('swO'),swotT:v('swT')};
 }
 function livePreview(){
   const L=readForm(), r=calc(L), e=id=>document.getElementById(id);
@@ -333,7 +365,7 @@ function render(){
     <th>סטטוס</th><th>כתובת</th><th>אזור</th><th>מבוקש</th><th>מחיר נבדק</th><th>ARV/מ"ר</th><th>שוליים</th><th>ROI שנתי</th><th>מקור</th><th>צעד הבא</th><th></th>
     </tr></thead><tbody>${rows.map(({L,r})=>`<tr>
       <td><span class="badge ${cls(r.verdict)}">${r.verdict}</span></td>
-      <td>${L.name||'-'}</td><td>${L.area||'-'}</td>
+      <td>${L.name||'-'}${L.link?` <a href="${L.link}" target="_blank" title="פתח מודעה ביד2" style="text-decoration:none">🔗</a>`:''}<div style="font-size:11px;color:var(--mut)">${L.adDate?'📅 מודעה: '+L.adDate+' · ':''}נוסף: ${(L.date||'').slice(0,10)}</div></td><td>${L.area||'-'}</td>
       <td>${L.asking?fmtK(L.asking):'-'}</td><td>${L.price?fmtK(L.price):'-'}</td>
       <td>${L.hold?'-':fmt(L.arvM2)}</td>
       <td>${L.hold?'-':(r.margin*100).toFixed(1)+'%'}</td>
@@ -361,11 +393,31 @@ function dl(content,name,type){const b=new Blob([content],{type});const u=URL.cr
 function seedDemo(){
   if(DB.length && !confirm('להוסיף את 3 המועמדים לדוגמה?'))return;
   const demo=[
-   {id:'demo1',name:'רחוב לדוגמה 10, עיר',area:'אזור לדוגמה',source:'יד2',phone:'',asking:950000,m2:80,arvM2:14000,price:880000,buildM2:12,buildCost:9000,renoM2:2500,months:14,rent:0,cond:'דורש שיפוץ',mot:'',comps:'הזן Comps ממדלן',buildNote:'פוטנציאל ממד/חדר',next:'דוגמה - מחק והזן עסקה אמיתית',hold:false,renovated:false,hardstop:false}
+   {id:'demo1',name:'רחוב לדוגמה 10, עיר',area:'אזור לדוגמה',source:'יד2',phone:'',link:'',adDate:'',asking:950000,m2:80,arvM2:14000,price:880000,buildM2:12,buildCost:9000,renoM2:2500,months:14,rent:0,cond:'דורש שיפוץ',mot:'',comps:'הזן Comps ממדלן',buildNote:'פוטנציאל ממד/חדר',next:'דוגמה - מחק והזן עסקה אמיתית',hold:false,renovated:false,hardstop:false}
   ];
   demo.forEach(d=>{d.date=new Date().toISOString();d.verdict=calc(d).verdict;if(!DB.find(x=>x.id===d.id))DB.unshift(d);});
   save();render();
 }
+// ===== SWOT auto-fill =====
+function autoSwot(){
+  const L=readForm(), r=calc(L), e=id=>document.getElementById(id);
+  const S=[],W=[],O=[],T=[]; const ppm=(L.m2&&L.price)?L.price/L.m2:0;
+  if(ppm&&L.arvM2&&ppm<L.arvM2*0.78) S.push('דיסקאונט לשוק ('+Math.round(ppm).toLocaleString('he-IL')+'/מר מול ARV '+Number(L.arvM2).toLocaleString('he-IL')+')');
+  if(r.mos!=null&&r.mos>=0.15) S.push('מרווח ביטחון מוגן ('+(r.mos*100).toFixed(0)+'%)');
+  if(L.rent>0) S.push('פוטנציאל שכ"ד '+Number(L.rent).toLocaleString('he-IL'));
+  if(L.cond&&/שיפוץ|דרוש/.test(L.cond)) W.push('דורש שיפוץ');
+  if(r.mos!=null&&r.mos<0) W.push('מרווח ביטחון שלילי - חשוף');
+  if(L.buildM2>0) O.push('מנוף בנייה +'+L.buildM2+' מ"ר');
+  if(/גג|זכוי|תמ|התחדש/.test(L.buildNote||'')) O.push('זכויות/התחדשות לבדיקה');
+  const txt=((L.buildNote||'')+' '+(L.next||'')+' '+(L.comps||'')+' '+(L.cond||''));
+  if(/פינוי|התחדש|תמ"א|הריס/.test(txt)) T.push('תלות בפינוי-בינוי/התחדשות (לא ודאי = איום)');
+  if(ppm&&L.arvM2&&!L.hold&&ppm>L.arvM2) T.push('מחיר יתר (מעל ARV)');
+  if(L.adDate&&/0?1\/0?1\/|2024|2023/.test(L.adDate)) T.push('מודעה ישנה - אולי "תקועה"');
+  const set=(id,arr)=>{if(arr.length)e(id).value=(e(id).value?e(id).value+' · ':'')+arr.join(' · ');};
+  set('swS',S);set('swW',W);set('swO',O);set('swT',T);
+  if(!S.length&&!W.length&&!O.length&&!T.length)alert('אין מספיק נתונים. מלא ARV/מחיר/שטח קודם.');
+}
+
 // ===== Listing paste parser =====
 function parseListing(){
   const t=document.getElementById('pasteBox').value||''; if(!t.trim()){document.getElementById('parseMsg').textContent='הדבק טקסט קודם';return}
@@ -385,6 +437,7 @@ function parseListing(){
   if(/מושכר|שוכר|חוזה.*שנ|שכירות/.test(t)){e('fHold').checked=true; filled.push('מושכרת→החזק');}
   // טלפון
   const ph=t.match(/0\d{1,2}-?\d{6,7}/); if(ph && !e('fPhone').value){e('fPhone').value=ph[0]; filled.push('טלפון');}
+  const ad=t.match(/פורסם[^\d]{0,6}(\d{1,2}\/\d{1,2}\/\d{2,4})/); if(ad && e('fAdDate') && !e('fAdDate').value){e('fAdDate').value=ad[1]; filled.push('תאריך מודעה');}
   // כתובת: שורת "רחוב X" או מחרוזת לפני פסיק עם מספר
   const addr=t.match(/רחוב\s+([^\n,.]{2,30})/); if(addr && !e('fName').value){e('fName').value=addr[1].trim(); filled.push('כתובת');}
   // דגלי בנייה
@@ -453,7 +506,7 @@ function seedAgents(){
 document.getElementById('ovAgent').addEventListener('click',e=>{if(e.target.id==='ovAgent')closeAgent()});
 
 // ===== Google Sheets sync =====
-const SHEET_URL='';
+const SHEET_URL='https://docs.google.com/spreadsheets/d/1zdN45YjYyp3Xbev6hv_MMHjx9uQlB5S1j09KiTbadv8/edit';
 const SKEY='maestro_sync_url';
 function getSyncUrl(){try{return localStorage.getItem(SKEY)||''}catch(e){return''}}
 function setDot(c,t){const d=document.getElementById('syncDot'),s=document.getElementById('syncStatus');if(d)d.style.background=c;if(s)s.textContent=t}
