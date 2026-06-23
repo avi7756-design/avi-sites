@@ -205,6 +205,7 @@
     <div class="mfoot">
       <button class="btn danger" id="delBtn" onclick="delCurrent()" style="display:none">מחק ליד</button>
       <div style="margin-inline-start:auto;display:flex;gap:8px">
+        <button class="btn sec" onclick="deepDive()" title="פתח בדיקת SWOT עמוקה (deal-swot)">🔬 בדיקה עמוקה</button>
         <button class="btn sec" onclick="closeModal()">ביטול</button>
         <button class="btn" onclick="saveLead()">💾 שמור ליד</button>
       </div>
@@ -416,6 +417,14 @@ function autoSwot(){
   const set=(id,arr)=>{if(arr.length)e(id).value=(e(id).value?e(id).value+' · ':'')+arr.join(' · ');};
   set('swS',S);set('swW',W);set('swO',O);set('swT',T);
   if(!S.length&&!W.length&&!O.length&&!T.length)alert('אין מספיק נתונים. מלא ARV/מחיר/שטח קודם.');
+}
+
+// ===== Deep dive handoff to deal-swot (same origin localStorage) =====
+function deepDive(){
+  const L=readForm();
+  if(!L.name){alert('הזן כתובת קודם');return;}
+  try{localStorage.setItem('maestro_deal_handoff',JSON.stringify(L));}catch(e){}
+  window.open('https://avi7756-design.github.io/avi-sites/deal-swot/','_blank');
 }
 
 // ===== Listing paste parser =====

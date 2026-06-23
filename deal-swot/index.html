@@ -437,6 +437,41 @@
   applyData(stored ? JSON.parse(stored) : { updatedAt: nowText() });
   if(!localStorage.getItem("dealDashUpdatedAt")) setStamp(nowText());
 
+  (function maestroHandoff(){
+    const raw = localStorage.getItem('maestro_deal_handoff');
+    if(!raw) return;
+    try {
+      const d = JSON.parse(raw);
+      const map = {name:'address', area:'city', source:'leadSource', asking:'price', m2:'area', rent:'rent',
+                   swotS:'strengths', swotW:'weaknesses', swotO:'opportunities', swotT:'threats'};
+      Object.entries(map).forEach(([src,dst])=>{
+        if(d[src]!==undefined && d[src]!==''){
+          const el = document.querySelector('[data-field="'+dst+'"]');
+          if(el) el.value = d[src];
+        }
+      });
+      const extra = [];
+      if(d.link) extra.push('קישור מודעה: '+d.link);
+      if(d.adDate) extra.push('תאריך פרסום: '+d.adDate);
+      if(d.phone) extra.push('טלפון: '+d.phone);
+      if(d.arvM2) extra.push('ARV למ"ר: '+d.arvM2);
+      if(d.price) extra.push('מחיר הערכה: '+d.price);
+      if(d.buildNote) extra.push('הערת בנייה: '+d.buildNote);
+      if(extra.length){
+        const ev = document.querySelector('[data-field="evidenceLog"]');
+        if(ev) ev.value = (ev.value ? ev.value+'\n' : '') + '--- נטען מ-Pipeline '+nowText()+' ---\n'+extra.join('\n');
+      }
+      localStorage.removeItem('maestro_deal_handoff');
+      recalc();
+      save();
+      const banner = document.createElement('div');
+      banner.textContent = 'נטען מ-Pipeline';
+      banner.style.cssText = 'position:fixed;top:12px;left:50%;transform:translateX(-50%);background:#1f8a52;color:#fff;padding:10px 22px;border-radius:10px;font-weight:700;z-index:999;box-shadow:0 4px 16px rgba(0,0,0,.2)';
+      document.body.appendChild(banner);
+      setTimeout(()=> banner.remove(), 4000);
+    } catch(e){ console.warn('maestro handoff parse error', e); }
+  })();
+
   document.getElementById("saveBtn").addEventListener("click", save);
   document.querySelectorAll("input, textarea, select").forEach(el => el.addEventListener("input", recalc));
   document.querySelectorAll("[data-hard],[data-score],[data-check]").forEach(el => el.addEventListener("change", recalc));
