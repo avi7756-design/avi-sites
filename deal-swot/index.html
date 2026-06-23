@@ -1,0 +1,462 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ארגז כלים לניתוח עסקת נדל"ן | SWOT</title>
+  <style>
+    :root{
+      --ink:#172033; --muted:#5f6f86; --bg:#f4f7fb; --paper:#fff; --line:#dce4ef;
+      --nav:#111827; --blue:#24537a; --teal:#0f766e; --gold:#b8893a; --red:#b42318;
+      --green:#1f8a52; --amber:#b7791f; --soft-blue:#eaf2fb; --soft-teal:#e8f6f3;
+      --soft-gold:#f4ead8; --soft-red:#fae9e7; --soft-green:#e9f6ef;
+      --shadow:0 10px 28px rgba(17,24,39,.08);
+    }
+    *{box-sizing:border-box}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif;line-height:1.55}
+    a{color:#1c5f99;text-decoration:none}
+    a:hover{text-decoration:underline}
+    .app{display:grid;grid-template-columns:310px 1fr;min-height:100vh}
+    aside{position:sticky;top:0;height:100vh;background:var(--nav);color:#fff;padding:22px 18px;overflow:auto}
+    aside h2{font-size:1.05rem;margin:0 0 6px}
+    aside p{font-size:.82rem;color:#b8c4d4;margin:0 0 18px}
+    .nav a{display:block;color:#eef4fb;padding:9px 10px;border-radius:8px;font-size:.88rem;margin-bottom:4px}
+    .nav a:hover{background:rgba(255,255,255,.1);text-decoration:none}
+    .actions{display:grid;gap:8px;margin:16px 0 18px}
+    button,.file-label{border:0;border-radius:8px;padding:10px 12px;font:inherit;cursor:pointer;background:#fff;color:#172033;text-align:center}
+    button.primary{background:var(--gold);font-weight:800;color:#101827}
+    button.ghost{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.18)}
+    .file-label input{display:none}
+    main{padding:28px;max-width:1480px;width:100%;margin:0 auto}
+    .hero{background:linear-gradient(135deg,#101827,#24537a);color:#fff;padding:34px 34px 28px;margin:-28px -28px 24px;box-shadow:var(--shadow);border-bottom:4px solid var(--gold)}
+    .hero h1{font-size:2.05rem;line-height:1.2;margin:0 0 10px}
+    .hero p{max-width:930px;color:#dbe6f3;margin:0}
+    .meta{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+    .pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);border-radius:999px;padding:6px 12px;font-size:.82rem}
+    section{background:var(--paper);border:1px solid var(--line);border-radius:10px;margin:18px 0;padding:22px;box-shadow:0 4px 14px rgba(17,24,39,.045)}
+    h2{margin:0 0 14px;font-size:1.42rem;color:#10213a}
+    h3{margin:20px 0 10px;font-size:1.05rem;color:#22456b}
+    .lead{font-size:1.02rem;color:#3c4759}
+    .toolbar{display:flex;gap:8px;flex-wrap:wrap}
+    .toolbar button{border:1px solid var(--line);background:#fbfdff}
+    .dashboard-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:14px;align-items:start}
+    .form-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    label{display:grid;gap:5px;color:var(--muted);font-size:.82rem;font-weight:700}
+    input,textarea,select{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 10px;font:inherit;color:var(--ink);background:#fff}
+    textarea{min-height:86px;resize:vertical}
+    input:focus,textarea:focus,select:focus{outline:2px solid rgba(184,137,58,.25);border-color:var(--gold)}
+    .kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+    .kpi{border:1px solid var(--line);background:#fbfdff;border-radius:9px;padding:13px;min-height:92px}
+    .kpi strong{display:block;font-size:1.5rem;color:#10213a}
+    .kpi span{font-size:.8rem;color:var(--muted)}
+    .meter{height:10px;background:#e7edf5;border-radius:999px;overflow:hidden;margin-top:8px}
+    .meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--red),var(--amber),var(--green))}
+    .process{display:grid;grid-template-columns:repeat(8,minmax(105px,1fr));gap:8px;overflow:auto}
+    .step{border:1px solid var(--line);border-top:5px solid var(--gold);background:#fbfdff;border-radius:9px;padding:12px;min-height:132px}
+    .step b{display:flex;align-items:center;justify-content:center;width:30px;height:30px;background:var(--soft-gold);border-radius:50%;margin-bottom:8px}
+    .tools{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .tool{border:1px solid var(--line);border-radius:9px;padding:14px;background:#fbfdff}
+    .tool .tag{display:inline-block;background:var(--soft-blue);color:#17466f;border-radius:999px;padding:3px 8px;font-size:.76rem;margin-bottom:8px}
+    .tool b{display:block;margin-bottom:6px}
+    .swot{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .swot-card{border:1px solid var(--line);border-radius:10px;overflow:hidden;background:#fff}
+    .swot-card h3{margin:0;padding:12px 14px;color:#10213a}
+    .swot-card textarea{border:0;border-top:1px solid var(--line);border-radius:0;min-height:180px}
+    .s h3{background:var(--soft-green)} .w h3{background:#f1f4f8} .o h3{background:var(--soft-teal)} .t h3{background:var(--soft-red)}
+    .matrix{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .decision{border:1px solid var(--line);border-right:6px solid var(--blue);border-radius:9px;background:#fbfdff;padding:14px}
+    .decision.good{border-right-color:var(--green)} .decision.warn{border-right-color:var(--amber)} .decision.bad{border-right-color:var(--red)}
+    table{width:100%;border-collapse:collapse;margin:10px 0;font-size:.92rem}
+    th,td{border-bottom:1px solid var(--line);padding:10px;text-align:right;vertical-align:top}
+    th{background:#f7f9fc;color:#46536a}
+    .checklist{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .check{display:flex;gap:8px;align-items:flex-start;border:1px solid var(--line);background:#fbfdff;border-radius:8px;padding:10px}
+    .check input{width:auto;margin-top:4px}
+    .qa-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+    .qa{border:1px solid var(--line);border-right:5px solid var(--teal);border-radius:9px;background:#fbfdff;padding:13px}
+    .syllabus{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .lesson{border:1px solid var(--line);border-radius:9px;background:#fff;padding:14px}
+    .lesson strong{display:block;color:#10213a;margin-bottom:6px}
+    .score-grid{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:10px}
+    .score-card{border:1px solid var(--line);border-radius:9px;background:#fbfdff;padding:12px}
+    .score-card label{font-size:.78rem}
+    .hard-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+    .hard{border:1px solid #f0c8c4;background:#fff8f7;border-radius:8px;padding:10px;display:flex;gap:8px}
+    .hard input{width:auto;margin-top:4px}
+    .summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+    .source-pack{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+    .source-pack .tool{background:#fff}
+    .note{background:var(--soft-blue);border-right:5px solid var(--blue);padding:13px;border-radius:8px;margin:12px 0}
+    .stamp{position:fixed;bottom:14px;left:14px;background:#101827;color:#fff;border-radius:999px;padding:9px 13px;box-shadow:var(--shadow);font-size:.82rem;z-index:20}
+    .print-only{display:none}
+    @media(max-width:1050px){.app{grid-template-columns:1fr}aside{position:relative;height:auto}.dashboard-grid,.form-grid,.kpis,.tools,.swot,.matrix,.checklist,.qa-grid,.syllabus,.score-grid,.hard-grid,.summary-grid,.source-pack{grid-template-columns:1fr}.hero{margin:0 0 18px}main{padding:14px}.process{grid-template-columns:repeat(4,minmax(145px,1fr))}}
+    @media print{aside,.actions,.toolbar,.stamp{display:none}.app{display:block}main{max-width:none;padding:0}.hero,section{box-shadow:none;break-inside:avoid}.print-only{display:block}}
+  </style>
+</head>
+<body>
+<div class="app">
+  <aside>
+    <h2>ארגז כלים נדל"ן</h2>
+    <p>דשבורד חי לבדיקת עסקת רכישה, מפת SWOT, מקורות אמינים ואינדקס שאלות.</p>
+    <div class="actions">
+      <button class="primary" id="saveBtn">שמור עדכון</button>
+      <button class="ghost" onclick="window.print()">ייצוא / הדפסה PDF</button>
+      <button class="ghost" id="exportBtn">ייצא נתוני עסקה</button>
+      <label class="file-label">ייבא נתונים <input id="importFile" type="file" accept="application/json"></label>
+    </div>
+    <nav class="nav">
+      <a href="#deal">כרטיס עסקה</a>
+      <a href="#flow">סדר עבודה</a>
+      <a href="#tools">מקורות וכלים</a>
+      <a href="#kiryot">חבילת קריות</a>
+      <a href="#swot">מפת SWOT</a>
+      <a href="#hardstops">Hard Stops</a>
+      <a href="#committee">ציון ועדה</a>
+      <a href="#decision">מטריצת החלטה</a>
+      <a href="#checklist">צ'ק ליסט</a>
+      <a href="#evidence">ראיות ומקורות</a>
+      <a href="#questions">אינדקס שאלות</a>
+      <a href="#syllabus">סילבוס למידה</a>
+      <a href="#updates">יומן עדכונים</a>
+    </nav>
+  </aside>
+
+  <main>
+    <header class="hero">
+      <h1>דשבורד לניתוח עסקת רכישת נדל"ן</h1>
+      <p>כלי עבודה מרכזי לכל עסקה: איסוף עובדות, בדיקות משפטיות ותכנוניות, תחבורה, התחדשות עירונית, ניתוח שוק, SWOT והחלטת Go / No-Go.</p>
+      <div class="meta">
+        <span class="pill">עודכן: <b id="lastUpdated">--</b></span>
+        <span class="pill">גרסה: 1.0</span>
+        <span class="pill">מתאים לישראל</span>
+        <span class="pill">מקורות ממשלתיים ומקצועיים</span>
+      </div>
+    </header>
+
+    <section id="deal">
+      <h2>כרטיס עסקה</h2>
+      <div class="dashboard-grid">
+        <div>
+          <div class="form-grid">
+            <label>Deal ID<input data-field="dealId" placeholder="KY-2026-00017"></label>
+            <label>כתובת הנכס<input data-field="address" placeholder="רחוב, מספר, עיר"></label>
+            <label>עיר / קריה<input data-field="city" placeholder="קרית ים / ביאליק / מוצקין / אתא"></label>
+            <label>שכונה<input data-field="neighborhood" placeholder="שם שכונה"></label>
+            <label>גוש<input data-field="block" placeholder="לדוגמה 6123"></label>
+            <label>חלקה<input data-field="parcel" placeholder="לדוגמה 45"></label>
+            <label>תת חלקה<input data-field="subparcel" placeholder="אם קיים"></label>
+            <label>מקור הליד<input data-field="leadSource" placeholder="יד2 / מדלן / מתווך / אחר"></label>
+            <label>מחיר מבוקש<input data-field="price" type="number" placeholder="₪"></label>
+            <label>שטח רשום<input data-field="area" type="number" placeholder="מ״ר"></label>
+            <label>שכירות צפויה<input data-field="rent" type="number" placeholder="₪ לחודש"></label>
+            <label>תקציב שיפוץ<input data-field="renovation" type="number" placeholder="₪"></label>
+            <label>סטטוס עסקה<select data-field="status"><option>איסוף מידע</option><option>בדיקה ראשונית</option><option>מו״מ</option><option>לפני חוזה</option><option>נדחתה</option><option>אושרה</option></select></label>
+          </div>
+          <h3>תקציר מנהלים</h3>
+          <textarea data-field="summary" placeholder="מה הסיפור של העסקה? למה היא מעניינת? מה עדיין לא ידוע?"></textarea>
+        </div>
+        <div>
+          <div class="kpis">
+            <div class="kpi"><strong id="yield">--</strong><span>תשואה שנתית ברוטו</span><div class="meter"><i id="yieldMeter"></i></div></div>
+            <div class="kpi"><strong id="sqm">--</strong><span>מחיר למ״ר</span></div>
+            <div class="kpi"><strong id="riskScore">0/100</strong><span>ציון סיכון פתוח</span><div class="meter"><i id="riskMeter"></i></div></div>
+            <div class="kpi"><strong id="doneScore">0%</strong><span>התקדמות בדיקות</span><div class="meter"><i id="doneMeter"></i></div></div>
+            <div class="kpi"><strong id="committeeScore">--</strong><span>ציון ועדה משוקלל</span><div class="meter"><i id="committeeMeter"></i></div></div>
+            <div class="kpi"><strong id="hardStopCount">0</strong><span>Hard Stops פתוחים</span></div>
+          </div>
+          <div class="note">הציון הוא כלי ניהול פנימי בלבד. החלטה אמיתית דורשת עורך דין, שמאי, יועץ משכנתאות ואיש מקצוע תכנוני לפי הצורך.</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="flow">
+      <h2>סדר עבודה מומלץ לכל עסקה</h2>
+      <div class="process">
+        <div class="step"><b>1</b><strong>נסח טאבו</strong><p>בעלות, הערות אזהרה, עיקולים ושעבודים.</p></div>
+        <div class="step"><b>2</b><strong>Govmap + תב״ע</strong><p>ייעוד קרקע, זכויות בנייה ותוכניות פעילות.</p></div>
+        <div class="step"><b>3</b><strong>התחדשות עירונית</strong><p>מתחם, סטטוס דיירים, יזם, מסלול.</p></div>
+        <div class="step"><b>4</b><strong>תחבורה עתידית</strong><p>מטרו, רכבת קלה, תחנות, רדיוס 500-800 מ׳.</p></div>
+        <div class="step"><b>5</b><strong>תיק בניין</strong><p>היתרים, חריגות, צווי הריסה ומבנה מסוכן.</p></div>
+        <div class="step"><b>6</b><strong>בדיקת הליכים</strong><p>עתירות, סכסוכים, תביעות וצווים.</p></div>
+        <div class="step"><b>7</b><strong>השוואת שוק</strong><p>עסקאות עבר, יד2, מדלן, שכירות ומלאי.</p></div>
+        <div class="step"><b>8</b><strong>SWOT והחלטה</strong><p>סיכום עובדות, סיכונים, אפסייד ותנאי כניסה.</p></div>
+      </div>
+    </section>
+
+    <section id="tools">
+      <h2>מקורות וכלים מקצועיים</h2>
+      <div class="tools">
+        <article class="tool"><span class="tag">משפטי</span><b>נסח טאבו</b><p>בדיקת בעלות, עיקולים, שעבודים והערות.</p><a target="_blank" href="https://www.iaa.gov.il/tabsearch/">טאבו אונליין</a></article>
+        <article class="tool"><span class="tag">זכויות</span><b>רשות מקרקעי ישראל</b><p>אישור זכויות לנכסים שאינם רשומים בטאבו.</p><a target="_blank" href="https://www.mmi.gov.il">רמ״י</a></article>
+        <article class="tool"><span class="tag">מחירי עבר</span><b>מאגר עסקאות נדל״ן</b><p>עסקאות היסטוריות והשוואת מחירים לפי אזור.</p><a target="_blank" href="https://www.nadlan.gov.il">nadlan.gov.il</a></article>
+        <article class="tool"><span class="tag">מיסוי</span><b>רשות המסים</b><p>מאגר מידע על עסקאות וזכויות במקרקעין.</p><a target="_blank" href="https://www.gov.il/he/service/real_estate_information">מאגר מידע נדל״ן</a></article>
+        <article class="tool"><span class="tag">תכנון</span><b>Govmap</b><p>שכבות מפה: ייעוד קרקע, תוכניות, תשתיות והתחדשות.</p><a target="_blank" href="https://www.govmap.gov.il">govmap.gov.il</a></article>
+        <article class="tool"><span class="tag">תב״ע</span><b>איתור תוכניות</b><p>חיפוש לפי גוש וחלקה, סטטוס תוכנית ומסמכים.</p><a target="_blank" href="https://apps.land.gov.il/TabaSearch/">איתור תב״ע</a></article>
+        <article class="tool"><span class="tag">תכנון</span><b>מינהל התכנון MAVAT</b><p>מסמכי תוכנית, פרוטוקולים, סטטוס ושלבי אישור.</p><a target="_blank" href="https://mavat.iplan.gov.il">mavat.iplan.gov.il</a></article>
+        <article class="tool"><span class="tag">התחדשות</span><b>הרשות להתחדשות עירונית</b><p>מידע על מתחמים, הכרזות, מדריכים ומסלולים.</p><a target="_blank" href="https://www.renewal.gov.il">renewal.gov.il</a></article>
+        <article class="tool"><span class="tag">תחבורה</span><b>מפת המטרו</b><p>קווי מטרו, תחנות מתוכננות ותמ״א 70.</p><a target="_blank" href="https://www.gov.il/he/service/metro-system-map">מפת מערכת המטרו</a></article>
+        <article class="tool"><span class="tag">שוק</span><b>מדלן</b><p>מחירי שוק, שכירות, ביקוש ושכונה.</p><a target="_blank" href="https://www.madlan.co.il">madlan.co.il</a></article>
+        <article class="tool"><span class="tag">שוק</span><b>יד2 נדל״ן</b><p>מחירי היצע, ימי שיווק ופערי מחיר.</p><a target="_blank" href="https://www.yad2.co.il/realestate/forsale">yad2.co.il</a></article>
+        <article class="tool"><span class="tag">דמוגרפיה</span><b>הלמ״ס</b><p>אוכלוסייה, הכנסה, מגמות וצמיחה לפי אזורים.</p><a target="_blank" href="https://www.cbs.gov.il">cbs.gov.il</a></article>
+        <article class="tool"><span class="tag">תחבורה דאטה</span><b>GTFS משרד התחבורה</b><p>קובץ תחבורה ציבורית ארצי לניתוח נגישות, תחנות וקווים.</p><a target="_blank" href="https://gtfs.mot.gov.il/gtfsfiles/israel-public-transportation.zip">GTFS Israel</a></article>
+        <article class="tool"><span class="tag">מפות מקצועיות</span><b>QGIS</b><p>יצירת אטלס עסקה: גבולות חלקה, תחבורה, תכנון, שכבות סיכון ו-PDF לשיתוף.</p><a target="_blank" href="https://qgis.org/">qgis.org</a></article>
+        <article class="tool"><span class="tag">שערי ריבית</span><b>בנק ישראל</b><p>ריבית, סביבת מימון ונתונים מאקרו כלכליים לתרחישי רגישות.</p><a target="_blank" href="https://www.boi.org.il/">boi.org.il</a></article>
+      </div>
+    </section>
+
+    <section id="kiryot">
+      <h2>חבילת מקורות ייעודית לקריות</h2>
+      <p class="lead">לפי ה-PDF שצירפת, כדאי להפוך כל עסקה בקריות לחקירה מקומית: עירייה, תיק בניין, תוכניות פיתוח, תחבורה, התחדשות ומחירי שכונה.</p>
+      <div class="source-pack">
+        <article class="tool"><span class="tag">עירייה</span><b>קרית ים</b><p>הנדסה, תכנון עירוני, טפסים, פרסומים ופניות מידע.</p><a target="_blank" href="https://www.kiryat-yam.muni.il/">אתר עיריית קרית ים</a></article>
+        <article class="tool"><span class="tag">עירייה</span><b>קרית ביאליק</b><p>מידע מקומי, הנדסה, פרויקטים עירוניים ומסמכים.</p><a target="_blank" href="https://www.qbialik.org.il/">אתר עיריית קרית ביאליק</a></article>
+        <article class="tool"><span class="tag">עירייה</span><b>קרית מוצקין</b><p>מידע עירוני, תשתיות, הנדסה ושירותים לתושב.</p><a target="_blank" href="https://www.motzkin.co.il/">אתר עיריית קרית מוצקין</a></article>
+        <article class="tool"><span class="tag">עירייה</span><b>קרית אתא</b><p>תכנון, פיתוח, הנדסה ומידע מוניציפלי.</p><a target="_blank" href="https://www.kiryat-ata.org.il/">אתר עיריית קרית אתא</a></article>
+      </div>
+      <div class="note">יישום מומלץ: לכל עסקה להוסיף צילום מסך או קישור ישיר לעמוד העירייה הרלוונטי, ולרשום ביומן הראיות מה נבדק ומתי.</div>
+    </section>
+
+    <section id="swot">
+      <h2>מפת SWOT לעסקה</h2>
+      <div class="swot">
+        <div class="swot-card s"><h3>חוזקות | Strengths</h3><textarea data-field="strengths" placeholder="מיקום, תחבורה, מחיר כניסה, פוטנציאל התחדשות, ביקוש שכירות..."></textarea></div>
+        <div class="swot-card w"><h3>חולשות | Weaknesses</h3><textarea data-field="weaknesses" placeholder="חריגות בנייה, מבנה ישן, רישום בעייתי, ועד בית, מצב פיזי..."></textarea></div>
+        <div class="swot-card o"><h3>הזדמנויות | Opportunities</h3><textarea data-field="opportunities" placeholder="תב״ע חדשה, מטרו/רכבת קלה, פינוי בינוי, שינוי שכונתי, השבחה..."></textarea></div>
+        <div class="swot-card t"><h3>איומים | Threats</h3><textarea data-field="threats" placeholder="עתירות, צווי הריסה, עלויות בלתי צפויות, תחרות, רגולציה, עיכובים..."></textarea></div>
+      </div>
+    </section>
+
+    <section id="hardstops">
+      <h2>Hard Stops - דגלים שחוסמים עסקה עד בירור</h2>
+      <div class="hard-grid" id="hardStopBox"></div>
+    </section>
+
+    <section id="committee">
+      <h2>ציון ועדת השקעה</h2>
+      <p class="lead">ציון משוקלל לפי מודל שניתן לשפר עם הזמן. מתחת ל-60 או עם Hard Stop פתוח - לא מתקדמים בלי בירור.</p>
+      <div class="score-grid">
+        <div class="score-card"><label>משפטי<input data-score="legal" type="number" min="0" max="100" value="50"></label></div>
+        <div class="score-card"><label>תכנון<input data-score="planning" type="number" min="0" max="100" value="50"></label></div>
+        <div class="score-card"><label>שוק<input data-score="market" type="number" min="0" max="100" value="50"></label></div>
+        <div class="score-card"><label>תחבורה<input data-score="mobility" type="number" min="0" max="100" value="50"></label></div>
+        <div class="score-card"><label>פיננסי<input data-score="financial" type="number" min="0" max="100" value="50"></label></div>
+        <div class="score-card"><label>השבחה<input data-score="upside" type="number" min="0" max="100" value="50"></label></div>
+      </div>
+      <h3>פירוש ציון</h3>
+      <table>
+        <tr><th>טווח</th><th>החלטה</th><th>משמעות</th></tr>
+        <tr><td>90-100</td><td>Go חזק</td><td>עסקה נדירה יחסית, עדיין דורשת מסמכי בסיס.</td></tr>
+        <tr><td>80-89</td><td>Go</td><td>להתקדם למו״מ ובדיקות עומק.</td></tr>
+        <tr><td>70-79</td><td>Negotiation</td><td>להתקדם רק עם מחיר/תנאים שמפצים על הסיכון.</td></tr>
+        <tr><td>60-69</td><td>Watchlist</td><td>לא לרוץ. להשלים ראיות או להמתין לשינוי מחיר.</td></tr>
+        <tr><td>0-59</td><td>Reject</td><td>דחייה, אלא אם התגלתה עובדה חדשה מהותית.</td></tr>
+      </table>
+    </section>
+
+    <section id="decision">
+      <h2>מטריצת החלטה</h2>
+      <div class="matrix">
+        <div class="decision good"><h3>Go</h3><p>אין דגלים משפטיים מהותיים, המחיר נתמך בעסקאות, קיימת תוכנית השבחה סבירה, והתשואה/האפסייד מצדיקים את הסיכון.</p></div>
+        <div class="decision warn"><h3>Go בתנאים</h3><p>להתקדם רק אם מתקבלים מסמכים חסרים, הורדת מחיר, חוות דעת שמאי/עו״ד, או תנאי מתלה בחוזה.</p></div>
+        <div class="decision bad"><h3>No-Go</h3><p>רישום בעייתי, צווי הריסה, סכסוך מהותי, פער מחיר חריג, או סיכון תכנוני שלא ניתן לתמחר.</p></div>
+        <div class="decision"><h3>שאלת הזהב</h3><p>איזה מידע חדש יגרום לי לשנות החלטה? אם אין תשובה ברורה, כנראה שחסר נתון קריטי.</p></div>
+      </div>
+      <h3>החלטה נוכחית</h3>
+      <textarea data-field="decision" placeholder="החלטה, תנאים להמשך, מחיר יעד, מסמכים חסרים, מי אחראי לבדיקה הבאה."></textarea>
+    </section>
+
+    <section id="checklist">
+      <h2>צ׳ק ליסט בדיקות</h2>
+      <div class="toolbar"><button id="clearChecks">אפס צ׳ק ליסט</button></div>
+      <div class="checklist" id="checklistBox"></div>
+    </section>
+
+    <section id="evidence">
+      <h2>ראיות, מקורות ועקבות בדיקה</h2>
+      <div class="summary-grid">
+        <textarea data-field="evidenceLog" placeholder="לכל טענה חשובה רשום: מקור, URL, תאריך בדיקה, מה נמצא, ומה המשמעות. לדוגמה: 23.6.26 | Govmap | קישור | תב״ע בהפקדה | דורש בדיקת שמאי."></textarea>
+        <textarea data-field="missingDocs" placeholder="מסמכים חסרים: נסח, תיק בניין, היתר, תשריט, פרוטוקול ועדה, חוזה שכירות, אישור זכויות, שומת מס, אישור עירייה..."></textarea>
+      </div>
+      <div class="note">המלצה שלי: לא להכניס שום מסקנה ל-SWOT בלי ראיה. ליד כל חוזקה או איום כדאי שיהיה מקור, תאריך וקישור.</div>
+    </section>
+
+    <section id="questions">
+      <h2>אינדקס שאלות לחקירת העסקה</h2>
+      <div class="qa-grid">
+        <div class="qa"><b>משפטי ורישום</b>מי הבעלים הרשום? האם קיימים עיקולים, שעבודים, הערות אזהרה, זכויות צד ג׳ או רישום שאינו טאבו?</div>
+        <div class="qa"><b>תכנון ותב״ע</b>מה ייעוד הקרקע? אילו תוכניות מאושרות או בהפקדה? האם קיימת הגדלת זכויות בנייה?</div>
+        <div class="qa"><b>התחדשות עירונית</b>האם הבניין כלול במתחם? מה סטטוס הסכמות הדיירים? האם יש יזם ועורך דין דיירים?</div>
+        <div class="qa"><b>תחבורה</b>האם הנכס ברדיוס 500-800 מטר מתחנה קיימת או עתידית? מה שלב הביצוע בפועל?</div>
+        <div class="qa"><b>מבנה והנדסה</b>האם יש תיק בניין מלא? חריגות? צו מבנה מסוכן? היתרים מול מצב קיים?</div>
+        <div class="qa"><b>שוק ומחיר</b>מה מחיר עסקאות דומות? מה מחיר ההיצע? כמה זמן נכסים דומים עומדים בשוק?</div>
+        <div class="qa"><b>שכירות ותזרים</b>מה שכר הדירה השמרני? מה הוצאות ועד, תחזוקה, מימון, מסים ותקופות ריקות?</div>
+        <div class="qa"><b>סביבה</b>מה מצב מוסדות חינוך, מסחר, רעש, חניה, שטחים פתוחים ופיתוח עירוני קרוב?</div>
+        <div class="qa"><b>חוזה</b>אילו תנאים מתלים נדרשים? מי נושא בהיטלים? מה קורה אם בדיקה תכנונית נכשלת?</div>
+      </div>
+    </section>
+
+    <section id="syllabus">
+      <h2>סילבוס עבודה ולמידה</h2>
+      <div class="syllabus">
+        <div class="lesson"><strong>פרק 1: זיהוי נכס</strong>כתובת, גוש/חלקה, תת חלקה, שטח רשום, מצב פיזי ומסמכי בסיס.</div>
+        <div class="lesson"><strong>פרק 2: בדיקה משפטית</strong>נסח טאבו, רמ״י, הערות, שעבודים, הליכים משפטיים וזכויות צד ג׳.</div>
+        <div class="lesson"><strong>פרק 3: תכנון ותב״ע</strong>Govmap, מינהל התכנון, תב״ע, סטטוס תוכניות, היתרים וזכויות.</div>
+        <div class="lesson"><strong>פרק 4: התחדשות עירונית</strong>תמ״א 38, פינוי בינוי, מתחמים מוכרזים, הסכמות דיירים וסיכויי מימוש.</div>
+        <div class="lesson"><strong>פרק 5: תחבורה ותשתיות</strong>מטרו, רכבת קלה, כבישים, תחנות, תעסוקה ונגישות עתידית.</div>
+        <div class="lesson"><strong>פרק 6: ניתוח שוק</strong>עסקאות עבר, מחירי היצע, שכירות, ביקוש, היצע מתחרה ומגמות שכונה.</div>
+        <div class="lesson"><strong>פרק 7: כלכלה ומימון</strong>תשואה, מחיר למ״ר, מינוף, מס רכישה, שיפוץ, הוצאות ותסריטי רגישות.</div>
+        <div class="lesson"><strong>פרק 8: החלטה ועסקה</strong>SWOT, דגלים אדומים, תנאים להמשך, מחיר יעד ומסמכים לחוזה.</div>
+      </div>
+    </section>
+
+    <section id="updates">
+      <h2>יומן עדכונים</h2>
+      <textarea data-field="updates" placeholder="רשום כאן כל עדכון: תאריך, מקור, מה השתנה, ומה המשמעות לעסקה."></textarea>
+      <p class="print-only">חותמת עדכון אחרונה: <span id="printStamp"></span></p>
+    </section>
+  </main>
+</div>
+<div class="stamp">עודכן: <span id="floatingStamp">--</span></div>
+
+<script>
+  const checks = [
+    ["נסח טאבו / אישור זכויות", 12],
+    ["מאגר עסקאות נדל״ן ורשות המסים", 8],
+    ["Govmap: שכבות תכנון וייעוד קרקע", 10],
+    ["איתור תב״ע לפי גוש וחלקה", 10],
+    ["MAVAT: מסמכים, סטטוס ופרוטוקולים", 8],
+    ["התחדשות עירונית: מתחם וסטטוס", 10],
+    ["תחבורה עתידית: מטרו/רכבת קלה", 7],
+    ["תיק בניין והיתרים בעירייה", 12],
+    ["בדיקת חריגות / מבנה מסוכן / צווים", 10],
+    ["בדיקת הליכים משפטיים ועתירות", 8],
+    ["השוואת מחירי היצע ועסקאות", 8],
+    ["בדיקת שכירות ותזרים שמרני", 7]
+  ];
+
+  const hardStops = [
+    "בעלות או זכויות לא תואמות למוכר",
+    "עיקול, שעבוד או הערת אזהרה שלא ניתן לנקות לפני חתימה",
+    "אין נסח / אין אישור זכויות תקף",
+    "חשד לפיצול לא חוקי או חריגת בנייה מהותית",
+    "צו הריסה, צו מבנה מסוכן או תיק אכיפה פתוח",
+    "תיק בניין חסר או היתר שאינו תואם את המצב בפועל",
+    "עתירה / הליך משפטי שיכול להקפיא תוכנית או עסקה",
+    "פער מחיר מהותי מול עסקאות השוואה ללא הסבר",
+    "תזרים שלילי חריף שאינו מגובה באפסייד ברור",
+    "מידע קריטי חסר והמוכר/מתווך לא משתף פעולה"
+  ];
+
+  const fields = () => Array.from(document.querySelectorAll("[data-field]"));
+  const nowText = () => new Date().toLocaleString("he-IL", { timeZone:"Asia/Jerusalem", dateStyle:"short", timeStyle:"short" });
+
+  function renderChecks(){
+    const box = document.getElementById("checklistBox");
+    box.innerHTML = checks.map((c,i) => `<label class="check"><input type="checkbox" data-check="${i}"><span><b>${c[0]}</b><small>משקל סיכון: ${c[1]}</small></span></label>`).join("");
+  }
+
+  function renderHardStops(){
+    const box = document.getElementById("hardStopBox");
+    box.innerHTML = hardStops.map((txt,i) => `<label class="hard"><input type="checkbox" data-hard="${i}"><span>${txt}</span></label>`).join("");
+  }
+
+  function collect(){
+    const data = { fields:{}, checks:{}, hardStops:{}, scores:{}, updatedAt: localStorage.getItem("dealDashUpdatedAt") || nowText() };
+    fields().forEach(el => data.fields[el.dataset.field] = el.value);
+    document.querySelectorAll("[data-check]").forEach(el => data.checks[el.dataset.check] = el.checked);
+    document.querySelectorAll("[data-hard]").forEach(el => data.hardStops[el.dataset.hard] = el.checked);
+    document.querySelectorAll("[data-score]").forEach(el => data.scores[el.dataset.score] = el.value);
+    return data;
+  }
+
+  function applyData(data){
+    if(!data) return;
+    fields().forEach(el => { if(data.fields && data.fields[el.dataset.field] !== undefined) el.value = data.fields[el.dataset.field]; });
+    document.querySelectorAll("[data-check]").forEach(el => { el.checked = !!(data.checks && data.checks[el.dataset.check]); });
+    document.querySelectorAll("[data-hard]").forEach(el => { el.checked = !!(data.hardStops && data.hardStops[el.dataset.hard]); });
+    document.querySelectorAll("[data-score]").forEach(el => { if(data.scores && data.scores[el.dataset.score] !== undefined) el.value = data.scores[el.dataset.score]; });
+    if(data.updatedAt) setStamp(data.updatedAt);
+    recalc();
+  }
+
+  function setStamp(value){
+    localStorage.setItem("dealDashUpdatedAt", value);
+    document.getElementById("lastUpdated").textContent = value;
+    document.getElementById("floatingStamp").textContent = value;
+    document.getElementById("printStamp").textContent = value;
+  }
+
+  function save(){
+    const stamp = nowText();
+    const data = collect();
+    data.updatedAt = stamp;
+    localStorage.setItem("dealSwotDashboard", JSON.stringify(data));
+    setStamp(stamp);
+    recalc();
+  }
+
+  function recalc(){
+    const price = Number(document.querySelector('[data-field="price"]').value || 0);
+    const area = Number(document.querySelector('[data-field="area"]').value || 0);
+    const rent = Number(document.querySelector('[data-field="rent"]').value || 0);
+    const y = price && rent ? (rent * 12 / price * 100) : 0;
+    const sqm = price && area ? Math.round(price / area) : 0;
+    document.getElementById("yield").textContent = y ? y.toFixed(2) + "%" : "--";
+    document.getElementById("yieldMeter").style.width = Math.min(100, y * 18) + "%";
+    document.getElementById("sqm").textContent = sqm ? sqm.toLocaleString("he-IL") + " ₪" : "--";
+
+    let checked = 0, openRisk = 0, totalRisk = 0;
+    document.querySelectorAll("[data-check]").forEach(el => {
+      const weight = checks[Number(el.dataset.check)][1];
+      totalRisk += weight;
+      if(el.checked) checked += 1; else openRisk += weight;
+    });
+    const done = Math.round(checked / checks.length * 100);
+    const risk = Math.round(openRisk / totalRisk * 100);
+    document.getElementById("doneScore").textContent = done + "%";
+    document.getElementById("doneMeter").style.width = done + "%";
+    document.getElementById("riskScore").textContent = risk + "/100";
+    document.getElementById("riskMeter").style.width = risk + "%";
+
+    const weights = { legal:.22, planning:.18, market:.16, mobility:.12, financial:.20, upside:.12 };
+    let committee = 0;
+    document.querySelectorAll("[data-score]").forEach(el => {
+      const val = Math.max(0, Math.min(100, Number(el.value || 0)));
+      committee += val * (weights[el.dataset.score] || 0);
+    });
+    const hardCount = Array.from(document.querySelectorAll("[data-hard]")).filter(el => el.checked).length;
+    if(hardCount > 0) committee = Math.min(committee, 59);
+    document.getElementById("committeeScore").textContent = Math.round(committee) + "/100";
+    document.getElementById("committeeMeter").style.width = Math.round(committee) + "%";
+    document.getElementById("hardStopCount").textContent = hardCount;
+  }
+
+  renderChecks();
+  renderHardStops();
+  const stored = localStorage.getItem("dealSwotDashboard");
+  applyData(stored ? JSON.parse(stored) : { updatedAt: nowText() });
+  if(!localStorage.getItem("dealDashUpdatedAt")) setStamp(nowText());
+
+  document.getElementById("saveBtn").addEventListener("click", save);
+  document.querySelectorAll("input, textarea, select").forEach(el => el.addEventListener("input", recalc));
+  document.querySelectorAll("[data-hard],[data-score],[data-check]").forEach(el => el.addEventListener("change", recalc));
+  document.getElementById("clearChecks").addEventListener("click", () => {
+    document.querySelectorAll("[data-check]").forEach(el => el.checked = false);
+    save();
+  });
+  document.getElementById("exportBtn").addEventListener("click", () => {
+    const blob = new Blob([JSON.stringify(collect(), null, 2)], {type:"application/json"});
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url; a.download = "deal-swot-dashboard-data.json"; a.click();
+    URL.revokeObjectURL(url);
+  });
+  document.getElementById("importFile").addEventListener("change", e => {
+    const file = e.target.files[0]; if(!file) return;
+    const reader = new FileReader();
+    reader.onload = () => { applyData(JSON.parse(reader.result)); save(); };
+    reader.readAsText(file);
+  });
+</script>
+</body>
+</html>
