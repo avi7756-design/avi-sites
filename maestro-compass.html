@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🧭 מצפן אזורים - מאסטרו נדל"ן</title>
+<style>
+  :root{--navy:#16233a;--ink:#1a2230;--mut:#5a6b7d;--line:#dde5ef;--bg:#eef2f8;
+        --gold:#c08a3e;--goldbg:#fbf3e4;--teal:#0d8a7e;--green:#1e8e4e;--greenbg:#e6f5ec;--amber:#d98e22;--red:#c0392b;--blue:#1d5fad}
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font-family:"Segoe UI",Arial,sans-serif;line-height:1.55}
+  nav.top{position:sticky;top:0;z-index:50;display:flex;gap:5px;justify-content:center;flex-wrap:wrap;background:var(--navy);padding:7px 8px;border-bottom:2px solid var(--gold)}
+  nav.top a{color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600}
+  nav.top a.on{background:var(--gold);color:#06121f;font-weight:700}
+  .hero{background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;padding:22px;text-align:center}
+  .hero h1{margin:0 0 5px;font-size:24px} .hero p{margin:0;color:#cddcf0;font-size:14px}
+  .wrap{max-width:1040px;margin:0 auto;padding:16px}
+  .rec{background:var(--greenbg);border:1px solid #b6e0c4;border-right:5px solid var(--green);border-radius:12px;padding:14px 16px;margin:14px 0;font-size:14px}
+  .rec b{color:var(--green)}
+  table{width:100%;border-collapse:collapse;background:#fff;border-radius:12px;overflow:hidden;box-shadow:0 4px 14px rgba(22,35,58,.05);font-size:13.5px}
+  th,td{padding:10px 11px;text-align:right;border-bottom:1px solid var(--line)}
+  th{background:var(--navy);color:#fff;font-weight:700;font-size:13px}
+  tr.focus td{background:var(--goldbg)}
+  .stars{color:var(--gold);letter-spacing:1px}
+  .y-hi{color:var(--green);font-weight:700} .y-mid{color:var(--amber);font-weight:700} .y-lo{color:var(--mut)}
+  h2{font-size:18px;color:var(--navy);margin:26px 0 10px}
+  .notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px}
+  .ncard{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 14px;box-shadow:0 3px 10px rgba(22,35,58,.04)}
+  .ncard h3{margin:0 0 7px;font-size:15px;color:var(--navy);display:flex;justify-content:space-between;align-items:center}
+  .ncard .yld{font-size:12px;font-weight:700;background:var(--bg);border-radius:6px;padding:2px 8px;color:var(--mut)}
+  .ncard textarea{width:100%;min-height:64px;border:1px solid var(--line);border-radius:8px;padding:8px;font-family:inherit;font-size:13px;resize:vertical}
+  .saved{font-size:11px;color:var(--green);margin-top:4px;height:14px}
+  .foot{text-align:center;color:var(--mut);font-size:12px;margin:24px 0 8px}
+  .src{font-size:11px;color:var(--mut);margin-top:8px}
+</style>
+</head>
+<body>
+<nav style="position:sticky;top:0;z-index:99998;display:flex;gap:5px;justify-content:center;flex-wrap:wrap;background:#16233a;padding:7px 8px;border-bottom:2px solid #c08a3e;font-family:Arial,sans-serif">
+<a href="https://avi7756-design.github.io/avi-sites/maestro-nadlan.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">🏠 ראשי</a>
+<a href="https://avi7756-design.github.io/avi-sites/maestro-dashboard.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">📊 לידים</a>
+<a href="https://avi7756-design.github.io/avi-sites/deal-swot/" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">🔬 בדיקה עמוקה</a>
+<a href="https://avi7756-design.github.io/avi-sites/maestro-infographic.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">📈 מבט-על</a>
+<a href="https://avi7756-design.github.io/avi-sites/maestro-help.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">📚 עזרה</a>
+<a href="https://avi7756-design.github.io/avi-sites/maestro-compass.html" style="color:#06121f;text-decoration:none;background:#c08a3e;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:700">🧭 מצפן</a>
+</nav>
+<nav class="top">
+  <a href="https://avi7756-design.github.io/avi-sites/maestro-nadlan.html">🏠 ראשי</a>
+  <a href="https://avi7756-design.github.io/avi-sites/maestro-dashboard.html">📊 לידים</a>
+  <a href="https://avi7756-design.github.io/avi-sites/deal-swot/">🔬 בדיקה עמוקה</a>
+  <a class="on" href="#">🧭 מצפן</a>
+  <a href="https://avi7756-design.github.io/avi-sites/maestro-help.html">📚 עזרה</a>
+</nav>
+
+<div class="hero">
+  <h1>🧭 מצפן אזורים</h1>
+  <p>היכן לצוד יהלום - מבוסס נתוני אמת · מתעדכן ולומד מכל עסקה</p>
+</div>
+
+<div class="wrap">
+  <div class="rec">🎯 <b>המיקוד הנוכחי: קרית ים.</b> יתרון ביתי (אתה גר שם + העירייה הכי שקופה לבדיקות) + פוטנציאל עליית הערך הגבוה בקריות (7,000 יח' התחדשות, +56% ב-3.5 שנים). התשואה נמוכה היום - הרווח בעליית ערך.</div>
+
+  <h2>📊 השוואת אזורים (עד 1,000,000 ₪)</h2>
+  <table>
+    <thead><tr><th>אזור</th><th>₪/מ"ר</th><th>תשואה ברוטו</th><th>פוטנציאל ערך</th><th>מסלול מתאים</th><th>סיכון</th></tr></thead>
+    <tbody>
+      <tr class="focus"><td><b>🏠 קרית ים</b> (ביתי)</td><td>~16,300</td><td class="y-mid">2.8-4.1%</td><td><span class="stars">★★★</span> התחדשות ענקית</td><td>החזק + עליית ערך</td><td>בינוני</td></tr>
+      <tr><td><b>עכו</b> (וולפסון)</td><td>~9-10K</td><td class="y-hi">~5.4%</td><td><span class="stars">★</span> תקרה נמוכה</td><td>קנה-והחזק (תשואה)</td><td>בינוני</td></tr>
+      <tr><td><b>קרית אתא</b></td><td>~14-15K</td><td class="y-mid">~4%</td><td><span class="stars">★★★</span> "בירת צמיחה"</td><td>החזק / פליפ</td><td>בינוני</td></tr>
+      <tr><td><b>קרית ביאליק</b></td><td>~15,400</td><td class="y-mid">~3.6%</td><td><span class="stars">★★</span> בינוני</td><td>החזק / פליפ</td><td>בינוני</td></tr>
+      <tr><td><b>קרית מוצקין</b></td><td>~17,500</td><td class="y-lo">~3%</td><td><span class="stars">★★</span> זולים=פינוי-בינוי</td><td>פליפ+בנייה (זהירות)</td><td>בינוני-גבוה</td></tr>
+      <tr><td><b>חיפה</b> (ואדי ניסנאס)</td><td>~7-9K</td><td class="y-mid">~4-5%</td><td><span class="stars">★★</span> התחדשות</td><td>החזק / גג</td><td>בינוני-גבוה</td></tr>
+    </tbody>
+  </table>
+  <div class="src">מקורות: מדלן (area-info), גלובס, haifakrayot · נתונים עדכניים 2025-2026 · לאמת ברמת רחוב לפני עסקה.</div>
+
+  <h2>📓 יומן למידה לכל אזור (נשמר אצלך - תוסיף מה שלמדת)</h2>
+  <div class="notes" id="notes"></div>
+
+  <div class="foot">מצפן אזורים · מאסטרו נדל"ן · אבי חזן · v1.0 · 23.06.2026 · ההערות נשמרות בדפדפן (localStorage)</div>
+</div>
+
+<script>
+const areas=[
+ {k:'kiryat_yam',name:'🏠 קרית ים',yld:'2.8-4.1% · ★★★ פוטנציאל'},
+ {k:'akko',name:'עכו (וולפסון)',yld:'5.4% · תשואה גבוהה'},
+ {k:'kiryat_ata',name:'קרית אתא',yld:'~4% · צומחת'},
+ {k:'kiryat_bialik',name:'קרית ביאליק',yld:'~3.6%'},
+ {k:'kiryat_motzkin',name:'קרית מוצקין',yld:'~3% · זהירות פינוי-בינוי'},
+ {k:'haifa_wadi',name:'חיפה (ואדי ניסנאס)',yld:'~4-5%'}
+];
+const box=document.getElementById('notes');
+box.innerHTML=areas.map(a=>`<div class="ncard">
+  <h3>${a.name}<span class="yld">${a.yld}</span></h3>
+  <textarea id="n_${a.k}" placeholder="מה למדת? עסקאות, רחובות טובים, מתווכים, מה עבד ומה לא..." oninput="saveNote('${a.k}')"></textarea>
+  <div class="saved" id="s_${a.k}"></div>
+</div>`).join('');
+function load(){areas.forEach(a=>{try{const v=localStorage.getItem('compass_'+a.k);if(v)document.getElementById('n_'+a.k).value=v;}catch(e){}});}
+function saveNote(k){try{localStorage.setItem('compass_'+k,document.getElementById('n_'+k).value);const s=document.getElementById('s_'+k);s.textContent='✔ נשמר';setTimeout(()=>s.textContent='',1200);}catch(e){}}
+load();
+</script>
+</body>
+</html>
