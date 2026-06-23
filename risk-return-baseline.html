@@ -1,0 +1,339 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>📊 Baseline סיכון ותשואה · AVI HUNTER</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",Arial,sans-serif;background:#0d1117;color:#e6edf3;padding:20px;direction:rtl;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto}
+  h1{font-size:24px;margin-bottom:6px;color:#fff}
+  h2{font-size:17px;margin:12px 0 10px;color:#fff}
+  h3{font-size:14px;margin:8px 0 6px;color:#fff}
+  .sub{color:#9aa0a6;font-size:13px;margin-bottom:16px}
+  .panel{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:16px;margin-bottom:14px}
+  .panel.baseline{background:#0f1f17;border-color:#1d5a3a}
+  .panel.target{background:#101a28;border-color:#2a5a8a}
+  .panel.compare{background:#1f1a10;border-color:#5a4a20}
+  .panel.warn{background:#1a1320;border-color:#5a2a2a}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+  th{text-align:right;background:#21262d;padding:8px;color:#9aa0a6;font-weight:600;font-size:12px}
+  td{padding:8px;border-bottom:1px solid #21262d;color:#cdd6e6}
+  .num{font-family:"JetBrains Mono",Consolas,monospace;text-align:left;direction:ltr}
+  .nav-bar{position:sticky;top:0;z-index:99;display:flex;gap:8px;justify-content:center;align-items:center;background:#15233f;padding:8px 10px;border-bottom:1px solid #2a3a55;margin:-20px -20px 16px}
+  .nav-bar a,.nav-bar button{cursor:pointer;border:1px solid #34527d;border-radius:8px;background:#23386a;color:#fff;font-size:13px;font-weight:700;padding:7px 14px;font-family:inherit;text-decoration:none}
+  .nav-bar a.home{background:#2ecc71;color:#0d1117;border-color:#2a6b40}
+  .stamp{display:inline-block;background:#23386a;color:#fff;font-size:11px;padding:4px 10px;border-radius:6px;margin-right:6px}
+  .stamp.green{background:#1d5a3a}
+  .stamp.yellow{background:#5a4a20}
+  input{background:#0d1117;border:1px solid #30363d;color:#e6edf3;padding:6px 8px;border-radius:6px;font-family:inherit;font-size:13px;width:120px}
+  .grid-h{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-bottom:10px}
+  @media(max-width:700px){.grid-h{grid-template-columns:1fr}}
+  .card{background:#1a1f28;border:1px solid #21262d;border-radius:10px;padding:12px}
+  .card .lbl{font-size:11px;color:#9aa0a6;margin-bottom:4px}
+  .card .val{font-size:20px;font-weight:800;color:#fff;font-family:monospace}
+  .card .val.g{color:#2ecc71}
+  .card .val.y{color:#f0c040}
+  .card .val.r{color:#e74c3c}
+  .row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px solid #21262d;font-size:13px}
+  .row:last-child{border:0}
+  .row span:last-child{color:#fff;font-weight:600}
+  .note{background:#1a2030;border-right:3px solid #5a4a7a;padding:10px;font-size:12px;color:#cdd6e6;margin:10px 0}
+  .foot{text-align:center;color:#9aa0a6;font-size:11px;padding:14px 0}
+  details{margin-top:10px}
+  summary{cursor:pointer;color:#7fb3ff;font-size:13px;padding:8px;background:#1a1f28;border-radius:6px}
+  .btn{cursor:pointer;border:1px solid #2a6b40;background:#2ecc71;color:#0d1117;font-weight:800;padding:8px 14px;border-radius:8px;font-size:13px;font-family:inherit}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <button onclick="history.back()">◀ אחורה</button>
+  <a class="home" href="dashboard-v4.html">🏠 דשבורד</a>
+  <button onclick="history.forward()">קדימה ▶</button>
+</nav>
+
+<div class="wrap">
+
+<h1>📊 Baseline סיכון ותשואה — AVI HUNTER</h1>
+<div class="sub">
+  <span class="stamp green">נכתב: 23.6.2026</span>
+  <span class="stamp">v4 שנה 0</span>
+  <span class="stamp yellow">להשוואה עתידית</span>
+</div>
+
+<div class="panel warn">
+  <h2>🎯 למה הקובץ הזה קיים</h2>
+  <div style="font-size:13px;color:#cdd6e6">
+    זו <b>תמונת מצב מתועדת</b> של הציפיות שלך מ-v4. עוד שנה / 3 שנים / 10 שנים - תחזור לקובץ הזה ותשווה את התוצאות האמיתיות. אם <b>הביצוע עומד בהערכה</b> - הדוקטרינה עובדת. אם <b>חורג בהרבה</b> (לטובה או לרעה) - יש סיבה לחקור.<br><br>
+    <b>אין כאן הבטחה.</b> זו הערכה מבוססת נתונים היסטוריים של 50+ שנה. שום שנה בודדת לא תיראה ככה. השנה הראשונה תהיה +20% או -15%. זה בסדר. הממוצע ל-10 שנים הוא מה שאנחנו מודדים.
+  </div>
+</div>
+
+<div class="panel baseline">
+  <h2>📍 מצב נוכחי - 22.6.2026 (תיק חלקית פרוס)</h2>
+
+  <h3>הקצאה</h3>
+  <table>
+    <tr><th>רכיב</th><th>סכום</th><th>% מ-NAV</th><th>הערה</th></tr>
+    <tr><td>VOO (ליבה)</td><td class="num">~$28K</td><td class="num">~12%</td><td>41 מניות @ 686.59</td></tr>
+    <tr><td>SHY</td><td class="num">~$13.8K</td><td class="num">~6%</td><td>168 @ 81.92 (מלא)</td></tr>
+    <tr><td>IEF</td><td class="num">~$5.2K</td><td class="num">~2%</td><td>55 @ 93.98 (חצי)</td></tr>
+    <tr><td>IAU</td><td class="num">~$5.2K</td><td class="num">~2%</td><td>66 @ 78.62 (חצי)</td></tr>
+    <tr><td>מזומן USD</td><td class="num">$105,747</td><td class="num">~46%</td><td>מסולק</td></tr>
+    <tr><td>מזומן ILS</td><td class="num">₪211,964</td><td class="num">~31%</td><td>בבנק</td></tr>
+    <tr><td><b>סה"כ NAV</b></td><td class="num"><b>₪681K</b></td><td class="num"><b>100%</b></td><td>USD/ILS 2.9714</td></tr>
+  </table>
+
+  <h3>הערכת סיכון נוכחית 🟢 נמוך מאוד</h3>
+  <div class="grid-h">
+    <div class="card"><div class="lbl">Max Drawdown צפוי</div><div class="val g">~-6% עד -8%</div></div>
+    <div class="card"><div class="lbl">תנודתיות שנתית</div><div class="val g">~4-5%</div></div>
+    <div class="card"><div class="lbl">חשיפת מניות</div><div class="val g">12%</div></div>
+  </div>
+
+  <h3>תשואה צפויה שנתית</h3>
+  <table>
+    <tr><th>רכיב</th><th>משקל</th><th>תשואה צפויה</th><th>תרומה</th></tr>
+    <tr><td>VOO</td><td class="num">12%</td><td class="num">~9%</td><td class="num">+1.1%</td></tr>
+    <tr><td>הגנה</td><td class="num">10%</td><td class="num">~4.3%</td><td class="num">+0.4%</td></tr>
+    <tr><td>מזומן USD</td><td class="num">46%</td><td class="num">~5%</td><td class="num">+2.3%</td></tr>
+    <tr><td>מזומן ILS</td><td class="num">31%</td><td class="num">~4.5%</td><td class="num">+1.4%</td></tr>
+    <tr style="background:#0f1f17"><td><b>סה"כ צפוי</b></td><td></td><td></td><td class="num"><b>~5.2%</b></td></tr>
+  </table>
+
+  <div class="note">⚠️ <b>סיכון אינפלציה גבוה:</b> 77% מזומן נשחק ב-3-4% אינפלציה. זה לא רואים מיד, אבל הוא קיים.</div>
+</div>
+
+<div class="panel target">
+  <h2>🎯 יעד v4 פרוס במלואו (~ספטמבר 2026)</h2>
+
+  <h3>הקצאה</h3>
+  <table>
+    <tr><th>רכיב</th><th>יעד %</th><th>סכום (NAV ₪681K)</th></tr>
+    <tr><td>VOO</td><td class="num">75%</td><td class="num">~₪511K (~$172K)</td></tr>
+    <tr><td>SHY (~6%)</td><td class="num">6%</td><td class="num">~₪41K (~$13.8K)</td></tr>
+    <tr><td>IEF (~4.5%)</td><td class="num">4.5%</td><td class="num">~₪31K (~$10.4K)</td></tr>
+    <tr><td>IAU (~4.5%)</td><td class="num">4.5%</td><td class="num">~₪31K (~$10.4K)</td></tr>
+    <tr><td>מזומן</td><td class="num">10%</td><td class="num">~₪68K</td></tr>
+  </table>
+
+  <h3>הערכת סיכון יעד 🟡 בינוני</h3>
+  <div class="grid-h">
+    <div class="card"><div class="lbl">Max Drawdown צפוי</div><div class="val y">~-25% עד -30%</div></div>
+    <div class="card"><div class="lbl">תנודתיות שנתית</div><div class="val y">~12-14%</div></div>
+    <div class="card"><div class="lbl">חשיפת מניות</div><div class="val y">75%</div></div>
+  </div>
+
+  <h3>תשואה צפויה שנתית (ל-10 שנים)</h3>
+  <table>
+    <tr><th>מדד</th><th>ערך</th><th>פירוט</th></tr>
+    <tr><td>תשואה נומינלית</td><td class="num g">~8.0%</td><td>VOO 6.8% + הגנה 0.7% + מזומן 0.5%</td></tr>
+    <tr><td>תשואה ריאלית (אחרי 3% אינפלציה)</td><td class="num g">~5%</td><td>מה שבאמת קונים</td></tr>
+    <tr><td>תשואה נטו (אחרי מס 25%)</td><td class="num g">~6%</td><td>מה שנותר ביד</td></tr>
+    <tr><td>Sharpe Ratio צפוי</td><td class="num">~0.6-0.8</td><td>תשואה לסיכון</td></tr>
+  </table>
+
+  <div class="note">📌 <b>תרחיש 2008:</b> SPY נפל 55%. תיק 75/15/10 נפל ~32%. אג"ח+זהב הגנו על ~23%.</div>
+</div>
+
+<div class="panel">
+  <h2>📈 השוואה לאלטרנטיבות (10 שנים)</h2>
+  <table>
+    <tr>
+      <th>תיק</th>
+      <th>תשואה צפויה</th>
+      <th>Drawdown מקסימלי</th>
+      <th>תנודתיות</th>
+      <th>הערה</th>
+    </tr>
+    <tr style="background:#0f1f17">
+      <td><b>v4 שלך</b></td>
+      <td class="num">~8.0%</td>
+      <td class="num">-25%</td>
+      <td class="num">~13%</td>
+      <td>איזון פשטות/תשואה</td>
+    </tr>
+    <tr>
+      <td>100% SPY</td>
+      <td class="num">~9.0%</td>
+      <td class="num">-50%</td>
+      <td class="num">~16%</td>
+      <td>+1% מעלה / כפל סיכון</td>
+    </tr>
+    <tr>
+      <td>60/40 קלאסי</td>
+      <td class="num">~7.0%</td>
+      <td class="num">-25%</td>
+      <td class="num">~10%</td>
+      <td>דומה ל-v4, פחות אגרסיבי</td>
+    </tr>
+    <tr>
+      <td>5★ סווינג (אצלך)</td>
+      <td class="num r">-19% היסטורי</td>
+      <td class="num r">-30%</td>
+      <td class="num r">~25%</td>
+      <td>P&L מתועד: -$4,308 ב-27 עסקאות</td>
+    </tr>
+    <tr>
+      <td>פיקדון בנקאי</td>
+      <td class="num">~4%</td>
+      <td class="num">0%</td>
+      <td class="num">0%</td>
+      <td>מובטח אבל מתחת לאינפלציה</td>
+    </tr>
+  </table>
+</div>
+
+<div class="panel compare">
+  <h2>🔬 מדידת תוצאות אמיתיות (תמלא לאורך השנים)</h2>
+  <div class="sub" style="margin-bottom:8px">השווה כאן מה היה באמת מול הצפי. שמירה אוטומטית בדפדפן.</div>
+
+  <table id="actuals-table">
+    <tr>
+      <th>תאריך</th>
+      <th>NAV (₪)</th>
+      <th>תשואה ממוצעת מאז 23.6.26 (שנתי)</th>
+      <th>חודשים</th>
+      <th>סטטוס</th>
+      <th></th>
+    </tr>
+  </table>
+
+  <div style="margin-top:12px;padding:10px;background:#1a1f28;border-radius:8px">
+    <h3>➕ הוסף נקודת מדידה</h3>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:end;margin-top:8px">
+      <div>
+        <label style="font-size:11px;color:#9aa0a6;display:block">תאריך</label>
+        <input type="date" id="a-date">
+      </div>
+      <div>
+        <label style="font-size:11px;color:#9aa0a6;display:block">NAV ₪</label>
+        <input type="number" id="a-nav" placeholder="700000">
+      </div>
+      <div>
+        <label style="font-size:11px;color:#9aa0a6;display:block">הערה</label>
+        <input type="text" id="a-note" placeholder="v4 פרוס במלואו" style="width:200px">
+      </div>
+      <button class="btn" onclick="addActual()">💾 שמור</button>
+    </div>
+  </div>
+
+  <details>
+    <summary>🧮 איך מחושבת התשואה השנתית?</summary>
+    <div class="note">
+      תשואה שנתית מבוססת מ-baseline ₪681,000 בתאריך 22.6.2026:<br>
+      <code>תשואה = ((NAV / 681000) ^ (12 / חודשים) - 1) × 100</code><br><br>
+      <b>אזורי דגל:</b><br>
+      🟢 5-12% שנתי = במסגרת הצפי<br>
+      🟡 0-5% או 12-18% = חורג קלות<br>
+      🔴 שלילי או מעל 18% = חורג משמעותית - בדוק
+    </div>
+  </details>
+</div>
+
+<div class="panel warn">
+  <h2>📋 רגעי קבלת החלטה - מתי לחזור לקובץ הזה</h2>
+  <ol style="padding-right:20px;color:#cdd6e6;font-size:13px">
+    <li><b>בכל יוני</b> - סקירת שנה: השווה NAV אמיתי לציפי 8%</li>
+    <li><b>בכל Drawdown מעל 10%</b> - בדוק: זה במסגרת -25%/-30% הצפויים?</li>
+    <li><b>לפני שינוי דוקטרינה</b> - האם הסיבה היא ביצוע חורג, או רגש?</li>
+    <li><b>אחרי 3 שנים</b> (יוני 2029) - האם הצפי החזיק? אם כן - תאשרר; אם לא - תחקור</li>
+    <li><b>אחרי 10 שנים</b> (יוני 2036) - הערכת ביצוע סופית מול 80%/יעד</li>
+  </ol>
+</div>
+
+<div class="panel">
+  <h2>🛡️ הסתייגויות חיוניות</h2>
+  <ol style="padding-right:20px;color:#cdd6e6;font-size:13px;line-height:1.8">
+    <li><b>אין באמור ייעוץ השקעות.</b> זו הערכה סטטיסטית מבוססת נתוני עבר.</li>
+    <li><b>ביצועי עבר אינם מבטיחים את העתיד.</b> 50 שנות נתונים לא מבטיחים את 50 הבאות.</li>
+    <li><b>שנה בודדת לא תיראה ככה.</b> יכול להיות +20% או -15%. הממוצע ל-10 שנים הוא מה שמודדים.</li>
+    <li><b>אינפלציה משתנה.</b> ה-3% הוא הנחה. בשנים כמו 2022 (אינפלציה 7%) התשואה הריאלית תהיה שלילית.</li>
+    <li><b>הסיכון אישי, לא רק תיאורטי.</b> ב-Drawdown 30% תפסיד ~₪200K. אם זה ישבור אותך רגשית - הקטן ל-60/30/10.</li>
+  </ol>
+</div>
+
+<div class="foot">risk-return-baseline · v1 · 23.6.2026 · נכתב כש-v4 בפריסה חלקית · אין באמור ייעוץ השקעות</div>
+
+</div>
+
+<script>
+"use strict";
+const BASELINE_NAV = 681000;
+const BASELINE_DATE = "2026-06-22";
+const KEY = "avi-hunter-actuals";
+
+function load(){ try{ return JSON.parse(localStorage.getItem(KEY)||"[]"); }catch(e){ return []; } }
+function save(a){ localStorage.setItem(KEY, JSON.stringify(a)); }
+function fmt(n){ return Number(n||0).toLocaleString("he-IL",{maximumFractionDigits:0}); }
+
+function monthsBetween(d1, d2){
+  const a = new Date(d1), b = new Date(d2);
+  return ((b.getFullYear() - a.getFullYear()) * 12 + (b.getMonth() - a.getMonth())) +
+         (b.getDate() - a.getDate()) / 30;
+}
+
+function annualized(nav, months){
+  if(months < 0.5) return 0;
+  const total = nav / BASELINE_NAV;
+  return (Math.pow(total, 12/months) - 1) * 100;
+}
+
+function statusFor(ann){
+  if(ann >= 5 && ann <= 12) return ['🟢','within plan'];
+  if(ann >= 0 && ann < 5) return ['🟡','below plan'];
+  if(ann > 12 && ann <= 18) return ['🟡','above plan'];
+  return ['🔴','significant deviation'];
+}
+
+function render(){
+  const arr = load();
+  const tbl = document.getElementById("actuals-table");
+  // הסר שורות קיימות חוץ מ-header
+  while(tbl.rows.length > 1) tbl.deleteRow(1);
+  arr.forEach((e, idx) => {
+    const months = monthsBetween(BASELINE_DATE, e.date);
+    const ann = annualized(e.nav, months);
+    const [emoji, label] = statusFor(ann);
+    const row = tbl.insertRow();
+    row.innerHTML =
+      '<td>'+e.date+(e.note?' <span style="color:#9aa0a6;font-size:11px">('+e.note+')</span>':'')+'</td>' +
+      '<td class="num">₪'+fmt(e.nav)+'</td>' +
+      '<td class="num">'+(months>=0.5? ann.toFixed(2)+'%' : 'מוקדם מדי')+'</td>' +
+      '<td class="num">'+months.toFixed(1)+'</td>' +
+      '<td>'+emoji+' <span style="font-size:11px;color:#9aa0a6">'+label+'</span></td>' +
+      '<td><button onclick="del('+idx+')" style="background:#5a2a2a;color:#fff;border:1px solid #8a3a3a;border-radius:4px;padding:3px 8px;font-size:11px;cursor:pointer">מחק</button></td>';
+  });
+}
+
+function addActual(){
+  const date = document.getElementById("a-date").value;
+  const nav = parseFloat(document.getElementById("a-nav").value);
+  const note = document.getElementById("a-note").value;
+  if(!date || !nav){ alert("הזן תאריך ו-NAV"); return; }
+  const arr = load();
+  arr.push({date, nav, note});
+  arr.sort((a,b)=>a.date.localeCompare(b.date));
+  save(arr);
+  document.getElementById("a-nav").value = "";
+  document.getElementById("a-note").value = "";
+  render();
+}
+
+function del(idx){
+  if(!confirm("למחוק?")) return;
+  const arr = load();
+  arr.splice(idx, 1);
+  save(arr);
+  render();
+}
+
+// אתחל - הזן תאריך היום
+document.getElementById("a-date").value = new Date().toISOString().slice(0,10);
+render();
+</script>
+
+</body>
+</html>
