@@ -166,6 +166,11 @@
         <a class="btn sec" href="https://www.gov.il/he/service/land-registration-extract" target="_blank" style="text-decoration:none;font-size:12px">📜 טאבו</a>
         <a class="btn sec" href="https://www.google.com/search?q=ועדה+מקומית+קריות+התחדשות+עירונית" target="_blank" style="text-decoration:none;font-size:12px">🏛️ ועדה מקומית / התחדשות</a>
       </div>
+      <div class="fg" style="grid-column:1/-1;background:#0c1118;border:1px dashed #39d3c3;border-radius:10px;padding:10px">
+        <button class="btn" type="button" onclick="copyResearchPrompt()" style="font-size:12px">🤖 העתק פרומפט מחקר אוטומטי (לפי הכתובת)</button>
+        <span class="hint" id="rpMsg" style="margin-inline-start:8px"></span>
+        <div class="hint" style="margin-top:5px">מעתיק פרומפט עם כתובת הדירה - הדבק לעוזר דפדפן והוא חוקר את כל המקורות.</div>
+      </div>
 
       <div class="sect">🗺️ מפת SWOT</div>
       <div class="fg" style="grid-column:1/-1;margin-bottom:-2px"><button class="btn sec" type="button" onclick="autoSwot()" style="font-size:12px;padding:5px 10px">⚡ מלא SWOT אוטומטי (ממה שידוע)</button></div>
@@ -317,6 +322,11 @@ function openModal(L){
   livePreview();
 }
 function closeModal(){document.getElementById('ov').classList.remove('open')}
+function copyResearchPrompt(){
+  const L=readForm(); const addr=L.name||'(הזן כתובת בשדה כתובת)';
+  const p='אתה עוזר מחקר נדל"ן. אני נותן כתובת ואתה שולף נתונים מכל המקורות. איפה שצריך התחברות - עצור ובקש אישור, ואז המשך.\n\nכתובת: '+addr+'\n\nבצע וחזור עם:\n1. GovMap - גוש, חלקה, תת-חלקה, ייעוד, האם בתחום התחדשות.\n2. רשות המסים (nadlan.gov.il) - עסקאות שנמכרו ב-24 חודשים (כתובת, מ"ר, מחיר, ₪/מ"ר, תאריך) + ממוצע.\n3. מדלן - שכירות ממוצעת + ₪/מ"ר ממוצע.\n4. יד2 - דירות דומות + ₪/מ"ר.\n5. התחדשות - האם במתחם מאושר.\n\nהחזר טבלה + קישור לאימות לכל מקור.';
+  navigator.clipboard.writeText(p).then(function(){var m=document.getElementById('rpMsg');if(m){m.textContent='✔ הועתק - הדבק לעוזר הדפדפן';setTimeout(function(){m.textContent='';},2500);}});
+}
 function readForm(){
   const v=id=>document.getElementById(id).value, n=id=>+document.getElementById(id).value||0, c=id=>document.getElementById(id).checked;
   return{id:v('fId')||('L'+Date.now()),name:v('fName'),area:v('fArea'),source:v('fSource'),phone:v('fPhone'),agentId:v('fAgent'),link:v('fLink'),adDate:v('fAdDate'),
