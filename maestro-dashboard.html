@@ -4,6 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>דשבורד לידים - מאסטרו נדל"ן</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&display=swap" rel="stylesheet">
 <style>
   :root{--bg:#0f1419;--card:#1a2230;--card2:#222d3d;--line:#2e3c4f;--txt:#e8eef5;--mut:#8aa0b5;
         --accent:#4ea1ff;--teal:#39d3c3;--gold:#ffcc4d;--green:#3ddc84;--amber:#ffb74d;--red:#ff6b6b}
@@ -54,6 +57,68 @@
   .mfoot{display:flex;justify-content:space-between;gap:10px;margin-top:16px;flex-wrap:wrap}
   .hint{font-size:11px;color:var(--mut)}
   .seed{color:var(--accent);cursor:pointer;text-decoration:underline;font-size:12px}
+</style>
+<style id="redesign-2026">
+  /* ===== שכבת רענון עיצוב (override בלבד - לא נוגעת בלוגיקה) ===== */
+  :root{
+    --bg:#0b0f17; --card:#161f2e; --card2:#1d2838; --line:#293a50; --txt:#eaf1f8; --mut:#93a9bf;
+    --accent:#5aa9ff; --teal:#3fded0; --gold:#ffd166; --green:#48e08b; --amber:#ffc24d; --red:#ff7a7a;
+  }
+  body{
+    font-family:'Heebo','Segoe UI',Arial,sans-serif;
+    background:
+      radial-gradient(1100px 560px at 100% -8%,rgba(90,169,255,.10),transparent 60%),
+      radial-gradient(820px 480px at -8% 112%,rgba(63,222,208,.07),transparent 60%),
+      var(--bg);
+    -webkit-font-smoothing:antialiased;
+  }
+  nav{backdrop-filter:blur(10px);box-shadow:0 4px 18px rgba(0,0,0,.28)}
+  nav a{transition:transform .12s ease,filter .12s ease}
+  nav a:hover{transform:translateY(-1px);filter:brightness(1.08)}
+  header{background:linear-gradient(135deg,#15243a,#0b0f17)}
+  header h1{font-weight:900;letter-spacing:-.4px;color:#eef5fc}
+  .btn{border-radius:12px;box-shadow:0 1px 0 rgba(255,255,255,.05),0 6px 16px rgba(0,0,0,.26);transition:transform .1s ease,filter .12s ease}
+  .btn:not(.sec):not(.danger){background:linear-gradient(180deg,#6cb4ff,#4f97f2)}
+  .btn:active{transform:translateY(1px)}
+  /* KPI cards: depth + colored accent rail */
+  .kpis{gap:14px}
+  .kpi{border-radius:16px;background:linear-gradient(180deg,var(--card),#121a27);box-shadow:0 10px 26px rgba(0,0,0,.30);position:relative;overflow:hidden;padding:15px 16px 15px 18px}
+  .kpi::before{content:"";position:absolute;inset-block:0;inset-inline-start:0;width:4px;background:var(--accent)}
+  .kpi.d::before{background:var(--green)} .kpi.b::before{background:var(--amber)} .kpi.r::before{background:var(--red)} .kpi.t::before{background:var(--accent)}
+  .kpi .l{font-weight:600;letter-spacing:.1px}
+  .kpi .v{font-size:27px;font-weight:900}
+  /* inputs focus ring */
+  .filters input:focus,.filters select:focus,.fg input:focus,.fg textarea:focus,.fg select:focus{
+    outline:none;border-color:var(--accent);box-shadow:0 0 0 3px rgba(90,169,255,.16)
+  }
+  .filters input,.filters select{border-radius:10px;padding:10px 12px}
+  /* table: rounded scroll container + zebra + sticky header */
+  #tableWrap{overflow-x:auto;-webkit-overflow-scrolling:touch;border-radius:14px;box-shadow:0 12px 30px rgba(0,0,0,.30)}
+  table{box-shadow:none;min-width:780px}
+  th,td{padding:12px}
+  tbody tr:nth-child(even) td{background:rgba(255,255,255,.022)}
+  tr:hover td{background:#1f2a3b}
+  .badge{padding:3px 11px;border-radius:999px}
+  /* modal polish */
+  .modal{border-radius:20px;box-shadow:0 30px 80px rgba(0,0,0,.55)}
+  .fg input,.fg textarea,.fg select{border-radius:10px;padding:10px 12px}
+  .preview{border-radius:14px}
+  /* touch-friendly mobile */
+  @media(max-width:760px){
+    header{padding:12px 14px}
+    header h1{font-size:17px;width:100%}
+    .wrap{padding:12px}
+    .btn{padding:10px 13px;min-height:42px}
+    .kpi .v{font-size:22px}
+    nav{padding:6px}
+    nav a{padding:8px 11px;font-size:12px}
+    .modal{padding:16px;border-radius:16px}
+    .filters input{min-width:0}
+  }
+  @media(max-width:430px){
+    .kpis{grid-template-columns:repeat(2,1fr)}
+    header .tools .btn{font-size:12px}
+  }
 </style>
 </head>
 <body>
