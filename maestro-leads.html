@@ -3,19 +3,20 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>לידים — מאסטרו נדל"ן</title>
+<title>לידים חיים — מאסטרו נדל"ן</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&display=swap');
   *{box-sizing:border-box;margin:0;padding:0}
-  body{font-family:'Heebo',Arial,sans-serif;background:#0e1726;color:#e9eef7;padding:14px;line-height:1.5}
+  body{font-family:'Heebo',Arial,sans-serif;background:#0e1726;color:#e9eef7;padding:14px;line-height:1.55}
   .wrap{max-width:780px;margin:0 auto}
-  header{text-align:center;margin-bottom:14px}
+  header{text-align:center;margin-bottom:12px}
   h1{font-size:22px;font-weight:800;color:#fff}
   .sub{font-size:13px;color:#8ba0bf;margin-top:4px}
   .nav{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0}
   .nav a{background:#1c2940;color:#cfe0f7;text-decoration:none;border-radius:8px;padding:7px 13px;font-size:13px;font-weight:600}
   .nav a.on{background:#c08a3e;color:#0e1726;font-weight:800}
-  .card{background:#16213a;border-radius:14px;padding:15px;margin-bottom:12px;border-right:5px solid #3fae9b;box-shadow:0 3px 10px rgba(0,0,0,.25)}
+  .note{background:#10182a;border-radius:10px;padding:11px;font-size:12px;color:#9fb3d1;margin-bottom:14px;border:1px dashed #2c3e5c}
+  .card{background:#16213a;border-radius:14px;padding:15px;margin-bottom:14px;border-right:5px solid #3fae9b;box-shadow:0 3px 10px rgba(0,0,0,.25)}
   .card h2{font-size:17px;font-weight:800;color:#fff;margin-bottom:8px}
   .badge{display:inline-block;background:#1c3a36;color:#5fe0c8;border-radius:6px;padding:2px 9px;font-size:12px;font-weight:600;margin-inline-start:6px}
   .row{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0;font-size:13px}
@@ -24,118 +25,235 @@
   .yield{color:#7fe3a4;font-weight:800}
   .q{font-size:13px;color:#c7d4e8;margin-top:8px}
   .q li{margin-inline-start:18px;margin-top:3px}
-  table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 16px}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;margin:11px 0 6px}
+  .btn{flex:1;min-width:130px;text-align:center;text-decoration:none;border:none;border-radius:9px;padding:11px;font-size:14px;font-weight:700;font-family:inherit;cursor:pointer}
+  .btn-ad{background:#2f6df0;color:#fff}
+  .btn-call{background:#2bbf6a;color:#fff}
+  .form{background:#0f1830;border-radius:10px;padding:11px;margin-top:8px}
+  .form label{display:block;font-size:12px;color:#9fb3d1;margin:7px 0 3px}
+  .form input,.form textarea,.form select{width:100%;background:#1a2742;border:1px solid #2c3e5c;border-radius:7px;padding:9px;color:#fff;font-family:inherit;font-size:14px}
+  .form textarea{min-height:70px;resize:vertical}
+  .save-row{display:flex;gap:8px;margin-top:9px}
+  .btn-save{background:#c08a3e;color:#0e1726}
+  .btn-copy{background:#26344f;color:#cfe0f7}
+  .saved{font-size:12px;color:#7fe3a4;text-align:center;margin-top:6px;min-height:16px}
+  .sec-t{font-size:15px;font-weight:800;color:#c08a3e;margin:18px 0 8px}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin:6px 0 10px}
   th,td{padding:8px 6px;text-align:center;border-bottom:1px solid #243050}
   th{background:#1c2940;color:#9fd9cc;font-weight:700}
-  td{border-bottom:1px solid #20304d}
-  .sec-t{font-size:15px;font-weight:800;color:#c08a3e;margin:18px 0 8px}
   .rej{background:#241620;border-right-color:#c0563e}
   .rej h2{color:#ffb3a0}
   .foot{text-align:center;font-size:11px;color:#6b7e9c;margin-top:18px}
-  .note{background:#10182a;border-radius:10px;padding:11px;font-size:12px;color:#9fb3d1;margin-bottom:14px;border:1px dashed #2c3e5c}
+  .scr{background:#101a2e;border:1px solid #2c3e5c;border-radius:14px;padding:14px;margin-bottom:14px}
+  .scr textarea{width:100%;min-height:90px;background:#1a2742;border:1px solid #2c3e5c;border-radius:9px;padding:10px;color:#fff;font-family:inherit;font-size:14px;resize:vertical}
+  .scr .verdict{font-size:17px;font-weight:800;text-align:center;padding:10px;border-radius:10px;margin:10px 0}
+  .v-red{background:#3a1a1a;color:#ff8f7a}.v-yel{background:#3a3318;color:#ffd86b}.v-grn{background:#16331f;color:#7fe3a4}
+  .scr .met{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+  .scr .met span{background:#16213a;border-radius:8px;padding:7px 10px;font-size:12px}
+  .scr .met b{color:#fff;font-size:14px}
+  .scr .fl{background:#241620;border-right:4px solid #c0563e;border-radius:8px;padding:8px 10px;margin-bottom:6px;font-size:13px}
+  .scr .fl.ok{background:#16331f;border-right-color:#3fae9b}
 </style>
 </head>
 <body>
-<nav style="position:sticky;top:0;z-index:99998;display:flex;gap:5px;justify-content:center;flex-wrap:wrap;background:#16233a;padding:7px 8px;border-bottom:2px solid #c08a3e;font-family:Arial,sans-serif">
-<a href="https://avi7756-design.github.io/avi-sites/maestro-nadlan.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">🏠 ראשי</a>
-<a href="https://avi7756-design.github.io/avi-sites/maestro-dashboard.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">📊 לידים</a>
-<a href="https://avi7756-design.github.io/avi-sites/deal-swot/" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">🔬 בדיקה עמוקה</a>
-<a href="https://avi7756-design.github.io/avi-sites/maestro-infographic.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">📈 מבט-על</a>
-<a href="https://avi7756-design.github.io/avi-sites/maestro-help.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">📚 עזרה</a>
-<a href="https://avi7756-design.github.io/avi-sites/maestro-compass.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">🧭 מצפן</a>
-<a href="https://avi7756-design.github.io/avi-sites/maestro-leads.html" style="color:#06121f;text-decoration:none;background:#c08a3e;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:700">📋 לידים חיים</a>
-<a href="https://avi7756-design.github.io/avi-sites/maestro-screener.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">🚩 בודק</a>
-</nav>
 <div class="wrap">
   <header>
-    <h1>🏘️ לידים — מאסטרו נדל"ן</h1>
+    <h1>🏘️ לידים חיים — מאסטרו נדל"ן</h1>
     <div class="sub">ציד קרית ים · עודכן 27/06/2026</div>
   </header>
 
   <nav class="nav">
     <a href="https://avi7756-design.github.io/avi-sites/maestro-nadlan.html">🏠 ראשי</a>
     <a class="on" href="#">💎 לידים</a>
-    <a href="https://avi7756-design.github.io/avi-sites/maestro-dashboard.html">📊 דשבורד</a>
     <a href="https://avi7756-design.github.io/avi-sites/maestro-compass.html">🧭 מצפן</a>
   </nav>
 
-  <div class="note">תזה: <b>החזק / עליית ערך</b> באזורי התחדשות עיר ותיקה + תשואת מזומן סבירה בזמן ההמתנה. Comps מכירה: ממוצע ק.ים ~16,300 ₪/מ"ר · benchmark שכירות (מדלן): 3 חד' ~3,300 · תשואה ממוצעת בעיר 2.78%.</div>
+  <div class="note">📞 <b>איך מתקשרים:</b> לחץ "פתח מודעה" → במודעה לחץ "הצג טלפון" → התקשר. מלא את היומן למטה, ובסוף "📋 העתק סיכום" ושלח לקלוד לשמירה בקובץ הראשי.<br>⚠️ מה שתמלא כאן נשמר <b>במכשיר הזה בלבד</b> (לא מסתנכרן בין מחשב לאייפון).</div>
+
+  <div class="sec-t">🚩 בודק מודעה (לפני שמתקשרים)</div>
+  <div class="scr">
+    <textarea id="scrTxt" placeholder="הדבק כאן טקסט מודעה מיד2/מדלן ולחץ בדוק..."></textarea>
+    <div style="display:flex;gap:8px;align-items:center;margin-top:8px">
+      <span style="font-size:12px;color:#9fb3d1">benchmark ₪/מ"ר:</span>
+      <input id="scrBench" type="number" value="16300" style="width:100px;background:#1a2742;border:1px solid #2c3e5c;border-radius:7px;padding:8px;color:#fff;font-family:inherit">
+      <button class="btn btn-save" style="flex:1" onclick="scrRun()">בדוק ▸</button>
+    </div>
+    <div id="scrOut"></div>
+  </div>
 
   <div class="sec-t">📊 סיכום + תשואה</div>
   <table>
     <tr><th>ליד</th><th>מחיר</th><th>חד'</th><th>מ"ר</th><th>₪/מ"ר</th><th>תשואה</th></tr>
-    <tr><td>בורוכוב 9</td><td>675K</td><td>3.5</td><td>75</td><td>9,000</td><td class="yield">6.0%</td></tr>
-    <tr><td>השופטים 16</td><td>770K</td><td>3</td><td>90</td><td>8,556</td><td class="yield">5.1%</td></tr>
-    <tr><td>סטרומה 9</td><td>900K</td><td>3</td><td>140🚩</td><td>6,429</td><td class="yield">4.4%</td></tr>
+    <tr style="opacity:.55"><td>בורוכוב 9 ❌</td><td>675K</td><td>3.5</td><td>30 טאבו</td><td>22,500</td><td>נדחתה</td></tr>
+    <tr><td>השופטים 16 ⚠️</td><td>770K</td><td>3</td><td>90?</td><td>8,556</td><td>לא אומתה</td></tr>
+    <tr><td>סטרומה 9 ⏳</td><td>900K</td><td>3</td><td>140🚩</td><td>6,429</td><td class="yield">4.4%</td></tr>
   </table>
 
   <div class="sec-t">🔍 שווה שיחה</div>
 
-  <div class="card">
-    <h2>בורוכוב 9, קרית ים <span class="badge">🔍 גבולי-יהלום</span></h2>
+  <!-- בורוכוב -->
+  <div class="card rej" id="card-borochov">
+    <h2>בורוכוב 9, קרית ים <span class="badge" style="background:#3a1a1a;color:#ff8f7a">❌ נדחתה — חריגת בנייה</span></h2>
     <div class="row">
       <span class="chip">מחיר <b>675,000 ₪</b></span>
-      <span class="chip">75 מ"ר · 3.5 חד' · ק.קרקע</span>
-      <span class="chip">9,000 ₪/מ"ר</span>
-      <span class="chip">תשואה <b class="yield">~6.0%</b></span>
+      <span class="chip">טאבו <b>30 מ"ר</b> (פיזי 75)</span>
+      <span class="chip">₪/מ"ר טאבו <b style="color:#ff8f7a">22,500</b></span>
     </div>
-    <div>הזולה ביותר + התשואה הגבוהה. עיר ותיקה באזור התחדשות — השכירות מכסה את ההחזקה עד הקפיצה.</div>
-    <ul class="q"><b>לשיחה:</b>
-      <li>באיזה שלב ההתחדשות באזור? (מאושר / תוכנית-אב בלבד?)</li>
-      <li>למה במחיר הזה? מצב הדירה?</li>
-      <li>שטח טאבו + שכ"ד בפועל</li>
-    </ul>
+    <div>ה"זול" היה אשליה: רק 30 מ"ר רשומים בטאבו, 45 מ"ר חריגה לא רשומה. Comps לגודל הרשום: 356K-550K (מבוקש 675K = מעל השוק). + לחץ מכירה + "100% מימון" חשוד. <b>נדחתה.</b></div>
+    <div class="actions">
+      <a class="btn btn-ad" target="_blank" href="https://www.google.com/search?q=בורוכוב+9+קרית+ים+דירה+למכירה+יד2">🔗 פתח מודעה</a>
+      <a class="btn btn-call" href="tel:">📞 חייג (אחרי חשיפה)</a>
+    </div>
+    <div class="form" data-id="borochov">
+      <label>טלפון</label><input type="tel" data-f="phone" placeholder="הדבק מהמודעה">
+      <label>תאריך/שעת שיחה</label><input type="text" data-f="when" placeholder="לדוגמה 28.6 10:30">
+      <label>יומן שיחה</label><textarea data-f="log" placeholder="מה ענו: שטח, התחדשות, מחיר, שכ''ד..."></textarea>
+      <label>סטטוס</label>
+      <select data-f="status"><option>ממתין</option><option>דיברתי</option><option>לקבוע ביקור</option><option>💎 יהלום</option><option>❌ דחה</option></select>
+      <div class="save-row">
+        <button class="btn btn-save" onclick="save('borochov')">💾 שמור</button>
+        <button class="btn btn-copy" onclick="copyLead('borochov','בורוכוב 9')">📋 העתק סיכום</button>
+      </div>
+      <div class="saved" id="sv-borochov"></div>
+    </div>
   </div>
 
-  <div class="card">
+  <!-- השופטים -->
+  <div class="card" id="card-shoftim">
     <h2>השופטים 16, קרית ים <span class="badge">🔍 גבולי-יהלום</span></h2>
     <div class="row">
       <span class="chip">מחיר <b>770,000 ₪</b></span>
       <span class="chip">90 מ"ר · 3 חד' · ק.קרקע</span>
-      <span class="chip">8,556 ₪/מ"ר</span>
       <span class="chip">תשואה <b class="yield">~5.1%</b></span>
     </div>
-    <div>שטח גדול + ק.קרקע + אזור התחדשות עיר ותיקה.</div>
-    <ul class="q"><b>לשיחה:</b>
-      <li>מתחם מאושר או תוכנית-אב בלבד?</li>
+    <div>שטח גדול + ק.קרקע + אזור התחדשות.</div>
+    <ul class="q"><b>לשאול:</b>
+      <li>מתחם מאושר או תוכנית-אב?</li>
       <li>מצב הדירה + שטח טאבו</li>
       <li>שכ"ד אפשרי</li>
     </ul>
+    <div class="actions">
+      <a class="btn btn-ad" target="_blank" href="https://www.google.com/search?q=השופטים+16+קרית+ים+דירה+למכירה+יד2">🔗 פתח מודעה</a>
+      <a class="btn btn-call" href="tel:">📞 חייג (אחרי חשיפה)</a>
+    </div>
+    <div class="form" data-id="shoftim">
+      <label>טלפון</label><input type="tel" data-f="phone" placeholder="הדבק מהמודעה">
+      <label>תאריך/שעת שיחה</label><input type="text" data-f="when" placeholder="לדוגמה 28.6 10:30">
+      <label>יומן שיחה</label><textarea data-f="log" placeholder="מה ענו..."></textarea>
+      <label>סטטוס</label>
+      <select data-f="status"><option>ממתין</option><option>דיברתי</option><option>לקבוע ביקור</option><option>💎 יהלום</option><option>❌ דחה</option></select>
+      <div class="save-row">
+        <button class="btn btn-save" onclick="save('shoftim')">💾 שמור</button>
+        <button class="btn btn-copy" onclick="copyLead('shoftim','השופטים 16')">📋 העתק סיכום</button>
+      </div>
+      <div class="saved" id="sv-shoftim"></div>
+    </div>
   </div>
 
-  <div class="card">
+  <!-- סטרומה -->
+  <div class="card" id="card-stroma">
     <h2>סטרומה 9, קרית ים <span class="badge">🔍 גבולי-יהלום</span></h2>
     <div class="row">
       <span class="chip">מחיר <b>900,000 ₪</b></span>
       <span class="chip">140 מ"ר 🚩 · 3 חד' · ק.קרקע</span>
-      <span class="chip">6,429 ₪/מ"ר</span>
       <span class="chip">תשואה <b class="yield">~4.4%</b></span>
     </div>
-    <div>פוטנציאל האפסייד הגדול ביותר — בתוך מתחם התחדשות <b>סטרומה</b> (תוכנית פעילה). דגל יחיד: לאמת שה-140 מ"ר אמיתי.</div>
-    <ul class="q"><b>לשיחה:</b>
-      <li>שטח רשום בטאבו? (140 חריג)</li>
-      <li>מתחם סטרומה — איזה שלב? (יזם/ועדה/היתר)</li>
+    <div>אפסייד הכי גדול — מתחם התחדשות <b>סטרומה</b> (תוכנית פעילה). לאמת ש-140 מ"ר אמיתי.</div>
+    <ul class="q"><b>לשאול:</b>
+      <li>שטח טאבו? (140 חריג)</li>
+      <li>מתחם סטרומה — איזה שלב?</li>
       <li>למה במחיר הזה?</li>
     </ul>
-  </div>
-
-  <div class="sec-t">❌ נדחו (יקר למ"ר — אין מרווח)</div>
-  <div class="card rej">
-    <h2>דירות קטנות / יקרות למ"ר</h2>
-    <div>גלעד 8 (21,829/מ"ר) · הרמב"ם 10 (16,600) · גיורא ביאליק (18,646) · אביגדור עשת אתא (18,125) · שיבת ציון אתא (17,800) · תל חי חיפה (18,125).</div>
-  </div>
-
-  <div class="sec-t">🟡 תשואה מחוץ לק.ים</div>
-  <div class="card" style="border-right-color:#c0a13e">
-    <h2>עכו — משה שרת 12</h2>
-    <div class="row">
-      <span class="chip">850K · 79 מ"ר · 10,759 ₪/מ"ר</span>
-      <span class="chip">תשואה ~4.2%</span>
+    <div class="actions">
+      <a class="btn btn-ad" target="_blank" href="https://www.google.com/search?q=סטרומה+9+קרית+ים+דירה+למכירה+יד2">🔗 פתח מודעה</a>
+      <a class="btn btn-call" href="tel:">📞 חייג (אחרי חשיפה)</a>
     </div>
-    <div>יציב, לא יהלום. עכו במחיר השוק שלה.</div>
+    <div class="form" data-id="stroma">
+      <label>טלפון</label><input type="tel" data-f="phone" placeholder="הדבק מהמודעה">
+      <label>תאריך/שעת שיחה</label><input type="text" data-f="when" placeholder="לדוגמה 28.6 10:30">
+      <label>יומן שיחה</label><textarea data-f="log" placeholder="מה ענו..."></textarea>
+      <label>סטטוס</label>
+      <select data-f="status"><option>ממתין</option><option>דיברתי</option><option>לקבוע ביקור</option><option>💎 יהלום</option><option>❌ דחה</option></select>
+      <div class="save-row">
+        <button class="btn btn-save" onclick="save('stroma')">💾 שמור</button>
+        <button class="btn btn-copy" onclick="copyLead('stroma','סטרומה 9')">📋 העתק סיכום</button>
+      </div>
+      <div class="saved" id="sv-stroma"></div>
+    </div>
   </div>
 
-  <div class="foot">מאסטרו נדל"ן · מקורות: יד2, מדלן, ידאטה · נתונים מוטמעים בקוד (לא תלוי מכשיר)</div>
+  <div class="sec-t">❌ נדחו (יקר למ"ר)</div>
+  <div class="card rej"><h2>דירות קטנות / יקרות למ"ר</h2>
+    <div>גלעד 8 (21,829/מ"ר) · הרמב"ם 10 · גיורא ביאליק · אביגדור עשת אתא · שיבת ציון · תל חי חיפה.</div>
+  </div>
+
+  <div class="foot">מאסטרו נדל"ן · מקורות: יד2, מדלן, ידאטה · הנתונים מוטמעים בקוד</div>
 </div>
+
+<script>
+function fields(id){return document.querySelector('.form[data-id="'+id+'"]');}
+function save(id){
+  var f=fields(id),o={};
+  f.querySelectorAll('[data-f]').forEach(function(el){o[el.getAttribute('data-f')]=el.value;});
+  localStorage.setItem('lead_'+id,JSON.stringify(o));
+  // sync phone into the call button
+  var tel=document.querySelector('#card-'+id+' .btn-call');
+  if(o.phone){tel.setAttribute('href','tel:'+o.phone.replace(/[^0-9+]/g,''));}
+  var sv=document.getElementById('sv-'+id);sv.textContent='✔ נשמר במכשיר '+new Date().toLocaleTimeString('he-IL');
+  setTimeout(function(){sv.textContent='';},2500);
+}
+function load(id){
+  var raw=localStorage.getItem('lead_'+id);if(!raw)return;
+  var o=JSON.parse(raw),f=fields(id);
+  f.querySelectorAll('[data-f]').forEach(function(el){var k=el.getAttribute('data-f');if(o[k]!=null)el.value=o[k];});
+  if(o.phone){var tel=document.querySelector('#card-'+id+' .btn-call');tel.setAttribute('href','tel:'+o.phone.replace(/[^0-9+]/g,''));}
+}
+function copyLead(id,name){
+  var f=fields(id),o={};
+  f.querySelectorAll('[data-f]').forEach(function(el){o[el.getAttribute('data-f')]=el.value;});
+  var t='ליד: '+name+'\nטלפון: '+(o.phone||'')+'\nתאריך שיחה: '+(o.when||'')+'\nסטטוס: '+(o.status||'')+'\nיומן: '+(o.log||'');
+  navigator.clipboard.writeText(t).then(function(){
+    var sv=document.getElementById('sv-'+id);sv.textContent='📋 הועתק — שלח לקלוד לשמירה';
+    setTimeout(function(){sv.textContent='';},3000);
+  });
+}
+['borochov','shoftim','stroma'].forEach(load);
+
+function scrRun(){
+  var t=document.getElementById('scrTxt').value;
+  var bench=parseFloat(document.getElementById('scrBench').value)||16300;
+  var out=document.getElementById('scrOut');
+  if(t.trim().length<10){out.innerHTML='<div class="fl">הדבק טקסט מודעה קודם.</div>';return;}
+  var mt=t.match(/טאבו[^\d]{0,8}(\d{2,3})\s*מ/);var tabu=mt?parseInt(mt[1],10):null;
+  var sizes=(t.match(/(\d{2,3})\s*מ["׳'’]?ר/g)||[]).map(function(s){return parseInt(s,10);}).filter(function(n){return n>=15&&n<=400;});
+  var market=sizes.length?Math.max.apply(null,sizes):null;
+  var nums=(t.match(/[\d][\d,\.]{4,}/g)||[]).map(function(s){return parseInt(s.replace(/[^\d]/g,''),10);}).filter(function(n){return n>=300000&&n<=3000000;});
+  var price=nums.length?Math.max.apply(null,nums):0;
+  var sz=tabu||market;var ppm=(price&&sz)?Math.round(price/sz):null;
+  var flags=[],hard=0;
+  if(tabu&&market&&market-tabu>=10){flags.push('🚩 חריגת בנייה? טאבו '+tabu+' מול '+market+' מ"ר — '+(market-tabu)+' מ"ר לא רשומים. תמחר לפי טאבו!');hard++;}
+  if(/(פינוי\s*בינוי|פינוי-בינוי|תמ"?א|התחדשות|הריסה|מתחם)/.test(t)){flags.push('🚩 התחדשות/פינוי-בינוי — תזת החזק בלבד, ובדוק שמאושר (לא שמועה).');hard++;}
+  if(/(נפל מחוזה|מחיר סופי|זריזים|בהזדמנות|הזדמנות|גמיש|דחוף)/.test(t))flags.push('🚩 לחץ/מצוקת מכירה — שאל "למה זה זול?"');
+  if(/100%\s*מימון/.test(t))flags.push('🚩 "100% מימון" חשוד — בנק ממן לפי טאבו.');
+  if(/(מקלט במרחק|ללא ממ"?ד|אין ממ)/.test(t))flags.push('🚩 אין ממ"ד (בניין ישן).');
+  if(/(דרך עכו|דרך חיפה|כביש ראשי|עורק|רעש)/.test(t))flags.push('🚩 כביש ראשי/רעש — מוריד ARV ושכירות.');
+  if(/(דרוש שיפוץ|לשיפוץ|דרושה השקעה|זקוקה לשיפוץ)/.test(t))flags.push('🚩 דרוש שיפוץ — הוסף עלות.');
+  if(/(חלוקה|מחולקת|ליחידות)/.test(t))flags.push('🚩 חלוקה ליחידות — בדוק חוקיות/היתר.');
+  var ppmFlag=ppm&&ppm>bench*1.05;
+  var vc='v-grn',vt='🟢 נקי יחסית — שווה בדיקה';
+  if(hard>0||ppmFlag){vc='v-red';vt='❌ זהירות — דגלים מהותיים';}
+  else if(flags.length){vc='v-yel';vt='🔶 גבולי — דגלים לברר';}
+  var h='<div class="verdict '+vc+'">'+vt+'</div><div class="met">';
+  h+='<span>מחיר<br><b>'+(price?price.toLocaleString():'?')+'</b></span>';
+  h+='<span>טאבו<br><b>'+(tabu?tabu+' מ"ר':'לא צוין')+'</b></span>';
+  h+='<span>שיווקי<br><b>'+(market?market+' מ"ר':'?')+'</b></span>';
+  h+='<span>₪/מ"ר '+(tabu?'טאבו':'שיווקי')+'<br><b style="color:'+(ppmFlag?'#ff8f7a':'#7fe3a4')+'">'+(ppm?ppm.toLocaleString():'?')+'</b></span>';
+  h+='<span>מול benchmark<br><b>'+(ppm?Math.round((ppm/bench-1)*100)+'%':'?')+'</b></span></div>';
+  if(!tabu&&market)h+='<div class="fl">⚠️ טאבו לא צוין — חושב לפי שיווקי. שאל מה הגודל הרשום (דגל מס\' 1).</div>';
+  if(flags.length)flags.forEach(function(f){h+='<div class="fl">'+f+'</div>';});
+  else if(tabu)h+='<div class="fl ok">✔ לא זוהו מילות-מלכודת. עדיין אמת טאבו/GovMap.</div>';
+  out.innerHTML=h;
+}
+</script>
 </body>
 </html>
