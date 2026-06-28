@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>אינדקס מאסטר מאוחד v3.0 — כל הראיות · תיק נציגות אח"י אילת 5 נ' חזן</title>
+<style>
+  :root{--navy:#1F3B6E;--line:#d8dee9;--bg:#f5f7fa;--ok:#1a7f37;--check:#b8860b;--bad:#b42318;}
+  *{box-sizing:border-box;}
+  body{font-family:'Segoe UI','Arial',sans-serif;margin:0;background:var(--bg);color:#1a2233;direction:rtl;}
+  header{background:var(--navy);color:#fff;padding:14px 22px;}
+  header h1{margin:0;font-size:18px;}header p{margin:4px 0 0;font-size:12px;opacity:.9;}
+  .ver{display:inline-block;margin-top:5px;font-size:11px;background:rgba(255,255,255,.18);padding:2px 9px;border-radius:10px;}
+  .bar{display:flex;flex-wrap:wrap;gap:7px;align-items:center;padding:9px 22px;background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5;}
+  .bar button{background:var(--navy);color:#fff;border:0;border-radius:6px;padding:7px 11px;font-size:12px;cursor:pointer;}
+  .bar button.ghost{background:#fff;color:var(--navy);border:1px solid var(--navy);}
+  .bar button.add{background:var(--ok);}
+  .bar select{padding:6px;border-radius:6px;border:1px solid var(--line);font-size:12px;}
+  .bar .info{font-size:11px;color:#5a6678;margin-inline-start:auto;max-width:360px;}
+  .wrap{padding:14px 22px 70px;}
+  .counts{display:flex;flex-wrap:wrap;gap:8px;margin:6px 0 12px;font-size:11.5px;}
+  .counts span{background:#fff;border:1px solid var(--line);border-radius:14px;padding:3px 11px;}
+  table{width:100%;border-collapse:collapse;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.06);border-radius:8px;overflow:hidden;}
+  th,td{border:1px solid var(--line);padding:7px 8px;font-size:12.5px;vertical-align:top;text-align:right;}
+  th{background:var(--navy);color:#fff;font-weight:600;white-space:nowrap;position:sticky;top:50px;}
+  tr:nth-child(even) td{background:#fafbfd;}
+  td.num{text-align:center;font-weight:700;color:var(--navy);width:28px;}
+  [contenteditable]{outline:none;}
+  [contenteditable]:focus{background:#fffde0;box-shadow:inset 0 0 0 1px var(--check);border-radius:4px;}
+  a.lnk{color:#0563C1;text-decoration:none;font-weight:600;}a.lnk:hover{text-decoration:underline;}
+  .edit{cursor:pointer;color:#888;font-size:11px;margin-inline-start:4px;}
+  select.ty,select.vr,select.st{font-size:11px;padding:3px;border-radius:5px;border:1px solid var(--line);max-width:104px;}
+  .notes{min-height:30px;background:#fffef5;border:1px dashed #e0d49a;border-radius:5px;padding:4px;font-size:12.5px;min-width:130px;}
+  .del{cursor:pointer;color:var(--bad);font-weight:700;text-align:center;font-size:15px;}
+  .tag{display:inline-block;padding:1px 6px;border-radius:9px;font-size:10px;font-weight:600;white-space:nowrap;}
+  .foot{font-size:11.5px;color:#5a6678;margin-top:14px;line-height:1.7;background:#fff;border:1px solid var(--line);border-radius:8px;padding:12px 14px;}
+  .foot h3{margin:0 0 6px;font-size:13px;color:var(--navy);}
+  .arch{font-size:11px;color:#7a5b00;background:#fff7e6;border:1px solid #e0c068;border-radius:7px;padding:9px 12px;margin-top:10px;}
+  @media print{.bar,.del,.edit{display:none;}th{position:static;}}
+</style></head>
+<body>
+<header>
+  <h1>אינדקס מאסטר מאוחד — כל הראיות · תיק נציגות אח"י אילת 5 נ' חזן</h1>
+  <p>פסקי דין · החלטות · פרוטוקולים · אסיפות · תצהירים · תביעות · הקלטות · תמלולים · דפי בנק · מכתבים יוצאים · ניתוחים</p>
+  <span class="ver" id="verLbl"></span>
+</header>
+<div class="bar">
+  <button class="add" onclick="addRow()">➕ הוסף שורה</button>
+  <button onclick="sortByDate()">⇅ מיין לפי תאריך</button>
+  <select id="filt" onchange="render()">
+    <option value="">כל הסוגים</option>
+    <option value="psd">פסקי דין/החלטות</option>
+    <option value="proto">פרוטוקולי דיון</option>
+    <option value="asfa">אסיפות</option>
+    <option value="tz">תצהירים</option>
+    <option value="tvia">תביעות</option>
+    <option value="hakl">הקלטות</option>
+    <option value="tml">תמלולים</option>
+    <option value="bank">דפי בנק/כספים</option>
+    <option value="mich">מכתבים יוצאים</option>
+    <option value="nit">ניתוח/אסטרטגיה</option>
+  </select>
+  <button class="ghost" onclick="exportJSON()">⤓ ייצוא לקלוד (JSON)</button>
+  <button class="ghost" onclick="document.getElementById('imp').click()">⤒ ייבוא JSON</button>
+  <input type="file" id="imp" accept=".json" style="display:none" onchange="importJSON(event)">
+  <button class="ghost" onclick="exportCSV()">⤓ Excel/CSV</button>
+  <button class="ghost" onclick="window.print()">🖶 הדפסה</button>
+  <span class="info">ערוך כל תא ישירות · ➕ הוספה · ✖ מחיקה · נשמר אוטומטית במחשב זה. לעדכון הגרסה הרשמית — ייצא JSON ושלח לי.</span>
+</div>
+<div class="wrap">
+  <div class="counts" id="counts"></div>
+  <table id="tbl"><thead><tr>
+    <th>#</th><th>תיאור / אירוע</th><th>תאריך</th><th>צדדים / ערכאה</th><th>סוג</th><th>אומת?</th><th>קישור</th><th>סטטוס</th><th>הערות</th><th>✖</th>
+  </tr></thead><tbody id="tb"></tbody></table>
+
+  <div class="foot">
+    <h3>📁 תיקיית המקור</h3>
+    <a class="lnk" href="https://drive.google.com/drive/folders/1cAPBggz0Q0XlM0S1KCdpksRtybIkoINy?usp=sharing" target="_blank">פתיחת תיקיית התיק ב-Google Drive ↗</a><br>
+    ⚠️ שנה את הרשאת התיקייה ל"צופה" לפני שליחה לגורם חיצוני. · ✔ = אומת תוכן מול המקור · ◯ = לאמת בלחיצה.<br>
+    <strong>עדכון:</strong> הוסף/ערוך כאן (נשמר במחשב). כשתרצה שאעדכן את הגרסה הרשמית — "ייצוא לקלוד (JSON)" ושלח לי.
+    <div class="arch">
+      <strong>⚠️ איחוד גרסאות — קובץ זה מחליף את כל אלה (להעברה לארכיון 08_ארכיון):</strong><br>
+      אינדקס_מלא_כל_הראיות_לבדיקה.html (v2.0) · אינדקס_קישורים_לבדיקה.html · INDEX_MASTER_24.06.2026.docx ·
+      אינדקס_תיק_ועד_בית.html (×2) · 📋_אינדקס_תיק_ועד_בית.md · INDEX_נציגות_ועד_בית.html · אינדקס_תיק_8537_2023.html ·
+      Index_Master.md · 1322אינדקס_והשתלשלות_לאושר_25_06_26 (1).docx
+    </div>
+  </div>
+</div>
+<script>
+const OFFICIAL_VERSION="3.0";
+const OFFICIAL_DATE="28.06.2026";
+const SEED=[
+ // ===== ערכאות: פסקי דין / החלטות / פרוטוקולים / אסיפות / תצהירים / תביעות (מאומת מ-v2.0) =====
+ {id:'e01',sortk:'2023-09-26',desc:'פסק דין כספי מקורי (חיוב 40,993 ₪)',edate:'26.09.2023',parties:"נציגות נ' חזן · תיק 8/186/2022 · מפקחת ליבוביץ'",type:'פסק דין',tag:'psd',vrf:'y',url:'https://drive.google.com/file/d/1f0RmIyCCAzk9eqUFlLwFbG6j2TP-0LKO/view',note:'אומת. בסיס החוב המקורי.'},
+ {id:'e02',sortk:'2023-11-02',desc:'כתב תביעה (פתיחת תיק 537/23)',edate:'02.11.2023',parties:"התובעת (נציגות) נ' חזן",type:'כתב תביעה',tag:'tvia',vrf:'n',url:'https://drive.google.com/file/d/1kn4Gmg3OdrUTonWnLJlKDmrRAlG7QyEe/view',note:''},
+ {id:'e03',sortk:'2024-01-23',desc:'תביעת התובעת/נחום',edate:'23.01.2024',parties:"נחום / נציגות נ' חזן",type:'כתב תביעה',tag:'tvia',vrf:'n',url:'https://drive.google.com/file/d/1Y_AB_Az3oE3BQDo4bhUFgwA9x3s99_-I/view',note:''},
+ {id:'e04',sortk:'2024-01-31',desc:'פסק דין השופט רניאל (ערעור ראשון למחוזי)',edate:'31.01.2024',parties:"חזן נ' נציגות · עש\"א 1625-11-23 · השופט רניאל · מחוזי חיפה",type:'פסק דין',tag:'psd',vrf:'n',url:'https://drive.google.com/file/d/1NfUhv4ynVuE0z9xwl2Jddun1BU7_9DRJ/view',note:'נספח 107.'},
+ {id:'e04b',sortk:'2024-01-31',desc:'החלטת השופט רניאל (נלווית)',edate:'31.01.2024',parties:'מחוזי חיפה · השופט רניאל',type:'החלטה',tag:'psd',vrf:'n',url:'https://drive.google.com/file/d/13bLpmF7TQC1X2FQC_q5S4DQz21ykU_SO/view',note:'החלטה נפרדת מאותו מועד.'},
+ {id:'e05',sortk:'2024-08-23',desc:'פסק דין בית המשפט העליון',edate:'23.08.2024',parties:"נציגות נ' חזן · ע\"א 1642/24",type:'פסק דין',tag:'psd',vrf:'n',url:'https://drive.google.com/file/d/1OBMVlqzd35a8mco7dtDwgL-P6KFg0e6B/view',note:'קבלה חלקית והחזרה למפקחת.'},
+ {id:'e06',sortk:'2024-08-25',desc:'החלטת בית משפט (נציגות)',edate:'25.08.2024',parties:"בית משפט · נציגות נ' חזן",type:'החלטה',tag:'psd',vrf:'n',url:'https://drive.google.com/file/d/1_iRtVH4OsZ0d9uSKuNNSSaOKNiCIZdwS/view',note:''},
+ {id:'e07',sortk:'2025-08-17',desc:'החלטת מפקחת — דחיית בקשת ביטול העיקול',edate:'17.08.2025',parties:"נציגות נ' חזן · בקשה 360/25",type:'החלטה',tag:'psd',vrf:'n',url:'https://drive.google.com/file/d/1Z8GW3LyjHY8ump-_2ANu3HFepmWFxw4D/view',note:'ההחלטה שבוטלה בערעור.'},
+ {id:'e08',sortk:'2025-09-01',desc:'החלטה בתיק 537-23',edate:'01.09.2025',parties:"מפקחת · נציגות נ' חזן",type:'החלטה',tag:'psd',vrf:'n',url:'https://drive.google.com/file/d/1nA1sEUOFeooLUNJm-60MRFDDxQUp7Fzn/view',note:''},
+ {id:'e09',sortk:'2025-11-26',desc:'פסק דין מחוזי — קבלת הערעור וביטול העיקול',edate:'26.11.2025',parties:"חזן נ' נציגות · עש\"א 32788-09-25 · השופט טורס",type:'פסק דין',tag:'psd',vrf:'y',url:'https://drive.google.com/file/d/18ftlJhSCOdvPtcORZq6bRCQnfCB5REFE/view',note:'אומת. ניצחון בערעור.'},
+ {id:'e10',sortk:'2025-12-24',desc:'פרוטוקול דיון',edate:'24.12.2025',parties:"מפקחת · נציגות נ' חזן",type:'פרוטוקול דיון',tag:'proto',vrf:'n',url:'https://drive.google.com/file/d/1cnkNnOBbw7ZfNAE2wmAD2PuIFAAvK2es/view',note:''},
+ {id:'e11',sortk:'2025-12-30',desc:'פרוטוקול דיון והחלטה',edate:'30.12.2025',parties:"מפקחת · נציגות נ' חזן",type:'פרוטוקול דיון',tag:'proto',vrf:'n',url:'https://drive.google.com/file/d/18_RA4bXF7IL18T0h5nnlilrQqjr-jQIA/view',note:''},
+ {id:'e12',sortk:'2026-01-28',desc:'פרוטוקול הדיון בפני המפקחת (חתום, מלא) + החלטה',edate:'28.01.2026',parties:"נציגות נ' חזן · תיק 8/537/2023 · מפקחת ליבוביץ'",type:'פרוטוקול דיון',tag:'proto',vrf:'y',url:'https://drive.google.com/file/d/1A6v66k5qYJeWFlOv20XnQfgIq4ab7YsF/view',note:'אומת. מקור החקירה הנגדית.'},
+ {id:'e13',sortk:'2026-03-27',desc:'הודעת זימון אסיפת דיירים (נחום)',edate:'27.03.2026',parties:'נחום → דיירי הבית המשותף',type:'פרוטוקול אסיפה',tag:'asfa',vrf:'n',url:'https://drive.google.com/file/d/1cG6uQtI4DtNSFUhWRwqNI7qrqN-lHNZk/view',note:'לאמת נגישות.'},
+ {id:'e14',sortk:'2026-04-05',desc:'פרוטוקול אסיפת דיירים (בחירת נציגות חדשה)',edate:'05.04.2026',parties:'דיירי הבית המשותף',type:'פרוטוקול אסיפה',tag:'asfa',vrf:'n',url:'https://drive.google.com/file/d/1i6_6QSbvKJQxsxV0Wa3TCWITdCCmDVvm/view',note:'נספח א\'. יש עותק חתום.'},
+ {id:'e16',sortk:'2026-04-20',desc:'פרוטוקול אסיפת דיירים',edate:'20.04.2026',parties:'דיירי הבית המשותף',type:'פרוטוקול אסיפה',tag:'asfa',vrf:'n',url:'https://drive.google.com/file/d/1wOTWtseqI5ol6YhOlz1qXhR590yoWU8G/view',note:'נספח ט\'.'},
+ {id:'e17',sortk:'2026-04-27',desc:'החלטת המפקחת',edate:'27.04.2026',parties:"מפקחת · נציגות נ' חזן",type:'החלטה',tag:'psd',vrf:'n',url:'https://drive.google.com/file/d/1oU0YzDldXgfnkgWEkJqTA5GPizvdmhzj/view',note:'לאמת נגישות.'},
+ {id:'e18',sortk:'2026-05-04',desc:'החלטת שופטת (תביעת אייל)',edate:'04.05.2026',parties:'בית משפט · תביעת אייל',type:'החלטה',tag:'psd',vrf:'n',url:'https://drive.google.com/file/d/1Kvt_qZf10oiQRLDC8X6f8U7Mvw1WHcl2/view',note:''},
+ {id:'e19',sortk:'2026-05-09',desc:'החלטת מפקחת — דחיית בקשת אייל',edate:'09.05.2026',parties:"מפקחת · אייל/נחום נ' חזן",type:'החלטה',tag:'psd',vrf:'n',url:'https://drive.google.com/file/d/1JVINz742lyirUN0jykwMQU3wIZQxPvyS/view',note:''},
+ {id:'e20',sortk:'2026-05-10',desc:'תצהיר עדות ראשית — נחום יניב',edate:'10.05.2026',parties:'מטעם התובעת (נציגות)',type:'תצהיר',tag:'tz',vrf:'n',url:'https://drive.google.com/file/d/1CttnJHSu_m4PhB5jOoEbvfrM3FERXaYf/view',note:'לוודא גוף התצהיר.'},
+ {id:'e21',sortk:'2026-05-10',desc:'תצהיר עדות ראשית — בני בריש (גזבר)',edate:'10.05.2026',parties:'מטעם התובעת (נציגות)',type:'תצהיר',tag:'tz',vrf:'n',url:'https://drive.google.com/file/d/1afhaXMFnRiapYxBnGCytxV3tHVlT-fhs/view',note:'לוודא גוף התצהיר.'},
+ {id:'e22',sortk:'2026-05-12',desc:'החלטה — ועד בית',edate:'12.05.2026',parties:'מפקחת/בית משפט',type:'החלטה',tag:'psd',vrf:'n',url:'https://drive.google.com/file/d/1OeHeUVdpn12GkNQMt5gJeHyfAy3tZ39p/view',note:'לאמת נגישות.'},
+ {id:'e23',sortk:'2026-06-21',desc:'תצהיר עדות ראשית — אבי חזן',edate:'21.06.2026',parties:'מטעם הנתבע',type:'תצהיר',tag:'tz',vrf:'n',url:'https://drive.google.com/file/d/1nFlRgbFsyLe4yv4uUh3S6f2ufk_XW8qlrxUJfmvJEV8/view',note:''},
+
+ // ===== הקלטות (Google Drive) =====
+ {id:'r01',sortk:'2021-08-22',desc:'הקלטה — קובי: מעלית, חשבונות',edate:'22.08.2021',parties:'אבי ↔ קובי (גזבר)',type:'הקלטה',tag:'hakl',vrf:'n',url:'https://drive.google.com/file/d/1fyDh_as3bGPci-yqT1yJN_RKVi-3OSa4/view',note:'WAV. כפילות נמחקה.'},
+ {id:'r02',sortk:'2023-03-22',desc:'הקלטה — שיחה 22.03.23',edate:'22.03.2023',parties:'אבי ↔ נציגות',type:'הקלטה',tag:'hakl',vrf:'n',url:'https://drive.google.com/file/d/1LzGNdmWdW7C773iKby97Uk-X88OChYUP/view',note:'WAV.'},
+ {id:'r03',sortk:'2024-02-06',desc:'הקלטה — ועד בחירה (נחום, קובי)',edate:'06.02.2024',parties:'אבי ↔ נחום ↔ קובי',type:'הקלטה',tag:'hakl',vrf:'n',url:'https://drive.google.com/file/d/1uN_NBhnJgauXYwy0BscPM_DdYK6gzkug/view',note:'WAV.'},
+ {id:'r04',sortk:'2024-02-18',desc:'הקלטה + תמלול 18.02.24 (אבי, קובי)',edate:'18.02.2024',parties:'אבי ↔ קובי (גזבר)',type:'הקלטה',tag:'hakl',vrf:'n',url:'https://drive.google.com/file/d/1mdnhiQpSf42U9yqJqHkEKBJnidXhusg8/view',note:'ZIP (הקלטה+תמלול). כפילות נמחקה.'},
+ {id:'r05',sortk:'2024-02-18',desc:'הקלטה חשובה — אבי קובי',edate:'18.02.2024',parties:'אבי ↔ קובי',type:'הקלטה',tag:'hakl',vrf:'n',url:'https://drive.google.com/file/d/1nKW1FXBan01Qk5aONDtRfmaElOaexNo7/view',note:'WAV.'},
+ {id:'r06',sortk:'2021-08-22',desc:'הקלטה — קובי: מעלית, חובות',edate:'22.08.2021',parties:'אבי ↔ קובי',type:'הקלטה',tag:'hakl',vrf:'n',url:'https://drive.google.com/file/d/12As8c7Qjw5I-gcyxVrEpaOz56mL4TWxb/view',note:'MP3.'},
+
+ // ===== תמלולים והתכתבויות (Google Drive) =====
+ {id:'t01',sortk:'2025-07-08',desc:'התכתבות וואטסאפ עם קובי',edate:'08.07.2025',parties:'אבי ↔ קובי (גזבר)',type:'תמלול',tag:'tml',vrf:'n',url:'https://drive.google.com/file/d/1BKyD59mz9sJ5IGSTOTsQNZAeJqVoaKqdrjVDb5TLlLA/view',note:''},
+ {id:'t02',sortk:'2025-07-09',desc:'וואטסאפ עם הגזבר קובי',edate:'09.07.2025',parties:'אבי ↔ קובי (גזבר)',type:'תמלול',tag:'tml',vrf:'n',url:'https://drive.google.com/file/d/1DU17jIfir9nxBgkdAQt11fLU8wk6AzUBRXYcddyoh-4/view',note:'4 עותקים בדרייב — לאחד לאחד.'},
+ {id:'t03',sortk:'2026-01-18',desc:'תמלול הקלטה — אבי קובי',edate:'18.01.2026',parties:'אבי ↔ קובי',type:'תמלול',tag:'tml',vrf:'n',url:'https://drive.google.com/file/d/1HJ0aHDYvZbUftb_cGId7AUyiw8Xhn5WbOJa6Sk1OaTA/view',note:''},
+ {id:'t04',sortk:'2026-06-28',desc:'שיחות וואטסאפ אחרונות — קובי גזבר',edate:'28.06.2026',parties:'אבי ↔ קובי (גזבר)',type:'תמלול',tag:'tml',vrf:'n',url:'https://drive.google.com/file/d/1W3HezftzfvqI1ZL3OCi431w-8GOnzkpSE2pqla_xpBU/view',note:''},
+
+ // ===== דפי בנק וכספים (Google Drive) =====
+ {id:'b01',sortk:'2025-01-01',desc:'תשלומים לועד בית מתחילת השנה',edate:'2025',parties:'הוכחת תשלומים',type:'מסמך בנק',tag:'bank',vrf:'n',url:'https://drive.google.com/file/d/1dTBwlWERwIIEFZAwnCPRdErZ4_zAHXkm/view',note:'PDF.'},
+ {id:'b02',sortk:'2026-01-27',desc:'דוח יתרות — חזן אבי (אקסלנט)',edate:'27.01.2026',parties:'מסמך פיננסי',type:'מסמך בנק',tag:'bank',vrf:'n',url:'https://drive.google.com/file/d/1YaU6p8JA2b9jXBq0MNygNdskz8LtDk5_/view',note:'PDF.'},
+ {id:'b03',sortk:'2025-02-15',desc:'דפי חשבון קובי — ועד בית',edate:'15.02.2025',parties:'דפי בנק נציגות',type:'מסמך בנק',tag:'bank',vrf:'n',url:'https://drive.google.com/file/d/1CWbh_8GyZH-cVlJnlR9U66s-AtFH_Ypy/view',note:'JPEG.'},
+ {id:'b04',sortk:'2025-02-15',desc:'דפי בנק (3) — קובי',edate:'15.02.2025',parties:'דפי בנק נציגות',type:'מסמך בנק',tag:'bank',vrf:'n',url:'https://drive.google.com/file/d/1zhF5UzFy06niyY7dWNnnRp0MGbEy3sWs/view',note:'JPEG.'},
+ {id:'b05',sortk:'2025-02-15',desc:'דפי בנק מנחום (2 דפים)',edate:'15.02.2025',parties:'דפי בנק נציגות',type:'מסמך בנק',tag:'bank',vrf:'n',url:'https://drive.google.com/file/d/1yB7t2bNP7UrqI1xIMaE3VPQ0yKuj_xWBQE6ax6JRPEQ/view',note:''},
+
+ // ===== מכתבים יוצאים (Google Drive) =====
+ {id:'m01',sortk:'2025-03-14',desc:'מכתב דרישה — כינוס אסיפת דיירים',edate:'14.03.2025',parties:'אבי → נציגות',type:'מכתב יוצא',tag:'mich',vrf:'n',url:'https://drive.google.com/file/d/1kfGbj6kDSV0B8RuBx4ixZvo9UtUkZxGt6m6ZLvzgKz0/view',note:''},
+ {id:'m02',sortk:'2025-03-16',desc:'מכתב התראה — אי-קבלת דפי בנק',edate:'16.03.2025',parties:'אבי → גזבר/נציגות',type:'מכתב יוצא',tag:'mich',vrf:'n',url:'https://drive.google.com/file/d/1ijlg8_r9Fq-ySalIZMfG08hGNvaqKNsJ-XipJbyaXdg/view',note:'נשלח. כפילות נמחקה.'},
+ {id:'m03',sortk:'2025-09-03',desc:'מכתב לנחום',edate:'03.09.2025',parties:'אבי → נחום (יו"ר)',type:'מכתב יוצא',tag:'mich',vrf:'n',url:'https://drive.google.com/file/d/1Ez7glMhc8OI42baSomc3yhAfgWc7rjVMlPFfD1tXOHs/view',note:''},
+
+ // ===== ניתוח ואסטרטגיה (Google Drive) =====
+ {id:'n01',sortk:'2026-01-27',desc:'הכנה לחקירה — בני בריש (גזבר)',edate:'27.01.2026',parties:'הכנה לחקירה נגדית',type:'ניתוח/אסטרטגיה',tag:'nit',vrf:'n',url:'https://drive.google.com/file/d/1kufmgVixrO3cVSZu2lisKTA41QZ8JP6uYP5FITKBUwQ/view',note:''},
+ {id:'n02',sortk:'2026-06-25',desc:'מזכר ניתוח תצהיר אבי חזן (לעו"ד)',edate:'25.06.2026',parties:'ניתוח משפטי',type:'ניתוח/אסטרטגיה',tag:'nit',vrf:'n',url:'https://drive.google.com/file/d/1e6boTRmsneLONTG36sIpn79VmdTxis7Jm4PUt4Qn8MA/view',note:''},
+ {id:'n03',sortk:'2026-06-28',desc:'סיכום אסטרטגי ותכנית פעולה — תיק נציגות',edate:'28.06.2026',parties:'אסטרטגיה משפטית',type:'ניתוח/אסטרטגיה',tag:'nit',vrf:'n',url:'https://drive.google.com/file/d/1FJgnx1dCqdMS-o0-sqNMtM-ONzE5Qfs7gq3B-Q4GsMQ/view',note:''},
+];
+const TYPES={'פסק דין':'psd','החלטה':'psd','פרוטוקול דיון':'proto','פרוטוקול אסיפה':'asfa','תצהיר':'tz','כתב תביעה':'tvia','הקלטה':'hakl','תמלול':'tml','מסמך בנק':'bank','מכתב יוצא':'mich','ניתוח/אסטרטגיה':'nit'};
+const TAGNAMES={psd:'פס"ד/החלטות',proto:'פרוטוקולים',asfa:'אסיפות',tz:'תצהירים',tvia:'תביעות',hakl:'הקלטות',tml:'תמלולים',bank:'דפי בנק',mich:'מכתבים',nit:'ניתוחים'};
+const LS='aviMasterIndex_state_v3';
+function loadState(){try{return JSON.parse(localStorage.getItem(LS));}catch(e){return null;}}
+function saveState(){localStorage.setItem(LS,JSON.stringify({version:state.version,rows:state.rows}));}
+let state=loadState();
+if(!state){state={version:OFFICIAL_VERSION,rows:JSON.parse(JSON.stringify(SEED))};saveState();}
+let asc=true;
+function sortByDate(){asc=!asc;state.rows.sort((a,b)=>asc?(''+a.sortk).localeCompare(b.sortk):(''+b.sortk).localeCompare(a.sortk));saveState();render();}
+function newId(){return 'u'+Date.now()+Math.floor(Math.random()*900);}
+function addRow(){state.rows.push({id:newId(),sortk:'2026-12-31',desc:'(אירוע חדש — לחץ לעריכה)',edate:'',parties:'',type:'החלטה',tag:'psd',vrf:'n',url:'',note:'',status:''});saveState();render();window.scrollTo(0,document.body.scrollHeight);}
+function delRow(id){if(confirm('למחוק שורה זו?')){state.rows=state.rows.filter(r=>r.id!==id);saveState();render();}}
+function setField(id,f,v){const r=state.rows.find(x=>x.id===id);if(!r)return;r[f]=v;if(f==='type'){r.tag=TYPES[v]||'psd';}if(f==='edate'){const m=(''+v).match(/(\d{1,2})\.(\d{1,2})\.(\d{2,4})/);if(m){let y=m[3].length===2?'20'+m[3]:m[3];r.sortk=y+'-'+m[2].padStart(2,'0')+'-'+m[1].padStart(2,'0');}}saveState();}
+function curRows(){const f=document.getElementById('filt').value;return f?state.rows.filter(r=>r.tag===f):state.rows;}
+function render(){
+  document.getElementById('verLbl').textContent='גרסה '+state.version+' · עודכן '+OFFICIAL_DATE+' · '+state.rows.length+' ראיות';
+  const cnt={};state.rows.forEach(r=>cnt[r.tag]=(cnt[r.tag]||0)+1);
+  document.getElementById('counts').innerHTML=Object.keys(TAGNAMES).filter(k=>cnt[k]).map(k=>`<span>${TAGNAMES[k]}: <strong>${cnt[k]}</strong></span>`).join('');
+  const tb=document.getElementById('tb');tb.innerHTML='';
+  curRows().forEach((r,i)=>{
+    const tr=document.createElement('tr');
+    const opts=Object.keys(TYPES).map(t=>`<option ${r.type===t?'selected':''}>${t}</option>`).join('');
+    const stat=r.status||'';
+    tr.innerHTML=`<td class="num">${i+1}</td>
+      <td contenteditable="true" data-f="desc">${esc(r.desc)}</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">${esc(r.edate)}</td>
+      <td contenteditable="true" data-f="parties">${esc(r.parties)}</td>
+      <td><select class="ty" data-f="type">${opts}</select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" ${r.vrf!=='y'?'selected':''}>◯ לאמת</option><option value="y" ${r.vrf==='y'?'selected':''}>✔ אומת</option></select></td>
+      <td>${r.url?`<a class="lnk" href="${esc(r.url)}" target="_blank">פתח ↗</a>`:'<span style="color:#aaa">—</span>'} <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option ${stat==='✔ תקין'?'selected':''}>✔ תקין</option><option ${stat==='לבדוק'?'selected':''}>לבדוק</option><option ${stat==='✖ שגוי'?'selected':''}>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">${esc(r.note||'')}</td>
+      <td class="del" title="מחק">✖</td>`;
+    tr.dataset.id=r.id;tb.appendChild(tr);
+  });
+  tb.querySelectorAll('[contenteditable]').forEach(el=>el.addEventListener('blur',e=>{const id=e.target.closest('tr').dataset.id;setField(id,e.target.dataset.f,e.target.innerText.trim());}));
+  tb.querySelectorAll('select').forEach(el=>el.addEventListener('change',e=>{const id=e.target.closest('tr').dataset.id;setField(id,e.target.dataset.f,e.target.value);render();}));
+  tb.querySelectorAll('.del').forEach(el=>el.addEventListener('click',e=>delRow(e.target.closest('tr').dataset.id)));
+  tb.querySelectorAll('.edit').forEach(el=>el.addEventListener('click',e=>{const id=e.target.closest('tr').dataset.id;const r=state.rows.find(x=>x.id===id);const v=prompt('קישור Drive:',r.url||'');if(v!==null){setField(id,'url',v.trim());render();}}));
+}
+function esc(s){return (''+(s||'')).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function exportJSON(){const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({version:state.version,exported:new Date().toISOString(),rows:state.rows},null,2)],{type:'application/json'}));a.download='אינדקס_מאסטר_לעדכון_קלוד.json';a.click();}
+function importJSON(ev){const f=ev.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const o=JSON.parse(rd.result);if(o.rows){state.rows=o.rows;state.version=o.version||state.version;saveState();render();alert('יובא בהצלחה — '+o.rows.length+' שורות.');}}catch(e){alert('קובץ לא תקין.');}};rd.readAsText(f);}
+function exportCSV(){let csv='﻿מספר,תיאור,תאריך,צדדים,סוג,אומת,קישור,סטטוס,הערות\n';curRows().forEach((r,i)=>{csv+=[i+1,r.desc,r.edate,r.parties,r.type,(r.vrf==='y'?'אומת':'לאמת'),r.url,r.status||'',r.note||''].map(x=>'"'+(''+x).replace(/"/g,'""')+'"').join(',')+'\n';});const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));a.download='אינדקס_מאסטר_ראיות.csv';a.click();}
+render();
+</script>
+</body></html>
