@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html lang="he" dir="rtl">
-<head>
-<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!-- saved from url=(0277)file:///C:/Users/Avi/OneDrive/%D7%A9%D7%95%D7%9C%D7%97%D7%9F%20%D7%94%D7%A2%D7%91%D7%95%D7%93%D7%94/01_%D7%9E%D7%A9%D7%A4%D7%98_%D7%95%D7%AA%D7%91%D7%99%D7%A2%D7%95%D7%AA/%D7%95%D7%A2%D7%93_%D7%91%D7%99%D7%AA_%D7%A0%D7%A6%D7%99%D7%92%D7%95%D7%AA/INDEX_MASTER_v3_28.06.2026.html -->
+<html lang="he" dir="rtl"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>אינדקס מאסטר מאוחד v3.0 — כל הראיות · תיק נציגות אח"י אילת 5 נ' חזן</title>
 <style>
   :root{--navy:#1F3B6E;--line:#d8dee9;--bg:#f5f7fa;--ok:#1a7f37;--check:#b8860b;--bad:#b42318;}
@@ -41,7 +41,7 @@
 <header>
   <h1>אינדקס מאסטר מאוחד — כל הראיות · תיק נציגות אח"י אילת 5 נ' חזן</h1>
   <p>פסקי דין · החלטות · פרוטוקולים · אסיפות · תצהירים · תביעות · הקלטות · תמלולים · דפי בנק · מכתבים יוצאים · ניתוחים</p>
-  <span class="ver" id="verLbl"></span>
+  <span class="ver" id="verLbl">גרסה 3.1 · עודכן 30.06.2026 · 46 ראיות</span>
 </header>
 <div class="bar">
   <button class="add" onclick="addRow()">➕ הוסף שורה</button>
@@ -60,17 +60,413 @@
     <option value="nit">ניתוח/אסטרטגיה</option>
   </select>
   <button class="ghost" onclick="exportJSON()">⤓ ייצוא לקלוד (JSON)</button>
-  <button class="ghost" onclick="document.getElementById('imp').click()">⤒ ייבוא JSON</button>
+  <button class="ghost" onclick="document.getElementById(&#39;imp&#39;).click()">⤒ ייבוא JSON</button>
   <input type="file" id="imp" accept=".json" style="display:none" onchange="importJSON(event)">
   <button class="ghost" onclick="exportCSV()">⤓ Excel/CSV</button>
   <button class="ghost" onclick="window.print()">🖶 הדפסה</button>
   <span class="info">ערוך כל תא ישירות · ➕ הוספה · ✖ מחיקה · נשמר אוטומטית במחשב זה. לעדכון הגרסה הרשמית — ייצא JSON ושלח לי.</span>
 </div>
 <div class="wrap">
-  <div class="counts" id="counts"></div>
+  <div class="counts" id="counts"><span>פס"ד/החלטות: <strong>12</strong></span><span>פרוטוקולים: <strong>3</strong></span><span>אסיפות: <strong>3</strong></span><span>תצהירים: <strong>3</strong></span><span>תביעות: <strong>2</strong></span><span>הקלטות: <strong>6</strong></span><span>תמלולים: <strong>4</strong></span><span>דפי בנק: <strong>5</strong></span><span>מכתבים: <strong>3</strong></span><span>ניתוחים: <strong>3</strong></span></div>
   <table id="tbl"><thead><tr>
     <th>#</th><th>תיאור / אירוע</th><th>תאריך</th><th>צדדים / ערכאה</th><th>סוג</th><th>אומת?</th><th>קישור</th><th>סטטוס</th><th>הערות</th><th>✖</th>
-  </tr></thead><tbody id="tb"></tbody></table>
+  </tr></thead><tbody id="tb"><tr data-id="e01"><td class="num">1</td>
+      <td contenteditable="true" data-f="desc">פסק דין כספי מקורי (חיוב 40,993 ₪)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">26.09.2023</td>
+      <td contenteditable="true" data-f="parties">נציגות נ' חזן · תיק 8/186/2022 · מפקחת ליבוביץ'</td>
+      <td><select class="ty" data-f="type"><option selected="">פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n">◯ לאמת</option><option value="y" selected="">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1f0RmIyCCAzk9eqUFlLwFbG6j2TP-0LKO/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">אומת. בסיס החוב המקורי.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e02"><td class="num">2</td>
+      <td contenteditable="true" data-f="desc">כתב תביעה (פתיחת תיק 537/23)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">02.11.2023</td>
+      <td contenteditable="true" data-f="parties">התובעת (נציגות) נ' חזן</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option selected="">כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1kn4Gmg3OdrUTonWnLJlKDmrRAlG7QyEe/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e03"><td class="num">3</td>
+      <td contenteditable="true" data-f="desc">תביעת התובעת/נחום</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">23.01.2024</td>
+      <td contenteditable="true" data-f="parties">נחום / נציגות נ' חזן</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option selected="">כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1Y_AB_Az3oE3BQDo4bhUFgwA9x3s99_-I/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e04"><td class="num">4</td>
+      <td contenteditable="true" data-f="desc">פסק דין השופט רניאל (ערעור ראשון למחוזי)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">31.01.2024</td>
+      <td contenteditable="true" data-f="parties">חזן נ' נציגות · עש"א 1625-11-23 · השופט רניאל · מחוזי חיפה</td>
+      <td><select class="ty" data-f="type"><option selected="">פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1NfUhv4ynVuE0z9xwl2Jddun1BU7_9DRJ/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">נספח 107.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e04b"><td class="num">5</td>
+      <td contenteditable="true" data-f="desc">החלטת השופט רניאל (נלווית)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">31.01.2024</td>
+      <td contenteditable="true" data-f="parties">מחוזי חיפה · השופט רניאל</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option selected="">החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/13bLpmF7TQC1X2FQC_q5S4DQz21ykU_SO/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">החלטה נפרדת מאותו מועד.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e05"><td class="num">6</td>
+      <td contenteditable="true" data-f="desc">פסק דין בית המשפט העליון</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">23.08.2024</td>
+      <td contenteditable="true" data-f="parties">נציגות נ' חזן · ע"א 1642/24</td>
+      <td><select class="ty" data-f="type"><option selected="">פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1OBMVlqzd35a8mco7dtDwgL-P6KFg0e6B/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">קבלה חלקית והחזרה למפקחת.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e06"><td class="num">7</td>
+      <td contenteditable="true" data-f="desc">החלטת בית משפט (נציגות)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">25.08.2024</td>
+      <td contenteditable="true" data-f="parties">בית משפט · נציגות נ' חזן</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option selected="">החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1_iRtVH4OsZ0d9uSKuNNSSaOKNiCIZdwS/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e07"><td class="num">8</td>
+      <td contenteditable="true" data-f="desc">החלטת מפקחת — דחיית בקשת ביטול העיקול</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">17.08.2025</td>
+      <td contenteditable="true" data-f="parties">נציגות נ' חזן · בקשה 360/25</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option selected="">החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1Z8GW3LyjHY8ump-_2ANu3HFepmWFxw4D/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">ההחלטה שבוטלה בערעור.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e08"><td class="num">9</td>
+      <td contenteditable="true" data-f="desc">החלטה בתיק 537-23</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">01.09.2025</td>
+      <td contenteditable="true" data-f="parties">מפקחת · נציגות נ' חזן</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option selected="">החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1nA1sEUOFeooLUNJm-60MRFDDxQUp7Fzn/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e09"><td class="num">10</td>
+      <td contenteditable="true" data-f="desc">פסק דין מחוזי — קבלת הערעור וביטול העיקול</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">26.11.2025</td>
+      <td contenteditable="true" data-f="parties">חזן נ' נציגות · עש"א 32788-09-25 · השופט טורס</td>
+      <td><select class="ty" data-f="type"><option selected="">פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n">◯ לאמת</option><option value="y" selected="">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/18ftlJhSCOdvPtcORZq6bRCQnfCB5REFE/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">אומת. ניצחון בערעור.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e10"><td class="num">11</td>
+      <td contenteditable="true" data-f="desc">פרוטוקול דיון</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">24.12.2025</td>
+      <td contenteditable="true" data-f="parties">מפקחת · נציגות נ' חזן</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option selected="">פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1cnkNnOBbw7ZfNAE2wmAD2PuIFAAvK2es/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e11"><td class="num">12</td>
+      <td contenteditable="true" data-f="desc">פרוטוקול דיון והחלטה</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">30.12.2025</td>
+      <td contenteditable="true" data-f="parties">מפקחת · נציגות נ' חזן</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option selected="">פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/18_RA4bXF7IL18T0h5nnlilrQqjr-jQIA/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e12"><td class="num">13</td>
+      <td contenteditable="true" data-f="desc">פרוטוקול הדיון בפני המפקחת (חתום, מלא) + החלטה</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">28.01.2026</td>
+      <td contenteditable="true" data-f="parties">נציגות נ' חזן · תיק 8/537/2023 · מפקחת ליבוביץ'</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option selected="">פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n">◯ לאמת</option><option value="y" selected="">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1A6v66k5qYJeWFlOv20XnQfgIq4ab7YsF/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">אומת. מקור החקירה הנגדית.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e13"><td class="num">14</td>
+      <td contenteditable="true" data-f="desc">הודעת זימון אסיפת דיירים (נחום)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">27.03.2026</td>
+      <td contenteditable="true" data-f="parties">נחום → דיירי הבית המשותף</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option selected="">פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1cG6uQtI4DtNSFUhWRwqNI7qrqN-lHNZk/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">לאמת נגישות.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e14"><td class="num">15</td>
+      <td contenteditable="true" data-f="desc">פרוטוקול אסיפת דיירים (בחירת נציגות חדשה)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">05.04.2026</td>
+      <td contenteditable="true" data-f="parties">דיירי הבית המשותף</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option selected="">פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1i6_6QSbvKJQxsxV0Wa3TCWITdCCmDVvm/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">נספח א'. יש עותק חתום.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e16"><td class="num">16</td>
+      <td contenteditable="true" data-f="desc">פרוטוקול אסיפת דיירים</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">20.04.2026</td>
+      <td contenteditable="true" data-f="parties">דיירי הבית המשותף</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option selected="">פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1wOTWtseqI5ol6YhOlz1qXhR590yoWU8G/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">נספח ט'.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e17"><td class="num">17</td>
+      <td contenteditable="true" data-f="desc">החלטת המפקחת</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">27.04.2026</td>
+      <td contenteditable="true" data-f="parties">מפקחת · נציגות נ' חזן</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option selected="">החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1oU0YzDldXgfnkgWEkJqTA5GPizvdmhzj/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">לאמת נגישות.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e18"><td class="num">18</td>
+      <td contenteditable="true" data-f="desc">החלטת שופטת (תביעת אייל)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">04.05.2026</td>
+      <td contenteditable="true" data-f="parties">בית משפט · תביעת אייל</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option selected="">החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1Kvt_qZf10oiQRLDC8X6f8U7Mvw1WHcl2/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e19"><td class="num">19</td>
+      <td contenteditable="true" data-f="desc">החלטת מפקחת — דחיית בקשת אייל</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">09.05.2026</td>
+      <td contenteditable="true" data-f="parties">מפקחת · אייל/נחום נ' חזן</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option selected="">החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1JVINz742lyirUN0jykwMQU3wIZQxPvyS/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e20"><td class="num">20</td>
+      <td contenteditable="true" data-f="desc">תצהיר עדות ראשית — נחום יניב</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">10.05.2026</td>
+      <td contenteditable="true" data-f="parties">מטעם התובעת (נציגות)</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option selected="">תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1CttnJHSu_m4PhB5jOoEbvfrM3FERXaYf/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">לוודא גוף התצהיר.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e21"><td class="num">21</td>
+      <td contenteditable="true" data-f="desc">תצהיר עדות ראשית — בני בריש (גזבר)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">10.05.2026</td>
+      <td contenteditable="true" data-f="parties">מטעם התובעת (נציגות)</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option selected="">תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1afhaXMFnRiapYxBnGCytxV3tHVlT-fhs/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">לוודא גוף התצהיר.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e22"><td class="num">22</td>
+      <td contenteditable="true" data-f="desc">החלטה — ועד בית</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">12.05.2026</td>
+      <td contenteditable="true" data-f="parties">מפקחת/בית משפט</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option selected="">החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1OeHeUVdpn12GkNQMt5gJeHyfAy3tZ39p/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">לאמת נגישות.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="e23"><td class="num">23</td>
+      <td contenteditable="true" data-f="desc">תצהיר עדות ראשית — אבי חזן</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">21.06.2026</td>
+      <td contenteditable="true" data-f="parties">מטעם הנתבע</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option selected="">תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1nFlRgbFsyLe4yv4uUh3S6f2ufk_XW8qlrxUJfmvJEV8/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="r01"><td class="num">24</td>
+      <td contenteditable="true" data-f="desc">הקלטה — קובי: מעלית, חשבונות</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">22.08.2021</td>
+      <td contenteditable="true" data-f="parties">אבי ↔ קובי (גזבר)</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option selected="">הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1fyDh_as3bGPci-yqT1yJN_RKVi-3OSa4/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">WAV. כפילות נמחקה.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="r02"><td class="num">25</td>
+      <td contenteditable="true" data-f="desc">הקלטה — שיחה 22.03.23</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">22.03.2023</td>
+      <td contenteditable="true" data-f="parties">אבי ↔ נציגות</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option selected="">הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1LzGNdmWdW7C773iKby97Uk-X88OChYUP/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">WAV.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="r03"><td class="num">26</td>
+      <td contenteditable="true" data-f="desc">הקלטה — ועד בחירה (נחום, קובי)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">06.02.2024</td>
+      <td contenteditable="true" data-f="parties">אבי ↔ נחום ↔ קובי</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option selected="">הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1uN_NBhnJgauXYwy0BscPM_DdYK6gzkug/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">WAV.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="r04"><td class="num">27</td>
+      <td contenteditable="true" data-f="desc">הקלטה + תמלול 18.02.24 (אבי, קובי)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">18.02.2024</td>
+      <td contenteditable="true" data-f="parties">אבי ↔ קובי (גזבר)</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option selected="">הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1mdnhiQpSf42U9yqJqHkEKBJnidXhusg8/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">ZIP (הקלטה+תמלול). כפילות נמחקה.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="r05"><td class="num">28</td>
+      <td contenteditable="true" data-f="desc">הקלטה חשובה — אבי קובי</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">18.02.2024</td>
+      <td contenteditable="true" data-f="parties">אבי ↔ קובי</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option selected="">הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1nKW1FXBan01Qk5aONDtRfmaElOaexNo7/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">WAV.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="r06"><td class="num">29</td>
+      <td contenteditable="true" data-f="desc">הקלטה — קובי: מעלית, חובות</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">22.08.2021</td>
+      <td contenteditable="true" data-f="parties">אבי ↔ קובי</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option selected="">הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/12As8c7Qjw5I-gcyxVrEpaOz56mL4TWxb/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">MP3.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="t01"><td class="num">30</td>
+      <td contenteditable="true" data-f="desc">התכתבות וואטסאפ עם קובי</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">08.07.2025</td>
+      <td contenteditable="true" data-f="parties">אבי ↔ קובי (גזבר)</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option selected="">תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1BKyD59mz9sJ5IGSTOTsQNZAeJqVoaKqdrjVDb5TLlLA/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="t02"><td class="num">31</td>
+      <td contenteditable="true" data-f="desc">וואטסאפ עם הגזבר קובי</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">09.07.2025</td>
+      <td contenteditable="true" data-f="parties">אבי ↔ קובי (גזבר)</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option selected="">תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1DU17jIfir9nxBgkdAQt11fLU8wk6AzUBRXYcddyoh-4/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">4 עותקים בדרייב — לאחד לאחד.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="t03"><td class="num">32</td>
+      <td contenteditable="true" data-f="desc">תמלול הקלטה — אבי קובי</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">18.01.2026</td>
+      <td contenteditable="true" data-f="parties">אבי ↔ קובי</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option selected="">תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1HJ0aHDYvZbUftb_cGId7AUyiw8Xhn5WbOJa6Sk1OaTA/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="t04"><td class="num">33</td>
+      <td contenteditable="true" data-f="desc">שיחות וואטסאפ אחרונות — קובי גזבר</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">28.06.2026</td>
+      <td contenteditable="true" data-f="parties">אבי ↔ קובי (גזבר)</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option selected="">תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1W3HezftzfvqI1ZL3OCi431w-8GOnzkpSE2pqla_xpBU/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="b01"><td class="num">34</td>
+      <td contenteditable="true" data-f="desc">תשלומים לועד בית מתחילת השנה</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">2025</td>
+      <td contenteditable="true" data-f="parties">הוכחת תשלומים</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option selected="">מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1dTBwlWERwIIEFZAwnCPRdErZ4_zAHXkm/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">PDF.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="b02"><td class="num">35</td>
+      <td contenteditable="true" data-f="desc">דוח יתרות — חזן אבי (אקסלנט)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">27.01.2026</td>
+      <td contenteditable="true" data-f="parties">מסמך פיננסי</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option selected="">מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1YaU6p8JA2b9jXBq0MNygNdskz8LtDk5_/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">PDF.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="b03"><td class="num">36</td>
+      <td contenteditable="true" data-f="desc">דפי חשבון קובי — ועד בית</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">15.02.2025</td>
+      <td contenteditable="true" data-f="parties">דפי בנק נציגות</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option selected="">מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1CWbh_8GyZH-cVlJnlR9U66s-AtFH_Ypy/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">JPEG.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="b04"><td class="num">37</td>
+      <td contenteditable="true" data-f="desc">דפי בנק (3) — קובי</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">15.02.2025</td>
+      <td contenteditable="true" data-f="parties">דפי בנק נציגות</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option selected="">מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1zhF5UzFy06niyY7dWNnnRp0MGbEy3sWs/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">JPEG.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="b05"><td class="num">38</td>
+      <td contenteditable="true" data-f="desc">דפי בנק מנחום (2 דפים)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">15.02.2025</td>
+      <td contenteditable="true" data-f="parties">דפי בנק נציגות</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option selected="">מסמך בנק</option><option>מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1yB7t2bNP7UrqI1xIMaE3VPQ0yKuj_xWBQE6ax6JRPEQ/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="m01"><td class="num">39</td>
+      <td contenteditable="true" data-f="desc">מכתב דרישה — כינוס אסיפת דיירים</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">14.03.2025</td>
+      <td contenteditable="true" data-f="parties">אבי → נציגות</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option selected="">מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1kfGbj6kDSV0B8RuBx4ixZvo9UtUkZxGt6m6ZLvzgKz0/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="m02"><td class="num">40</td>
+      <td contenteditable="true" data-f="desc">מכתב התראה — אי-קבלת דפי בנק</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">16.03.2025</td>
+      <td contenteditable="true" data-f="parties">אבי → גזבר/נציגות</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option selected="">מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1ijlg8_r9Fq-ySalIZMfG08hGNvaqKNsJ-XipJbyaXdg/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note">נשלח. כפילות נמחקה.</td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="m03"><td class="num">41</td>
+      <td contenteditable="true" data-f="desc">מכתב לנחום</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">03.09.2025</td>
+      <td contenteditable="true" data-f="parties">אבי → נחום (יו"ר)</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option selected="">מכתב יוצא</option><option>ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1Ez7glMhc8OI42baSomc3yhAfgWc7rjVMlPFfD1tXOHs/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="n01"><td class="num">42</td>
+      <td contenteditable="true" data-f="desc">הכנה לחקירה — בני בריש (גזבר)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">27.01.2026</td>
+      <td contenteditable="true" data-f="parties">הכנה לחקירה נגדית</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option selected="">ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1kufmgVixrO3cVSZu2lisKTA41QZ8JP6uYP5FITKBUwQ/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="n02"><td class="num">43</td>
+      <td contenteditable="true" data-f="desc">מזכר ניתוח תצהיר אבי חזן (לעו"ד)</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">25.06.2026</td>
+      <td contenteditable="true" data-f="parties">ניתוח משפטי</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option selected="">ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1e6boTRmsneLONTG36sIpn79VmdTxis7Jm4PUt4Qn8MA/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr><tr data-id="n03"><td class="num">44</td>
+      <td contenteditable="true" data-f="desc">סיכום אסטרטגי ותכנית פעולה — תיק נציגות</td>
+      <td contenteditable="true" data-f="edate" style="white-space:nowrap">28.06.2026</td>
+      <td contenteditable="true" data-f="parties">אסטרטגיה משפטית</td>
+      <td><select class="ty" data-f="type"><option>פסק דין</option><option>החלטה</option><option>פרוטוקול דיון</option><option>פרוטוקול אסיפה</option><option>תצהיר</option><option>כתב תביעה</option><option>הקלטה</option><option>תמלול</option><option>מסמך בנק</option><option>מכתב יוצא</option><option selected="">ניתוח/אסטרטגיה</option></select></td>
+      <td><select class="vr" data-f="vrf"><option value="n" selected="">◯ לאמת</option><option value="y">✔ אומת</option></select></td>
+      <td><a class="lnk" href="https://drive.google.com/file/d/1FJgnx1dCqdMS-o0-sqNMtM-ONzE5Qfs7gq3B-Q4GsMQ/view" target="_blank">פתח ↗</a> <span class="edit" title="ערוך קישור">✎</span></td>
+      <td><select class="st" data-f="status"><option value="">—</option><option>✔ תקין</option><option>לבדוק</option><option>✖ שגוי</option></select></td>
+      <td class="notes" contenteditable="true" data-f="note"></td>
+      <td class="del" title="מחק">✖</td></tr></tbody></table>
 
   <div class="foot">
     <h3>📁 תיקיית המקור</h3>
@@ -86,8 +482,8 @@
   </div>
 </div>
 <script>
-const OFFICIAL_VERSION="3.0";
-const OFFICIAL_DATE="28.06.2026";
+const OFFICIAL_VERSION="3.1";
+const OFFICIAL_DATE="30.06.2026";
 const SEED=[
  // ===== ערכאות: פסקי דין / החלטות / פרוטוקולים / אסיפות / תצהירים / תביעות (מאומת מ-v2.0) =====
  {id:'e01',sortk:'2023-09-26',desc:'פסק דין כספי מקורי (חיוב 40,993 ₪)',edate:'26.09.2023',parties:"נציגות נ' חזן · תיק 8/186/2022 · מפקחת ליבוביץ'",type:'פסק דין',tag:'psd',vrf:'y',url:'https://drive.google.com/file/d/1f0RmIyCCAzk9eqUFlLwFbG6j2TP-0LKO/view',note:'אומת. בסיס החוב המקורי.'},
@@ -112,7 +508,7 @@ const SEED=[
  {id:'e20',sortk:'2026-05-10',desc:'תצהיר עדות ראשית — נחום יניב',edate:'10.05.2026',parties:'מטעם התובעת (נציגות)',type:'תצהיר',tag:'tz',vrf:'n',url:'https://drive.google.com/file/d/1CttnJHSu_m4PhB5jOoEbvfrM3FERXaYf/view',note:'לוודא גוף התצהיר.'},
  {id:'e21',sortk:'2026-05-10',desc:'תצהיר עדות ראשית — בני בריש (גזבר)',edate:'10.05.2026',parties:'מטעם התובעת (נציגות)',type:'תצהיר',tag:'tz',vrf:'n',url:'https://drive.google.com/file/d/1afhaXMFnRiapYxBnGCytxV3tHVlT-fhs/view',note:'לוודא גוף התצהיר.'},
  {id:'e22',sortk:'2026-05-12',desc:'החלטה — ועד בית',edate:'12.05.2026',parties:'מפקחת/בית משפט',type:'החלטה',tag:'psd',vrf:'n',url:'https://drive.google.com/file/d/1OeHeUVdpn12GkNQMt5gJeHyfAy3tZ39p/view',note:'לאמת נגישות.'},
- {id:'e23',sortk:'2026-06-21',desc:'תצהיר עדות ראשית — אבי חזן',edate:'21.06.2026',parties:'מטעם הנתבע',type:'תצהיר',tag:'tz',vrf:'n',url:'https://drive.google.com/file/d/1nFlRgbFsyLe4yv4uUh3S6f2ufk_XW8qlrxUJfmvJEV8/view',note:''},
+ {id:'e23',sortk:'2026-06-29',desc:'תצהיר עדות ראשית — אבי חזן (מעודכן 29.6)',edate:'29.06.2026',parties:'מטעם הנתבע',type:'תצהיר',tag:'tz',vrf:'y',url:'https://drive.google.com/file/d/173xTv3iud01LYewQ0Uwwo7bgrccJd75a/view',note:'גרסה מעודכנת: בנק, חניון, תשלומים מראש ופער הדירות.'},
 
  // ===== הקלטות (Google Drive) =====
  {id:'r01',sortk:'2021-08-22',desc:'הקלטה — קובי: מעלית, חשבונות',edate:'22.08.2021',parties:'אבי ↔ קובי (גזבר)',type:'הקלטה',tag:'hakl',vrf:'n',url:'https://drive.google.com/file/d/1fyDh_as3bGPci-yqT1yJN_RKVi-3OSa4/view',note:'WAV. כפילות נמחקה.'},
@@ -134,6 +530,8 @@ const SEED=[
  {id:'b03',sortk:'2025-02-15',desc:'דפי חשבון קובי — ועד בית',edate:'15.02.2025',parties:'דפי בנק נציגות',type:'מסמך בנק',tag:'bank',vrf:'n',url:'https://drive.google.com/file/d/1CWbh_8GyZH-cVlJnlR9U66s-AtFH_Ypy/view',note:'JPEG.'},
  {id:'b04',sortk:'2025-02-15',desc:'דפי בנק (3) — קובי',edate:'15.02.2025',parties:'דפי בנק נציגות',type:'מסמך בנק',tag:'bank',vrf:'n',url:'https://drive.google.com/file/d/1zhF5UzFy06niyY7dWNnnRp0MGbEy3sWs/view',note:'JPEG.'},
  {id:'b05',sortk:'2025-02-15',desc:'דפי בנק מנחום (2 דפים)',edate:'15.02.2025',parties:'דפי בנק נציגות',type:'מסמך בנק',tag:'bank',vrf:'n',url:'https://drive.google.com/file/d/1yB7t2bNP7UrqI1xIMaE3VPQ0yKuj_xWBQE6ax6JRPEQ/view',note:''},
+ {id:'b06',sortk:'2026-05-03',desc:'אישור הבנק — העברות מראש לנציגות החדשה: 700 ₪ (6.4) + 1,644 ₪ (3.5)',edate:'03.05.2026',parties:'אבי → חשבון נציגות חדשה · מזרחי 142470',type:'מסמך בנק',tag:'bank',vrf:'y',url:'https://drive.google.com/file/d/1crWL22SrUE0nZS3sZ6fJn9bT7xTiTCBe/view',note:'נספח 14 לתצהיר. אומת מול אישור הבנק.',status:'✔ תקין'},
+ {id:'b07',sortk:'2026-06-29',desc:'צילומי חשבון הנציגות החדשה — חשבון פעיל המשלם חובות (חשמל, שיקים)',edate:'29.06.2026',parties:'חשבון נציגות חדשה · מזרחי 733-142470',type:'מסמך בנק',tag:'bank',vrf:'y',url:'https://drive.google.com/file/d/1IDmzNVyaHzBvbDAuuSPAn1krhsy6uzW8/view',note:'נספח 15 לתצהיר. צילום 2: https://drive.google.com/file/d/1SDARShBeCpV1uJBFzdOwIU1x_xcSjoV6/view',status:'✔ תקין'},
 
  // ===== מכתבים יוצאים (Google Drive) =====
  {id:'m01',sortk:'2025-03-14',desc:'מכתב דרישה — כינוס אסיפת דיירים',edate:'14.03.2025',parties:'אבי → נציגות',type:'מכתב יוצא',tag:'mich',vrf:'n',url:'https://drive.google.com/file/d/1kfGbj6kDSV0B8RuBx4ixZvo9UtUkZxGt6m6ZLvzgKz0/view',note:''},
@@ -147,7 +545,7 @@ const SEED=[
 ];
 const TYPES={'פסק דין':'psd','החלטה':'psd','פרוטוקול דיון':'proto','פרוטוקול אסיפה':'asfa','תצהיר':'tz','כתב תביעה':'tvia','הקלטה':'hakl','תמלול':'tml','מסמך בנק':'bank','מכתב יוצא':'mich','ניתוח/אסטרטגיה':'nit'};
 const TAGNAMES={psd:'פס"ד/החלטות',proto:'פרוטוקולים',asfa:'אסיפות',tz:'תצהירים',tvia:'תביעות',hakl:'הקלטות',tml:'תמלולים',bank:'דפי בנק',mich:'מכתבים',nit:'ניתוחים'};
-const LS='aviMasterIndex_state_v3';
+const LS='aviMasterIndex_state_v4';
 function loadState(){try{return JSON.parse(localStorage.getItem(LS));}catch(e){return null;}}
 function saveState(){localStorage.setItem(LS,JSON.stringify({version:state.version,rows:state.rows}));}
 let state=loadState();
@@ -191,4 +589,5 @@ function importJSON(ev){const f=ev.target.files[0];if(!f)return;const rd=new Fil
 function exportCSV(){let csv='﻿מספר,תיאור,תאריך,צדדים,סוג,אומת,קישור,סטטוס,הערות\n';curRows().forEach((r,i)=>{csv+=[i+1,r.desc,r.edate,r.parties,r.type,(r.vrf==='y'?'אומת':'לאמת'),r.url,r.status||'',r.note||''].map(x=>'"'+(''+x).replace(/"/g,'""')+'"').join(',')+'\n';});const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([csv],{type:'text/csv;charset=utf-8;'}));a.download='אינדקס_מאסטר_ראיות.csv';a.click();}
 render();
 </script>
+
 </body></html>
