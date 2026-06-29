@@ -147,6 +147,30 @@ input{background:#0d1117;border:1px solid #2a3a55;border-radius:8px;color:#fff;p
   <div class="sub2" style="margin-top:8px">SHY מלא — לא נוגעים בשום תרחיש. הליבה (VOO) תמיד DCA, לא מתוזמנת.</div>
 </div>
 
+<div class="panel" id="avi-prompts" style="border-color:#3a5a8a;background:#0f1826">
+  <h2 style="color:#8fbce6">📋 אזור פרומפטים — העתק והדבק לקלוד</h2>
+  <div class="sub2">לחץ "העתק", פתח צ'אט עם קלוד, הדבק, וצרף את קבצי ה-Flex.</div>
+  <div style="margin-top:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;gap:8px">
+      <b style="font-size:13px">🌅 דוח יומי (BOOT) — כל בוקר מסחר</b>
+      <button onclick="copyP('p1',this)" style="cursor:pointer;border:1px solid #2a6b40;border-radius:8px;background:#2ecc71;color:#0d1117;font-size:12px;font-weight:700;padding:5px 12px;font-family:inherit;white-space:nowrap">העתק</button>
+    </div>
+    <pre id="p1" style="white-space:pre-wrap;background:#0a0f17;border:1px solid #233149;border-radius:8px;padding:10px;font-size:11px;color:#cdd6e6;max-height:110px;overflow:auto;font-family:inherit;margin:0">הפעל BOOT יומי לתיק AVI HUNTER (v4 - תיק מדד מוגן). מצורפים קבצי IBKR Flex. בצע: (1) קרא קבצים - פוזיציות, NAV, מזומן, שינויים. (2) סרוק שוק חי - VIX, S&P, USD/ILS, מאקרו. (3) אימות דו-מקורי מול ה-STATE. (4) בדוק תוכנית מול יעד (ליבה 75% / הגנה 15% / מזומן 10% / לוויין 0%). (5) תן BOOT תמציתי + החלטות (פעולה/החזקה עם נימוק). (6) אם חסר מידע - נסח שאלות לבנק (קריאת מסך בלבד, בלי ביצוע). (7) הכן בלוק עדכון דשבורד מאומת ל-Claude Code. שמור על v4; כל פעולה פיננסית מבוצעת על ידי בלבד.</pre>
+  </div>
+  <div style="margin-top:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;gap:8px">
+      <b style="font-size:13px">📊 דוח מלא — שישי / כשרוצים גרפים</b>
+      <button onclick="copyP('p2',this)" style="cursor:pointer;border:1px solid #244a6b;border-radius:8px;background:#23386a;color:#fff;font-size:12px;font-weight:700;padding:5px 12px;font-family:inherit;white-space:nowrap">העתק</button>
+    </div>
+    <pre id="p2" style="white-space:pre-wrap;background:#0a0f17;border:1px solid #233149;border-radius:8px;padding:10px;font-size:11px;color:#cdd6e6;max-height:110px;overflow:auto;font-family:inherit;margin:0">הפעל BOOT יומי לתיק AVI HUNTER (v4) + תן דוח מלא. מצורפים קבצי Flex (כולל do6_RISK_SHIELD ו-Positions_PnL). כלול: תשואה (TWR + מול S&P 500), סיכון (חשיפה מנייתית, drawdown, תנודתיות, VIX), גרפים (מגמת NAV, הקצאה, תרומת כל פוזיציה), אינפוגרפיקה של מצב התיק, החלטות, ועצות לשיפור תשואה והקטנת סיכון. שמור על v4; כל פעולה מבוצעת על ידי בלבד.</pre>
+  </div>
+  <div class="sub2" style="margin-top:8px">💡 <b>מתי:</b> יומי — כל בוקר (תמציתי, 30 שניות). מלא — שישי או כשרוצים ניתוח עומק. תמיד צרף את קבצי ה-Flex.</div>
+</div>
+
+<script>
+function copyP(id,btn){try{var t=document.getElementById(id).innerText;navigator.clipboard.writeText(t);var o=btn.textContent;btn.textContent='הועתק ✓';setTimeout(function(){btn.textContent=o;},1500);}catch(e){alert('בחר והעתק ידנית');}}
+</script>
+
 <div class="panel">
   <h2>💰 מחשבון NAV (עדכן שער/יתרות)</h2>
   <div class="row"><span>מזומן שקלי ₪</span><span><input id="ils" type="number" value="211964"></span></div>
