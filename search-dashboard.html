@@ -34,6 +34,10 @@ footer{text-align:center;color:#5b6b85;font-size:11px;padding:20px}
 .mclose{float:left;background:#b91c1c;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer}
 .mbox kbd{background:#334155;border-radius:4px;padding:1px 6px}
 a.op.folder{background:#d97706}a.op.folder:hover{background:#b45309}
+a.op,button.op{margin-inline-start:4px}
+a.op.dl{background:#0891b2}a.op.dl:hover{background:#0e7490}
+button.op{color:#fff;padding:4px 9px;border:0;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap;background:#7c3aed}
+button.op:hover{background:#6d28d9}
 .rb{display:inline-block;cursor:pointer;font-size:13px;margin-inline-start:6px;opacity:.7}
 .rb:hover{opacity:1}.rb.del{color:#f87171}.rb.edit{color:#fbbf24}
 .tbtn.warn{background:#d97706;border-color:#d97706;color:#1a1205;font-weight:bold}
@@ -79,8 +83,11 @@ tr.tofix td{background:#1f1505}
 <b>🧹 נקה סינון</b> — מנקה חיפוש ומסננים בלי לגלול.<br>
 <b>🔄 רענן</b> — טוען מחדש (אחרי שהוספת/שינית קבצים).<br>
 <b>❓ עזרה</b> — המסך הזה.</p>
-<h3>📂 פתיחת מסמך</h3>
-<p>לחץ <code>פתח ↗</code> (כחול) — הקובץ נפתח ישירות ב-Google Drive. כפתור <code style="background:#d97706;color:#1a1205">תיקייה ↗</code> (כתום) מסומן בשורה <b>מודגשת</b> ופירושו שהקובץ עדיין לא קושר — הלחיצה פותחת את התיקייה הכללית.</p>
+<h3>📂 פתיחה · הורדה · שיתוף</h3>
+<p><code>פתח ↗</code> (כחול) — צפייה במסמך ב-Drive.<br>
+<code style="background:#0891b2">⬇</code> (תכלת) — <b>הורדת</b> הקובץ למחשב (מסמכי Google יורדים כ-PDF).<br>
+<code style="background:#7c3aed">📤</code> (סגול) — <b>שיתוף</b> ישיר: נפתח תפריט השיתוף של המכשיר (וואטסאפ/מייל), ואם אין — הקישור מועתק אוטומטית להדבקה.<br>
+כפתור <code style="background:#d97706;color:#1a1205">תיקייה ↗</code> (כתום) בשורה <b>מודגשת</b> = הקובץ עדיין לא קושר; הלחיצה פותחת את התיקייה הכללית.</p>
 <h3>✎ עדכון קישור · ✖ הסרת שורה</h3>
 <p><b>✎</b> ליד כל קובץ — הדבק קישור Google Drive נכון למסמך.<br>
 <b>✖</b> — מסיר את השורה מהתצוגה.<br>
@@ -124,6 +131,9 @@ let onlyFix=false;
 function saveEdits(){localStorage.setItem(EK,JSON.stringify(EDITS));}
 function effHref(r){return (EDITS[r.rel]&&EDITS[r.rel].href)||r.href;}
 function isFolder(u){return !u||u===FOLDER;}
+function fileId(u){const m=(''+u).match(/\/d\/([^/]+)/);return m?m[1]:null;}
+function dlLink(u){if(isFolder(u))return null;const id=fileId(u);if(!id)return null;if(/document\/d\//.test(u))return 'https://docs.google.com/document/d/'+id+'/export?format=pdf';if(/spreadsheets\/d\//.test(u))return 'https://docs.google.com/spreadsheets/d/'+id+'/export?format=xlsx';if(/presentation\/d\//.test(u))return 'https://docs.google.com/presentation/d/'+id+'/export?format=pptx';return 'https://drive.google.com/uc?export=download&id='+id;}
+async function shareFile(di){const r=DATA[di];const url=effHref(r);if(navigator.share){try{await navigator.share({title:r.name,url});return;}catch(e){if(e&&e.name==='AbortError')return;}}try{await navigator.clipboard.writeText(url);alert('הקישור הועתק! הדבק בוואטסאפ או במייל לשיתוף.');}catch(e){prompt('העתק את הקישור לשיתוף:',url);}}
 function editLink(di){const r=DATA[di];const cur=effHref(r);const v=prompt('הדבק קישור Google Drive למסמך זה:\n\n'+r.name,isFolder(cur)?'':cur);if(v===null)return;const t=v.trim();EDITS[r.rel]=EDITS[r.rel]||{};if(t){EDITS[r.rel].href=t;}else{delete EDITS[r.rel].href;}if(!EDITS[r.rel].href&&!EDITS[r.rel].del)delete EDITS[r.rel];saveEdits();render();}
 function delRow(di){const r=DATA[di];if(confirm('להסיר שורה זו מהתצוגה?\n\n'+r.name)){EDITS[r.rel]=EDITS[r.rel]||{};EDITS[r.rel].del=true;saveEdits();render();}}
 function toggleFix(){onlyFix=!onlyFix;document.getElementById('fixBtn').classList.toggle('act',onlyFix);render();}
@@ -138,7 +148,7 @@ DATA.forEach((r,di)=>{if(EDITS[r.rel]&&EDITS[r.rel].del)return;
  if(onlyFix&&!fold)return;
  n++;const sb=r.status.map(s=>`<span class="b ${SB[s]||'t'}">${s}</span>`).join('');
  const tt=r.type.map(t=>`<span class="b t">${t}</span>`).join('');const dup=r.dup?' <span class="dup">⧉</span>':'';
- h+=`<tr class="${fold?'tofix':''}"><td><span class="fn">${r.name}</span>${dup}<div class="dir">📁 ${r.dir||'(שורש)'}</div></td><td>${r.date}</td><td>${tt}</td><td>${sb}</td><td>${r.party.join(', ')}</td><td>${r.h}</td><td style="white-space:nowrap"><a class="op ${fold?'folder':''}" href="${href}" target="_blank">${fold?'תיקייה ↗':'פתח ↗'}</a><span class="rb edit" title="עדכן קישור" onclick="editLink(${di})">✎</span><span class="rb del" title="הסר שורה" onclick="delRow(${di})">✖</span></td></tr>`;});
+ h+=`<tr class="${fold?'tofix':''}"><td><span class="fn">${r.name}</span>${dup}<div class="dir">📁 ${r.dir||'(שורש)'}</div></td><td>${r.date}</td><td>${tt}</td><td>${sb}</td><td>${r.party.join(', ')}</td><td>${r.h}</td><td style="white-space:nowrap"><a class="op ${fold?'folder':''}" href="${href}" target="_blank">${fold?'תיקייה ↗':'פתח ↗'}</a>${fold?'':`<a class="op dl" href="${dlLink(href)}" target="_blank" title="הורד קובץ">⬇</a>`}<button class="op sh" title="שתף קישור" onclick="shareFile(${di})">📤</button><span class="rb edit" title="עדכן קישור" onclick="editLink(${di})">✎</span><span class="rb del" title="הסר שורה" onclick="delRow(${di})">✖</span></td></tr>`;});
 document.getElementById('tb').innerHTML=h||'<tr><td colspan=7 style="text-align:center;color:#64748b;padding:30px">אין תוצאות</td></tr>';
 document.getElementById('cnt').innerHTML='מציג '+n+' מתוך '+DATA.length+' קבצים · <span style="color:#f59e0b">🔗 '+fix+' מצביעים עדיין לתיקייה הכללית (לתיקון)</span>';updateActive();}
 const cs={};DATA.forEach(r=>r.status.forEach(s=>cs[s]=(cs[s]||0)+1));
