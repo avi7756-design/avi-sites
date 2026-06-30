@@ -33,6 +33,12 @@ footer{text-align:center;color:#5b6b85;font-size:11px;padding:20px}
 .mbox h2{margin-top:0;color:#f59e0b} .mbox h3{color:#93c5fd;margin-bottom:4px} .mbox code{background:#1b2742;padding:2px 7px;border-radius:5px;color:#a7f3d0}
 .mclose{float:left;background:#b91c1c;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer}
 .mbox kbd{background:#334155;border-radius:4px;padding:1px 6px}
+a.op.folder{background:#d97706}a.op.folder:hover{background:#b45309}
+.rb{display:inline-block;cursor:pointer;font-size:13px;margin-inline-start:6px;opacity:.7}
+.rb:hover{opacity:1}.rb.del{color:#f87171}.rb.edit{color:#fbbf24}
+.tbtn.warn{background:#d97706;border-color:#d97706;color:#1a1205;font-weight:bold}
+.tbtn.act{box-shadow:0 0 0 2px #fff inset}
+tr.tofix td{background:#1f1505}
 </style></head><body>
 <header><h1>🗂️ מרכז שליטה — תיק נציגות אח"י אילת 5 נ' חזן</h1>
 <div class="sub">דשבורד חיפוש · 778 קבצים · עודכן 30.06.2026 17:55</div>
@@ -41,6 +47,11 @@ footer{text-align:center;color:#5b6b85;font-size:11px;padding:20px}
 <button class="tbtn" onclick="clearFilters()">🧹 נקה סינון</button>
 <button class="tbtn" onclick="location.reload()">🔄 רענן</button>
 <button class="tbtn" onclick="openHelp()">❓ מדריך עזרה</button>
+<button class="tbtn warn" id="fixBtn" onclick="toggleFix()">🔗 רק לתיקון</button>
+<button class="tbtn" onclick="exportEdits()">⤓ ייצוא שינויים</button>
+<button class="tbtn" onclick="document.getElementById('impf').click()">⤒ ייבוא</button>
+<input type="file" id="impf" accept=".json" style="display:none" onchange="importEdits(event)">
+<button class="tbtn" onclick="resetEdits()">↺ אפס שינויים</button>
 </div></header>
 <div class="wrap">
 <div class="stats" id="stats"></div>
@@ -54,7 +65,7 @@ footer{text-align:center;color:#5b6b85;font-size:11px;padding:20px}
 <div id="active"></div>
 <div id="cnt"></div>
 <table><thead><tr><th>קובץ</th><th>תאריך</th><th>סוג</th><th>סטטוס</th><th>צד</th><th>גודל</th><th></th></tr></thead><tbody id="tb"></tbody></table>
-<footer>נבנה ע"י בנה_אינדקס.py · שום מחיקה · קישורים אבסולוטיים (file:///) · CHANGELOG מתעד כל שינוי</footer>
+<footer>קישורים ל-Google Drive · ✎ לעדכון קישור · ✖ להסרת שורה · שינויים נשמרים במחשב זה · "ייצוא שינויים" → שלח לאבי לעדכון הגרסה הרשמית</footer>
 </div>
 <div class="modal" id="help"><div class="mbox">
 <button class="mclose" onclick="closeHelp()">סגור ✕</button>
@@ -69,7 +80,14 @@ footer{text-align:center;color:#5b6b85;font-size:11px;padding:20px}
 <b>🔄 רענן</b> — טוען מחדש (אחרי שהוספת/שינית קבצים).<br>
 <b>❓ עזרה</b> — המסך הזה.</p>
 <h3>📂 פתיחת מסמך</h3>
-<p>לחץ <code>פתח ↗</code> בשורת הקובץ. הקובץ נפתח ישירות מהתיקייה ב-OneDrive.</p>
+<p>לחץ <code>פתח ↗</code> (כחול) — הקובץ נפתח ישירות ב-Google Drive. כפתור <code style="background:#d97706;color:#1a1205">תיקייה ↗</code> (כתום) מסומן בשורה <b>מודגשת</b> ופירושו שהקובץ עדיין לא קושר — הלחיצה פותחת את התיקייה הכללית.</p>
+<h3>✎ עדכון קישור · ✖ הסרת שורה</h3>
+<p><b>✎</b> ליד כל קובץ — הדבק קישור Google Drive נכון למסמך.<br>
+<b>✖</b> — מסיר את השורה מהתצוגה.<br>
+<b>🔗 רק לתיקון</b> (סרגל עליון) — מציג רק את הקבצים שעדיין מצביעים לתיקייה, כדי שתתקן אותם במהירות.<br>
+השינויים נשמרים <b>אוטומטית במחשב זה בלבד</b> (לא אצל מי שמקבל את הקישור).</p>
+<h3>🔄 עדכון הגרסה הרשמית</h3>
+<p>אחרי שתיקנת קישורים — לחץ <code>⤓ ייצוא שינויים</code> ושלח לי את קובץ ה-JSON. אעדכן את הדשבורד הציבורי כך שכולם יראו את התיקונים. <code>↺ אפס שינויים</code> מחזיר לגרסה שפורסמה.</p>
 <h3>🚦 צבעי סטטוס</h3>
 <p>🟢 נוכחי (הגרסה הסופית) · 🔵 חתום · 🟡 מוחלף/טיוטה (ישן) · 🗄️ ארכיון · 🔴 זבל · <span style="color:#f59e0b">⧉</span> = קיים עותק כפול.</p>
 <h3>➕ הוספת מסמך חדש</h3>
@@ -99,14 +117,30 @@ function updateActive(){const a=document.getElementById('active');let h='';const
  for(const k in F)F[k].forEach(v=>{h+=`<span class="atag" onclick="rm('${k}','${v}')">${v}</span>`;});
  a.innerHTML=h;}
 function rm(k,v){F[k].delete(v);document.querySelectorAll('.chip').forEach(c=>{if(c.dataset.k==k&&c.dataset.v==v)c.classList.remove('on','s_on');});render();}
-function render(){const q=document.getElementById('q').value.trim().toLowerCase();let h='';let n=0;
-DATA.forEach(r=>{if(!okF(r,'type')||!okF(r,'status')||!okF(r,'party')||!okF(r,'top'))return;
+const FOLDER='https://drive.google.com/drive/folders/1cAPBggz0Q0XlM0S1KCdpksRtybIkoINy';
+const EK='vaadDash_edits_v1';
+let EDITS={};try{EDITS=JSON.parse(localStorage.getItem(EK))||{};}catch(e){EDITS={};}
+let onlyFix=false;
+function saveEdits(){localStorage.setItem(EK,JSON.stringify(EDITS));}
+function effHref(r){return (EDITS[r.rel]&&EDITS[r.rel].href)||r.href;}
+function isFolder(u){return !u||u===FOLDER;}
+function editLink(di){const r=DATA[di];const cur=effHref(r);const v=prompt('הדבק קישור Google Drive למסמך זה:\n\n'+r.name,isFolder(cur)?'':cur);if(v===null)return;const t=v.trim();EDITS[r.rel]=EDITS[r.rel]||{};if(t){EDITS[r.rel].href=t;}else{delete EDITS[r.rel].href;}if(!EDITS[r.rel].href&&!EDITS[r.rel].del)delete EDITS[r.rel];saveEdits();render();}
+function delRow(di){const r=DATA[di];if(confirm('להסיר שורה זו מהתצוגה?\n\n'+r.name)){EDITS[r.rel]=EDITS[r.rel]||{};EDITS[r.rel].del=true;saveEdits();render();}}
+function toggleFix(){onlyFix=!onlyFix;document.getElementById('fixBtn').classList.toggle('act',onlyFix);render();}
+function resetEdits(){if(confirm('לאפס את כל השינויים המקומיים (קישורים שעדכנת ושורות שהסרת)?\nהדשבורד יחזור לגרסה שפורסמה.')){EDITS={};saveEdits();render();}}
+function exportEdits(){const cnt=Object.keys(EDITS).length;if(!cnt){alert('לא ביצעת שינויים עדיין.');return;}const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'vaad-dashboard',exported:new Date().toISOString(),edits:EDITS},null,2)],{type:'application/json'}));a.download='דשבורד_שינויים_לעדכון.json';a.click();}
+function importEdits(ev){const f=ev.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const o=JSON.parse(rd.result);if(o&&o.edits){EDITS=o.edits;saveEdits();render();alert('יובא בהצלחה — '+Object.keys(EDITS).length+' שינויים.');}else alert('קובץ לא תקין.');}catch(e){alert('קובץ לא תקין.');}};rd.readAsText(f);}
+function render(){const q=document.getElementById('q').value.trim().toLowerCase();let h='';let n=0,fix=0;
+DATA.forEach((r,di)=>{if(EDITS[r.rel]&&EDITS[r.rel].del)return;
+ if(!okF(r,'type')||!okF(r,'status')||!okF(r,'party')||!okF(r,'top'))return;
  if(q){const blob=(r.name+' '+r.dir+' '+r.date+' '+r.type.join(' ')+' '+r.party.join(' ')+' '+r.status.join(' ')).toLowerCase();if(blob.indexOf(q)<0)return;}
+ const href=effHref(r);const fold=isFolder(href);if(fold)fix++;
+ if(onlyFix&&!fold)return;
  n++;const sb=r.status.map(s=>`<span class="b ${SB[s]||'t'}">${s}</span>`).join('');
  const tt=r.type.map(t=>`<span class="b t">${t}</span>`).join('');const dup=r.dup?' <span class="dup">⧉</span>':'';
- h+=`<tr><td><span class="fn">${r.name}</span>${dup}<div class="dir">📁 ${r.dir||'(שורש)'}</div></td><td>${r.date}</td><td>${tt}</td><td>${sb}</td><td>${r.party.join(', ')}</td><td>${r.h}</td><td><a class="op" href="${r.href}" target="_blank">פתח ↗</a></td></tr>`;});
+ h+=`<tr class="${fold?'tofix':''}"><td><span class="fn">${r.name}</span>${dup}<div class="dir">📁 ${r.dir||'(שורש)'}</div></td><td>${r.date}</td><td>${tt}</td><td>${sb}</td><td>${r.party.join(', ')}</td><td>${r.h}</td><td style="white-space:nowrap"><a class="op ${fold?'folder':''}" href="${href}" target="_blank">${fold?'תיקייה ↗':'פתח ↗'}</a><span class="rb edit" title="עדכן קישור" onclick="editLink(${di})">✎</span><span class="rb del" title="הסר שורה" onclick="delRow(${di})">✖</span></td></tr>`;});
 document.getElementById('tb').innerHTML=h||'<tr><td colspan=7 style="text-align:center;color:#64748b;padding:30px">אין תוצאות</td></tr>';
-document.getElementById('cnt').textContent='מציג '+n+' מתוך '+DATA.length+' קבצים';updateActive();}
+document.getElementById('cnt').innerHTML='מציג '+n+' מתוך '+DATA.length+' קבצים · <span style="color:#f59e0b">🔗 '+fix+' מצביעים עדיין לתיקייה הכללית (לתיקון)</span>';updateActive();}
 const cs={};DATA.forEach(r=>r.status.forEach(s=>cs[s]=(cs[s]||0)+1));
 document.getElementById('stats').innerHTML=`<div class="st"><b>${DATA.length}</b>סה"כ</div><div class="st" style="border-color:#16a34a"><b>${cs['נוכחי']||0}</b>🟢 נוכחי</div><div class="st" style="border-color:#0891b2"><b>${cs['חתום']||0}</b>🔵 חתום</div><div class="st" style="border-color:#d97706"><b>${(cs['מוחלף']||0)+(cs['טיוטה']||0)}</b>🟡 ישן/טיוטה</div><div class="st" style="border-color:#475569"><b>${cs['ארכיון']||0}</b>🗄️ ארכיון</div>`;
 document.getElementById('q').addEventListener('input',render);
