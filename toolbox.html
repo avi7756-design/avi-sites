@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ארגז הכלים המלא - חוברת עבודה | אבי חזן</title>
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Arial,sans-serif;background:#f4f6f9;color:#1b2733;line-height:1.6}
+.wrap{max-width:1000px;margin:0 auto;padding:18px 18px 90px}
+.hero{background:linear-gradient(135deg,#12325a,#1e5aa8);color:#fff;border-radius:16px;padding:24px 28px;margin-bottom:14px}
+.hero h1{font-size:23px}.hero p{font-size:13px;color:#cfe0f5;margin-top:6px}.hero .meta{font-size:12px;color:#9fc0e8;margin-top:10px}
+.gsearch{position:sticky;top:0;z-index:50;background:#f4f6f9;padding:10px 0;margin-bottom:8px}
+.gsearch input{width:100%;padding:12px 14px;border:2px solid #1e5aa8;border-radius:11px;font-size:15px}
+.gsearch .cnt{font-size:12px;color:#647082;margin-top:5px;padding-right:4px}
+nav.idx{background:#fff;border:1px solid #e1e6ee;border-radius:12px;padding:12px 16px;margin-bottom:14px}
+nav.idx b{font-size:13px;color:#647082;display:block;margin-bottom:7px}
+nav.idx a{display:inline-block;margin:3px 5px 3px 0;font-size:13px;text-decoration:none;color:#1e5aa8;background:#eef3fb;padding:5px 11px;border-radius:20px;border:1px solid #d6e2f3}
+nav.idx a:hover{background:#1e5aa8;color:#fff}
+section{background:#fff;border:1px solid #e1e6ee;border-radius:14px;padding:20px 22px;margin-bottom:14px;scroll-margin-top:70px}
+h2{font-size:19px;color:#12325a;margin-bottom:4px;display:flex;align-items:center;gap:8px}
+.sub{font-size:12px;color:#8794a6;margin-bottom:14px}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:6px}
+th,td{text-align:right;padding:9px 8px;border-bottom:1px solid #eef1f5;vertical-align:top}
+th{background:#12325a;color:#fff;font-weight:600;font-size:12px}
+tr:nth-child(even) td{background:#fafbfd}
+.dom{border:1px solid #e1e6ee;border-radius:10px;padding:13px 15px;margin-bottom:10px}
+.dom h3{font-size:15px;color:#1e5aa8;margin-bottom:8px}
+.sk{padding:7px 0;border-bottom:1px solid #f0f3f7;font-size:13px}.sk:last-child{border:0}.sk b{color:#12325a}
+.sk .tag{font-size:11px;background:#eef3fb;color:#1e5aa8;padding:1px 8px;border-radius:10px;margin-right:5px}
+.new{background:#eafaf1;border-color:#27ae60}.new h3{color:#1e8449}
+.pill{display:inline-block;font-size:11px;padding:2px 8px;border-radius:10px;margin:2px}
+.pill.b{background:#eef3fb;color:#1e5aa8}.pill.g{background:#eafaf1;color:#1e8449}.pill.a{background:#fef5e7;color:#b9770e}
+.search{width:100%;padding:9px 12px;border:1px solid #cdd5df;border-radius:9px;font-size:14px;margin-bottom:10px}
+.tip{background:#f0f6ff;border-right:3px solid #1e5aa8;padding:11px 14px;border-radius:0 8px 8px 0;font-size:13px;margin-top:12px;color:#2a4a6b}
+.foot{text-align:center;font-size:11px;color:#90a0b0;padding:14px}
+.planner{background:linear-gradient(135deg,#0f2e1d,#1d5a3a);color:#fff;border-color:#1d7a44}
+.planner h2{color:#fff}.planner .sub{color:#a7e0c1}
+.favrow{margin-bottom:8px}
+.favrow .flabel{font-size:11px;color:#a7e0c1;margin-bottom:4px}
+.filters{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:9px}
+.filters button{font-size:12px;padding:5px 11px;border:1px solid #2a6b40;background:#0d2416;color:#a7e0c1;border-radius:20px;cursor:pointer}
+.filters button.on{background:#2ecc71;color:#082514;border-color:#2ecc71;font-weight:700}
+.taskbtns{display:flex;flex-wrap:wrap;gap:7px;margin:0 0 12px}
+.taskbtns button{font-size:13px;padding:7px 13px;border:1px solid #2a6b40;background:#13351f;color:#bfe9cf;border-radius:20px;cursor:pointer}
+.taskbtns button:hover{background:#1d7a44;color:#fff}
+.fav{background:#2a3a10!important;border-color:#c8a92b!important;color:#f5d98a!important}
+.pinput{display:flex;gap:8px;flex-wrap:wrap}
+.pinput input{flex:1;min-width:200px;padding:11px 13px;border:1px solid #2a6b40;background:#0d2416;color:#fff;border-radius:10px;font-size:15px}
+.pinput button{padding:11px 18px;border:0;background:#2ecc71;color:#082514;font-weight:700;border-radius:10px;cursor:pointer;font-size:14px}
+#result{margin-top:14px;display:none}
+.rescard{background:#0d2416;border:1px solid #2a6b40;border-radius:12px;padding:15px}
+.rescard h4{font-size:15px;color:#7fe0a5;margin-bottom:8px}
+.rchip{display:inline-block;background:#16351f;color:#9fe6bd;border:1px solid #2a6b40;font-size:12px;padding:4px 11px;border-radius:20px;margin:3px}
+.prompt{border:1px dashed #2a6b40;border-radius:10px;padding:12px;margin-top:12px;font-size:13px;color:#d6f5e2;white-space:pre-wrap;line-height:1.7}
+.pbtns{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.pbtns button{font-size:13px;font-weight:700;padding:9px 15px;border-radius:9px;cursor:pointer;border:0}
+.copybtn{background:#2ecc71;color:#082514}.parbtn{background:#f39c12;color:#3a2400}
+.copybtn.done{background:#16351f;color:#7fe0a5;border:1px solid #2a6b40}
+.flowbtn{background:#9b59b6;color:#fff;font-size:13px;font-weight:700;padding:9px 15px;border-radius:9px;border:0;cursor:pointer;margin-top:10px}
+.flowbox{margin-top:12px;background:#fff;border-radius:12px;padding:14px}
+.flowexpl{font-size:14px;color:#12325a;font-weight:500;margin-bottom:12px;background:#fff6d6;border-radius:8px;padding:10px;line-height:1.6}
+.flowrow{display:flex;flex-wrap:wrap;align-items:stretch;gap:6px;justify-content:center}
+.stepcard{color:#fff;border-radius:12px;padding:10px 12px;min-width:118px;max-width:150px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.15)}
+.stepcard .sn{background:rgba(255,255,255,.35);width:24px;height:24px;border-radius:50%;line-height:24px;font-weight:800;margin:0 auto 5px}
+.stepcard .si{font-size:30px;line-height:1}
+.stepcard .st{font-weight:700;font-size:13px;margin-top:4px}
+.stepcard .sr{font-size:11px;opacity:.95;margin-top:3px;line-height:1.4}
+.sarrow{align-self:center;font-size:24px;color:#8794a6;font-weight:800}
+.fab{position:fixed;bottom:18px;z-index:100;width:52px;height:52px;border-radius:50%;border:0;cursor:pointer;font-size:22px;box-shadow:0 3px 10px rgba(0,0,0,.25);color:#fff}
+#fabHome{left:18px;background:#12325a}#fabHelp{left:80px;background:#1e8449}
+.overlay{display:none;position:fixed;inset:0;background:rgba(10,20,30,.55);z-index:200;align-items:center;justify-content:center;padding:16px}
+.modal{background:#fff;border-radius:14px;max-width:560px;width:100%;max-height:85vh;overflow:auto;padding:22px 24px}
+.modal h3{color:#12325a;font-size:18px;margin-bottom:10px}.modal p{font-size:13px;margin-bottom:9px;color:#33475b}
+.modal .x{float:left;cursor:pointer;font-size:22px;color:#8794a6;border:0;background:none}.modal b{color:#1e5aa8}
+.helpintro{background:#f0f6ff;border:1px solid #cfe0f5;border-radius:10px;padding:12px 14px;font-size:13px;color:#2a4a6b;line-height:1.7;margin:8px 0 14px}
+.helpintro b{color:#12325a}
+.helpsearch{width:100%;padding:10px 12px;border:2px solid #1e5aa8;border-radius:10px;font-size:14px;margin-bottom:12px}
+#faqlist details{border:1px solid #e1e6ee;border-radius:9px;margin-bottom:7px;padding:0;background:#fff}
+#faqlist summary{cursor:pointer;padding:10px 12px;font-size:13px;font-weight:600;color:#12325a;list-style:none;position:relative}
+#faqlist summary::-webkit-details-marker{display:none}
+#faqlist summary::before{content:'▶';color:#1e5aa8;font-size:10px;margin-left:7px;display:inline-block;transition:transform .15s}
+#faqlist details[open] summary::before{transform:rotate(-90deg)}
+#faqlist .ans{padding:0 12px 11px;font-size:13px;color:#445; line-height:1.7}
+.askbox{margin-top:14px;background:#eafaf1;border:1px solid #27ae60;border-radius:10px;padding:12px}
+.askbox .al{font-size:13px;font-weight:600;color:#1e6b3a;margin-bottom:7px}
+.askbox .ar{display:flex;gap:7px;flex-wrap:wrap}
+.askbox input{flex:1;min-width:160px;padding:9px 11px;border:1px solid #a7d7b8;border-radius:8px;font-size:14px}
+.askbox button{background:#27ae60;color:#fff;border:0;font-weight:700;padding:9px 14px;border-radius:8px;cursor:pointer;font-size:13px}
+.hidden{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<div class="hero">
+  <h1>🧰 ארגז הכלים המלא - חוברת עבודה</h1>
+  <p>כל מודלי השפה, הסקילים, החיבורים והכלים שברשותך - ואיזה כלי מתאים לכל משימה</p>
+  <div class="meta">אבי חזן · מסמך-אב · <span id="stamp">עודכן: 05/07/2026</span></div>
+</div>
+
+<div class="gsearch">
+  <input id="global" placeholder="🔍 חיפוש כללי בכל החוברת (כלי, סקיל, משימה...)">
+  <div class="cnt" id="gcnt"></div>
+</div>
+
+<nav class="idx" id="topnav">
+  <b>אינדקס מהיר</b>
+  <a href="#planner">⚡ מתכנן משימה</a>
+  <a href="#models">מודלי שפה</a>
+  <a href="#skills">21 הסקילים שלי</a>
+  <a href="#anthropic">Anthropic ותוספים</a>
+  <a href="#connectors">חיבורים וכלים</a>
+  <a href="#recommend">מומלץ לחבר</a>
+  <a href="#matrix">איזה כלי לאיזו משימה</a>
+  <a href="#workflow">מדריך שילוב</a>
+</nav>
+
+<section id="planner" class="planner">
+  <h2>⚡ מתכנן משימה - מה אתה צריך לעשות?</h2>
+  <div class="sub">בחר תחום, לחץ על משימה, או כתוב בעברית. תקבל את הכלים + החיבורים + פרומפט מוכן. הכלי זוכר מה אתה הכי משתמש ומקפיץ למעלה.</div>
+  <div class="favrow" id="favrow"></div>
+  <div class="filters" id="filters"></div>
+  <div class="taskbtns" id="taskbtns"></div>
+  <div class="pinput">
+    <input id="taskin" placeholder="לדוגמה: לעשות סרטון על הדירה / מכתב לשוכר שמאחר / לנתח הוצאות">
+    <button onclick="planFromText()">מצא כלים ←</button>
+  </div>
+  <div style="font-size:12px;color:#a7e0c1;margin-top:10px;line-height:1.7">איך זה עובד: בחר/כתוב משימה ← תראה סקילים <b>וחיבורים</b> שצריך ← העתק פרומפט ל-Claude ← אשר ← Claude מתזמר ומבצע עם כל מה שמחובר. חיבור חדש - תחבר פעם אחת בהגדרות.</div>
+  <div id="result"></div>
+</section>
+
+<section id="models">
+  <h2>🤖 מודלי שפה (AI Chatbots)</h2>
+  <div class="sub">ארבעה מודלים, כל אחד עם רמת מנוי ותפקיד. Claude Max = המתזמר הראשי.</div>
+  <table>
+    <tr><th>מודל</th><th>מנוי</th><th>מה חזק בו</th><th>איך זה עוזר לך</th></tr>
+    <tr><td><b>Claude</b> Anthropic</td><td>Max ₪289</td><td>הבנה עמוקה, קבצים, קוד, סוכן. Claude Code.</td><td>המתזמר הראשי - בונה, מסדר, מפעיל כלים.</td></tr>
+    <tr><td><b>ChatGPT</b> OpenAI</td><td>Pro ₪60</td><td>רעיונות, ניסוח, תמונות DALL-E, קול.</td><td>שלב הרעיון והתסריט, יצירת תמונות.</td></tr>
+    <tr><td><b>Perplexity</b></td><td>Pro ₪60</td><td>חיפוש רשת בזמן אמת + מקורות, Comet.</td><td>מחקר ובדיקת עובדות עם ציטוטים.</td></tr>
+    <tr><td><b>Gemini / Veo</b> Google</td><td>Pro ₪75</td><td>מולטימודלי + מחולל וידאו, NotebookLM, 5TB.</td><td>קליפי וידאו, עבודה מטקסט/תמונה, אחסון.</td></tr>
+  </table>
+  <div class="tip"><b>חלוקת עבודה:</b> מחקר←Perplexity · תסריט←ChatGPT/Claude · וידאו←Gemini/Veo · בנייה ואוטומציה←Claude Max · עריכה←CapCut. NotebookLM כבר כלול ב-Google AI Pro שלך.</div>
+</section>
+
+<section id="skills">
+  <h2>🎯 21 הסקילים האישיים שלי (6 תחומים)</h2>
+  <div class="sub">הסקילים שנבנו במיוחד עבורך. Claude מפעיל אוטומטית את הנכון לכל משימה.</div>
+  <div class="dom"><h3>📁 קבצים · מסמכים · עברית (4)</h3>
+    <div class="sk"><b>avi-organizer</b> <span class="tag">קבצים</span> ארגון תיקיות P.A.R.A, ניתוח סמנטי, אינדקס CATALOG.</div>
+    <div class="sk"><b>avi-file-finder</b> <span class="tag">חיפוש</span> חיפוש קבצים חוצה-מקורות: Projects, Drive, OneDrive, מקומי.</div>
+    <div class="sk"><b>drive-linked-index</b> <span class="tag">אינדקס</span> מסמך Word שכל הפניה בו לינק ל-Google Drive.</div>
+    <div class="sk"><b>hebrew-rtl-layout</b> <span class="tag">RTL</span> תיקון פריסת עברית ב-Word - bidi, טבלאות, כיווניות.</div>
+  </div>
+  <div class="dom"><h3>🎬 הפקת תוכן וידאו (1)</h3>
+    <div class="sk"><b>avi-video-studio</b> <span class="tag">וידאו</span> מפעל סרטונים מקצה-לקצה (Claude+CapCut+Canva+Drive).</div>
+  </div>
+  <div class="dom"><h3>⚖️ משפט וליטיגציה (4)</h3>
+    <div class="sk"><b>avi-borrot</b> <span class="tag">בוררות</span> ליטיגטור לסיכומי בוררות - ניתוח, הצלבת ראיות, Red-Teaming.</div>
+    <div class="sk"><b>avi-sader</b> <span class="tag">ראיות</span> ארגון ראיות, ניתוח תצהירים, סיכומי הגנה.</div>
+    <div class="sk"><b>avi-dirot</b> <span class="tag">שכירות</span> דיני שכירות - מכתבי התראה, תביעות, פינוי, גביית שכ"ד.</div>
+    <div class="sk"><b>avi-vad-bit</b> <span class="tag">ועד בית</span> ניהול משפטי-פיננסי לסכסוכי ועד בית, חוק המקרקעין.</div>
+  </div>
+  <div class="dom"><h3>📈 שוק ההון והמסחר (4)</h3>
+    <div class="sk"><b>avi-market-intel</b> <span class="tag">שוק</span> סיור שוק אמריקאי - VIX/SPY, סקטורים, מאקרו.</div>
+    <div class="sk"><b>avi-daily-routine</b> <span class="tag">מסחר</span> אורקסטרציה יומית BOOT/MID/CLOSE.</div>
+    <div class="sk"><b>avi-flex-analyzer</b> <span class="tag">IBKR</span> ניתוח דוחות IBKR Flex, דשבורד תיק.</div>
+    <div class="sk"><b>avi-ibkr-bridge</b> <span class="tag">IBKR</span> מחולל פרומפטים בטוחים ל-Claude של IBKR.</div>
+  </div>
+  <div class="dom"><h3>🔧 מטא (ניהול כלים) ותחזוקה (4)</h3>
+    <div class="sk"><b>avi-s0</b> <span class="tag">ממליץ</span> ממליץ הכלים - מציע אילו סקילים/חיבורים מתאימים.</div>
+    <div class="sk"><b>avi-s1</b> <span class="tag">מתקין</span> קיצור אישי ל-skill-installer.</div>
+    <div class="sk"><b>skill-installer</b> <span class="tag">התקנה</span> התקנת סקילים ופלאגינים מ-URL/GitHub/קובץ/ZIP.</div>
+    <div class="sk"><b>avi-desktop-fix</b> <span class="tag">תיקון</span> פתרון תקלות Claude Desktop.</div>
+  </div>
+  <div class="dom"><h3>📧 מייל ושיחות (3)</h3>
+    <div class="sk"><b>avi-mail-sder</b> <span class="tag">מייל</span> ניהול תיבת מייל (Gmail+Outlook) - סיווג, ניקוי, סיכומים.</div>
+    <div class="sk"><b>avi-chat-organizer</b> <span class="tag">שיחות</span> ניהול שיחות - שיחה אחת לפרויקט.</div>
+    <div class="sk"><b>avi-session-guard</b> <span class="tag">שיחות</span> שומר אורך שיחה - התראה + סיכום.</div>
+  </div>
+  <div class="dom new"><h3>💰 חדש: כלכלה אישית (1)</h3>
+    <div class="sk"><b>avi-cashflow</b> <span class="tag">תזרים</span> מנהל התזרים החכם - ניקוי כפילויות, סיווג, חריגות, הוזלת ספקים, בקרה חודשית. (ממתין להתקנה)</div>
+  </div>
+</section>
+
+<section id="anthropic">
+  <h2>🏛️ סקילי Anthropic ותוספים</h2>
+  <div class="sub">סקילים כלליים ותוספי צד-שלישי.</div>
+  <div class="dom"><h3>כלליים</h3>
+    <span class="pill b">brand-guidelines</span><span class="pill b">canvas-design</span><span class="pill b">mcp-builder</span><span class="pill b">skill-creator</span><span class="pill b">docx</span><span class="pill b">pdf</span><span class="pill b">pptx</span><span class="pill b">xlsx</span><span class="pill b">schedule</span>
+  </div>
+  <div class="dom"><h3>תוסף avi-il-skills (ישראל)</h3>
+    <span class="pill g">מסמכי עברית</span><span class="pill g">מחקר משפטי</span><span class="pill g">ארנונה</span><span class="pill g">נדל"ן</span><span class="pill g">שכירות</span><span class="pill g">תביעות קטנות</span><span class="pill g">דוח שנתי/מס</span><span class="pill g">דוחות כספיים</span><span class="pill g">חיפוש חברות</span><span class="pill g">מכרזי קרקע</span><span class="pill g">גביית חובות</span>
+  </div>
+  <div class="dom"><h3>תוספים נוספים</h3>
+    <span class="pill a">avi-landlord</span><span class="pill a">finance</span><span class="pill a">legal</span><span class="pill a">v17-hunter</span>
+  </div>
+</section>
+
+<section id="connectors">
+  <h2>🔌 חיבורים וכלים חיצוניים</h2>
+  <div class="sub">שירותים ש-Claude מתחבר אליהם ישירות.</div>
+  <table>
+    <tr><th>קטגוריה</th><th>כלים</th></tr>
+    <tr><td>מייל ולוח שנה</td><td>Gmail · Outlook · Google Calendar · Microsoft 365</td></tr>
+    <tr><td>קבצים ואחסון</td><td>Google Drive · OneDrive/SharePoint · Box · Egnyte</td></tr>
+    <tr><td>עיצוב ומצגות</td><td>Canva · Gamma · Adobe Express · Figma</td></tr>
+    <tr><td>וידאו ואודיו</td><td>Higgsfield · CapCut</td></tr>
+    <tr><td>אוטומציה ופיתוח</td><td>n8n · Cloudflare · GitHub</td></tr>
+    <tr><td>ניהול משימות</td><td>Asana</td></tr>
+    <tr><td>שליטת מחשב ודפדפן</td><td>Computer-use · Claude in Chrome (Comet)</td></tr>
+    <tr><td>מסחר וחתימות</td><td>IBKR · DocuSign</td></tr>
+  </table>
+</section>
+
+<section id="recommend">
+  <h2>⭐ מומלץ לחבר (מותאם לך)</h2>
+  <div class="sub">חיבורים שיתנו לך את הקפיצה הכי גדולה, לפי מה שאתה עושה. מוסיפים דרך Settings ← Connectors, פעם אחת.</div>
+  <table>
+    <tr><th>חיבור</th><th>למה מתאים לך</th><th>עדיפות</th></tr>
+    <tr><td><b>Notion</b></td><td>"מוח שני" מסודר - כרטיס לכל דירה/שוכר, תיקי הליכים, מחקרי מסחר, משימות. אני מתחזק אוטומטית.</td><td>🥇 גבוהה</td></tr>
+    <tr><td><b>QuickBooks / Zoho Books</b></td><td>מעקב הכנסות שכ"ד מול הוצאות, רווח-והפסד, והכנה לדוח השנתי. פחות רדיפה אחרי חשבוניות.</td><td>🥈 גבוהה</td></tr>
+    <tr><td><b>DocuSign</b> (בתהליך)</td><td>חתימה דיגיטלית על חוזי שכירות - להשלים את החיבור שכבר התחלת.</td><td>🥉 בינונית</td></tr>
+  </table>
+  <div class="tip">סקילים חיצוניים - כאן אתה מכוסה מצוין (תוסף avi-il-skills נותן ארנונה, מס, נדל"ן, תביעות). לא צריך להוסיף עכשיו.</div>
+</section>
+
+<section id="matrix">
+  <h2>🗂️ אינדקס - איזה כלי לאיזו משימה</h2>
+  <div class="sub">הקלד משימה בחיפוש, או עבור על הטבלה.</div>
+  <input class="search" id="q" placeholder="🔍 חפש משימה (סרטון, תביעה, מחקר, הוצאות...)">
+  <table id="mtx">
+    <tr><th>המשימה שלך</th><th>הכלי המומלץ</th></tr>
+    <tr><td>לארגן תיקייה / לבנות אינדקס</td><td>avi-organizer · avi-file-finder</td></tr>
+    <tr><td>למצוא קובץ ישן</td><td>avi-file-finder</td></tr>
+    <tr><td>מסמך Word בעברית</td><td>hebrew-rtl-layout · hebrew-document-generator</td></tr>
+    <tr><td>להפיק סרטון</td><td>avi-video-studio</td></tr>
+    <tr><td>מחולל וידאו AI</td><td>Gemini / Veo</td></tr>
+    <tr><td>יצירת/עריכת תמונה</td><td>ChatGPT (DALL-E) · Gemini</td></tr>
+    <tr><td>מחקר עם מקורות</td><td>Perplexity</td></tr>
+    <tr><td>סיכומי בוררות / תצהיר</td><td>avi-borrot · avi-sader</td></tr>
+    <tr><td>התראה/תביעה נגד שוכר</td><td>avi-dirot · avi-landlord</td></tr>
+    <tr><td>סכסוך ועד בית</td><td>avi-vad-bit</td></tr>
+    <tr><td>בדיקה/השגת ארנונה</td><td>israeli-arnona-optimizer</td></tr>
+    <tr><td>חוזה שכירות</td><td>avi-landlord · israeli-rental-agreements</td></tr>
+    <tr><td>דוח שנתי / מס</td><td>israeli-tax-returns</td></tr>
+    <tr><td>סקירת שוק / מסחר</td><td>avi-market-intel · avi-daily-routine</td></tr>
+    <tr><td>ניתוח תיק IBKR</td><td>avi-flex-analyzer · avi-ibkr-bridge</td></tr>
+    <tr><td>ניהול הוצאות / מנויים</td><td>avi-cashflow</td></tr>
+    <tr><td>ניקוי מייל</td><td>avi-mail-sder</td></tr>
+    <tr><td>שיחה ארוכה מדי</td><td>avi-session-guard</td></tr>
+    <tr><td>איזה כלי מתאים?</td><td>avi-s0</td></tr>
+    <tr><td>להתקין סקיל</td><td>avi-s1 · skill-installer</td></tr>
+    <tr><td>מצגת / פוסטר</td><td>canvas-design · Canva · Gamma</td></tr>
+    <tr><td>אוטומציה</td><td>n8n</td></tr>
+    <tr><td>משימה מתוזמנת</td><td>schedule</td></tr>
+  </table>
+</section>
+
+<section id="workflow">
+  <h2>🧭 מדריך שילוב</h2>
+  <div class="sub">Claude Max הוא המתזמר. הוא מפעיל את הסקיל הנכון ומחבר בין הכלים.</div>
+  <p style="font-size:13px;margin-bottom:8px"><b>התובנה:</b> Perplexity = החוקר · ChatGPT = הרעיונאי · Gemini/Veo = מחולל הווידאו · <b>Claude Max = המתזמר.</b></p>
+  <p style="font-size:13px;margin-bottom:8px">התחלת משימה: (1) avi-s0 ממליץ, (2) avi-s1/skill-installer מתקין מה שחסר, (3) Claude Max מתזמר.</p>
+  <div class="tip"><b>דוגמה - סרטון:</b> Perplexity עובדות ← ChatGPT/Claude תסריט ← Gemini/Veo קליפים ← CapCut קריינות ← Claude Max ממזג ומארגן.</div>
+</section>
+
+<div class="foot">ארגז הכלים המלא · חוברת עבודה · אבי חזן · <span id="stamp2"></span></div>
+</div>
+
+<button class="fab" id="fabHome" title="חזרה למעלה" onclick="window.scrollTo({top:0,behavior:'smooth'})">⌂</button>
+<button class="fab" id="fabHelp" title="עזרה" onclick="document.getElementById('help').style.display='flex'">?</button>
+
+<div class="overlay" id="help">
+  <div class="modal">
+    <button class="x" onclick="document.getElementById('help').style.display='none'">✕</button>
+    <h3>❓ מרכז העזרה</h3>
+    <div class="helpintro">
+      <b>איך זה עובד - בפשטות:</b><br>
+      הדשבורד הזה הוא <b>תפריט/מפה</b> - הוא מראה לך איזה כלי מתאים לכל משימה ונותן לך משפט מוכן. הוא <b>לא מבצע</b> - כמו תפריט במסעדה שלא מבשל.<br>
+      מי ש<b>עושה</b> את העבודה זה <b>Claude, כאן בצ'אט של Cowork</b>. אתה מבקש (או מדביק את הפרומפט), ו-Claude מפעיל את הסקילים הקיימים ומבצע.<br>
+      <b>אתה לא צריך לבנות שום סקיל.</b> הסקילים כבר קיימים. בונים סקיל רק למשהו שחוזר כל שבוע/חודש. למשימה חד-פעמית (כמו הקמת חברה) - פשוט מבקשים, ו-Claude עושה.<br>
+      <b>3 צעדים:</b> 1) בחר/כתוב משימה → 2) "העתק פרומפט" → 3) הדבק ל-Claude ושלח. זהו. בלי תכנות, בלי אנגלית.
+    </div>
+    <input class="helpsearch" id="helpq" placeholder="🔍 חפש שאלה, או כתוב מה לא הבנת...">
+    <div id="faqlist">
+      <details><summary>מה זה הדשבורד הזה?</summary><div class="ans">תפריט ומפה של כל הכלים שלך. מראה איזה כלי/סקיל מתאים לכל משימה ונותן פרומפט מוכן. הוא לא מבצע - רק מכוון.</div></details>
+      <details><summary>איך אני מבצע משימה?</summary><div class="ans">בוחר משימה → לוחץ "העתק פרומפט" → מדביק כאן בצ'אט (Ctrl+V) → שולח. או פשוט מבקש ממני ישירות בעברית, בלי הדשבורד.</div></details>
+      <details><summary>האם אני צריך לבנות סקיל לכל משימה?</summary><div class="ans">לא. הסקילים כבר קיימים (יש לך 21). בונים סקיל חדש רק למשהו שחוזר כל שבוע/חודש. למשימה חד-פעמית - פשוט מבקשים.</div></details>
+      <details><summary>מה זה סקיל?</summary><div class="ans">כלי מוכן שיודע לבצע משימה מסוימת - למשל מכתב לשוכר, בקרת הוצאות, סיכומי בוררות. Claude מפעיל את הסקיל הנכון אוטומטית.</div></details>
+      <details><summary>מה זה חיבור (Connector)?</summary><div class="ans">גשר לשירות חיצוני כמו Gmail, Google Drive או Notion. מחברים פעם אחת בהגדרות, ומאז Claude משתמש בו אוטומטית בכל משימה.</div></details>
+      <details><summary>אני לא יודע אנגלית - זו בעיה?</summary><div class="ans">בכלל לא. הכל בעברית, ואתה מדבר איתי בעברית. שמות הכלים באנגלית אבל אתה לא צריך להקליד אותם.</div></details>
+      <details><summary>אני לא יודע תכנות - אני יכול להשתמש?</summary><div class="ans">כן, לגמרי. אתה רק מבקש בעברית מה אתה צריך, ואני עושה את כל החלק הטכני.</div></details>
+      <details><summary>מה ההבדל בין Claude, ChatGPT, Perplexity ו-Gemini?</summary><div class="ans">Claude = המנהל שמבצע ומחבר הכל · Perplexity = מחקר עם מקורות · ChatGPT = רעיונות ותמונות · Gemini/Veo = סרטונים. פירוט בטבלת "מודלי שפה".</div></details>
+      <details><summary>מה זה "עבודה במקביל"?</summary><div class="ans">פרומפט שאומר ל-Claude להפעיל כמה כלים יחד באותו זמן, כדי לסיים מהר יותר. במקום כלי אחרי כלי - הכל ביחד.</div></details>
+      <details><summary>איך אני מבטל מנוי שאני לא צריך?</summary><div class="ans">מבקש ממני. אני מזהה את המנוי, מראה לך איפה לבטל, ונותן קישור ישיר. את הביטול עצמו אתה מבצע (בגלל אבטחה).</div></details>
+      <details><summary>אתה יכול לחבר חיבור בשבילי אוטומטית?</summary><div class="ans">את החיבור הראשוני לא - זו אבטחה, רק אתה מאשר בהגדרות. אבל מרגע שחיברת פעם אחת, אני משתמש בו לבד לתמיד.</div></details>
+      <details><summary>הכלי זוכר מה אני עושה?</summary><div class="ans">כן. המתכנן זוכר את המשימות שאתה הכי משתמש בהן ומקפיץ אותן לשורת "⭐ בשימוש אחרון" בראש - בלי מאמץ ממך.</div></details>
+      <details><summary>איך אני מחפש משהו בחוברת?</summary><div class="ans">תיבת החיפוש הכללי בראש הדף - מקליד מילה (כלי, סקיל, משימה) והחוברת מסננת ומראה רק מה שקשור.</div></details>
+      <details><summary>הכפתורים לא עובדים - מה עושים?</summary><div class="ans">ודא שפתחת את הקובץ בדפדפן רגיל (לא בתצוגה מקדימה). רענן עם Ctrl+Shift+R. אם הקובץ מ-OneDrive, ודא שהסתיים לסנכרן (אייקון ירוק).</div></details>
+      <details><summary>מה הכפתור "🎨 הסבר פשוט + תזרים"?</summary><div class="ans">פותח תרשים צבעוני שמסביר את המשימה שלב-אחר-שלב, בגובה העיניים - כמו קו ייצור. לחיצה שוב סוגרת.</div></details>
+      <details><summary>אני יכול לבקש משימה שלא ברשימת הכפתורים?</summary><div class="ans">כן. כותב אותה בתיבת הטקסט "מה אתה צריך", ואני מזהה ומכוון לכלים הנכונים.</div></details>
+      <details><summary>לא בטוח איזה כלי מתאים - מה עושים?</summary><div class="ans">כתוב את המשימה בתיבת הטקסט, או לחץ "🧭 איזה כלי מתאים?" - הסקיל avi-s0 ימליץ לך.</div></details>
+      <details><summary>איך אני מקים משהו חד-פעמי (כמו חברה)?</summary><div class="ans">פשוט מבקש ממני כאן. לא בונים סקיל למשהו חד-פעמי - אני מפעיל את הסקילים הקיימים ומבצע ישירות.</div></details>
+      <details><summary>הנתונים שלי בטוחים?</summary><div class="ans">אני לא מאחסן סיסמאות או פרטי כרטיס, ולא מבצע פעולות כספיות בשמך. כל דבר רגיש - אתה מאשר ומבצע בעצמך.</div></details>
+      <details><summary>איך אני שומר או משתף את החוברת?</summary><div class="ans">הקובץ עצמאי לחלוטין. אפשר לשלוח אותו בוואטסאפ/מייל כמסמך, או לפרסם לאתר ולקבל קישור.</div></details>
+    </div>
+    <div class="askbox">
+      <div class="al">💬 לא מצאת תשובה? כתוב את השאלה ואני אענה:</div>
+      <div class="ar">
+        <input id="askin" placeholder="כתוב כאן את השאלה שלך...">
+        <button onclick="copyAsk()">📋 העתק ל-Claude</button>
+      </div>
+      <div style="font-size:11px;color:#1e6b3a;margin-top:7px">אחרי ההעתקה - הדבק בצ'אט (Ctrl+V) ושלח, ואני אענה.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+(function(){var d=new Date();document.getElementById('stamp').textContent='עודכן: 05/07/2026 · נפתח: '+d.toLocaleDateString('he-IL')+' '+d.toLocaleTimeString('he-IL',{hour:'2-digit',minute:'2-digit'});document.getElementById('stamp2').textContent='עודכן 05/07/2026';})();
+
+var TASKS=[
+ {cat:'מסחר',label:'📈 בדיקת בוקר מסחר',keys:['בוקר','מסחר','שוק','vix','spy'],tools:['avi-market-intel','avi-daily-routine','v17-hunter'],conn:['IBKR','Gmail'],prompt:'תכין לי בדיקת בוקר מסחר: VIX, SPY, סקטורים חזקים, סיכוני מאקרו, ומצב התיק. תסמן הזדמנויות סווינג.'},
+ {cat:'מסחר',label:'📊 ניתוח תיק IBKR',keys:['תיק','ibkr','flex'],tools:['avi-flex-analyzer','avi-ibkr-bridge'],conn:['IBKR'],prompt:'תנתח לי את דוחות ה-IBKR Flex - מצב התיק, רווח/הפסד, וסיכונים.'},
+ {cat:'נדל"ן',label:'⚖️ מכתב לשוכר',keys:['שוכר','דייר','מכתב','שכירות','פיגור'],tools:['avi-dirot','avi-landlord'],conn:['Gmail','Google Drive'],prompt:'תכתוב לי מכתב לשוכר: [כתוב כאן מה - למשל פיגור בתשלום]. לפי הדין הישראלי, מוכן לשליחה.'},
+ {cat:'נדל"ן',label:'📄 חוזה שכירות',keys:['חוזה','שכירות'],tools:['avi-landlord','israeli-rental-agreements'],conn:['Google Drive','DocuSign'],prompt:'תכין/תבדוק לי חוזה שכירות למגורים לפי הדין הישראלי.'},
+ {cat:'נדל"ן',label:'🏠 ארנונה',keys:['ארנונה','עירייה'],tools:['israeli-arnona-optimizer','avi-landlord'],conn:['Gmail'],prompt:'תבדוק ארנונה על [כתובת], אילו הנחות מגיעות, וכדאיות השגה. תכין מכתב אם צריך.'},
+ {cat:'כלכלה',label:'💰 בקרת הוצאות חודשית',keys:['הוצאות','תזרים','מנוי','חיסכון','בנק','אשראי','כסף'],tools:['avi-cashflow'],conn:['Gmail','Outlook','OneDrive'],prompt:'תעשה בקרת תזרים: נקה כפילויות, סווג לקטגוריות, זהה חריגות ומנויים מיותרים, והצע חיסכון בלי לפגוע באיכות החיים. תסרוק גם את המייל לחשבוניות.'},
+ {cat:'משפט',label:'⚖️ סיכומי בוררות',keys:['בוררות','סיכומים','תצהיר','משפט'],tools:['avi-borrot','avi-sader'],conn:['Google Drive'],prompt:'תנתח/תשפר לי את סיכומי הבוררות - הצלבת ראיות, זיהוי חולשות, Red-Teaming.'},
+ {cat:'תוכן',label:'🎬 סרטון',keys:['סרטון','וידאו','קליפ'],tools:['avi-video-studio','Perplexity','Gemini/Veo','CapCut','Claude Max'],conn:['Higgsfield','Canva','Google Drive'],prompt:'תעשה לי סרטון על [כתוב כאן את הנושא]. אסוף עובדות עם Perplexity, כתוב תסריט, צור קליפים עם Gemini/Veo, והוסף קריינות ב-CapCut. תעשה כמה שיותר לבד ותשאל רק מה שחייבים.'},
+ {cat:'תוכן',label:'🖼️ יצירת תמונה',keys:['תמונה','image','ציור','לוגו'],tools:['ChatGPT','Gemini'],conn:['Higgsfield','Adobe Express'],prompt:'תיצור לי תמונה של: [כתוב כאן]. אם צריך עריכה - תגיד לי.'},
+ {cat:'תוכן',label:'📊 מצגת/עיצוב',keys:['מצגת','עיצוב','פוסטר','presentation'],tools:['canvas-design','Canva','Gamma','pptx'],conn:['Canva','Gamma','Adobe Express'],prompt:'תעצב לי [מצגת/פוסטר] בנושא: [כתוב כאן]. עיצוב מקצועי ונקי. תשמור מוכן.'},
+ {cat:'קבצים',label:'📁 ארגון קבצים',keys:['קבצים','תיקייה','לארגן','סדר','אינדקס'],tools:['avi-organizer','avi-file-finder'],conn:['Google Drive','OneDrive'],prompt:'תארגן לי את התיקייה [כתוב כאן איזו]. תסווג, תיצור אינדקס, ותשאיר סדר. אל תמחק כלום.'},
+ {cat:'קבצים',label:'📄 מסמך עברית',keys:['מסמך','וורד','word','מכתב'],tools:['hebrew-rtl-layout','hebrew-document-generator','docx'],conn:['Google Drive','OneDrive'],prompt:'תכתוב לי מסמך Word בעברית: [כתוב כאן מה]. פריסה RTL תקינה שלא תתהפך. תשמור מוכן.'},
+ {cat:'מייל',label:'📧 ניקוי מייל',keys:['מייל','דואר','אימייל','inbox'],tools:['avi-mail-sder'],conn:['Gmail','Outlook'],prompt:'תסדר לי את תיבת המייל - סווג, נקה פרסומות, וסכם מה חדש ומה דחוף.'},
+ {cat:'מייל',label:'💬 סיכום שיחה',keys:['סיכום שיחה','להעביר','session','handoff'],tools:['avi-session-guard','avi-chat-organizer'],conn:[],prompt:'תסכם לי את השיחה בפורמט מובנה להעברה לשיחה חדשה: נושא, פעולות, החלטות, משימות ממתינות, ונקודת המשך.'},
+ {cat:'מחקר',label:'🔎 מחקר',keys:['מחקר','לחקור','לבדוק','עובדות','מידע'],tools:['Perplexity','Claude'],conn:['חיפוש רשת'],prompt:'תחקור עבורי: [כתוב כאן]. מידע עדכני עם מקורות אמינים, וסיכום בעברית פשוטה.'},
+ {cat:'עסק',label:'🏢 הקמת עסק/חברה',keys:['חברה','עסק','להקים','כח אדם','כוח אדם','שותפות','עוסק','רישום'],tools:['israeli-company-lookup','hebrew-legal-research','hebrew-document-generator'],conn:['Google Drive'],prompt:'אני רוצה להקים [כתוב כאן - למשל חברת כוח אדם]. תסביר לי צעד-אחר-צעד: סוג הישות המתאים, רישום ברשם החברות, רישיונות ורגולציה שצריך (למשל חברת כוח אדם דורשת רישיון ממשרד העבודה), עלויות, והמסמכים להכין. תכין לי טיוטת מסמכים ראשונית וצ׳קליסט.'},
+ {cat:'מטא',label:'🧭 איזה כלי מתאים?',keys:['איזה כלי','מה מתאים','המלץ'],tools:['avi-s0','Claude Max'],conn:[],prompt:'יש לי משימה: [כתוב כאן]. תמליץ אילו סקילים וחיבורים הכי מתאימים, ותבצע. מקסימום לבד, מינימום שאלות.'},
+ {cat:'מטא',label:'⏰ תזכורת/אוטומציה',keys:['תזכורת','כל יום','אוטומטי','מתוזמן'],tools:['schedule','n8n'],conn:['n8n','Google Calendar','Gmail'],prompt:'תקים לי משימה אוטומטית: [כתוב כאן מה ומתי - למשל כל בוקר ב-8 סיכום מייל].'}
+];
+var CATS=['הכל','מסחר','נדל"ן','כלכלה','עסק','משפט','תוכן','קבצים','מייל','מחקר','מטא'];
+var curCat='הכל';
+
+// memory
+function usage(){try{return JSON.parse(localStorage.getItem('tb_usage')||'{}');}catch(e){return {};}}
+function bump(lbl){var u=usage();u[lbl]=(u[lbl]||0)+1;localStorage.setItem('tb_usage',JSON.stringify(u));renderFav();}
+
+function renderFilters(){
+  var f=document.getElementById('filters');f.innerHTML='';
+  CATS.forEach(function(c){var b=document.createElement('button');b.textContent=c;if(c===curCat)b.className='on';
+    b.onclick=function(){curCat=c;renderFilters();renderTasks();};f.appendChild(b);});
+}
+function renderTasks(){
+  var w=document.getElementById('taskbtns');w.innerHTML='';
+  TASKS.filter(function(t){return curCat==='הכל'||t.cat===curCat;}).forEach(function(t){
+    var b=document.createElement('button');b.textContent=t.label;b.onclick=function(){showPlan(t);};w.appendChild(b);
+  });
+}
+function renderFav(){
+  var u=usage();var arr=Object.keys(u).sort(function(a,b){return u[b]-u[a];}).slice(0,3);
+  var fr=document.getElementById('favrow');
+  if(!arr.length){fr.innerHTML='';return;}
+  var html='<div class="flabel">⭐ בשימוש אחרון (לחיצה מהירה):</div>';
+  arr.forEach(function(lbl){var t=TASKS.find(function(x){return x.label===lbl;});if(t)html+='<button class="fav" style="font-size:13px;padding:7px 13px;border-radius:20px;cursor:pointer;margin:2px" onclick="showByLabel(\''+lbl.replace(/'/g,"\\'")+'\')">'+lbl+'</button>';});
+  fr.innerHTML=html;
+}
+function showByLabel(lbl){var t=TASKS.find(function(x){return x.label===lbl;});if(t)showPlan(t);}
+
+function showPlan(t){
+  bump(t.label);
+  var chips=t.tools.map(function(x){return '<span class="rchip">'+x+'</span>';}).join('');
+  var conn=(t.conn&&t.conn.length)?t.conn.map(function(x){return '<span class="rchip" style="background:#0d2e2a;border-color:#1f7a6b;color:#8fe0d0">🔌 '+x+'</span>';}).join(''):'<span style="font-size:12px;color:#9fe6bd">—</span>';
+  var connList=(t.conn&&t.conn.length)?t.conn.join(', '):'';
+  var par='הרץ את המשימה במקביל למקסימום מהירות: חלק את העבודה בין הכלים - '+t.tools.join(' + ')+(connList?' - וחבר את: '+connList:'')+' - שירוצו יחד ולא בזה אחר זה, ואחד את התוצאות בסוף. מקסימום אוטומציה, מינימום שאלות אליי.\n\nהמשימה: '+t.prompt;
+  var html='<div class="rescard"><h4>'+t.label+' - הכלים שאתה צריך:</h4>'+chips+
+    '<div style="font-size:13px;color:#7fe0a5;margin:12px 0 4px">חיבורים לצרף למשימה:</div>'+conn+
+    '<div class="prompt">'+t.prompt+'</div>'+
+    '<div class="pbtns">'+
+    '<button class="copybtn" onclick="copyP(this,`'+t.prompt.replace(/`/g,"'")+'`)">📋 העתק פרומפט</button>'+
+    '<button class="parbtn" onclick="copyP(this,`'+par.replace(/`/g,"'").replace(/\n/g,'\\n')+'`)">⚡ עבודה במקביל</button>'+
+    '</div>'+
+    '<button class="flowbtn" onclick="var f=this.nextElementSibling;f.style.display=(f.style.display===\'block\'?\'none\':\'block\')">🎨 הסבר פשוט + תזרים (לחץ)</button>'+
+    '<div class="flowbox" style="display:none">'+buildFlow(t)+'</div>'+
+    '<div style="font-size:11px;color:#9fe6bd;margin-top:9px">אחרי ההעתקה: פתח את Claude, הדבק (Ctrl+V) ושלח.</div></div>';
+  var r=document.getElementById('result');r.innerHTML=html;r.style.display='block';r.scrollIntoView({behavior:'smooth',block:'nearest'});
+}
+function planFromText(){
+  var v=document.getElementById('taskin').value.trim();if(!v)return;
+  var found=null;
+  for(var i=0;i<TASKS.length;i++){if(TASKS[i].keys.some(function(k){return v.indexOf(k)!==-1;})){found=TASKS[i];break;}}
+  if(found){var c=Object.assign({},found);c.prompt=found.prompt.replace(/\[.*?\]/,v);showPlan(c);}
+  else{showPlan({label:'🎯 המשימה שלך',tools:['avi-s0 (ממליץ כלים)','Claude Max'],conn:[],prompt:'אני צריך לעשות: '+v+'. תגיד לי אילו כלים/סקילים/חיבורים הכי מתאימים, ותבצע. תעשה כמה שיותר לבד ותשאל רק מה שחייבים.'});}
+}
+function copyDone(btn){var o=btn.getAttribute('data-o')||btn.textContent;btn.textContent='✓ הועתק!';btn.classList.add('done');setTimeout(function(){btn.textContent=o;btn.classList.remove('done');},1600);}
+function copyFallback(txt){var ta=document.createElement('textarea');ta.value=txt;ta.style.position='fixed';ta.style.top='0';ta.style.opacity='0';document.body.appendChild(ta);ta.focus();ta.select();try{document.execCommand('copy');}catch(e){}document.body.removeChild(ta);}
+function copyP(btn,txt){btn.setAttribute('data-o',btn.textContent);
+  if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(txt).then(function(){copyDone(btn);},function(){copyFallback(txt);copyDone(btn);});}
+  else{copyFallback(txt);copyDone(btn);}}
+
+var TOOLROLE={
+ 'Perplexity':['🔎','מחפש מידע ועובדות עדכניות'],'Claude':['🧠','מבין, כותב ומחבר הכל'],'Claude Max':['🧠','המנהל - מחבר את כל הכלים'],
+ 'ChatGPT':['💡','רעיונות ותמונות'],'Gemini/Veo':['🎥','יוצר סרטונים'],'Gemini':['🎨','תמונות ווידאו'],'CapCut':['✂️','עורך ומקריין'],
+ 'avi-video-studio':['🎬','מנהל הפקת סרטון'],'avi-market-intel':['📈','בודק את הבורסה'],'avi-daily-routine':['⏰','בדיקת בוקר'],
+ 'v17-hunter':['🎯','מחפש הזדמנויות'],'avi-flex-analyzer':['📊','מנתח את התיק'],'avi-ibkr-bridge':['🔗','מדבר עם המסחר'],
+ 'avi-dirot':['⚖️','יודע חוקי שכירות'],'avi-landlord':['🏠','עוזר עם דירות ושוכרים'],'israeli-rental-agreements':['📃','חוזי שכירות'],
+ 'israeli-arnona-optimizer':['🏛️','ארנונה והנחות'],'avi-cashflow':['💰','מנהל הוצאות וחוסך'],'avi-borrot':['⚖️','סיכומי בוררות'],
+ 'avi-sader':['🗂️','מסדר ראיות'],'avi-mail-sder':['📧','מסדר את המייל'],'avi-session-guard':['💬','מסכם שיחות'],'avi-chat-organizer':['💬','מסדר שיחות'],
+ 'avi-organizer':['📁','מסדר קבצים'],'avi-file-finder':['🔍','מוצא קבצים'],'hebrew-rtl-layout':['🔤','מסדר עברית'],
+ 'hebrew-document-generator':['📄','כותב מסמכים בעברית'],'docx':['📝','יוצר Word'],'canvas-design':['🎨','מעצב'],'Canva':['🎨','מעצב גרפיקה'],
+ 'Gamma':['📊','מצגות'],'pptx':['📊','מצגת'],'israeli-company-lookup':['🏢','רישום חברה'],'hebrew-legal-research':['📚','בודק את החוק'],
+ 'avi-s0':['🧭','ממליץ כלים'],'schedule':['⏰','משימה אוטומטית'],'n8n':['🔄','מחבר תוכנות']
+};
+function buildFlow(t){
+  var steps=[{i:'👋',n:'אתה מבקש',r:'אומר מה צריך'}];
+  (t.tools||[]).forEach(function(x){var r=TOOLROLE[x]||['🔧','עושה את החלק שלו'];steps.push({i:r[0],n:x,r:r[1]});});
+  steps.push({i:'🎉',n:'מקבל תוצאה',r:'מוכן!'});
+  var cols=['#e74c3c','#e67e22','#16a085','#2980b9','#8e44ad','#27ae60','#d35400','#2c3e50'];
+  var cards=steps.map(function(s,idx){var c=cols[idx%cols.length];
+    return '<div class="stepcard" style="background:'+c+'"><div class="sn">'+(idx+1)+'</div><div class="si">'+s.i+'</div><div class="st">'+s.n+'</div><div class="sr">'+s.r+'</div></div>'+(idx<steps.length-1?'<div class="sarrow">←</div>':'');
+  }).join('');
+  return '<div class="flowexpl">🧒 בפשטות: אתה אומר מה צריך, וכל כלי עושה חלק אחד - כמו קו ייצור בבית חרושת. בסוף מקבלים את התוצאה מוכנה, ואתה רק מאשר.</div><div class="flowrow">'+cards+'</div>';
+}
+renderFilters();renderTasks();renderFav();
+
+document.getElementById('helpq').addEventListener('input',function(e){
+  var v=e.target.value.trim();
+  document.querySelectorAll('#faqlist details').forEach(function(d){
+    var m=d.textContent.indexOf(v)!==-1;d.style.display=(v===''||m)?'':'none';if(v!==''&&m)d.open=true;if(v==='')d.open=false;
+  });
+});
+function copyAsk(){
+  var v=document.getElementById('askin').value.trim();if(!v)return;
+  var btn=document.querySelector('.askbox button');
+  copyP(btn,'שאלה על ארגז הכלים: '+v);
+}
+
+document.getElementById('q').addEventListener('input',function(e){var v=e.target.value.trim();var rows=document.querySelectorAll('#mtx tr');for(var i=1;i<rows.length;i++){rows[i].style.display=(v===''||rows[i].textContent.indexOf(v)!==-1)?'':'none';}});
+document.getElementById('global').addEventListener('input',function(e){
+  var v=e.target.value.trim();var secs=document.querySelectorAll('section:not(#planner)');var cnt=document.getElementById('gcnt');
+  if(v===''){secs.forEach(function(s){s.classList.remove('hidden');s.querySelectorAll('.sk,tr,.pill').forEach(function(it){it.style.display='';});});cnt.textContent='';return;}
+  var total=0;
+  secs.forEach(function(s){var any=false;
+    s.querySelectorAll('.sk,tr,.pill').forEach(function(it){var m=it.textContent.indexOf(v)!==-1;if(it.classList.contains('sk')||it.tagName==='TR'||it.classList.contains('pill')){it.style.display=m?'':'none';if(m){any=true;total++;}}});
+    if(s.textContent.indexOf(v)!==-1)any=true;s.classList.toggle('hidden',!any);});
+  cnt.textContent='נמצאו '+total+' תוצאות';
+});
+</script>
+</body>
+</html>
