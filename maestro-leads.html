@@ -65,7 +65,6 @@
     <a href="https://avi7756-design.github.io/avi-sites/maestro-nadlan.html">🏠 ראשי</a>
     <a class="on" href="#">💎 לידים</a>
     <a href="https://avi7756-design.github.io/avi-sites/maestro-compass.html">🧭 מצפן</a>
-    <a href="https://avi7756-design.github.io/avi-sites/maestro-prompts.html">🧩 פרומפטים</a>
   </nav>
 
   <div class="note">📞 <b>איך מתקשרים:</b> "פתח מודעה" → "הצג טלפון" → התקשר. מלא יומן, ובסוף "📋 העתק סיכום" ושלח לקלוד.<br>⚠️ מה שתמלא נשמר <b>במכשיר הזה בלבד</b>. · <b>רק עסקאות מאומתות מוצגות כאן.</b></div>
@@ -84,10 +83,43 @@
   <div class="sec-t">📊 עסקאות פעילות</div>
   <table>
     <tr><th>ליד</th><th>מחיר</th><th>חד'</th><th>מ"ר</th><th>₪/מ"ר</th><th>תשואה</th></tr>
+    <tr><td>עכו בורלא 30 ⭐⭐⭐⭐</td><td>795K</td><td>3</td><td>87?</td><td>9,138</td><td class="yield">~4.5%</td></tr>
     <tr><td>סטרומה 9 🔍</td><td>900K</td><td>3</td><td>140🚩</td><td>6,429</td><td class="yield">4.67%</td></tr>
   </table>
 
   <div class="sec-t">🔍 שווה שיחה</div>
+
+  <!-- בורלא -->
+  <div class="card" id="card-borla" style="border-right-color:#e0a13e">
+    <h2>עכו — יהודה בורלא 30, נווה אלון <span class="badge" style="background:#3a3318;color:#ffd86b">⭐⭐⭐⭐ מאומתת</span></h2>
+    <div class="row">
+      <span class="chip">מחיר <b>795,000 ₪</b></span>
+      <span class="chip">87 מ"ר🚩 · 3 חד' · קומה 4</span>
+      <span class="chip">₪/מ"ר <b>9,138</b> · מרווח ביטחון <b class="yield">~18%🛡️</b></span>
+    </div>
+    <div>✅ <b>מאומתת (קישור חי).</b> ~18% מתחת לשוק הרחוב (~11,200/מ"ר). "בהזדמנות" + בלעדי = מצוקת מוכר. קומה 4/אין מעלית = הסיבה ההפיכה לזול. 🥇 החזק/תשואה עובד עכשiv; פליפ רק עם מו"מ + שיפוץ קל.</div>
+    <ul class="q"><b>לשאול (HOUSESTORY):</b>
+      <li>גוש/חלקה + נסח טאבו — 87 מ"ר אמיתי? (גבוה מהטיפוסי)</li>
+      <li>מצב הדירה — משופצת או דרוש שיפוץ?</li>
+      <li>למה "בהזדמנות"? מה הסיפור/דחיפות?</li>
+    </ul>
+    <div class="actions">
+      <a class="btn btn-ad" target="_blank" href="https://www.yad2.co.il/realestate/item/coastal-north/atiw1bx2">🔗 פתח מודעה (מאומת)</a>
+      <a class="btn btn-call" href="tel:">📞 חייג (אחרי חשיפה)</a>
+    </div>
+    <div class="form" data-id="borla">
+      <label>טלפון</label><input type="tel" data-f="phone" placeholder="הדבק מהמודעה">
+      <label>תאריך/שעת שיחה</label><input type="text" data-f="when" placeholder="לדוגמה 28.6 10:30">
+      <label>יומן שיחה</label><textarea data-f="log" placeholder="גוש/חלקה, טאבו, מצב, סיפור המוכר..."></textarea>
+      <label>סטטוס</label>
+      <select data-f="status"><option>ממתין</option><option>דיברתי</option><option>לקבוע ביקור</option><option>💎 יהלום</option><option>❌ דחה</option></select>
+      <div class="save-row">
+        <button class="btn btn-save" onclick="save('borla')">💾 שמור</button>
+        <button class="btn btn-copy" onclick="copyLead('borla','עכו בורלא 30')">📋 העתק סיכום</button>
+      </div>
+      <div class="saved" id="sv-borla"></div>
+    </div>
+  </div>
 
   <!-- סטרומה -->
   <div class="card" id="card-stroma">
@@ -153,7 +185,7 @@ function copyLead(id,name){
     setTimeout(function(){sv.textContent='';},3000);
   });
 }
-['stroma'].forEach(load);
+['stroma','borla'].forEach(load);
 
 function scrRun(){
   var t=document.getElementById('scrTxt').value;
