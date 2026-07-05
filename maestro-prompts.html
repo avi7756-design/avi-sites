@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ספריית פרומפטים — מאסטרו נדל"ן</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Heebo',Arial,sans-serif;background:#0e1726;color:#e9eef7;padding:14px;line-height:1.55}
+  .wrap{max-width:820px;margin:0 auto}
+  header{text-align:center;margin-bottom:10px}
+  h1{font-size:22px;font-weight:800;color:#fff}
+  .sub{font-size:13px;color:#8ba0bf;margin-top:4px}
+  .nav{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0}
+  .nav a{background:#1c2940;color:#cfe0f7;text-decoration:none;border-radius:8px;padding:7px 13px;font-size:13px;font-weight:600}
+  .nav a.on{background:#c08a3e;color:#0e1726;font-weight:800}
+  .note{background:#10182a;border-radius:10px;padding:11px;font-size:12px;color:#9fb3d1;margin-bottom:14px;border:1px dashed #2c3e5c}
+  .card{background:#16213a;border-radius:14px;padding:14px;margin-bottom:14px;border-right:5px solid #4ea1ff}
+  .card h2{font-size:16px;font-weight:800;color:#fff;margin-bottom:3px}
+  .card .for{font-size:12px;color:#8fbaff;margin-bottom:8px}
+  .pbox{background:#0c1322;border:1px solid #24314d;border-radius:9px;padding:11px;font-size:13px;color:#d5e2f5;white-space:pre-wrap;max-height:200px;overflow:auto}
+  .btn{border:none;border-radius:9px;padding:11px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;background:#c08a3e;color:#0e1726;width:100%;margin-top:9px}
+  .ok{font-size:12px;color:#7fe3a4;text-align:center;min-height:15px;margin-top:5px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🧩 ספריית פרומפטים — מאסטרו נדל"ן</h1>
+    <div class="sub">העתק → הדבק בכל מודל (Gemini / ChatGPT / Perplexity / Comet) או וואטסאפ</div>
+  </header>
+  <nav class="nav">
+    <a href="https://avi7756-design.github.io/avi-sites/maestro-nadlan.html">🏠 ראשי</a>
+    <a href="https://avi7756-design.github.io/avi-sites/maestro-leads.html">💎 לידים</a>
+    <a class="on" href="#">🧩 פרומפטים</a>
+    <a href="https://avi7756-design.github.io/avi-sites/maestro-compass.html">🧭 מצפן</a>
+  </nav>
+  <div class="note">כל פרומפט מקודד את <b>מודל היהלום</b> שלנו: תמחור לפי טאבו, Comps שנמכרו, "למה זה זול", ו-Hard Stops. כך כל מודל שפה מחזיר תוצאות לפי השיטה — לא ניחוש.</div>
+
+  <div class="card">
+    <h2>🔍 1. סורק יהלומים (רב-ערים)</h2>
+    <div class="for">ל: Comet / Perplexity / ChatGPT עם גלישה</div>
+    <div class="pbox" id="p1">אתה מומחה לאיתור עסקאות נדל"ן להשקעה בישראל. סרוק יד2 ומדלן ומצא דירות עד 1,000,000 ש"ח, 2-4 חדרים, בערים: קרית ים, עכו, חיפה (הדר/ואדי), קרית חיים, קרית אתא.
+
+הגדרת "יהלום": רווח אחרי שיפוץ+בנייה+מס (רכישה 8%, שבח 25%) מעל הסף, מתומחר לפי שטח טאבו (לא שיווקי), עם סיבה הפיכה למחיר הזול (לא חריגת בנייה/פינוי-בינוי).
+
+לכל מודעה החזר טבלה: עיר | כתובת | מחיר | שטח טאבו (אם צוין) | ₪/מ"ר לפי טאבו | חדרים | קומה | דגלים אדומים 🚩 | קישור ישיר.
+
+סמן 🚩: פער טאבו/שיווקי (חריגה) · פינוי-בינוי/תמ"א · מילות לחץ ("נפל מחוזה/מחיר סופי/100% מימון") · אין ממ"ד ("מקלט במרחק") · כביש ראשי · דרוש שיפוץ · "אפשר לחלק".
+
+דרג מהזול למ"ר (לפי טאבו). הסתר מלכודות. הצג 15 הנקיות ביותר.</div>
+    <button class="btn" onclick="cp('p1',this)">📋 העתק</button>
+    <div class="ok"></div>
+  </div>
+
+  <div class="card">
+    <h2>🚩 2. ניתוח מודעה בודדת</h2>
+    <div class="for">לכל מודל — הדבק טקסט מודעה בסוף</div>
+    <div class="pbox" id="p2">נתח את מודעת הנדל"ן הישראלית הבאה לפי מודל השקעה מחמיר:
+
+1. חשב ₪/מ"ר לפי שטח טאבו (רשום). אם לא צוין — חשב לפי שיווקי וסמן שזה דגל.
+2. זהה דגלים אדומים: פער טאבו מול שיווקי (חריגת בנייה), פינוי-בינוי/תמ"א/התחדשות, מילות לחץ (נפל מחוזה/מחיר סופי/100% מימון/זריזים), אין ממ"ד (מקלט במרחק), כביש ראשי, דרוש שיפוץ, "אפשר לחלק לשתיים".
+3. השווה ל-Comps שנמכרו ברחוב (חפש אם אפשר).
+4. תן פסיקה: 💎 יהלום / 🔍 גבולי / ❌ דחה — עם נימוק.
+5. נסח את השאלה המכריעה אחת לשאול את המתווך.
+
+המודעה:
+[הדבק כאן את טקסט המודעה]</div>
+    <button class="btn" onclick="cp('p2',this)">📋 העתק</button>
+    <div class="ok"></div>
+  </div>
+
+  <div class="card">
+    <h2>🗺️ 3. מחקר כתובת מלא</h2>
+    <div class="for">ל: Comet / Perplexity (עם גלישה)</div>
+    <div class="pbox" id="p3">אתה עוזר מחקר נדל"ן. אני נותן כתובת ואתה שולף מכל המקורות. איפה שצריך התחברות — עצור, בקש אישור, המשך.
+
+כתובת: [הדבק כתובת]
+
+בצע והחזר טבלה + קישור לאימות לכל מקור:
+1. GovMap — גוש, חלקה, ייעוד, האם בתחום התחדשות.
+2. רשות המסים (nadlan.gov.il) — עסקאות שנמכרו 24 חודשים (כתובת, מ"ר, מחיר, ₪/מ"ר, תאריך) + ממוצע.
+3. מדלן — שכירות ממוצעת + ₪/מ"ר ממוצע.
+4. יד2 — דירות דומות למכירה.
+5. התחדשות עירונית — האם הכתובת במתחם מאושר ובאיזה שלב.</div>
+    <button class="btn" onclick="cp('p3',this)">📋 העתק</button>
+    <div class="ok"></div>
+  </div>
+
+  <div class="card">
+    <h2>📊 4. Comps אזור (שווי אמת)</h2>
+    <div class="for">ל: Perplexity / ChatGPT עם גלישה</div>
+    <div class="pbox" id="p4">חפש עסקאות נדל"ן שנמכרו ברחוב [שם רחוב], [עיר], ב-24-36 החודשים האחרונים (מקורות: nadlan.gov.il, מדלן, ad.co.il).
+
+החזר טבלה: כתובת | מ"ר | מחיר | ₪/מ"ר | תאריך. חשב ממוצע ₪/מ"ר עדכני, וציין את טווח המחירים. הוסף קישור לאימות. זה ה-ARV האמיתי לתמחור.</div>
+    <button class="btn" onclick="cp('p4',this)">📋 העתק</button>
+    <div class="ok"></div>
+  </div>
+
+  <div class="card">
+    <h2>💬 5. וואטסאפ למתווך</h2>
+    <div class="for">להעתקה ישירה לוואטסאפ</div>
+    <div class="pbox" id="p5">שלום, ראיתי את הדירה ב[כתובת]. שתי שאלות לפני שנתקדם:
+1. מה השטח הרשום בטאבו?
+2. אם יש תוספת/חלוקה — קיימת בהיתר או פוטנציאל בלבד?
+בנוסף — מה שכר הדירה שאפשר לקבל, והאם יש עיקול/הערת אזהרה? תודה!</div>
+    <button class="btn" onclick="cp('p5',this)">📋 העתק</button>
+    <div class="ok"></div>
+  </div>
+
+  <div class="card">
+    <h2>📣 6. פוסט לרשתות/קבוצות מתווכים</h2>
+    <div class="for">לוואטסאפ / פייסבוק — מקור לידים</div>
+    <div class="pbox" id="p6">🔎 מחפש דירה להשקעה בקריות / עכו / חיפה (הדר).
+תקציב עד מיליון ₪. 2-4 חדרים.
+מעדיף: דרוש שיפוץ / מוכר מתומרץ / פוטנציאל השבחה או התחדשות.
+קונה רציני, החלטה מהירה. מתווכים — שלחו לי עסקאות רלוונטיות ותקבלו לקוח שקונה. 🙏</div>
+    <button class="btn" onclick="cp('p6',this)">📋 העתק</button>
+    <div class="ok"></div>
+  </div>
+
+  <div style="text-align:center;font-size:11px;color:#6b7e9c;margin-top:16px">מאסטרו נדל"ן · ספריית פרומפטים · מודל היהלום מקודד בכל פרומפט</div>
+</div>
+
+<script>
+function cp(id,btn){
+  var t=document.getElementById(id).innerText;
+  navigator.clipboard.writeText(t).then(function(){
+    var ok=btn.nextElementSibling;ok.textContent='✔ הועתק — הדבק במודל/וואטסאפ';
+    setTimeout(function(){ok.textContent='';},2500);
+  });
+}
+</script>
+</body>
+</html>
