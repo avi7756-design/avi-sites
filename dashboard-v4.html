@@ -54,7 +54,7 @@ input{background:#0d1117;border:1px solid #2a3a55;border-radius:8px;color:#fff;p
 <div class="doc">
 <div class="hdr">
   <h1>🎯 AVI HUNTER — דשבורד v4</h1>
-  <div class="sub">תיק מדד מוגן · עצמאי (ללא n8n) · 6.7.26 · BOOT · ליבה 25% · השוק רגוע</div>
+  <div class="sub">תיק מדד מוגן · עצמאי (ללא n8n) · <span id="h-date">6.7.26</span> · BOOT · ליבה 25% · השוק רגוע</div>
   <span class="badge">🟢 פעיל · אפס הרצות ענן · תמיד נפתח</span>
 </div>
 
@@ -64,9 +64,13 @@ input{background:#0d1117;border:1px solid #2a3a55;border-radius:8px;color:#fff;p
 /* AVI HUNTER v5 - שכבת החלטה אדיטיבית. אינה נוגעת ב-v4. try/catch כדי שלעולם לא ישבור את הדשבורד. */
 (function(){
   window.ahv5State = {
-    date:"07.07.26", mode:"BOOT", marketStatus:"יום ירוק · שוק רגוע", doctrine:"v4",
+    date:"06.07.26", mode:"BOOT", marketStatus:"יום ירוק · שוק רגוע", doctrine:"v4",
+    build:"v5.1 · פריסה 08.07.26 · ec14f94",
     navText:"~₪687K",
-    market:{ usdIls:2.9973, vix:15.8, vixTrend:"↓" },
+    market:{ usdIls:2.9973, vix:15.8, vixTrend:"↓",
+      note:"שוק רגוע: S&P ~7,483, VIX 15.8 (שפל). זהב התאושש (IAU ירוק +$52). ליבה ב-25% אחרי מנה 2.",
+      fx30:"חלש מהממוצע ↓",
+      timing:"אין פעולה · הבא: מנה 3 (DCA) · המרה לפי צורך (לא ממתינים ל-2.90)" },
     core:{ shares:83, avgCost:685.41, value:56842, pnl:-48 },
     cash:{ ils:211964, usd:66858, securities:91192 },
     sleeves:[
@@ -80,12 +84,12 @@ input{background:#0d1117;border:1px solid #2a3a55;border-radius:8px;color:#fff;p
   try{var _c=window.ahv5State.cash,_f=window.ahv5State.market.usdIls;window.ahv5State.navText="~₪"+Math.round((_c.ils+(_c.usd+_c.securities)*_f)/1000)+"K";}catch(e){}
   function regime(v){
     if(v>=30) return {t:"🔴 סופה · משבר אמיתי", c:"ahv5-bad",
-      action:"עצירת DCA, הגדלת IAU ל-50% מההגנה, מזומן עד 25%. VOO לא נמכר!",
-      allowed:["עצירת DCA","הגדלת IAU","הגדלת מזומן"],
+      action:"בדוק הקפאת DCA, בדוק הגדלת IAU ל-50% מההגנה ומזומן עד 25% — לפי כלל סופה. VOO לא נמכר!",
+      allowed:["בדוק הקפאת DCA","בדוק הגדלת IAU","בדוק הגדלת מזומן"],
       forbidden:["מכירת VOO","\"סופה=הזדמנות\"","פאניקה"]};
     if(v>=25) return {t:"🟠 רוח · סכנה מתקרבת", c:"ahv5-orange",
-      action:"DCA בחצי קצב, הגדל IAU +5%, בטל הזמנות פתוחות. לא \"לתפוס תחתית\".",
-      allowed:["DCA חצי קצב","הגדלת זהב","ביטול הזמנות"],
+      action:"בדוק DCA בחצי קצב, בדוק הגדלת IAU +5%, בדוק ביטול הזמנות פתוחות — לפי טריגר. לא \"לתפוס תחתית\".",
+      allowed:["בדוק DCA חצי קצב","בדוק הגדלת זהב","בדוק ביטול הזמנות"],
       forbidden:["\"לתפוס תחתית\"","פוזיציה חדשה","DCA אגרסיבי"]};
     if(v>=20) return {t:"🟡 ערב · אזהרה מוקדמת", c:"ahv5-warn",
       action:"ממשיך v4 כרגיל, אבל בלי \"להעמיס\" על דיפים. השלמת הגנה בהדרגה.",
@@ -184,12 +188,12 @@ input{background:#0d1117;border:1px solid #2a3a55;border-radius:8px;color:#fff;p
 <!-- v5 ניקוי: פאנל "מצב דיסציפלינה" הוסר — הלוגיקה (4 תרחישי VIX) עברה ל-Cockpit -->
 
 <div class="panel fx">
-  <h2>📈 תמונת שוק — 6.7.26 · BOOT (שני)</h2>
-  <div class="sub2">שוק רגוע: S&P ~7,483, VIX 15.8 (שפל). זהב התאושש (IAU ירוק +$52). ליבה ב-25% אחרי מנה 2.</div>
+  <h2>📈 תמונת שוק — <span id="m-date">6.7.26</span> · BOOT (שני)</h2>
+  <div class="sub2" id="m-note">שוק רגוע: S&P ~7,483, VIX 15.8 (שפל). זהב התאושש (IAU ירוק +$52). ליבה ב-25% אחרי מנה 2.</div>
   <div class="row"><span>USD/ILS</span><span><span id="m-fx">2.9973</span> · ~3.00, לא הגיע ל-2.90</span></div>
-  <div class="row"><span>שקל מול ממוצע 30 יום (2.895)</span><span style="color:#f0c040">חלש מהממוצע ↓</span></div>
+  <div class="row"><span>שקל מול ממוצע 30 יום (2.895)</span><span style="color:#f0c040" id="m-fx30">חלש מהממוצע ↓</span></div>
   <div class="row"><span>VIX</span><span style="color:#2ecc71"><span id="m-vix">15.8</span> ↓ — רגוע מאוד</span></div>
-  <div class="row"><span>מסקנה תזמון</span><span>אין פעולה · הבא: מנה 3 (DCA) · המרה לפי צורך (לא ממתינים ל-2.90)</span></div>
+  <div class="row"><span>מסקנה תזמון</span><span id="m-timing">אין פעולה · הבא: מנה 3 (DCA) · המרה לפי צורך (לא ממתינים ל-2.90)</span></div>
 </div>
 
 <div class="panel core">
@@ -301,7 +305,7 @@ function copyP(id,btn){try{var t=document.getElementById(id).innerText;navigator
   </div>
 </div>
 
-<div class="note">דשבורד עצמאי · נפתח מהמחשב, אפס תלות ב-n8n · עדכן ידנית בעת פריסה · אין באמור ייעוץ השקעות</div>
+<div class="note">דשבורד עצמאי · נפתח מהמחשב, אפס תלות ב-n8n · עדכן ידנית בעת פריסה · אין באמור ייעוץ השקעות<br><span id="build-stamp" style="color:#4a5570"></span></div>
 </div>
 <script>
 function calc(){
@@ -326,6 +330,11 @@ function bindV4(){try{
   _set('core-shares',st.core.shares+' VOO');_set('core-cost','$'+st.core.avgCost);
   _set('core-value','~$'+st.core.value.toLocaleString());_set('core-pnl',pnl);_set('core-pct',pct);
   _val('ils',st.cash.ils);_val('usd',st.cash.usd);_val('voo',st.cash.securities);_val('fx',st.market.usdIls);
+  _set('h-date',st.date);_set('m-date',st.date);
+  if(st.market.note!=null)_set('m-note',st.market.note);
+  if(st.market.fx30!=null)_set('m-fx30',st.market.fx30);
+  if(st.market.timing!=null)_set('m-timing',st.market.timing);
+  if(st.build)_set('build-stamp','גרסה: '+st.build);
 }catch(e){try{console.warn('bindV4 skipped:',e);}catch(_){}}}
 bindV4();
 document.querySelectorAll('input').forEach(function(i){i.addEventListener('input',calc)});
