@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מנוע איתור עסקאות · AVI BUSINESS HUNTER</title>
+<style>
+  :root{
+    --bg:#0d1117; --panel:#161b22; --panel2:#1c2330; --line:#2b3444;
+    --txt:#e6edf3; --mut:#9aa7b8; --acc:#f5a623; --acc2:#ffce6b;
+    --grn:#2ea043; --grn2:#3fb950; --red:#f85149; --blu:#58a6ff; --prpl:#a371f7;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI","Assistant",Arial,sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;padding-bottom:60px}
+  a{color:var(--blu);text-decoration:none}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 18px}
+
+  /* header */
+  header{background:linear-gradient(135deg,#161b22,#1c2330);border-bottom:2px solid var(--acc);padding:22px 0}
+  .htop{display:flex;align-items:center;justify-content:space-between;gap:14px;flex-wrap:wrap}
+  .brand{display:flex;align-items:center;gap:14px}
+  .logo{width:52px;height:52px;border-radius:12px;background:linear-gradient(135deg,var(--acc),#e0851a);display:flex;align-items:center;justify-content:center;font-size:26px;box-shadow:0 4px 14px rgba(245,166,35,.35)}
+  h1{font-size:23px;font-weight:800}
+  .sub{color:var(--mut);font-size:13.5px;margin-top:2px}
+  .homebtn{background:var(--panel2);border:1px solid var(--line);color:var(--txt);padding:9px 16px;border-radius:9px;cursor:pointer;font-size:14px;font-weight:600;transition:.15s}
+  .homebtn:hover{border-color:var(--acc);color:var(--acc)}
+
+  section{margin-top:26px}
+  .stitle{display:flex;align-items:center;gap:10px;font-size:18px;font-weight:800;margin-bottom:14px;padding-right:2px}
+  .stitle .n{width:26px;height:26px;border-radius:50%;background:var(--acc);color:#0d1117;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:900}
+
+  /* how it works */
+  .how{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+  .howc{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:18px}
+  .howc h3{font-size:15.5px;margin-bottom:6px;display:flex;align-items:center;gap:8px}
+  .howc p{color:var(--mut);font-size:13.5px}
+  .howc.eng{border-color:var(--grn)}
+  .howc.eng h3{color:var(--grn2)}
+  .howc.dash h3{color:var(--acc2)}
+  .howc.port h3{color:var(--mut)}
+  .tagok{display:inline-block;font-size:11px;background:rgba(46,160,67,.15);color:var(--grn2);padding:2px 8px;border-radius:20px;margin-top:8px}
+  .tagno{display:inline-block;font-size:11px;background:rgba(248,81,73,.13);color:var(--red);padding:2px 8px;border-radius:20px;margin-top:8px}
+
+  /* filters */
+  .filters{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:20px}
+  .fgrid{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+  .fld label{display:block;font-size:12.5px;color:var(--mut);margin-bottom:5px;font-weight:600}
+  .fld input,.fld select{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--txt);padding:9px 10px;border-radius:8px;font-size:13.5px;font-family:inherit}
+  .fld input:focus,.fld select:focus{outline:none;border-color:var(--acc)}
+  .cmdbar{margin-top:16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+  .btn{background:var(--acc);color:#0d1117;border:none;padding:11px 20px;border-radius:9px;font-size:14px;font-weight:800;cursor:pointer;transition:.15s}
+  .btn:hover{background:var(--acc2)}
+  .btn.sec{background:var(--panel2);color:var(--txt);border:1px solid var(--line)}
+  .btn.sec:hover{border-color:var(--acc);color:var(--acc)}
+  .cmdout{margin-top:14px;background:var(--bg);border:1px dashed var(--acc);border-radius:10px;padding:14px;font-size:13.5px;color:var(--acc2);white-space:pre-wrap;display:none}
+
+  /* launchers */
+  .launch{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+  .lc{display:block;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px;transition:.15s;color:var(--txt)}
+  .lc:hover{border-color:var(--acc);transform:translateY(-2px);background:var(--panel2)}
+  .lc .ico{font-size:22px}
+  .lc .nm{font-weight:700;font-size:14.5px;margin-top:6px}
+  .lc .ds{color:var(--mut);font-size:12px;margin-top:3px}
+  .lc .badge{display:inline-block;font-size:10.5px;padding:2px 7px;border-radius:20px;margin-top:8px;font-weight:700}
+  .b-home{background:rgba(88,166,255,.14);color:var(--blu)}
+  .b-biz{background:rgba(163,113,247,.14);color:var(--prpl)}
+  .b-kones{background:rgba(248,81,73,.13);color:var(--red)}
+
+  /* tracker */
+  .tbar{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px;margin-bottom:12px}
+  .tbl{width:100%;border-collapse:collapse;background:var(--panel);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+  .tbl th{background:var(--panel2);padding:11px 10px;font-size:12.5px;text-align:right;color:var(--mut);border-bottom:1px solid var(--line);white-space:nowrap}
+  .tbl td{padding:11px 10px;font-size:13px;border-bottom:1px solid var(--line);vertical-align:top}
+  .tbl tr:last-child td{border-bottom:none}
+  .tbl tr:hover td{background:rgba(255,255,255,.02)}
+  .fit{display:inline-block;min-width:38px;text-align:center;font-weight:800;padding:3px 8px;border-radius:20px;font-size:12.5px}
+  .fit.hi{background:rgba(46,160,67,.18);color:var(--grn2)}
+  .fit.mid{background:rgba(245,166,35,.16);color:var(--acc2)}
+  .fit.lo{background:rgba(248,81,73,.14);color:var(--red)}
+  .fit.na{background:var(--panel2);color:var(--mut)}
+  .st{font-size:11.5px;padding:3px 9px;border-radius:20px;font-weight:700;white-space:nowrap}
+  .st-check{background:rgba(88,166,255,.14);color:var(--blu)}
+  .st-miss{background:rgba(154,167,184,.14);color:var(--mut)}
+  .st-go{background:rgba(46,160,67,.18);color:var(--grn2)}
+  .st-no{background:rgba(248,81,73,.14);color:var(--red)}
+  .st-neg{background:rgba(163,113,247,.15);color:var(--prpl)}
+  .del{background:none;border:none;color:var(--mut);cursor:pointer;font-size:16px;padding:2px 6px;border-radius:6px}
+  .del:hover{color:var(--red);background:rgba(248,81,73,.1)}
+  .flag{color:var(--red);font-size:11.5px;margin-top:3px}
+  .src{font-size:11px;color:var(--mut)}
+
+  /* add form */
+  .addbox{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin-top:14px;display:none}
+  .addgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+  .addgrid .fld.full{grid-column:1/-1}
+  .addgrid input,.addgrid select,.addgrid textarea{width:100%;background:var(--bg);border:1px solid var(--line);color:var(--txt);padding:8px 9px;border-radius:7px;font-size:13px;font-family:inherit}
+  textarea{resize:vertical;min-height:38px}
+
+  .note{background:rgba(245,166,35,.07);border:1px solid rgba(245,166,35,.3);border-radius:10px;padding:13px 15px;font-size:13px;color:var(--acc2);margin-top:14px}
+  .note b{color:var(--acc)}
+  footer{text-align:center;color:var(--mut);font-size:12px;margin-top:34px;padding-top:18px;border-top:1px solid var(--line)}
+
+  @media(max-width:860px){
+    .how,.fgrid,.launch,.addgrid{grid-template-columns:1fr 1fr}
+    .tblwrap{overflow-x:auto}
+  }
+  @media(max-width:560px){.how,.fgrid,.launch,.addgrid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap htop">
+    <div class="brand">
+      <div class="logo">🎯</div>
+      <div>
+        <h1>מנוע איתור עסקאות</h1>
+        <div class="sub">AVI BUSINESS HUNTER · שכבה 1 במערכת הרכישה · אבי חזן</div>
+      </div>
+    </div>
+    <button class="homebtn" onclick="goHome()">🏠 חזרה למרכז השליטה</button>
+  </div>
+</header>
+
+<div class="wrap">
+
+  <!-- how it works -->
+  <section>
+    <div class="stitle"><span class="n">?</span>איך זה עובד - חלוקת העבודה (האמת, בלי אשליות)</div>
+    <div class="how">
+      <div class="howc eng">
+        <h3>🟢 המנוע שמחפש בפועל</h3>
+        <p>אני (קלוד ב-Cowork) - יש לי כלי חיפוש אמיתיים ברשת. לחץ "צור פקודת סריקה", העתק אליי, ואני סורק את הלוחות והכונסים ומחזיר מועמדים מדורגים.</p>
+        <span class="tagok">✓ סורק חי · מנקד AVI FIT</span>
+      </div>
+      <div class="howc dash">
+        <h3>🟡 הקוקפיט הזה</h3>
+        <p>לוח הפיקוד. שומר את פילטרי הסינון שלך, משגר אותך ישירות ללוחות האמיתיים בקליק, ומנהל טבלת מעקב מדורגת של כל מועמד.</p>
+        <span class="tagok">✓ שיגור · מעקב · ניקוד ידני</span>
+      </div>
+      <div class="howc port">
+        <h3>⚪ הפרומפט הנייד</h3>
+        <p>הבלוק שמדביקים ל-ChatGPT/Gemini. טוב לניסוח וניקוד, אבל חלש בגלישה חיה - שם <b style="color:var(--red)">אתה</b> מחפש ידני דרך הכפתורים למטה.</p>
+        <span class="tagno">✗ לא גולש בזמן אמת</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- filters -->
+  <section>
+    <div class="stitle"><span class="n">1</span>פילטרי הסינון שלך</div>
+    <div class="filters">
+      <div class="fgrid">
+        <div class="fld"><label>הון עצמי זמין (₪)</label><input id="f_capital" placeholder="למשל 5,000,000"></div>
+        <div class="fld"><label>אזור גאוגרפי</label><input id="f_area" placeholder="מרכז / צפון / הכל"></div>
+        <div class="fld"><label>תחומים מועדפים</label><input id="f_sector" value="בתי אבות, דיור מוגן, סיעוד" placeholder="תחומים"></div>
+        <div class="fld"><label>זמן שבועי פנוי</label><input id="f_time" placeholder="למשל 10 שעות"></div>
+        <div class="fld"><label>טווח לנקודת איזון</label><input id="f_be" placeholder="למשל 6-12 חודשים"></div>
+      </div>
+      <div class="cmdbar">
+        <button class="btn" onclick="genCmd()">⚡ צור פקודת סריקה לקלוד</button>
+        <button class="btn sec" onclick="saveFilters()">💾 שמור פילטרים</button>
+        <span id="savedmsg" style="color:var(--grn2);font-size:13px;display:none">נשמר ✓</span>
+      </div>
+      <div class="cmdout" id="cmdout"></div>
+    </div>
+  </section>
+
+  <!-- launchers -->
+  <section>
+    <div class="stitle"><span class="n">2</span>שיגור ללוחות האמיתיים (מאומתים 22.7.26)</div>
+    <div class="launch">
+      <a class="lc" href="https://www.yad2.co.il/realestate/forsale?property=61" target="_blank" rel="noopener">
+        <div class="ico">🏢</div><div class="nm">יד2 · דיור מוגן</div><div class="ds">נדל"ן דיור מוגן למכירה</div><span class="badge b-home">בתי אבות</span></a>
+      <a class="lc" href="https://www.inbc.co.il/s/%D7%A2%D7%A1%D7%A7%D7%99%D7%9D_%D7%9C%D7%9E%D7%9B%D7%99%D7%A8%D7%94_%D7%91%D7%AA%D7%99_%D7%90%D7%91%D7%95%D7%AA" target="_blank" rel="noopener">
+        <div class="ico">🏥</div><div class="nm">IBC · בתי אבות</div><div class="ds">לוח עסקים למכירה</div><span class="badge b-home">בתי אבות</span></a>
+      <a class="lc" href="https://menivim.net/category/nursingHome/" target="_blank" rel="noopener">
+        <div class="ico">🏘️</div><div class="nm">מניבים</div><div class="ds">בתי אבות ודיור מוגן</div><span class="badge b-home">בתי אבות</span></a>
+      <a class="lc" href="https://ntm-business-trade.co.il/" target="_blank" rel="noopener">
+        <div class="ico">📊</div><div class="nm">NTM Business</div><div class="ds">תיווך עסקים (מצאנו כאן 3)</div><span class="badge b-biz">עסקים</span></a>
+      <a class="lc" href="https://brokerli.com/property_type/%D7%A2%D7%A1%D7%A7%D7%99%D7%9D-%D7%9C%D7%9E%D7%9B%D7%99%D7%A8%D7%94/" target="_blank" rel="noopener">
+        <div class="ico">🤝</div><div class="nm">ברוקרלי</div><div class="ds">עסקים למכירה בכל תחום</div><span class="badge b-biz">עסקים</span></a>
+      <a class="lc" href="https://www.konesonline.co.il/boards/asset" target="_blank" rel="noopener">
+        <div class="ico">⚖️</div><div class="nm">כונס אונליין</div><div class="ds">לוח נכסים מכונס</div><span class="badge b-kones">כונס נכסים</span></a>
+      <a class="lc" href="https://konesisrael.co.il/%D7%A0%D7%93%D7%9C%D7%9F-%D7%9E%D7%9B%D7%95%D7%A0%D7%A1-%D7%A0%D7%9B%D7%A1%D7%99%D7%9D/" target="_blank" rel="noopener">
+        <div class="ico">📜</div><div class="nm">כונס ישראל</div><div class="ds">מכרזי נכסים מכונס</div><span class="badge b-kones">כונס נכסים</span></a>
+      <a class="lc" href="https://www.bankhapoalim.co.il/he/assets-for-sale" target="_blank" rel="noopener">
+        <div class="ico">🏦</div><div class="nm">בנק הפועלים</div><div class="ds">נכסים למכירה מבנק</div><span class="badge b-kones">מימוש</span></a>
+    </div>
+    <div class="note">💡 <b>טיפ:</b> העסקאות הכי טובות לא כתובות "למכירה". חפש בכונסים גם: "דרוש שותף פעיל", "בעלים פורש", "העברת פעילות", "מכירת גרעין שליטה", "חברה בקשיים". שם יושב הערך החבוי.</div>
+  </section>
+
+  <!-- tracker -->
+  <section>
+    <div class="stitle"><span class="n">3</span>מעקב מועמדים · ניקוד AVI FIT</div>
+    <div class="tbar">
+      <div style="color:var(--mut);font-size:13px">4 עסקאות אמיתיות נסרקו והוזנו ב-22.7.26 · מיין לפי דירוג</div>
+      <div style="display:flex;gap:8px">
+        <button class="btn sec" onclick="toggleAdd()">➕ הוסף מועמד</button>
+        <button class="btn sec" onclick="resetSeed()">↺ שחזר עסקאות מקור</button>
+      </div>
+    </div>
+
+    <div class="addbox" id="addbox">
+      <div class="addgrid">
+        <div class="fld"><input id="a_name" placeholder="שם העסק"></div>
+        <div class="fld"><input id="a_sector" placeholder="תחום" value="בית אבות"></div>
+        <div class="fld"><input id="a_loc" placeholder="מיקום"></div>
+        <div class="fld"><input id="a_price" placeholder="מחיר / הון נדרש"></div>
+        <div class="fld"><input id="a_fit" type="number" min="0" max="100" placeholder="AVI FIT /100"></div>
+        <div class="fld"><input id="a_fix" type="number" min="0" max="100" placeholder="FIXABILITY /100"></div>
+        <div class="fld"><select id="a_status">
+          <option value="check">לבדיקה</option><option value="miss">מידע חסר</option>
+          <option value="go">להתקדם</option><option value="neg">במו״מ</option><option value="no">נפסל</option></select></div>
+        <div class="fld"><input id="a_src" placeholder="מקור (URL)"></div>
+        <div class="fld full"><textarea id="a_note" placeholder="סיכון עיקרי / הערה / דגל אדום"></textarea></div>
+      </div>
+      <div style="margin-top:12px;display:flex;gap:8px">
+        <button class="btn" onclick="addCand()">שמור מועמד</button>
+        <button class="btn sec" onclick="toggleAdd()">ביטול</button>
+      </div>
+    </div>
+
+    <div class="tblwrap" style="margin-top:14px">
+    <table class="tbl">
+      <thead><tr>
+        <th>#</th><th>העסק</th><th>מיקום</th><th>מחיר / הון</th><th>נתונים שהוצהרו</th>
+        <th>AVI FIT</th><th>FIX</th><th>סטטוס</th><th>סיכון עיקרי</th><th>מקור</th><th></th>
+      </tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+    </div>
+
+    <div class="note">⚠️ <b>אמת מקצועית:</b> כל המספרים בטבלה הם <b>הצהרות מוכר</b>, לא עובדות מאומתות. ניקוד AVI FIT ראשוני בלבד. אף עסקה לא נכנסת ל"להתקדם" לפני שעברה את <b>דוח הכדאיות המלא בן 6 החלקים</b> - בדיוק כמו שחלוץ 39 קרס מ"57%" ל-12% אמיתי.</div>
+  </section>
+
+  <footer>
+    AVI BUSINESS HUNTER · קוקפיט איתור עסקאות · נכס חוזר של אבי חזן · עודכן 22.7.26<br>
+    זרימה: HUNTER (איתור) → AVI FIT (התאמה) → ACQUISITION ANALYZER (בדיקה) → TURNAROUND (100 ימים)
+  </footer>
+</div>
+
+<script>
+// ---- safe storage ----
+function LS(){try{localStorage.setItem('_t','1');localStorage.removeItem('_t');return localStorage;}catch(e){return null;}}
+var store=LS();
+function save(k,v){if(store)try{store.setItem(k,JSON.stringify(v));}catch(e){}}
+function load(k,d){if(store)try{var v=store.getItem(k);return v?JSON.parse(v):d;}catch(e){return d;}return d;}
+
+// ---- real seed data (scanned 22.7.26) ----
+var SEED=[
+  {name:"בית אבות + נדל\"ן",sector:"בית אבות סיעודי",loc:"גוש דן",price:"28,000,000 ₪ (כולל נדל\"ן)",
+   data:"101 מיטות · 4 מחלקות · הכנסה ~350-370K/חודש (220K שכ\"ד + 130-150K רווח תפעולי) · הון עצמי 8-10M · בנק 14M · הלוואת מוכר 3-4M",
+   fit:78,fix:55,status:"check",risk:"עסקה כבדת נדל\"ן · תשואה על ההכנסה מול 28M דורשת אימות",
+   src:"https://ntm-business-trade.co.il/"},
+  {name:"בית חולים סיעודי פעיל",sector:"סיעודי",loc:"מרכז",price:"9,000,000 ₪",
+   data:"~100 מיטות · תפוסה מלאה · מחזור 13M/שנה · רווח 1.8M/שנה (~20%) · 30 שנות ותק · חברה בע\"מ · סיבה: הרחבת פעילות",
+   fit:80,fix:45,status:"check",risk:"דגל: 'עובד 1 בשכר 100K/חודש' — טעות במודעה או מבנה מוסתר. עסק רווחי = פחות ערך חבוי להוסיף",
+   src:"https://www.inbc.co.il/ad/display/1652"},
+  {name:"חברה מפעילת בית אבות",sector:"בית אבות",loc:"זכרון / העמקים",price:"10,000,000 ₪",
+   data:"חברה מפעילה · פרטים מלאים דורשים כניסה ידנית ללוח (הדף חסם שליפה אוטומטית)",
+   fit:null,fix:null,status:"miss",risk:"אין מספיק נתונים — צריך לפתוח את המודעה ולבקש דוחות",
+   src:"https://ntm-business-trade.co.il/"},
+  {name:"בית חולים סיעודי + דיור מוגן",sector:"סיעודי + דיור מוגן",loc:"הרצליה",price:"לא פורסם",
+   data:"מבוקש ומניב · מחיר ופרטים דורשים פנייה למתווך (caesarmenivim)",
+   fit:null,fix:null,status:"miss",risk:"מחיר לא פורסם — לברר מול המתווך לפני כל הערכה",
+   src:"https://caesarmenivim.co.il/"}
+];
+
+var CANDS=load('avi_hunter_cands',null)||JSON.parse(JSON.stringify(SEED));
+
+function fitClass(v){if(v==null)return'na';if(v>=80)return'hi';if(v>=65)return'mid';return'lo';}
+function stMeta(s){return{check:['לבדיקה','st-check'],miss:['מידע חסר','st-miss'],go:['להתקדם','st-go'],neg:['במו״מ','st-neg'],no:['נפסל','st-no']}[s]||['לבדיקה','st-check'];}
+function esc(s){return(s||'').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+function host(u){try{return new URL(u).hostname.replace('www.','');}catch(e){return 'מקור';}}
+
+function render(){
+  var sorted=CANDS.map(function(c,i){return{c:c,i:i};}).sort(function(a,b){
+    return (b.c.fit==null?-1:b.c.fit)-(a.c.fit==null?-1:a.c.fit);});
+  var h='';
+  sorted.forEach(function(o,rank){
+    var c=o.c,sm=stMeta(c.status);
+    h+='<tr>'+
+      '<td style="font-weight:800;color:var(--acc)">'+(rank+1)+'</td>'+
+      '<td><b>'+esc(c.name)+'</b><div class="src">'+esc(c.sector)+'</div></td>'+
+      '<td>'+esc(c.loc)+'</td>'+
+      '<td style="white-space:nowrap">'+esc(c.price)+'</td>'+
+      '<td style="max-width:260px;color:var(--mut);font-size:12px">'+esc(c.data)+'</td>'+
+      '<td><span class="fit '+fitClass(c.fit)+'">'+(c.fit==null?'—':c.fit)+'</span></td>'+
+      '<td><span class="fit '+fitClass(c.fix)+'">'+(c.fix==null?'—':c.fix)+'</span></td>'+
+      '<td><span class="st '+sm[1]+'">'+sm[0]+'</span></td>'+
+      '<td style="max-width:200px"><div class="flag">'+esc(c.risk)+'</div></td>'+
+      '<td>'+(c.src?'<a href="'+c.src+'" target="_blank" rel="noopener" class="src">'+host(c.src)+' ↗</a>':'')+'</td>'+
+      '<td><button class="del" onclick="delCand('+o.i+')" title="מחק">✕</button></td>'+
+    '</tr>';
+  });
+  document.getElementById('rows').innerHTML=h;
+}
+function persist(){save('avi_hunter_cands',CANDS);}
+function delCand(i){if(confirm('למחוק את "'+CANDS[i].name+'" מהמעקב?')){CANDS.splice(i,1);persist();render();}}
+function resetSeed(){if(confirm('לשחזר את 4 עסקאות המקור? פעולה זו תדרוס את הרשימה הנוכחית.')){CANDS=JSON.parse(JSON.stringify(SEED));persist();render();}}
+function toggleAdd(){var b=document.getElementById('addbox');b.style.display=b.style.display==='block'?'none':'block';}
+function addCand(){
+  var n=document.getElementById('a_name').value.trim();if(!n){alert('שם העסק חובה');return;}
+  function num(id){var v=document.getElementById(id).value;return v===''?null:Math.max(0,Math.min(100,parseInt(v)));}
+  CANDS.push({name:n,sector:document.getElementById('a_sector').value,loc:document.getElementById('a_loc').value,
+    price:document.getElementById('a_price').value,data:document.getElementById('a_note').value,
+    fit:num('a_fit'),fix:num('a_fix'),status:document.getElementById('a_status').value,
+    risk:document.getElementById('a_note').value,src:document.getElementById('a_src').value});
+  ['a_name','a_sector','a_loc','a_price','a_fit','a_fix','a_src','a_note'].forEach(function(id){document.getElementById(id).value='';});
+  persist();render();toggleAdd();
+}
+
+// ---- filters ----
+var FKEYS=['f_capital','f_area','f_sector','f_time','f_be'];
+function saveFilters(){var o={};FKEYS.forEach(function(k){o[k]=document.getElementById(k).value;});save('avi_hunter_filters',o);
+  var m=document.getElementById('savedmsg');m.style.display='inline';setTimeout(function(){m.style.display='none';},1600);}
+function loadFilters(){var o=load('avi_hunter_filters',null);if(o)FKEYS.forEach(function(k){if(o[k]!=null)document.getElementById(k).value=o[k];});}
+function genCmd(){
+  var cap=document.getElementById('f_capital').value||'לא צוין';
+  var area=document.getElementById('f_area').value||'כל הארץ';
+  var sec=document.getElementById('f_sector').value||'בתי אבות, דיור מוגן, סיעוד';
+  var time=document.getElementById('f_time').value||'לא צוין';
+  var be=document.getElementById('f_be').value||'6-18 חודשים';
+  var cmd='היי קלוד, הרץ סריקת HUNTER חיה עבורי:\n'+
+    '• הון עצמי: '+cap+'\n• אזור: '+area+'\n• תחומים: '+sec+'\n• זמן שבועי: '+time+'\n• טווח לאיזון: '+be+'\n\n'+
+    'חפש בלוחות (יד2, IBC, מניבים, NTM, ברוקרלי) ובכונסים (כונס אונליין/ישראל, בנקים), '+
+    'כולל ניסוחים כמו "דרוש שותף", "בעלים פורש", "מכירת גרעין שליטה". '+
+    'נקד לכל מועמד AVI FIT ו-FIXABILITY, הצג עד 5 מובילים בטבלה, וסמן דגלים אדומים. אל תפנה לאיש בשמי.';
+  var el=document.getElementById('cmdout');el.textContent=cmd;el.style.display='block';
+  if(navigator.clipboard){navigator.clipboard.writeText(cmd).then(function(){el.textContent=cmd+'\n\n✓ הועתק - הדבק אליי בצ\'אט';},function(){});}
+}
+function goHome(){window.location.href='מרכז_שליטה_אבי.html';}
+
+loadFilters();render();
+</script>
+</body>
+</html>
