@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#0b1020">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="robots" content="noindex,nofollow,noarchive">
+<title>רודוס 2026</title>
+<link rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230b1020'/%3E%3Ctext y='68' x='50' font-size='54' text-anchor='middle'%3E🏖️%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='78' font-size='80'%3E🏖️%3C/text%3E%3C/svg%3E">
+<style>
+:root{
+  --bg:#0b1020; --bg2:#111834; --card:rgba(255,255,255,.06); --card-b:rgba(255,255,255,.10);
+  --tx:#f2f5ff; --tx-dim:#a3adcc; --tx-mute:#6f7a9c;
+  --go:#2fd27a; --wait:#ffb020; --stop:#ff5d6c; --acc:#5b9cff;
+  --go-bg:rgba(47,210,122,.13); --wait-bg:rgba(255,176,32,.13); --stop-bg:rgba(255,93,108,.13);
+  --r:20px; --sp:16px;
+  --safe-b:env(safe-area-inset-bottom,0px);
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;padding:0}
+body{
+  background:
+    radial-gradient(120% 70% at 80% -10%, #1c2a5e 0%, transparent 60%),
+    radial-gradient(100% 60% at 0% 0%, #2a1a4e 0%, transparent 55%),
+    var(--bg);
+  background-attachment:fixed;
+  color:var(--tx);
+  font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Rubik,'Noto Sans Hebrew',Arial,sans-serif;
+  font-size:16px; line-height:1.55; min-height:100vh;
+  padding:0 0 calc(96px + var(--safe-b));
+  -webkit-font-smoothing:antialiased;
+}
+.wrap{max-width:520px;margin:0 auto;padding:0 var(--sp)}
+
+/* ---------- header ---------- */
+header{padding:26px 0 8px;text-align:center}
+.kicker{font-size:12px;letter-spacing:.16em;color:var(--tx-mute);font-weight:600}
+h1{margin:6px 0 2px;font-size:30px;font-weight:800;letter-spacing:-.02em}
+.dates{color:var(--tx-dim);font-size:15px}
+.countdown{
+  display:inline-flex;align-items:baseline;gap:7px;margin-top:14px;
+  background:var(--card);border:1px solid var(--card-b);border-radius:999px;padding:7px 16px;
+}
+.countdown b{font-size:22px;font-weight:800;line-height:1}
+.countdown span{font-size:12px;color:var(--tx-dim)}
+
+/* ---------- status hero ---------- */
+.hero{
+  margin-top:18px;border-radius:var(--r);padding:22px 20px;
+  border:1px solid var(--card-b);position:relative;overflow:hidden;
+}
+.hero.go{background:var(--go-bg);border-color:rgba(47,210,122,.35)}
+.hero.wait{background:var(--wait-bg);border-color:rgba(255,176,32,.35)}
+.hero.stop{background:var(--stop-bg);border-color:rgba(255,93,108,.35)}
+.hero-icon{font-size:44px;line-height:1;margin-bottom:10px}
+.hero h2{margin:0 0 6px;font-size:21px;font-weight:800}
+.hero p{margin:0;color:var(--tx-dim);font-size:15px}
+.pulse{
+  position:absolute;top:18px;left:18px;width:9px;height:9px;border-radius:50%;
+  background:var(--go);box-shadow:0 0 0 0 rgba(47,210,122,.7);animation:pulse 2.2s infinite
+}
+.hero.wait .pulse{background:var(--wait);box-shadow:0 0 0 0 rgba(255,176,32,.7)}
+.hero.stop .pulse{background:var(--stop);box-shadow:0 0 0 0 rgba(255,93,108,.7)}
+@keyframes pulse{70%{box-shadow:0 0 0 13px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion:reduce){.pulse{animation:none}}
+
+/* ---------- budget ring ---------- */
+.card{
+  margin-top:14px;background:var(--card);border:1px solid var(--card-b);
+  border-radius:var(--r);padding:18px;backdrop-filter:blur(12px)
+}
+.card h3{margin:0 0 14px;font-size:13px;letter-spacing:.1em;color:var(--tx-mute);font-weight:700}
+.budget{display:flex;align-items:center;gap:18px}
+.ring{position:relative;flex:0 0 108px;height:108px}
+.ring svg{transform:rotate(-90deg)}
+.ring .val{
+  position:absolute;inset:0;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;text-align:center
+}
+.ring .val b{font-size:20px;font-weight:800;line-height:1.1}
+.ring .val small{font-size:10px;color:var(--tx-mute)}
+.blines{flex:1;min-width:0}
+.bline{display:flex;justify-content:space-between;gap:10px;padding:5px 0;font-size:14px;border-bottom:1px solid rgba(255,255,255,.06)}
+.bline:last-child{border:0;font-weight:800;font-size:16px;padding-top:9px}
+.bline span:first-child{color:var(--tx-dim)}
+.bline .est{font-size:10px;color:var(--wait);display:block}
+
+/* ---------- flights ---------- */
+.leg{display:flex;align-items:center;gap:12px;padding:13px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.leg:last-child{border:0}
+.leg-time{text-align:center;flex:0 0 58px}
+.leg-time b{display:block;font-size:19px;font-weight:800;letter-spacing:-.02em}
+.leg-time small{font-size:11px;color:var(--tx-mute)}
+.leg-path{flex:1;text-align:center;position:relative;min-width:0}
+.leg-path .line{height:2px;background:linear-gradient(90deg,transparent,var(--tx-mute),transparent);margin:0 4px}
+.leg-path .plane{position:absolute;top:-11px;left:50%;transform:translateX(-50%);font-size:15px}
+.leg-path small{font-size:11px;color:var(--tx-mute);display:block;margin-top:5px}
+.leg-seats{flex:0 0 auto;font-size:12px;font-weight:800;padding:5px 10px;border-radius:999px;white-space:nowrap}
+.seats-ok{background:var(--go-bg);color:var(--go)}
+.seats-low{background:var(--wait-bg);color:var(--wait)}
+.seats-no{background:var(--stop-bg);color:var(--stop)}
+
+/* ---------- hotels ---------- */
+.hotel{display:block;text-decoration:none;color:inherit;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.06)}
+.hotel:last-of-type{border:0}
+.hotel-top{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.hotel-name{font-weight:700;font-size:16px;line-height:1.3}
+.hotel-price{font-weight:800;font-size:17px;white-space:nowrap}
+.hotel-meta{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+.tag{font-size:11px;padding:4px 9px;border-radius:999px;background:rgba(255,255,255,.08);color:var(--tx-dim);font-weight:600}
+.tag.good{background:var(--go-bg);color:var(--go)}
+.tag.warn{background:var(--wait-bg);color:var(--wait)}
+.walk{display:flex;gap:14px;margin-top:9px;font-size:12px;color:var(--tx-dim);flex-wrap:wrap}
+.walk b{color:var(--tx);font-weight:700}
+
+/* ---------- checklist ---------- */
+.chk{display:flex;gap:11px;padding:9px 0;font-size:14px;align-items:flex-start}
+.chk-num{
+  flex:0 0 21px;height:21px;border-radius:50%;background:rgba(255,255,255,.09);
+  display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;color:var(--tx-dim);margin-top:1px
+}
+details.card>summary{
+  list-style:none;cursor:pointer;font-size:13px;letter-spacing:.1em;
+  color:var(--tx-mute);font-weight:700;display:flex;justify-content:space-between;align-items:center
+}
+details.card>summary::-webkit-details-marker{display:none}
+details.card>summary::after{content:'▾';transition:transform .25s;font-size:14px}
+details.card[open]>summary::after{transform:rotate(180deg)}
+details.card>summary+*{margin-top:14px}
+
+/* ---------- actions ---------- */
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+.btn{
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;
+  padding:17px 10px;border-radius:16px;text-decoration:none;color:var(--tx);
+  background:var(--card);border:1px solid var(--card-b);font-weight:700;font-size:14px;
+  text-align:center;transition:transform .12s,background .2s
+}
+.btn:active{transform:scale(.97);background:rgba(255,255,255,.11)}
+.btn .ico{font-size:23px}
+.btn.primary{background:linear-gradient(135deg,#3b7bff,#7a4dff);border-color:transparent}
+
+.fab{
+  position:fixed;bottom:calc(18px + var(--safe-b));left:50%;transform:translateX(-50%);
+  display:flex;align-items:center;gap:9px;padding:15px 28px;border-radius:999px;
+  background:linear-gradient(135deg,#229ED9,#1d8dc4);color:#fff;text-decoration:none;
+  font-weight:800;font-size:15px;box-shadow:0 10px 30px rgba(34,158,217,.42);z-index:50;
+  max-width:calc(100% - 32px)
+}
+.fab:active{transform:translateX(-50%) scale(.96)}
+
+footer{text-align:center;color:var(--tx-mute);font-size:12px;padding:26px 0 8px;line-height:1.8}
+.stale{background:var(--stop-bg);border:1px solid rgba(255,93,108,.35);border-radius:14px;padding:12px 15px;margin-top:14px;font-size:13px;color:#ffc0c6}
+.skel{background:linear-gradient(90deg,rgba(255,255,255,.05),rgba(255,255,255,.11),rgba(255,255,255,.05));background-size:200% 100%;animation:sh 1.4s infinite;border-radius:10px;height:15px;margin:9px 0}
+@keyframes sh{0%{background-position:200% 0}100%{background-position:-200% 0}}
+.empty{color:var(--tx-mute);font-size:14px;text-align:center;padding:14px 0}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <header>
+    <div class="kicker">חופשה ברודוס</div>
+    <h1>פליראקי 🏖️</h1>
+    <div class="dates">27–31 באוגוסט 2026 · 4 לילות</div>
+    <div class="countdown"><b id="cd">–</b><span>ימים לטיסה</span></div>
+  </header>
+
+  <div id="app">
+    <div class="card"><div class="skel" style="width:65%"></div><div class="skel"></div><div class="skel" style="width:80%"></div></div>
+  </div>
+
+  <footer>
+    <div id="updated">טוען…</div>
+    <div style="margin-top:6px">המעקב רץ אוטומטית כל שעה</div>
+  </footer>
+</div>
+
+<a class="fab" id="fab" href="#">💬 שאלה או שינוי</a>
+
+<script>
+const TG = 'https://t.me/BotFather';
+document.getElementById('fab').href = TG;
+
+const nis = n => n==null ? '—' : '₪' + Math.round(n).toLocaleString('he-IL');
+const esc = s => String(s??'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const ask = q => TG + '?text=' + encodeURIComponent(q);
+
+// ספירה לאחור
+(function(){
+  const d = Math.ceil((new Date('2026-08-27T09:00:00+03:00') - new Date())/864e5);
+  document.getElementById('cd').textContent = d > 0 ? d : '0';
+})();
+
+function seatCls(n){ return n===0 ? 'seats-no' : n<=4 ? 'seats-low' : 'seats-ok'; }
+function seatTxt(n){ return n===0 ? 'אין מקום' : n + ' מקומות'; }
+
+function heroFor(d){
+  const f = d.flights || {};
+  if (d.bestLevel === 'green')
+    return {c:'go', i:'✅', t:'מוכן לסגירה', p:'כל התנאים אומתו כולל אישור המלון.'};
+  if (d.bestLevel === 'orange')
+    return {c:'wait', i:'🟠', t:'נמצאה חבילה מתאימה', p:'המחיר והזמינות בסדר. חסר אישור מהמלון על החדר.'};
+  if (f.available)
+    return {c:'wait', i:'✈️', t:'הטיסות פנויות', p:'עדיין לא נמצא מלון שעומד בכל התנאים.'};
+  return {c:'stop', i:'⏳', t:'עוד אין מקום בטיסה', p: f.reason || 'ממשיכים לבדוק כל שעה.'};
+}
+
+function render(d){
+  const H = [];
+  const h = heroFor(d);
+
+  H.push(`<div class="hero ${h.c}"><div class="pulse"></div>
+    <div class="hero-icon">${h.i}</div><h2>${esc(h.t)}</h2><p>${esc(h.p)}</p></div>`);
+
+  // תקציב
+  if (d.budget && d.budget.totalIls != null){
+    const b = d.budget, max = d.budget.maxIls || 7000;
+    const pct = Math.min(100, (b.totalIls/max)*100);
+    const R=48, C=2*Math.PI*R, off=C*(1-pct/100);
+    const col = pct>100 ? 'var(--stop)' : pct>90 ? 'var(--wait)' : 'var(--go)';
+    H.push(`<div class="card"><h3>תקציב</h3><div class="budget">
+      <div class="ring"><svg width="108" height="108">
+        <circle cx="54" cy="54" r="${R}" fill="none" stroke="rgba(255,255,255,.09)" stroke-width="9"/>
+        <circle cx="54" cy="54" r="${R}" fill="none" stroke="${col}" stroke-width="9"
+          stroke-linecap="round" stroke-dasharray="${C}" stroke-dashoffset="${off}"/>
+      </svg><div class="val"><b>${Math.round(pct)}%</b><small>מהתקציב</small></div></div>
+      <div class="blines">
+        <div class="bline"><span>טיסות</span><span>${nis(b.flightIls)}</span></div>
+        <div class="bline"><span>כבודה</span><span>${nis(b.baggageIls)}${b.baggageIsEstimate?'<i class="est">הערכה</i>':''}</span></div>
+        <div class="bline"><span>מלון</span><span>${nis(b.hotelIls)}</span></div>
+        <div class="bline"><span>סה״כ לשתיכן</span><span>${nis(b.totalIls)}</span></div>
+      </div></div>
+      <div style="margin-top:11px;font-size:13px;color:var(--tx-dim);text-align:center">
+        ${nis(b.perPassengerIls)} לכל אחת · תקרה ${nis(max/2)}</div>
+      <div style="margin-top:9px;font-size:12px;color:var(--tx-mute);text-align:center">
+        ⚠️ מס אקלים משולם במלון ואינו כלול</div>
+    </div>`);
+  }
+
+  // טיסות
+  const f = d.flights;
+  if (f && (f.outbound || f.soldOutDetail)){
+    const o = f.outbound || f.soldOutDetail?.outbound || {};
+    const i = f.inbound  || f.soldOutDetail?.inbound  || {};
+    const row = (leg, from, to, label) => `<div class="leg">
+      <div class="leg-time"><b>${esc(leg.departTime||leg.time||'—')}</b><small>${from}</small></div>
+      <div class="leg-path"><div class="plane">✈️</div><div class="line"></div>
+        <small>${esc(leg.flightNumber||leg.flight||'')} · ${label}</small></div>
+      <div class="leg-time"><b>${esc(leg.arriveTime||'—')}</b><small>${to}</small></div>
+      <div class="leg-seats ${seatCls(leg.seats)}">${seatTxt(leg.seats)}</div></div>`;
+    H.push(`<div class="card"><h3>טיסות ישראייר · ישירות</h3>
+      ${row(o,'תל אביב','רודוס','הלוך 27.8')}
+      ${row(i,'רודוס','תל אביב','חזור 31.8')}
+      <div style="margin-top:11px;font-size:12px;color:var(--wait)">⚠️ מזוודה 23 ק״ג אינה כלולה במחיר הטיסה</div>
+    </div>`);
+  }
+
+  // מלונות
+  if (d.hotels && d.hotels.length){
+    H.push(`<div class="card"><h3>מלונות שנמצאו</h3>` + d.hotels.map(x => {
+      const w = x.walk || {};
+      const walkTxt = Object.keys(w).length
+        ? `<div class="walk">` + Object.entries(w).map(([k,v]) =>
+            `<span>${esc(k)} <b>${v}׳</b></span>`).join('') + `</div>` : '';
+      const bedTag = x.beds === 'twin'
+        ? '<span class="tag good">2 מיטות נפרדות</span>'
+        : x.beds === 'onRequest'
+        ? '<span class="tag warn">סוג מיטה לא מובטח</span>' : '';
+      return `<a class="hotel" href="${esc(x.url||'#')}" target="_blank" rel="noopener">
+        <div class="hotel-top"><div class="hotel-name">${esc(x.name)}</div>
+        <div class="hotel-price">${nis(x.priceIls)}</div></div>
+        <div class="hotel-meta">
+          ${x.stars?`<span class="tag">${x.stars} ★</span>`:''}
+          ${x.score?`<span class="tag good">${x.score}</span>`:''}
+          ${x.meal?`<span class="tag">${esc(x.meal)}</span>`:''}
+          ${bedTag}
+          ${x.freeCancellation?'<span class="tag good">ביטול חינם</span>':''}
+        </div>${walkTxt}</a>`;
+    }).join('') + `</div>`);
+  } else {
+    H.push(`<div class="card"><h3>מלונות</h3><div class="empty">עדיין לא נמצא מלון שעומד בכל התנאים</div></div>`);
+  }
+
+  // צ'קליסט
+  if (d.manualPending && d.manualPending.length){
+    H.push(`<details class="card"><summary>מה צריך לאמת מול המלון (${d.manualPending.length})</summary>
+      <div><p style="margin:0 0 10px;font-size:13px;color:var(--tx-dim)">
+      אף אתר לא מפרסם את הפרטים האלה. צריך לבקש מהמלון אישור בכתב לפני שמשלמים.</p>` +
+      d.manualPending.map((t,n) => `<div class="chk"><div class="chk-num">${n+1}</div><div>${esc(t)}</div></div>`).join('') +
+      `</div></details>`);
+  }
+
+  // פעולות
+  H.push(`<div class="card"><h3>מה אפשר לעשות</h3><div class="grid2">
+    <a class="btn primary" href="${ask('/status')}"><span class="ico">🔄</span>בדיקה עכשיו</a>
+    <a class="btn" href="${ask('/prefs')}"><span class="ico">⚙️</span>ההעדפות שלי</a>
+    <a class="btn" href="${ask('/help')}"><span class="ico">❓</span>שאלות נפוצות</a>
+    <a class="btn" href="${ask('')}"><span class="ico">💬</span>לשאול משהו</a>
+  </div></div>`);
+
+  document.getElementById('app').innerHTML = H.join('');
+
+  // עדכון אחרון
+  const t = new Date(d.checkedAt);
+  const mins = Math.round((Date.now()-t)/6e4);
+  const ago = mins<2 ? 'עכשיו' : mins<60 ? `לפני ${mins} דקות`
+    : mins<1440 ? `לפני ${Math.round(mins/60)} שעות` : `לפני ${Math.round(mins/1440)} ימים`;
+  document.getElementById('updated').textContent = 'עודכן ' + ago;
+  if (mins > 240){
+    document.getElementById('app').insertAdjacentHTML('beforeend',
+      `<div class="stale">⚠️ הנתונים לא התעדכנו יותר מ-4 שעות. ייתכן שהמחשב של אבא כבוי.</div>`);
+  }
+}
+
+fetch('status.json?t=' + Date.now() + (location.search.includes('mock=1') ? '&mock=1' : ''))
+  .then(r => { if(!r.ok) throw new Error(r.status); return r.json(); })
+  .then(render)
+  .catch(() => {
+    document.getElementById('app').innerHTML =
+      `<div class="stale">לא הצלחנו לטעון את הנתונים.<br>נסי לרענן את הדף בעוד רגע.</div>`;
+    document.getElementById('updated').textContent = '';
+  });
+</script>
+</body>
+</html>

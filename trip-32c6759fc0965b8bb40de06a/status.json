@@ -1,0 +1,44 @@
+{
+  "checkedAt": "2026-08-13T21:59:12.455Z",
+  "trip": {
+    "checkIn": "2026-08-27",
+    "checkOut": "2026-08-31",
+    "nights": 4,
+    "adults": 2
+  },
+  "bestLevel": "blocked",
+  "flights": {
+    "available": false,
+    "reason": "הטיסות בשעות המדויקות קיימות בלוח, אך אין בהן מושבים לשתי נוסעות. הלוך 6H519: 9 מושבים. חזור 6H514: 0 מושבים.",
+    "soldOutDetail": {
+      "outbound": {
+        "flight": "6H519",
+        "flightNumber": "6H519",
+        "time": "09:00",
+        "departTime": "09:00",
+        "arriveTime": "10:40",
+        "seats": 9
+      },
+      "inbound": {
+        "flight": "6H514",
+        "flightNumber": "6H514",
+        "time": "16:35",
+        "departTime": "16:35",
+        "arriveTime": "18:10",
+        "seats": 0
+      },
+      "priceIfItWereAvailable": 276,
+      "currency": "USD"
+    }
+  },
+  "budget": null,
+  "hotels": [],
+  "hotelsScanned": 25,
+  "manualPending": [],
+  "maxWalkMinutes": 10,
+  "fx": {
+    "usdToIls": 2.981,
+    "stale": false
+  },
+  "errors": []
+}
