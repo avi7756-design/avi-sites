@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-08-14T10:46:33.542Z",
+  "checkedAt": "2026-08-14T15:43:00.121Z",
   "trip": {
     "checkIn": "2026-08-27",
     "checkOut": "2026-08-31",
@@ -37,7 +37,7 @@
   "manualPending": [],
   "maxWalkMinutes": 10,
   "fx": {
-    "usdToIls": 2.981,
+    "usdToIls": 2.95,
     "stale": false
   },
   "errors": []
