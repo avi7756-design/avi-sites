@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-08-15T16:04:23.863Z",
+  "checkedAt": "2026-08-15T18:45:56.713Z",
   "trip": {
     "checkIn": "2026-08-27",
     "checkOut": "2026-08-31",
@@ -33,12 +33,14 @@
   },
   "budget": null,
   "hotels": [],
-  "hotelsScanned": 25,
+  "hotelsScanned": 0,
   "manualPending": [],
   "maxWalkMinutes": 10,
   "fx": {
     "usdToIls": 2.95,
     "stale": false
   },
-  "errors": []
+  "errors": [
+    "Booking נכשלה: page.waitForSelector: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('[data-testid=\"property-card\"]') to be visible\u001b[22m\n\u001b[2m    - locator resolved to 25 elements. Proc"
+  ]
 }
