@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-08-16T17:43:05.514Z",
+  "checkedAt": "2026-08-16T20:44:56.464Z",
   "trip": {
     "checkIn": "2026-08-27",
     "checkOut": "2026-08-31",
@@ -27,7 +27,7 @@
         "arriveTime": "18:10",
         "seats": 0
       },
-      "priceIfItWereAvailable": 300,
+      "priceIfItWereAvailable": 298,
       "currency": "USD"
     }
   },
