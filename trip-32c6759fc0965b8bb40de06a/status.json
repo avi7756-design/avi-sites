@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-08-17T12:43:04.193Z",
+  "checkedAt": "2026-08-17T20:46:07.503Z",
   "trip": {
     "checkIn": "2026-08-27",
     "checkOut": "2026-08-31",
@@ -27,18 +27,20 @@
         "arriveTime": "18:10",
         "seats": 0
       },
-      "priceIfItWereAvailable": 298,
+      "priceIfItWereAvailable": 358,
       "currency": "USD"
     }
   },
   "budget": null,
   "hotels": [],
-  "hotelsScanned": 25,
+  "hotelsScanned": 0,
   "manualPending": [],
   "maxWalkMinutes": 10,
   "fx": {
-    "usdToIls": 2.95,
+    "usdToIls": 2.951,
     "stale": false
   },
-  "errors": []
+  "errors": [
+    "Booking נכשלה: page.goto: Timeout 60000ms exceeded.\nCall log:\n\u001b[2m  - navigating to \"https://www.booking.com/searchresults.html?ss=Faliraki%2C+Rhodes%2C+Greece&checkin=2026-08-27&checkout=2026-08-31&g"
+  ]
 }
