@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-08-20T18:43:03.930Z",
+  "checkedAt": "2026-08-21T17:43:06.546Z",
   "trip": {
     "checkIn": "2026-08-27",
     "checkOut": "2026-08-31",
@@ -27,7 +27,7 @@
         "arriveTime": "18:10",
         "seats": 0
       },
-      "priceIfItWereAvailable": 240,
+      "priceIfItWereAvailable": 284,
       "currency": "USD"
     }
   },
@@ -37,7 +37,7 @@
   "manualPending": [],
   "maxWalkMinutes": 10,
   "fx": {
-    "usdToIls": 2.992,
+    "usdToIls": 2.985,
     "stale": false
   },
   "errors": []
