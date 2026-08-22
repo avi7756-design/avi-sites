@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>SafeRide Kids — אב טיפוס v2</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6fa;color:#172033}
+.app{max-width:430px;margin:auto;min-height:100vh;background:#fff;padding-bottom:92px}
+header{padding:14px 14px 8px;border-bottom:1px solid #e8ebf0;background:#fff;position:sticky;top:0;z-index:5}
+.headrow{display:flex;gap:8px;align-items:center;justify-content:space-between}
+.brand{font-weight:800;font-size:18px}.small{font-size:13px;color:#687386}
+.topactions{display:flex;gap:6px;flex-wrap:wrap}
+.iconbtn{border:1px solid #dfe4ea;background:#fff;border-radius:12px;padding:9px 11px;font-size:14px;min-height:44px}
+main{padding:14px}
+h1{font-size:28px;margin:12px 0}h2{font-size:22px;margin:10px 0}
+.btn{width:100%;padding:17px;margin:7px 0;border:0;border-radius:16px;font-size:18px;font-weight:bold;background:#edf2ff;color:#173a77;min-height:52px}
+.primary{background:#2457d6;color:#fff}.danger{background:#c62828;color:#fff}.secondary{background:#f2f4f7;color:#273142}
+.card{border:1px solid #e1e5ec;border-radius:18px;padding:15px;margin:12px 0;background:#fff}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:9px}
+.eta{font-size:30px;font-weight:900}.hidden{display:none}
+.map{height:180px;border-radius:18px;background:linear-gradient(135deg,#e7f3e9,#e7edf8);display:flex;align-items:center;justify-content:space-around;font-size:25px}
+.tag{background:#e8efff;padding:5px 8px;border-radius:10px;font-size:12px}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}.warn{background:#fff3cd}.ok{background:#e9f8ee}
+.sos{position:fixed;bottom:94px;left:18px;width:62px;height:62px;border-radius:50%;border:0;background:#c62828;color:white;font-weight:bold;z-index:6}
+nav{position:fixed;bottom:0;right:0;left:0;max-width:430px;margin:auto;background:#fff;border-top:1px solid #e4e7ec;display:grid;grid-template-columns:repeat(4,1fr);padding:7px 6px;z-index:5}
+nav button{border:0;background:none;padding:7px;font-size:12px;min-height:58px}
+.helpbox{background:#f8fafc;border:1px solid #dfe4ea;border-radius:16px;padding:14px;margin:10px 0}
+.qa{display:flex;gap:8px}.qa input{flex:1;min-width:0;padding:13px;border:1px solid #cfd6df;border-radius:12px;font-size:16px}.qa button{border:0;border-radius:12px;background:#2457d6;color:#fff;padding:0 14px;font-weight:bold}
+.answer{margin-top:10px;padding:12px;border-radius:12px;background:#eef3ff;min-height:48px}
+.chips{display:flex;gap:7px;flex-wrap:wrap;margin:10px 0}.chip{border:1px solid #d8dee8;background:#fff;border-radius:999px;padding:9px 12px}
+@media(max-width:360px){.grid{grid-template-columns:1fr}.headrow{align-items:flex-start;flex-direction:column}.topactions{width:100%}.iconbtn{flex:1}}
+</style>
+</head>
+<body>
+<div class="app" id="app">
+<header>
+  <div class="headrow">
+    <div><div class="brand">SafeRide Kids</div><div class="small">פיילוט כפר ורדים • אב־טיפוס חינמי</div></div>
+    <div class="topactions">
+      <button class="iconbtn" id="backBtn" type="button">⬅️ אחורה</button>
+      <button class="iconbtn" id="forwardBtn" type="button">קדימה ➡️</button>
+      <button class="iconbtn" id="homeBtn" type="button">🏠 ראשי</button>
+      <button class="iconbtn" id="helpBtn" type="button">❓ עזרה</button>
+    </div>
+  </div>
+</header>
+<main>
+<section id="home">
+<h1>שלום 👋</h1>
+<div class="card ok"><b>הכול בסדר</b><div class="small">אין נסיעה פעילה</div></div>
+<button class="btn primary" data-go="places" type="button">📍 לאן אני רוצה להגיע?</button>
+<button class="btn" data-go="places" type="button">🚗 חפש לי טרמפ</button>
+<button class="btn" id="walkingBtn" type="button">🚶 אני כבר בדרך</button>
+<button class="btn" data-go="map" type="button">🗺️ המפה שלי</button>
+</section>
+<section id="places" class="hidden">
+<h2>לאן נוסעים?</h2>
+<div class="grid">
+<button class="btn dest" data-dest="אולם הספורט" type="button">🏀 אולם הספורט</button>
+<button class="btn dest" data-dest="מגרשי הטניס" type="button">🎾 מגרשי הטניס</button>
+<button class="btn dest" data-dest="המרכז המסחרי" type="button">🛍️ מרכז מסחרי</button>
+<button class="btn dest" data-dest="בית הספר" type="button">🏫 בית הספר</button>
+</div>
+</section>
+<section id="drivers" class="hidden">
+<h2>מצאנו לך טרמפ</h2><div id="dest" class="small"></div>
+<div class="card"><div class="row"><b>רונית לוי 👩</b><span class="tag">מומלץ</span></div><div class="eta">4 דקות</div><div class="small">סטייה: 2 דקות • 2 מקומות • מפגש ליד הטניס</div><button class="btn primary pick" data-driver="רונית" type="button">בחר רונית</button></div>
+<div class="card"><b>דני כהן 👨</b><div class="eta">6 דקות</div><div class="small">סטייה: דקה • מקום 1</div><button class="btn pick" data-driver="דני" type="button">בחר דני</button></div>
+<button class="btn secondary" id="cancelSearch" type="button">ביטול</button>
+</section>
+<section id="meeting" class="hidden">
+<h2><span id="name"></span> בדרך אליך</h2>
+<div class="map"><span>🚶</span><span>📍</span><span>🚗</span></div>
+<div class="card"><div class="row"><div><b>הנהג</b><div class="eta">4 דק׳</div></div><div><b>אתה ברגל</b><div class="eta">2 דק׳</div></div></div><div class="small">נקודת מפגש: תחנת האוטובוס ליד מגרשי הטניס</div></div>
+<button class="btn primary" data-go="pin" type="button">הנהג הגיע</button>
+<button class="btn" id="cancelRideBtn" type="button">ביטול האיסוף</button>
+<button class="btn" data-go="offline" type="button">הדגם ניתוק/סוללה</button>
+</section>
+<section id="pin" class="hidden">
+<h2>אימות לפני כניסה לרכב</h2>
+<div class="card"><div class="small">אמור לנהג את הקוד</div><div class="eta">4721</div><div class="small">נכנסים רק אחרי שהקוד מתאים.</div></div>
+<button class="btn primary" data-go="ride" type="button">הקוד אומת — נאספתי</button>
+</section>
+<section id="ride" class="hidden">
+<h2>בדרך ליעד 🚗</h2>
+<div class="card"><div class="small">זמן משוער</div><div class="eta">8 דקות</div></div>
+<div class="grid"><button class="btn" type="button">💬 הודעה</button><button class="btn" type="button">📞 שיחה</button></div>
+<button class="btn primary" data-go="done" type="button">הגענו</button>
+</section>
+<section id="done" class="hidden">
+<div class="card ok"><h2>הגעת בשלום ✅</h2><p>שיתוף המיקום עם הנהג הופסק.</p></div>
+<button class="btn primary" data-go="home" type="button">חזרה למסך הראשי</button>
+</section>
+<section id="map" class="hidden">
+<h2>המפה שלי</h2><div class="map">🚶 📍 🏀</div>
+<div class="card"><b>אולם הספורט</b><div class="small">1.8 ק״מ • 23 דקות הליכה</div><button class="btn primary dest" data-dest="אולם הספורט" type="button">חפש לי טרמפ לשם</button></div>
+</section>
+<section id="offline" class="hidden">
+<h2>אין עדכון מיקום</h2><div class="card warn"><b>⚠️ מיקום אחרון ידוע</b><p>ליד מגרשי הטניס</p><div class="small">עודכן לפני 3 דקות</div></div>
+<button class="btn" data-go="meeting" type="button">חזרה לנסיעה</button>
+</section>
+<section id="help" class="hidden">
+<h2>עזרה פשוטה לילדים</h2>
+<div class="helpbox"><b>איך מתחילים?</b><p>לוחצים על "לאן אני רוצה להגיע?", בוחרים מקום, ואז בוחרים נהג שמותר לו להסיע אותך.</p></div>
+<div class="helpbox"><b>איך יודעים מתי הנהג מגיע?</b><p>תראה מספר גדול של דקות. למשל "4 דקות". כשהמספר קטן, הנהג מתקרב.</p></div>
+<div class="helpbox"><b>מה עושים אם הסתדרת לבד?</b><p>לוחצים "ביטול האיסוף". כך הנהג יודע שלא צריך להגיע.</p></div>
+<div class="helpbox"><b>מתי משתמשים ב-SOS?</b><p>רק כשאתה במצוקה, אבוד, מפחד או צריך עזרה דחופה.</p></div>
+<h2>שאל אותי שאלה</h2>
+<div class="chips">
+<button class="chip qchip" type="button">איך מבטלים?</button>
+<button class="chip qchip" type="button">איפה הנהג?</button>
+<button class="chip qchip" type="button">מה זה PIN?</button>
+<button class="chip qchip" type="button">נגמרה לי הסוללה</button>
+</div>
+<div class="qa"><input id="questionInput" type="text" placeholder="כתוב שאלה, למשל: איך חוזרים הביתה?"><button id="askBtn" type="button">שאל</button></div>
+<div class="answer" id="answerBox" aria-live="polite">אני כאן כדי להסביר בפשטות.</div>
+</section>
+<section id="sos" class="hidden">
+<h2>🔴 SOS</h2><div class="card warn">בדמו: המיקום ואירוע החירום נשלחים למעגל החירום המורשה.</div>
+<button class="btn danger" data-go="home" type="button">סגור הדגמה</button>
+</section>
+</main>
+<button class="sos" id="sosBtn" type="button">SOS</button>
+<nav>
+<button data-go="home" type="button">🏠<br>בית</button>
+<button data-go="drivers" type="button">🚗<br>נסיעות</button>
+<button data-go="help" type="button">❓<br>עזרה</button>
+<button data-go="map" type="button">🗺️<br>מפה</button>
+</nav>
+</div>
+<script>
+(() => {
+  const root = document.getElementById('app');
+  const sections = [...root.querySelectorAll('main section')];
+  const historyStack = ['home'];
+  let historyIndex = 0;
+  function render(id, push=true){
+    if(!document.getElementById(id)) return;
+    sections.forEach(s => s.classList.add('hidden'));
+    document.getElementById(id).classList.remove('hidden');
+    if(push){historyStack.splice(historyIndex + 1);historyStack.push(id);historyIndex = historyStack.length - 1;}
+    updateNav();window.scrollTo({top:0,behavior:'smooth'});
+  }
+  function updateNav(){document.getElementById('backBtn').disabled = historyIndex <= 0;document.getElementById('forwardBtn').disabled = historyIndex >= historyStack.length - 1;}
+  function drivers(d){document.getElementById('dest').textContent = 'יעד: ' + d;render('drivers');}
+  function answerQuestion(q){
+    const t=(q||'').trim();
+    let a='לא בטוח שהבנתי. נסה לשאול במילים פשוטות, למשל: "איך מבטלים?"';
+    if(/בטל|ביטול|התחרט/.test(t)) a='כדי לבטל, לחץ על "ביטול האיסוף". אם הנהג כבר בדרך, האפליקציה תשאל אותך פעם אחת אם אתה בטוח.';
+    else if(/איפה.*נהג|נהג.*איפה|מגיע/.test(t)) a='במסך הנסיעה תראה איפה הנהג וכמה דקות נשארו עד שהוא מגיע אליך.';
+    else if(/pin|פין|קוד/.test(t)) a='PIN הוא קוד קצר בן 4 ספרות. אומרים אותו לנהג כדי לוודא שזה הנהג הנכון לפני שנכנסים לרכב.';
+    else if(/סוללה|כבה|אין.*טלפון/.test(t)) a='אם נגמרת הסוללה, הנהג וההורה רואים את המיקום האחרון שהאפליקציה הצליחה לשמור ואת הזמן שבו הוא עודכן.';
+    else if(/sos|חירום|מפחד|אבוד|מצוקה/.test(t)) a='אם אתה במצוקה או מפחד, לחץ על SOS. זה מיועד לעזרה דחופה ולא לטרמפ רגיל.';
+    else if(/ראשי|בית|התחלה|חוזר/.test(t)) a='בכל מסך יש למעלה כפתור "ראשי". לחץ עליו ותמיד תחזור למסך הבית.';
+    else if(/קדימה|אחורה/.test(t)) a='למעלה יש כפתורי "אחורה" ו"קדימה". הם עובדים כמו בדפדפן ומחזירים אותך למסך הקודם או הבא.';
+    else if(/איך.*טרמפ|מחפש.*טרמפ|נסיעה/.test(t)) a='בחר יעד, לחץ "חפש לי טרמפ", ואז בחר נהג מורשה לפי זמן ההגעה ונקודת המפגש.';
+    document.getElementById('answerBox').textContent=a;
+  }
+  root.querySelectorAll('[data-go]').forEach(b=>b.addEventListener('click',()=>render(b.dataset.go)));
+  root.querySelectorAll('.dest').forEach(b=>b.addEventListener('click',()=>drivers(b.dataset.dest)));
+  root.querySelectorAll('.pick').forEach(b=>b.addEventListener('click',()=>{document.getElementById('name').textContent=b.dataset.driver;render('meeting');}));
+  document.getElementById('walkingBtn').addEventListener('click',()=>drivers('אולם הספורט — אתה כבר בדרך'));
+  document.getElementById('cancelSearch').addEventListener('click',()=>render('home'));
+  document.getElementById('cancelRideBtn').addEventListener('click',()=>{if(confirm('לבטל? הנהג כבר בדרך.'))render('home');});
+  document.getElementById('sosBtn').addEventListener('click',()=>render('sos'));
+  document.getElementById('homeBtn').addEventListener('click',()=>render('home'));
+  document.getElementById('helpBtn').addEventListener('click',()=>render('help'));
+  document.getElementById('backBtn').addEventListener('click',()=>{if(historyIndex>0){historyIndex--;render(historyStack[historyIndex],false);}});
+  document.getElementById('forwardBtn').addEventListener('click',()=>{if(historyIndex<historyStack.length-1){historyIndex++;render(historyStack[historyIndex],false);}});
+  document.getElementById('askBtn').addEventListener('click',()=>answerQuestion(document.getElementById('questionInput').value));
+  document.getElementById('questionInput').addEventListener('keydown',e=>{if(e.key==='Enter')answerQuestion(e.target.value);});
+  root.querySelectorAll('.qchip').forEach(b=>b.addEventListener('click',()=>{document.getElementById('questionInput').value=b.textContent;answerQuestion(b.textContent);}));
+  updateNav();
+})();
+</script>
+</body>
+</html>
