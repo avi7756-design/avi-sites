@@ -1,5 +1,5 @@
 {
-  "checkedAt": "2026-08-23T10:20:04.087Z",
+  "checkedAt": "2026-08-23T10:42:58.589Z",
   "trip": {
     "checkIn": "2026-08-27",
     "checkOut": "2026-08-31",
@@ -9,21 +9,36 @@
   "bestLevel": "blocked",
   "flights": {
     "available": false,
-    "reason": "שגיאת מערכת: fetch failed",
-    "soldOutDetail": null
+    "reason": "הטיסות בשעות המדויקות קיימות בלוח, אך אין בהן מושבים לשתי נוסעות. הלוך 6H519: 2 מושבים. חזור 6H514: 0 מושבים.",
+    "soldOutDetail": {
+      "outbound": {
+        "flight": "6H519",
+        "flightNumber": "6H519",
+        "time": "09:00",
+        "departTime": "09:00",
+        "arriveTime": "10:40",
+        "seats": 2
+      },
+      "inbound": {
+        "flight": "6H514",
+        "flightNumber": "6H514",
+        "time": "16:35",
+        "departTime": "16:35",
+        "arriveTime": "18:10",
+        "seats": 0
+      },
+      "priceIfItWereAvailable": 300,
+      "currency": "USD"
+    }
   },
   "budget": null,
   "hotels": [],
-  "hotelsScanned": 0,
+  "hotelsScanned": 25,
   "manualPending": [],
   "maxWalkMinutes": 10,
   "fx": {
-    "usdToIls": 3.3,
-    "stale": true
+    "usdToIls": 2.985,
+    "stale": false
   },
-  "errors": [
-    "ישראייר נכשלה: fetch failed",
-    "שער חליפין לא נמשך: fetch failed",
-    "Booking נכשלה: page.goto: net::ERR_CERT_AUTHORITY_INVALID at https://www.booking.com/searchresults.html?ss=Faliraki%2C+Rhodes%2C+Greece&checkin=2026-08-27&checkout=2026-08-31&group_adults=2&group_chil"
-  ]
+  "errors": []
 }
