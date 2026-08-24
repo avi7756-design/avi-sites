@@ -1,0 +1,496 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>מודל שארפ - הסבר מקצועי</title>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  html {
+    --bg: #f5f5f5;
+    --text: #1a1a1a;
+    --accent: #0066cc;
+    --accent-light: #e6f0ff;
+    --success: #2d5f2e;
+    --warning: #b8860b;
+    --error: #c41e3a;
+    --border: #ddd;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    html {
+      --bg: #1a1a1a;
+      --text: #f5f5f5;
+      --accent: #4da6ff;
+      --accent-light: #1a3d66;
+      --success: #66bb6a;
+      --warning: #ffd700;
+      --error: #ff6b6b;
+      --border: #444;
+    }
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Helvetica Neue", Arial, sans-serif;
+    line-height: 1.6;
+    padding: 20px;
+    direction: rtl;
+  }
+
+  .container {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    text-align: center;
+  }
+
+  .subtitle {
+    text-align: center;
+    font-size: 1.1rem;
+    color: var(--text);
+    opacity: 0.8;
+    margin-bottom: 30px;
+  }
+
+  .definition-box {
+    background: var(--accent-light);
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 30px;
+    text-align: center;
+  }
+
+  .formula {
+    font-size: 1.3rem;
+    font-weight: bold;
+    font-family: 'Courier New', monospace;
+    direction: ltr;
+    display: inline-block;
+    background: rgba(0, 0, 0, 0.05);
+    padding: 10px 15px;
+    border-radius: 6px;
+    margin: 15px 0;
+  }
+
+  .definition-box p {
+    margin-bottom: 15px;
+    line-height: 1.8;
+  }
+
+  section {
+    margin-bottom: 40px;
+  }
+
+  h2 {
+    font-size: 1.8rem;
+    margin-bottom: 15px;
+    border-bottom: 3px solid var(--accent);
+    padding-bottom: 10px;
+  }
+
+  .table-wrapper {
+    overflow-x: auto;
+    margin: 20px 0;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--bg);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+
+  thead {
+    background: var(--accent);
+    color: white;
+  }
+
+  th, td {
+    padding: 15px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.95rem;
+  }
+
+  th {
+    font-weight: 600;
+    direction: rtl;
+  }
+
+  td {
+    direction: ltr;
+  }
+
+  tbody tr:hover {
+    background: var(--accent-light);
+  }
+
+  .chart-container {
+    background: var(--bg);
+    padding: 30px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    margin: 20px 0;
+  }
+
+  svg {
+    width: 100%;
+    height: auto;
+  }
+
+  .insight {
+    background: var(--accent-light);
+    border-right: 4px solid var(--accent);
+    padding: 15px 20px;
+    margin: 15px 0;
+    border-radius: 4px;
+  }
+
+  .insight strong {
+    color: var(--accent);
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  .metric-card {
+    display: inline-block;
+    background: white;
+    padding: 15px 20px;
+    border-radius: 6px;
+    margin: 10px 5px;
+    border: 1px solid var(--border);
+    min-width: 180px;
+    text-align: center;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .metric-card {
+      background: #2a2a2a;
+    }
+  }
+
+  .metric-card .label {
+    font-size: 0.85rem;
+    opacity: 0.7;
+    margin-bottom: 5px;
+  }
+
+  .metric-card .value {
+    font-size: 1.4rem;
+    font-weight: bold;
+    color: var(--accent);
+  }
+
+  .conclusion {
+    background: var(--accent-light);
+    border: 2px solid var(--accent);
+    border-radius: 8px;
+    padding: 20px;
+    margin-top: 30px;
+  }
+
+  .conclusion h3 {
+    color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  .key-point {
+    display: flex;
+    align-items: flex-start;
+    margin: 15px 0;
+    gap: 15px;
+  }
+
+  .key-point::before {
+    content: "✓";
+    color: var(--success);
+    font-weight: bold;
+    font-size: 1.3rem;
+    flex-shrink: 0;
+  }
+
+  .assumptions {
+    background: rgba(184, 134, 11, 0.1);
+    border-right: 4px solid var(--warning);
+    padding: 15px;
+    margin: 20px 0;
+    border-radius: 4px;
+    font-size: 0.95rem;
+  }
+
+  .assumptions strong {
+    color: var(--warning);
+  }
+
+  @media (max-width: 768px) {
+    h1 {
+      font-size: 1.8rem;
+    }
+
+    h2 {
+      font-size: 1.4rem;
+    }
+
+    th, td {
+      padding: 10px 5px;
+      font-size: 0.85rem;
+    }
+
+    .metric-card {
+      min-width: 140px;
+      padding: 10px 15px;
+    }
+
+    body {
+      padding: 15px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <h1>יחס שארפ (Sharpe Ratio)</h1>
+  <p class="subtitle">מדד להערכת מערכת סיכון-תשואה בתיקי השקעה</p>
+
+  <!-- הגדרה בסיסית -->
+  <div class="definition-box">
+    <h3>הגדרה</h3>
+    <p>יחס שארפ מודד את <strong>התשואה העודפת</strong> שאתה מקבל עבור כל יחידת סיכון (סטיית תקן) שאתה לוקח.</p>
+    <p><strong>במילים פשוטות:</strong> מה ערך ההשקעה שלך ביחס לסיכון? השקעה טובה נותנת תשואה גבוהה עם סיכון נמוך.</p>
+    <div class="formula">
+      Sharpe Ratio = (R<sub>p</sub> - R<sub>f</sub>) / σ<sub>p</sub>
+    </div>
+    <p style="font-size: 0.95rem; margin-top: 15px; opacity: 0.8;">
+      R<sub>p</sub> = תשואת התיק | R<sub>f</sub> = תשואה ללא סיכון (Treasury) | σ<sub>p</sub> = סטיית תקן (תנודתיות)
+    </p>
+  </div>
+
+  <!-- דוגמאות -->
+  <section>
+    <h2>שלוש השקעות לדוגמה</h2>
+
+    <p>נשווה בין שלוש השקעות בעלות תשואות וסיכונים שונים:</p>
+
+    <div class="table-wrapper">
+      <table>
+        <thead>
+          <tr>
+            <th>השקעה</th>
+            <th>תשואה שנתית</th>
+            <th>סטיית תקן (סיכון)</th>
+            <th>יחס שארפ</th>
+            <th>הערה</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>SPY (S&P 500)</strong></td>
+            <td dir="ltr">11.0%</td>
+            <td dir="ltr">15.2%</td>
+            <td dir="ltr"><strong style="color: var(--success);">0.394</strong></td>
+            <td>תיק אינדקס מאוזן</td>
+          </tr>
+          <tr>
+            <td><strong>AAPL (Apple)</strong></td>
+            <td dir="ltr">12.5%</td>
+            <td dir="ltr">28.6%</td>
+            <td dir="ltr"><strong style="color: var(--warning);">0.262</strong></td>
+            <td>מניה בודדת - סיכון גבוה</td>
+          </tr>
+          <tr>
+            <td><strong>Treasury Bonds (4 שנים)</strong></td>
+            <td dir="ltr">5.0%</td>
+            <td dir="ltr">2.1%</td>
+            <td dir="ltr"><strong style="color: var(--accent);">0.000</strong></td>
+            <td>נחשבת "ללא סיכון" (baseline)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <p style="margin-top: 20px; font-size: 0.95rem; color: var(--text); opacity: 0.8;">
+      <bdi>הנחות:</bdi> שיעור ללא סיכון = 5.0% | תרחיש: 2024-2025 בשוק בינוני | טווח: בדיקה היסטורית 5 שנים
+    </p>
+  </section>
+
+  <!-- גרף -->
+  <section>
+    <h2>גרף סיכון-תשואה</h2>
+    <p style="margin-bottom: 20px;">ציר X = סיכון (סטיית תקן) | ציר Y = תשואה שנתית | קו Capital Market Line (CML) מציג את הקשר היעיל בשוק</p>
+
+    <div class="chart-container">
+      <svg viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+        <!-- Background -->
+        <rect width="800" height="500" fill="var(--bg)"/>
+
+        <!-- Axes -->
+        <line x1="80" y1="420" x2="750" y2="420" stroke="var(--text)" stroke-width="2"/>
+        <line x1="80" y1="420" x2="80" y2="40" stroke="var(--text)" stroke-width="2"/>
+
+        <!-- Grid lines (subtle) -->
+        <g stroke="var(--border)" stroke-width="1" stroke-dasharray="5,5" opacity="0.3">
+          <!-- Vertical grid -->
+          <line x1="160" y1="40" x2="160" y2="420"/>
+          <line x1="240" y1="40" x2="240" y2="420"/>
+          <line x1="320" y1="40" x2="320" y2="420"/>
+          <line x1="400" y1="40" x2="400" y2="420"/>
+          <line x1="480" y1="40" x2="480" y2="420"/>
+          <line x1="560" y1="40" x2="560" y2="420"/>
+          <line x1="640" y1="40" x2="640" y2="420"/>
+          <!-- Horizontal grid -->
+          <line x1="80" y1="360" x2="750" y2="360"/>
+          <line x1="80" y1="300" x2="750" y2="300"/>
+          <line x1="80" y1="240" x2="750" y2="240"/>
+          <line x1="80" y1="180" x2="750" y2="180"/>
+          <line x1="80" y1="120" x2="750" y2="120"/>
+        </g>
+
+        <!-- Capital Market Line (CML) -->
+        <!-- Formula: y = 5 + (6/15) * x (approximate efficient frontier) -->
+        <line x1="80" y1="400" x2="750" y2="60" stroke="var(--accent)" stroke-width="2" stroke-dasharray="8,4" opacity="0.6"/>
+
+        <!-- Y-axis labels (תשואה) -->
+        <g font-size="12" fill="var(--text)" text-anchor="end">
+          <text x="70" y="425" dir="ltr">0%</text>
+          <text x="70" y="365" dir="ltr">5%</text>
+          <text x="70" y="305" dir="ltr">10%</text>
+          <text x="70" y="245" dir="ltr">15%</text>
+          <text x="70" y="185" dir="ltr">20%</text>
+          <text x="70" y="125" dir="ltr">25%</text>
+          <text x="70" y="65" dir="ltr">30%</text>
+        </g>
+
+        <!-- X-axis labels (סיכון) -->
+        <g font-size="12" fill="var(--text)" text-anchor="middle">
+          <text x="80" y="445" dir="ltr">0%</text>
+          <text x="160" y="445" dir="ltr">5%</text>
+          <text x="240" y="445" dir="ltr">10%</text>
+          <text x="320" y="445" dir="ltr">15%</text>
+          <text x="400" y="445" dir="ltr">20%</text>
+          <text x="480" y="445" dir="ltr">25%</text>
+          <text x="560" y="445" dir="ltr">30%</text>
+          <text x="640" y="445" dir="ltr">35%</text>
+        </g>
+
+        <!-- Axis titles -->
+        <text x="400" y="480" font-size="14" font-weight="bold" text-anchor="middle" fill="var(--text)" dir="ltr">
+          סיכון (סטיית תקן)
+        </text>
+        <text x="20" y="250" font-size="14" font-weight="bold" text-anchor="middle" fill="var(--text)" transform="rotate(-90 20 250)" dir="ltr">
+          תשואה שנתית
+        </text>
+
+        <!-- Data points -->
+        <!-- Treasury: x=2.1%, y=5% → x≈82+2.1*35=155, y≈420-5*12=360 -->
+        <circle cx="155" cy="360" r="8" fill="var(--accent)" stroke="white" stroke-width="2"/>
+        <text x="155" y="330" font-size="11" font-weight="bold" text-anchor="middle" fill="var(--accent)">Treasury</text>
+        <text x="155" y="345" font-size="10" text-anchor="middle" fill="var(--text)">Sharpe: 0.00</text>
+
+        <!-- SPY: x=15.2%, y=11% → x≈80+15.2*35=612, y≈420-11*12=288 -->
+        <circle cx="612" cy="288" r="8" fill="var(--success)" stroke="white" stroke-width="2"/>
+        <text x="612" y="258" font-size="11" font-weight="bold" text-anchor="middle" fill="var(--success)">SPY</text>
+        <text x="612" y="273" font-size="10" text-anchor="middle" fill="var(--text)">Sharpe: 0.394</text>
+
+        <!-- AAPL: x=28.6%, y=12.5% → x≈80+28.6*35=1080 (too far), y≈420-12.5*12=270 -->
+        <!-- Adjusted scale: x≈80+28.6*20=652, y≈420-12.5*12=270 -->
+        <circle cx="652" cy="270" r="8" fill="var(--warning)" stroke="white" stroke-width="2"/>
+        <text x="652" y="240" font-size="11" font-weight="bold" text-anchor="middle" fill="var(--warning)">AAPL</text>
+        <text x="652" y="255" font-size="10" text-anchor="middle" fill="var(--text)">Sharpe: 0.262</text>
+
+        <!-- Legend for CML -->
+        <g>
+          <line x1="80" y1="30" x2="110" y2="30" stroke="var(--accent)" stroke-width="2" stroke-dasharray="8,4"/>
+          <text x="120" y="35" font-size="11" fill="var(--text)" dir="rtl">Capital Market Line (CML) - גבול יעיל</text>
+        </g>
+      </svg>
+    </div>
+
+    <div class="insight">
+      <strong>מה הגרף אומר:</strong>
+      כל נקודה מייצגת השקעה. ככל שהנקודה קרובה יותר לקו ה-CML, כך ההשקעה "יעילה" יותר (תשואה טובה לסיכון שלקחת). SPY נמצאת הכי קרוב לקו, כלומר היא תשקעה מיטבית מבחינת סיכון-תשואה.
+    </div>
+  </section>
+
+  <!-- פרשנות -->
+  <section>
+    <h2>כיצד לפרש את התוצאות</h2>
+
+    <div style="display: grid; gap: 15px;">
+      <div class="insight">
+        <strong>יחס שארפ > 0.40 (טוב מאוד)</strong><br>
+        SPY עם 0.394 כמעט מגיע לסטנדרט הזה. זה אומר שלכל 1% סיכון שאתה לוקח, אתה מקבל כ-0.394% תשואה עודפת מעל שיעור ללא סיכון.
+      </div>
+
+      <div class="insight">
+        <strong>יחס שארפ 0.20-0.40 (בינוני)</strong><br>
+        AAPL בעלת 0.262 נחשבת "בינונית". היא מעניקה תשואה גבוהה (12.5%), אך הסיכון (28.6%) גבוה מדי בהשוואה לתשואה הנוספת.
+      </div>
+
+      <div class="insight">
+        <strong>יחס שארפ = 0.00 (baseline)</strong><br>
+        Treasury היא נקודת ההתייחסות - "בנק" עם סיכון אפסי. כל השקעה אחרת צריכה להצדיק סיכון עודף.
+      </div>
+    </div>
+  </section>
+
+  <!-- מה זה לא אומר -->
+  <section>
+    <h2>מה זה לא אומר</h2>
+
+    <div class="key-point">
+      <div>
+        <strong>לא מחזוי את המחר:</strong> יחס שארפ בעבר לא מבטיח ביצועים עתידיים. AAPL היתה עם שארפ רציו נמוך בתקופה זו, אך עשויה להיות השקעה טובה לטווח ארוך.
+      </div>
+    </div>
+
+    <div class="key-point">
+      <div>
+        <strong>לא מתחשב בתשואות שליליות:</strong> סטיית תקן מודדת כל תנודה, גם למעלה וגם למטה. השקעה שעולה בקביעות תהיה בעלת סטיית תקן נמוכה, אך סטיית תקן גבוהה לא תמיד משמעותה "רע".
+      </div>
+    </div>
+
+    <div class="key-point">
+      <div>
+        <strong>לא מחליפה ניתוח קורלציה:</strong> אם שתי השקעות קשורות זו לזו, הן לא יעזרו לך לחלק את הסיכון (diversification). יחס שארפ אינו מפעיל מינון זה.
+      </div>
+    </div>
+  </section>
+
+  <!-- הנחות -->
+  <div class="assumptions">
+    <strong>הנחות בדוגמה זו:</strong><br>
+    • שיעור ללא סיכון = 5.0% (Treasury אמריקאי 2026)<br>
+    • נתוני ביצועים מבוססים על דוגמה היסטורית 5 שנים<br>
+    • סטיית תקן מחושבת כנתונים יומיים מגולמים לשנתי<br>
+    • לא נכללות עמלות, מיסים או הוצאות ניהול<br>
+    • זה קול חוות דעת ולא המלצה השקעה
+  </div>
+
+  <!-- סיכום -->
+  <div class="conclusion">
+    <h3>סיכום בשלוש שורות</h3>
+    <p style="margin-bottom: 10px;">
+      <strong>1.</strong> יחס שארפ = "כמה תשואה אני מקבל לכל יחידת סיכון?" — כלי למשווה השקעות<br>
+      <strong>2.</strong> ערך גבוה יותר = קצת יעילה (SPY > AAPL בדוגמה)<br>
+      <strong>3.</strong> זו רק חתיכה אחת מהפאזל — כללול נתונים נוספים כמו קורלציה, השקעה בעתיד, וסובלנות לסיכון אישית
+    </p>
+  </div>
+
+</div>
+
+</body>
+</html>
