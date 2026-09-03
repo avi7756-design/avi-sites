@@ -1,0 +1,160 @@
+<!DOCTYPE html><html lang="he" dir="rtl"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1"><title>מרכז מסמכים - משכנתאות דירה 1</title>
+<style>
+*{box-sizing:border-box} body{margin:0;font-family:"Segoe UI",Arial;background:#0b1220;color:#e5e9f0;direction:rtl}
+header{background:linear-gradient(135deg,#1e3a8a,#3730a3);padding:14px 24px;border-bottom:3px solid #f59e0b;position:sticky;top:0;z-index:30}
+h1{margin:0;font-size:20px} .sub{font-size:12px;color:#cbd5e1;margin-top:3px}
+.toolbar{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.tbtn{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.25);color:#fff;border-radius:8px;padding:7px 14px;font-size:13px;cursor:pointer}
+.tbtn:hover{background:rgba(255,255,255,.22)} .tbtn.home{background:#f59e0b;border-color:#f59e0b;color:#1a1205;font-weight:bold}
+.wrap{max-width:1280px;margin:0 auto;padding:16px}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 14px}
+.st{background:#16203a;border:1px solid #2b3a5a;border-radius:9px;padding:6px 12px;font-size:12px} .st b{font-size:17px;display:block}
+#q{width:100%;padding:13px 15px;font-size:16px;border-radius:10px;border:2px solid #2b3a5a;background:#16203a;color:#fff}
+.facets{margin:10px 0} .frow{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:5px 0}
+.flbl{font-size:11px;color:#8aa0c0;min-width:48px}
+.chip{background:#1b2742;border:1px solid #314268;color:#cdd8ee;border-radius:20px;padding:4px 11px;font-size:12px;cursor:pointer;user-select:none}
+.chip.on{background:#2563eb;border-color:#2563eb;color:#fff}.chip.s_on{background:#16a34a;border-color:#16a34a}
+#active{display:flex;gap:6px;flex-wrap:wrap;margin:6px 0;min-height:4px}
+.atag{background:#0e7490;color:#fff;border-radius:16px;padding:3px 10px;font-size:12px;cursor:pointer}
+.atag:hover{background:#b91c1c} .atag::after{content:" ✕";font-size:10px}
+#cnt{font-size:13px;color:#9fb3d1;margin:8px 2px}
+table{width:100%;border-collapse:collapse} th,td{padding:8px 10px;border-top:1px solid #20304e;font-size:13px;text-align:right;vertical-align:top}
+th{background:#0f1b30;color:#93c5fd;position:sticky;top:120px;font-size:12px}
+tr:hover td{background:#15203a}
+.fn{font-weight:600;color:#eef2f8} .dir{font-size:10px;color:#64748b}
+.b{display:inline-block;padding:1px 7px;border-radius:11px;font-size:10px;color:#fff;margin:1px}
+.t{background:#334155}.cur{background:#16a34a}.old{background:#d97706}.arc{background:#475569}.sgn{background:#0891b2}.dr{background:#7c3aed}.zb{background:#9f1239}
+a.op{background:#2563eb;color:#fff;padding:4px 10px;border-radius:6px;text-decoration:none;font-size:12px;white-space:nowrap} a.op:hover{background:#1d4ed8}
+.dup{color:#f59e0b;font-size:10px}
+footer{text-align:center;color:#5b6b85;font-size:11px;padding:20px}
+.modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.7);z-index:50;padding:30px;overflow:auto}
+.modal.show{display:block} .mbox{max-width:760px;margin:0 auto;background:#0f1b30;border:1px solid #2b3a5a;border-radius:14px;padding:26px;line-height:1.7}
+.mbox h2{margin-top:0;color:#f59e0b} .mbox h3{color:#93c5fd;margin-bottom:4px} .mbox code{background:#1b2742;padding:2px 7px;border-radius:5px;color:#a7f3d0}
+.mclose{float:left;background:#b91c1c;color:#fff;border:none;border-radius:8px;padding:6px 14px;cursor:pointer}
+.mbox kbd{background:#334155;border-radius:4px;padding:1px 6px}
+a.op.folder{background:#d97706}a.op.folder:hover{background:#b45309}
+a.op,button.op{margin-inline-start:4px}
+a.op.dl{background:#0891b2}a.op.dl:hover{background:#0e7490}
+button.op{color:#fff;padding:4px 9px;border:0;border-radius:6px;font-size:12px;cursor:pointer;font-family:inherit;white-space:nowrap;background:#7c3aed}
+button.op:hover{background:#6d28d9}
+.rb{display:inline-block;cursor:pointer;font-size:13px;margin-inline-start:6px;opacity:.7}
+.rb:hover{opacity:1}.rb.del{color:#f87171}.rb.edit{color:#fbbf24}
+.tbtn.warn{background:#d97706;border-color:#d97706;color:#1a1205;font-weight:bold}
+.tbtn.act{box-shadow:0 0 0 2px #fff inset}
+tr.tofix td{background:#1f1505}
+</style></head><body>
+<header><h1>🗂️ מרכז מסמכים - משכנתאות דירה 1</h1>
+<div class="sub">דשבורד חיפוש · 28 קבצים · עודכן 03.09.2026</div>
+<div class="toolbar">
+<button class="tbtn home" onclick="goHome()">🏠 מסך ראשי</button>
+<button class="tbtn" onclick="clearFilters()">🧹 נקה סינון</button>
+<button class="tbtn" onclick="location.reload()">🔄 רענן</button>
+<button class="tbtn" onclick="openHelp()">❓ מדריך עזרה</button>
+<button class="tbtn warn" id="fixBtn" onclick="toggleFix()">🔗 רק לתיקון</button>
+<button class="tbtn" onclick="exportEdits()">⤓ ייצוא שינויים</button>
+<button class="tbtn" onclick="document.getElementById('impf').click()">⤒ ייבוא</button>
+<input type="file" id="impf" accept=".json" style="display:none" onchange="importEdits(event)">
+<button class="tbtn" onclick="resetEdits()">↺ אפס שינויים</button>
+</div></header>
+<div class="wrap">
+<div class="stats" id="stats"></div>
+<input id="q" placeholder="🔎 חיפוש חופשי: שם קובץ, נושא, תיקייה, תאריך...">
+<div class="facets">
+<div class="frow"><span class="flbl">🏷️ סוג</span><span id="f_type"></span></div>
+<div class="frow"><span class="flbl">🚦 סטטוס</span><span id="f_status"></span></div>
+<div class="frow"><span class="flbl">👤 צד</span><span id="f_party"></span></div>
+<div class="frow"><span class="flbl">📁 תיקייה</span><span id="f_top"></span></div>
+</div>
+<div id="active"></div>
+<div id="cnt"></div>
+<table><thead><tr><th>קובץ</th><th>תאריך</th><th>סוג</th><th>סטטוס</th><th>צד</th><th>גודל</th><th></th></tr></thead><tbody id="tb"></tbody></table>
+<footer>קישורים ל-Google Drive · ✎ לעדכון קישור · ✖ להסרת שורה · שינויים נשמרים במחשב זה · "ייצוא שינויים" → שלח לאבי לעדכון הגרסה הרשמית</footer>
+</div>
+<div class="modal" id="help"><div class="mbox">
+<button class="mclose" onclick="closeHelp()">סגור ✕</button>
+<h2>❓ מדריך עזרה — מרכז השליטה</h2>
+<h3>🔎 איך מחפשים?</h3>
+<p>הקלד בתיבת החיפוש כל מילה — שם קובץ, נושא, תאריך או צד. התוצאות מסתננות מיד תוך כדי הקלדה.</p>
+<h3>🏷️ מסננים (צ'יפים)</h3>
+<p>לחץ על צ'יפ (סוג / סטטוס / צד / תיקייה) כדי לסנן. אפשר לבחור כמה יחד. הבחירות הפעילות מופיעות בשורת "סינון פעיל" — לחיצה על תגית שם <b>מסירה</b> אותה.</p>
+<h3>🧭 כפתורי הניווט (למעלה)</h3>
+<p><b>🏠 מסך ראשי</b> — חוזר לתצוגה המלאה (מנקה הכול וגולל למעלה).<br>
+<b>🧹 נקה סינון</b> — מנקה חיפוש ומסננים בלי לגלול.<br>
+<b>🔄 רענן</b> — טוען מחדש (אחרי שהוספת/שינית קבצים).<br>
+<b>❓ עזרה</b> — המסך הזה.</p>
+<h3>📂 פתיחה · הורדה · שיתוף</h3>
+<p><code>פתח ↗</code> (כחול) — צפייה במסמך ב-Drive.<br>
+<code style="background:#0891b2">⬇</code> (תכלת) — <b>הורדת</b> הקובץ למחשב (מסמכי Google יורדים כ-PDF).<br>
+<code style="background:#7c3aed">📤</code> (סגול) — <b>שיתוף</b> ישיר: נפתח תפריט השיתוף של המכשיר (וואטסאפ/מייל), ואם אין — הקישור מועתק אוטומטית להדבקה.<br>
+כפתור <code style="background:#d97706;color:#1a1205">תיקייה ↗</code> (כתום) בשורה <b>מודגשת</b> = הקובץ עדיין לא קושר; הלחיצה פותחת את התיקייה הכללית.</p>
+<h3>✎ עדכון קישור · ✖ הסרת שורה</h3>
+<p><b>✎</b> ליד כל קובץ — הדבק קישור Google Drive נכון למסמך.<br>
+<b>✖</b> — מסיר את השורה מהתצוגה.<br>
+<b>🔗 רק לתיקון</b> (סרגל עליון) — מציג רק את הקבצים שעדיין מצביעים לתיקייה, כדי שתתקן אותם במהירות.<br>
+השינויים נשמרים <b>אוטומטית במחשב זה בלבד</b> (לא אצל מי שמקבל את הקישור).</p>
+<h3>🔄 עדכון הגרסה הרשמית</h3>
+<p>אחרי שתיקנת קישורים — לחץ <code>⤓ ייצוא שינויים</code> ושלח לי את קובץ ה-JSON. אעדכן את הדשבורד הציבורי כך שכולם יראו את התיקונים. <code>↺ אפס שינויים</code> מחזיר לגרסה שפורסמה.</p>
+<h3>🚦 צבעי סטטוס</h3>
+<p>🟢 נוכחי (הגרסה הסופית) · 🔵 חתום · 🟡 מוחלף/טיוטה (ישן) · 🗄️ ארכיון · 🔴 זבל · <span style="color:#f59e0b">⧉</span> = קיים עותק כפול.</p>
+<h3>➕ הוספת מסמך חדש</h3>
+<p>1. גרור קבצים לתיקייה <code>00_מרכז_שליטה / _INBOX_גרור_לכאן</code>.<br>
+2. הרץ <code>python הוסף_מסמך.py</code> (לחיצה כפולה או דרך הטרמינל).<br>
+3. הכלי מזהה את סוג המסמך, ממיין לתיקייה הנכונה (אחרי אישורך), ומעדכן אוטומטית את הדשבורד.</p>
+<h3>🔄 רענון ידני של האינדקס</h3>
+<p>אם הוספת/הזזת קבצים ידנית — הרץ <code>python בנה_אינדקס.py</code> כדי לרענן את הדשבורד וה-CSV.</p>
+<h3>🛡️ בטיחות</h3>
+<p>שום קובץ לא נמחק אי-פעם. כל פעולה מתועדת ב-<code>CHANGELOG.md</code> וניתנת לשחזור. תיקיית <code>08_ארכיון</code> אינה נוגעת.</p>
+</div></div>
+<script>
+const DATA=[{"name": "בדיקת_משכנתאות_דירה_1.docx,תאריך 3.9.docx", "rel": "דוחות וסיכומים/בדיקת_משכנתאות_דירה_1.docx,תאריך 3.9.docx", "top": "דוחות וסיכומים", "dir": "דוחות וסיכומים", "date": "2026-09-03", "ext": "docx", "size": 24319, "h": "23.7 KB", "type": ["מסמך"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://docs.google.com/document/d/1AjDQ_jlOKAjYzxBBehuBJBVu9nzO3kwVMvf64qfG1q0/edit?usp=drivesdk"}, {"name": "דוח_תשלומים_והתחייבויות__חוזה_מכר_דירה_סטולר (1).docx", "rel": "דוחות וסיכומים/דוח_תשלומים_והתחייבויות__חוזה_מכר_דירה_סטולר (1).docx", "top": "דוחות וסיכומים", "dir": "דוחות וסיכומים", "date": "2026-09-03", "ext": "docx", "size": 14076, "h": "13.7 KB", "type": ["מסמך"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://docs.google.com/document/d/1kmy8OMVgV5XXHfPAcsqNbop5LitNHCDjrFx2NeSWxs4/edit?usp=drivesdk"}, {"name": "דוח_תשלומים_והתחייבויות__חוזה_מכר_דירה_סטולר.docx", "rel": "דוחות וסיכומים/דוח_תשלומים_והתחייבויות__חוזה_מכר_דירה_סטולר.docx", "top": "דוחות וסיכומים", "dir": "דוחות וסיכומים", "date": "2026-09-03", "ext": "docx", "size": 14112, "h": "13.8 KB", "type": ["מסמך"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://docs.google.com/document/d/1VKvfcyl9wCpiCjI45i5P1jgVDRMcVVvRSPjKg0aG4qQ/edit?usp=drivesdk"}, {"name": "סיכום כולל סופי  3.3.25.docxgo  עם סטולר.docx", "rel": "דוחות וסיכומים/סיכום כולל סופי  3.3.25.docxgo  עם סטולר.docx", "top": "דוחות וסיכומים", "dir": "דוחות וסיכומים", "date": "2025-03-03", "ext": "docx", "size": 35310, "h": "34.5 KB", "type": ["סיכום"], "party": [], "status": ["נוכחי"], "dup": false, "href": "https://docs.google.com/document/d/1qRTwC2G_Irzh3LZ0DISX8c-mwV2uRHVeZaS1kaXZGOw/edit?usp=drivesdk"}, {"name": "1.9.13 אורי אבי ,מכירה דירה 1 (5).pdf", "rel": "חוזים ומכירה/1.9.13 אורי אבי ,מכירה דירה 1 (5).pdf", "top": "חוזים ומכירה", "dir": "חוזים ומכירה", "date": "2013-09-01", "ext": "pdf", "size": 9627969, "h": "9.2 MB", "type": ["מסמך"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1ZRvIUq7Txt-LGc1Zcy6TXbyww-Kuizcu/view?usp=drivesdk"}, {"name": "חוזה מכירה דירה 1 לסטולר.pdf", "rel": "חוזים ומכירה/חוזה מכירה דירה 1 לסטולר.pdf", "top": "חוזים ומכירה", "dir": "חוזים ומכירה", "date": "2026-01-11", "ext": "pdf", "size": 16563136, "h": "15.8 MB", "type": ["מסמך"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1XIOcFLtxjJVbQeF44m-3gJVd53lSPBim/view?usp=drivesdk"}, {"name": "נספח להסכם - מסירת דירה ללא הערת אזהרה 6.3.2025.pdf", "rel": "חוזים ומכירה/נספח להסכם - מסירת דירה ללא הערת אזהרה 6.3.2025.pdf", "top": "חוזים ומכירה", "dir": "חוזים ומכירה", "date": "2025-03-06", "ext": "pdf", "size": 78513, "h": "76.7 KB", "type": ["נספח"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/17pGKay4zkYDM5r5WqISdrqHd5khoNkjz/view?usp=drivesdk"}, {"name": "נספח להסכם - מסירת דירה ללא הערת אזהרה 6.3.docx", "rel": "חוזים ומכירה/נספח להסכם - מסירת דירה ללא הערת אזהרה 6.3.docx", "top": "חוזים ומכירה", "dir": "חוזים ומכירה", "date": "2026-09-03", "ext": "docx", "size": 7740, "h": "7.6 KB", "type": ["נספח"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://docs.google.com/document/d/1MztvicZEb9A_z5EehlMqqQGbXbpLwatmOTeosEfD0XM/edit?usp=drivesdk"}, {"name": "ביטול הערת הזהרה.eml", "rel": "טאבו/ביטול הערת הזהרה.eml", "top": "טאבו", "dir": "טאבו", "date": "2026-09-03", "ext": "eml", "size": 260414, "h": "254.3 KB", "type": ["קובץ"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1UfgztxfDQsLHuv4nv6WxNb5CqcYUe3jv/view?usp=drivesdk"}, {"name": "נסח טאבו 13.3.14.pdf", "rel": "טאבו/נסח טאבו 13.3.14.pdf", "top": "טאבו", "dir": "טאבו", "date": "2014-03-13", "ext": "pdf", "size": 789702, "h": "771.2 KB", "type": ["מסמך"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1GoaE5zSjMQ13nVE5_w7xqoKvQDbE6X71/view?usp=drivesdk"}, {"name": "נסח טאבו מעודכן 18.3.25__.pdf", "rel": "טאבו/נסח טאבו מעודכן 18.3.25__.pdf", "top": "טאבו", "dir": "טאבו", "date": "2025-03-18", "ext": "pdf", "size": 287207, "h": "280.5 KB", "type": ["מסמך"], "party": [], "status": ["נוכחי"], "dup": false, "href": "https://drive.google.com/file/d/1_MpG-7v1ECf5FJ8CuF0aGrvfg5MAS82H/view?usp=drivesdk"}, {"name": "נסח מעודכן 11022014.pdf", "rel": "טאבו/נסח מעודכן 11022014.pdf", "top": "טאבו", "dir": "טאבו", "date": "2026-09-03", "ext": "pdf", "size": 25696, "h": "25.1 KB", "type": ["מסמך"], "party": [], "status": ["נוכחי"], "dup": false, "href": "https://drive.google.com/file/d/1T1xT56COBCqSMkMjq3owPh3nj3oh11nS/view?usp=drivesdk"}, {"name": "אישור תשלום 440 אלף לדירה 1.pdf", "rel": "מס שבח ותשלומים/אישור תשלום 440 אלף לדירה 1.pdf", "top": "מס שבח ותשלומים", "dir": "מס שבח ותשלומים", "date": "2026-09-03", "ext": "pdf", "size": 1548995, "h": "1.5 MB", "type": ["מסמך"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1R_OM8vpJXxgZ-rGj2dQccB8gRF9O2-Fd/view?usp=drivesdk"}, {"name": "הודעת שומה סופית + אישור מס שבח אברהם חזן.pdf", "rel": "מס שבח ותשלומים/הודעת שומה סופית + אישור מס שבח אברהם חזן.pdf", "top": "מס שבח ותשלומים", "dir": "מס שבח ותשלומים", "date": "2026-01-11", "ext": "pdf", "size": 855563, "h": "835.5 KB", "type": ["מסמך"], "party": [], "status": ["נוכחי"], "dup": false, "href": "https://drive.google.com/file/d/1ZOtPhwoIW90K7WHzSXRPd-w9rA_cV8aE/view?usp=drivesdk"}, {"name": "מס שבח  דירה 1 החזר .pdf", "rel": "מס שבח ותשלומים/מס שבח  דירה 1 החזר .pdf", "top": "מס שבח ותשלומים", "dir": "מס שבח ותשלומים", "date": "2026-01-11", "ext": "pdf", "size": 692227, "h": "676 KB", "type": ["מסמך"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1fYRqonsTX3zdZ_i5LD9LfI_pcW6u4jKN/view?usp=drivesdk"}, {"name": "מצב חשבון 2024 חזן.pdf", "rel": "מס שבח ותשלומים/מצב חשבון 2024 חזן.pdf", "top": "מס שבח ותשלומים", "dir": "מס שבח ותשלומים", "date": "2026-09-03", "ext": "pdf", "size": 122749, "h": "119.9 KB", "type": ["מסמך"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1WDOz3xtOTlImG1p0dS5vCNRHEVKRPTAh/view?usp=drivesdk"}, {"name": "תשלו מס שבח דירה 1.jpeg", "rel": "מס שבח ותשלומים/תשלו מס שבח דירה 1.jpeg", "top": "מס שבח ותשלומים", "dir": "מס שבח ותשלומים", "date": "2026-01-11", "ext": "jpeg", "size": 162720, "h": "158.9 KB", "type": ["תמונה"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1CN2OEPXHZBHqbu2yBJZDHzfHSBKTfwNH/view?usp=drivesdk"}, {"name": "(8190)הלוואה מבנק איגוד לאבי דיר.jpg", "rel": "משכנתאות ומימון/(8190)הלוואה מבנק איגוד לאבי דיר.jpg", "top": "משכנתאות ומימון", "dir": "משכנתאות ומימון", "date": "2026-09-03", "ext": "jpg", "size": 1679181, "h": "1.6 MB", "type": ["דף-בנק", "תמונה"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1jk1EhKKQrljeXX_Hk_UoxiKRwLm22YR-/view?usp=drivesdk"}, {"name": "(8191)הלוואה מבנק איגוד לאבי דיר.jpg", "rel": "משכנתאות ומימון/(8191)הלוואה מבנק איגוד לאבי דיר.jpg", "top": "משכנתאות ומימון", "dir": "משכנתאות ומימון", "date": "2026-09-03", "ext": "jpg", "size": 2714364, "h": "2.6 MB", "type": ["דף-בנק", "תמונה"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1OJDb0nZMX-vkC6-TuRAtwlJnGXmwMXyd/view?usp=drivesdk"}, {"name": "(8192)הלוואה מבנק איגוד לאבי דיר.jpg", "rel": "משכנתאות ומימון/(8192)הלוואה מבנק איגוד לאבי דיר.jpg", "top": "משכנתאות ומימון", "dir": "משכנתאות ומימון", "date": "2026-09-03", "ext": "jpg", "size": 4150371, "h": "4 MB", "type": ["דף-בנק", "תמונה"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1zQDbgbw86zMrLES99ZNy6yhjbc8kTlgU/view?usp=drivesdk"}, {"name": "(8192)הלוואה מבנק איגוד לאבי דירה 5 חדרים_002.jpg", "rel": "משכנתאות ומימון/(8192)הלוואה מבנק איגוד לאבי דירה 5 חדרים_002.jpg", "top": "משכנתאות ומימון", "dir": "משכנתאות ומימון", "date": "2026-09-03", "ext": "jpg", "size": 4150371, "h": "4 MB", "type": ["דף-בנק", "תמונה"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1E0MOpGEC0GpSARBuMGF9ZuIUhYzzIpU4/view?usp=drivesdk"}, {"name": "Fwd_ משכנתא 5 חדרים.zip", "rel": "משכנתאות ומימון/Fwd_ משכנתא 5 חדרים.zip", "top": "משכנתאות ומימון", "dir": "משכנתאות ומימון", "date": "2026-09-03", "ext": "zip", "size": 284895, "h": "278.2 KB", "type": ["קובץ"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1sy2-iNltB0EL0e4OpQrrpcdtrAeztK87/view?usp=drivesdk"}, {"name": "ביטול משכון.eml", "rel": "משכנתאות ומימון/ביטול משכון.eml", "top": "משכנתאות ומימון", "dir": "משכנתאות ומימון", "date": "2026-09-03", "ext": "eml", "size": 184446, "h": "180.1 KB", "type": ["קובץ"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1MmnViA5G-36Wgvl8sLtDHzfCpEBj_kU9/view?usp=drivesdk"}, {"name": "מימון מסגרת אשראי מבנק איגוד.jpg", "rel": "משכנתאות ומימון/מימון מסגרת אשראי מבנק איגוד.jpg", "top": "משכנתאות ומימון", "dir": "משכנתאות ומימון", "date": "2026-09-03", "ext": "jpg", "size": 850276, "h": "830.3 KB", "type": ["דף-בנק", "תמונה"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1-07N2x0q98jsj1RrX6TDrwFby_j0pAi2/view?usp=drivesdk"}, {"name": "משכנתא חוב.pdfבנק מזרחי חשוב.pdf", "rel": "משכנתאות ומימון/משכנתא חוב.pdfבנק מזרחי חשוב.pdf", "top": "משכנתאות ומימון", "dir": "משכנתאות ומימון", "date": "2026-09-03", "ext": "pdf", "size": 79844, "h": "78 KB", "type": ["דף-בנק"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1nA0ExgHqeUDea4_bBVEzNpzGr1KsbE4g/view?usp=drivesdk"}, {"name": "noname", "rel": "שונות/noname", "top": "שונות", "dir": "שונות", "date": "2026-09-03", "ext": "", "size": 420039, "h": "410.2 KB", "type": ["קובץ"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1YDpIob3xm7WwbHCSnILcpwkNerMPHdYH/view?usp=drivesdk"}, {"name": ",שמאות, מכירה,דירה 1,פרמינגר, 19.2.23 (1).pdf", "rel": "שמאות/,שמאות, מכירה,דירה 1,פרמינגר, 19.2.23 (1).pdf", "top": "שמאות", "dir": "שמאות", "date": "2023-02-19", "ext": "pdf", "size": 3913960, "h": "3.7 MB", "type": ["מסמך"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1_vwKKjafr5xnddaL42xPogmiWNjwb3xt/view?usp=drivesdk"}, {"name": ",שמאות, מכירה,דירה 1,פרמינגר, 19.2.23.pdf", "rel": "שמאות/,שמאות, מכירה,דירה 1,פרמינגר, 19.2.23.pdf", "top": "שמאות", "dir": "שמאות", "date": "2023-02-19", "ext": "pdf", "size": 3913960, "h": "3.7 MB", "type": ["מסמך"], "party": [], "status": ["פעיל"], "dup": false, "href": "https://drive.google.com/file/d/1MsKvnXofUK_376ONHZSitMCB-Z8DcnQg/view?usp=drivesdk"}];
+const F={type:new Set(),status:new Set(),party:new Set(),top:new Set()};
+const SB={'נוכחי':'cur','מוחלף':'old','ארכיון':'arc','חתום':'sgn','טיוטה':'dr','זבל':'zb','פעיל':'t'};
+const CHIPS={type:[],status:[],party:[],top:[]};
+function chips(id,vals,key){const el=document.getElementById(id);el.innerHTML='';vals.forEach(v=>{const c=document.createElement('span');c.className='chip';c.textContent=v;c.dataset.v=v;c.dataset.k=key;c.onclick=()=>toggleChip(c);el.appendChild(c);CHIPS[key].push(c);});}
+function toggleChip(c){const v=c.dataset.v,key=c.dataset.k;if(F[key].has(v)){F[key].delete(v);c.classList.remove('on','s_on');}else{F[key].add(v);c.classList.add('on');if(key=='status')c.classList.add('s_on');}render();}
+function uniq(key){const s=new Set();DATA.forEach(r=>{const v=key=='top'?[r.top]:r[key];(v||[]).forEach(x=>{if(x)s.add(x);});});return [...s].sort();}
+chips('f_type',uniq('type'),'type');chips('f_status',uniq('status'),'status');chips('f_party',uniq('party'),'party');chips('f_top',uniq('top'),'top');
+function clearFilters(){for(const k in F)F[k].clear();document.querySelectorAll('.chip').forEach(c=>c.classList.remove('on','s_on'));document.getElementById('q').value='';render();}
+function goHome(){clearFilters();closeHelp();window.scrollTo({top:0,behavior:'smooth'});}
+function openHelp(){document.getElementById('help').classList.add('show');}
+function closeHelp(){document.getElementById('help').classList.remove('show');}
+function okF(r,key){if(F[key].size==0)return true;const vals=key=='top'?[r.top]:r[key];return vals.some(v=>F[key].has(v));}
+function updateActive(){const a=document.getElementById('active');let h='';const q=document.getElementById('q').value.trim();
+ if(q)h+=`<span class="atag" onclick="document.getElementById('q').value='';render()">🔎 ${q}</span>`;
+ for(const k in F)F[k].forEach(v=>{h+=`<span class="atag" onclick="rm('${k}','${v}')">${v}</span>`;});
+ a.innerHTML=h;}
+function rm(k,v){F[k].delete(v);document.querySelectorAll('.chip').forEach(c=>{if(c.dataset.k==k&&c.dataset.v==v)c.classList.remove('on','s_on');});render();}
+const FOLDER='https://drive.google.com/drive/folders/1Ml7tWx9E_NphZDb0TejhhfMwN6T6JR6p?usp=sharing';
+const EK='dash_edits_'+location.pathname;
+let EDITS={};try{EDITS=JSON.parse(localStorage.getItem(EK))||{};}catch(e){EDITS={};}
+let onlyFix=false;
+function saveEdits(){localStorage.setItem(EK,JSON.stringify(EDITS));}
+function effHref(r){return (EDITS[r.rel]&&EDITS[r.rel].href)||r.href;}
+function isFolder(u){return !u||u===FOLDER;}
+function fileId(u){const m=(''+u).match(/\/d\/([^/]+)/);return m?m[1]:null;}
+function dlLink(u){if(isFolder(u))return null;const id=fileId(u);if(!id)return null;if(/document\/d\//.test(u))return 'https://docs.google.com/document/d/'+id+'/export?format=pdf';if(/spreadsheets\/d\//.test(u))return 'https://docs.google.com/spreadsheets/d/'+id+'/export?format=xlsx';if(/presentation\/d\//.test(u))return 'https://docs.google.com/presentation/d/'+id+'/export?format=pptx';return 'https://drive.google.com/uc?export=download&id='+id;}
+async function shareFile(di){const r=DATA[di];const url=effHref(r);if(navigator.share){try{await navigator.share({title:r.name,url});return;}catch(e){if(e&&e.name==='AbortError')return;}}try{await navigator.clipboard.writeText(url);alert('הקישור הועתק! הדבק בוואטסאפ או במייל לשיתוף.');}catch(e){prompt('העתק את הקישור לשיתוף:',url);}}
+function editLink(di){const r=DATA[di];const cur=effHref(r);const v=prompt('הדבק קישור Google Drive למסמך זה:\n\n'+r.name,isFolder(cur)?'':cur);if(v===null)return;const t=v.trim();EDITS[r.rel]=EDITS[r.rel]||{};if(t){EDITS[r.rel].href=t;}else{delete EDITS[r.rel].href;}if(!EDITS[r.rel].href&&!EDITS[r.rel].del)delete EDITS[r.rel];saveEdits();render();}
+function delRow(di){const r=DATA[di];if(confirm('להסיר שורה זו מהתצוגה?\n\n'+r.name)){EDITS[r.rel]=EDITS[r.rel]||{};EDITS[r.rel].del=true;saveEdits();render();}}
+function toggleFix(){onlyFix=!onlyFix;document.getElementById('fixBtn').classList.toggle('act',onlyFix);render();}
+function resetEdits(){if(confirm('לאפס את כל השינויים המקומיים (קישורים שעדכנת ושורות שהסרת)?\nהדשבורד יחזור לגרסה שפורסמה.')){EDITS={};saveEdits();render();}}
+function exportEdits(){const cnt=Object.keys(EDITS).length;if(!cnt){alert('לא ביצעת שינויים עדיין.');return;}const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({app:'vaad-dashboard',exported:new Date().toISOString(),edits:EDITS},null,2)],{type:'application/json'}));a.download='דשבורד_שינויים_לעדכון.json';a.click();}
+function importEdits(ev){const f=ev.target.files[0];if(!f)return;const rd=new FileReader();rd.onload=()=>{try{const o=JSON.parse(rd.result);if(o&&o.edits){EDITS=o.edits;saveEdits();render();alert('יובא בהצלחה — '+Object.keys(EDITS).length+' שינויים.');}else alert('קובץ לא תקין.');}catch(e){alert('קובץ לא תקין.');}};rd.readAsText(f);}
+function render(){const q=document.getElementById('q').value.trim().toLowerCase();let h='';let n=0,fix=0;
+DATA.forEach((r,di)=>{if(EDITS[r.rel]&&EDITS[r.rel].del)return;
+ if(!okF(r,'type')||!okF(r,'status')||!okF(r,'party')||!okF(r,'top'))return;
+ if(q){const blob=(r.name+' '+r.dir+' '+r.date+' '+r.type.join(' ')+' '+r.party.join(' ')+' '+r.status.join(' ')).toLowerCase();if(blob.indexOf(q)<0)return;}
+ const href=effHref(r);const fold=isFolder(href);if(fold)fix++;
+ if(onlyFix&&!fold)return;
+ n++;const sb=r.status.map(s=>`<span class="b ${SB[s]||'t'}">${s}</span>`).join('');
+ const tt=r.type.map(t=>`<span class="b t">${t}</span>`).join('');const dup=r.dup?' <span class="dup">⧉</span>':'';
+ h+=`<tr class="${fold?'tofix':''}"><td><span class="fn">${r.name}</span>${dup}<div class="dir">📁 ${r.dir||'(שורש)'}</div></td><td>${r.date}</td><td>${tt}</td><td>${sb}</td><td>${r.party.join(', ')}</td><td>${r.h}</td><td style="white-space:nowrap"><a class="op ${fold?'folder':''}" href="${href}" target="_blank">${fold?'תיקייה ↗':'פתח ↗'}</a>${fold?'':`<a class="op dl" href="${dlLink(href)}" target="_blank" title="הורד קובץ">⬇</a>`}<button class="op sh" title="שתף קישור" onclick="shareFile(${di})">📤</button><span class="rb edit" title="עדכן קישור" onclick="editLink(${di})">✎</span><span class="rb del" title="הסר שורה" onclick="delRow(${di})">✖</span></td></tr>`;});
+document.getElementById('tb').innerHTML=h||'<tr><td colspan=7 style="text-align:center;color:#64748b;padding:30px">אין תוצאות</td></tr>';
+document.getElementById('cnt').innerHTML='מציג '+n+' מתוך '+DATA.length+' קבצים · <span style="color:#f59e0b">🔗 '+fix+' מצביעים עדיין לתיקייה הכללית (לתיקון)</span>';updateActive();}
+const cs={};DATA.forEach(r=>r.status.forEach(s=>cs[s]=(cs[s]||0)+1));
+document.getElementById('stats').innerHTML=`<div class="st"><b>${DATA.length}</b>סה"כ</div><div class="st" style="border-color:#16a34a"><b>${cs['נוכחי']||0}</b>🟢 נוכחי</div><div class="st" style="border-color:#0891b2"><b>${cs['חתום']||0}</b>🔵 חתום</div><div class="st" style="border-color:#d97706"><b>${(cs['מוחלף']||0)+(cs['טיוטה']||0)}</b>🟡 ישן/טיוטה</div><div class="st" style="border-color:#475569"><b>${cs['ארכיון']||0}</b>🗄️ ארכיון</div>`;
+document.getElementById('q').addEventListener('input',render);
+document.addEventListener('keydown',e=>{if(e.key=='Escape')closeHelp();});
+render();
+</script></body></html>
