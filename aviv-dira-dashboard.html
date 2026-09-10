@@ -75,6 +75,11 @@ input[type=text]:focus,textarea:focus{outline:0;border-color:var(--primary);box-
 .kv{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:.83rem;margin:8px 0;padding-inline-start:4px}
 .kv span:first-child{color:var(--muted)}
 .notes{font-size:.83rem;background:#f8fafc;border-radius:8px;padding:8px 10px;margin-top:6px;white-space:pre-wrap}
+.owner{font-size:.85rem;margin:8px 0 2px;padding-inline-start:4px}
+.owner a{color:var(--primary);font-weight:700;text-decoration:none}
+.owner a.wa{background:#25d366;color:#fff;border-radius:999px;padding:1px 9px;font-size:.72rem;margin-inline-start:4px}
+.task{font-size:.8rem;color:#065f46;background:#ecfdf5;border-radius:8px;padding:6px 10px;margin-top:6px;white-space:pre-wrap}
+.stamp{font-size:.72rem;color:var(--muted);margin-top:8px;padding-inline-start:4px}
 .todo{font-size:.8rem;color:#92400e;background:#fffbeb;border-radius:8px;padding:6px 10px;margin-top:6px}
 .apt-actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
 .apt-actions .btn{padding:8px 12px;font-size:.8rem}
@@ -107,6 +112,7 @@ summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--primary)}
 <header class="fade">
   <h1>🏠 דירות אביב 2026 - סינון והשוואה</h1>
   <p>ירושלים · אקדמיה למוסיקה ולמחול (גבעת רם) · שאלון מהיר מול בעלי דירות + יומן מעקב</p>
+  <p style="font-size:.75rem;opacity:.75;margin-top:2px">🕐 עכשיו: <span id="nowStamp"></span> · עדכון אחרון ביומן: <span id="lastStamp">-</span></p>
   <nav class="tabs" role="tablist">
     <button class="active" data-tab="quiz" onclick="showTab('quiz')">📋 שאלון סינון</button>
     <button data-tab="journal" onclick="showTab('journal')">📊 יומן והשוואה</button>
@@ -125,11 +131,21 @@ summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--primary)}
     </div>
   </div>
 
+  <div class="card">
+    <label class="lbl">בעל הבית</label>
+    <div class="rowbtn">
+      <div><input type="text" id="aptOwner" placeholder="שם בעל הבית / המפרסם"></div>
+      <div><input type="text" id="aptPhone" inputmode="tel" placeholder="טלפון (050-1234567)"></div>
+    </div>
+  </div>
+
   <div class="card" id="questions"></div>
 
   <div class="card">
     <label class="lbl" for="aptNotes">הערות חופשיות (אופציונלי)</label>
     <textarea id="aptNotes" rows="2" placeholder="קומה, מעלית, מרחק לאקדמיה, מספר שותפים, תאריך כניסה..."></textarea>
+    <label class="lbl" for="aptTask" style="margin-top:10px">משימה להמשך מול בעל הבית</label>
+    <textarea id="aptTask" rows="2" placeholder="לדוגמה: לחזור אליו ביום ראשון לגבי תאריך כניסה, לבקש חוזה לדוגמה..."></textarea>
     <div class="actions" style="margin-top:12px">
       <button class="btn btn-primary" onclick="calcAndAdd()">🧮 חשב ציון והוסף ליומן</button>
       <button class="btn btn-wa" onclick="copyWhatsApp()">📱 העתק סיכום לוואטסאפ</button>
@@ -166,7 +182,7 @@ summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--primary)}
   <div class="tablewrap card" style="padding:0">
     <table id="cmpTable">
       <thead><tr>
-        <th onclick="sortBy('name')">דירה</th><th onclick="sortBy('area')">שכונה</th><th onclick="sortBy('rent')">₪ לאדם</th><th onclick="sortBy('score')">ציון</th><th>סטטוס</th><th>מיגון</th><th>מים חמים</th><th>רעש</th><th>נגינה</th><th>נסיעה</th>
+        <th onclick="sortBy('name')">דירה</th><th onclick="sortBy('area')">שכונה</th><th onclick="sortBy('rent')">₪ לאדם</th><th onclick="sortBy('score')">ציון</th><th>סטטוס</th><th>מיגון</th><th>מים חמים</th><th>רעש</th><th>נגינה</th><th>בעל הבית</th><th>משימה</th><th>עדכון</th>
       </tr></thead>
       <tbody></tbody>
     </table>
@@ -178,6 +194,10 @@ summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--primary)}
       <div><input type="text" id="qName" placeholder="כתובת"></div>
       <div><input type="text" id="qArea" placeholder="שכונה"></div>
       <div><input type="text" id="qRent" inputmode="numeric" placeholder="₪ לאדם"></div>
+    </div>
+    <div class="rowbtn" style="margin-top:8px">
+      <div><input type="text" id="qOwner" placeholder="בעל הבית"></div>
+      <div><input type="text" id="qPhone" inputmode="tel" placeholder="טלפון"></div>
       <button class="btn btn-ghost" onclick="quickAdd()">➕ הוסף</button>
     </div>
     <div class="actions" style="margin-top:14px">
@@ -217,26 +237,26 @@ const SEED=[
   {id:'s1',name:'ניקרגואה 9 / החרצית 1',area:'קריית מנחם',rent:3250,score:7.2,status:'candidate',travel:'30 דק\' (קו 42 ישיר)',
    ans:{rent:2,incl:2,extra:1,furn:1,noise:0,shelter:1,water:0,sing:1,exit:0,guar:0},
    notes:'3.5 חדרים, קומה 2 ללא מעלית, ארונות קיר, מזגנים, דוד שמש, מקלט, אפשרות לדייר חלופי.\n5,000 ₪ + 240 ₪ ועד (לא כולל ארנונה וחשבונות) - כ-3,200-3,250 ₪ לאדם ב-2 שותפים.',
-   todo:'מתאימה רק ל-2 שותפים. לוודא הערכת ארנונה + חשמל בפועל.',date:'09.09.2026',src:'סיור'},
+   todo:'מתאימה רק ל-2 שותפים. לוודא הערכת ארנונה + חשמל בפועל.',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'סיור'},
   {id:'s2',name:'התומר 10',area:'בית הכרם',rent:2700,score:5.5,status:'rejected',travel:'',
    ans:{rent:1,incl:0,extra:0,furn:0,noise:2,shelter:1,water:1,sing:1,exit:1,guar:0},
    notes:'חדר בדירת שותפים, 2,650-2,750 ₪ הכל כלול.',
-   todo:'נפסלה: רעש ואבק כבד מאתר בנייה סמוך - פוגע בריכוז ובאימונים.',date:'09.09.2026',src:'סיור'},
+   todo:'נפסלה: רעש ואבק כבד מאתר בנייה סמוך - פוגע בריכוז ובאימונים.',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'סיור'},
   {id:'s3',name:'עין כרם',area:'עין כרם',rent:2500,score:8.2,status:'candidate',travel:'לבדוק',
    ans:{rent:0,incl:0,extra:0,furn:0,noise:0,shelter:1,water:0,sing:1,exit:1,guar:0},
    notes:'מרוהטת קומפלט, גינה וחצר, מזגן בכל חדר, דוד שמש, מקלט. 2,500 ₪ הכל כלול.\nמגבלות: שומרת שבת וכשרות, ללא עישון, ללא חיות.',
-   todo:'לברר מול המפרסמת: תאריך כניסה + מספר השותפות הכולל בנכס. לוודא התאמת אורח חיים.',date:'09.09.2026',src:'מודעה'},
-  {id:'s4',name:'אורוגוואי 27',area:'קריית היובל',rent:null,total:4600,rooms:3,score:null,status:'check',notes:'4,600 ₪ לדירה (3 חדרים). לבדוק שטח בפועל - הנתון באתר לא אמין.',todo:'לבדוק שטח בפועל.',date:'09.09.2026',src:'Madlan'},
-  {id:'s5',name:'עמנואל אולסבנגר 101',area:'קריית היובל',rent:null,total:4800,rooms:3,score:null,status:'check',notes:'4,800 ₪ לדירה (3 חדרים).',todo:'לבדוק שטח בפועל.',date:'09.09.2026',src:'Madlan'},
-  {id:'s6',name:'ברזיל 18',area:'קריית היובל',rent:null,total:4850,rooms:3,score:null,status:'check',notes:'4,850 ₪ לדירה (3 חדרים).',todo:'לבדוק שטח בפועל.',date:'09.09.2026',src:'Madlan'},
-  {id:'s7',name:'ורבורג 1',area:'קריית היובל',rent:1900,total:7600,rooms:4,score:null,status:'check',notes:'7,600 ₪ לדירה (4 חדרים) - מתאים ל-4 שותפות, כ-1,900 ₪ לשותפה.',todo:'',date:'09.09.2026',src:'Madlan'},
-  {id:'s8',name:'וולטה עילית 7',area:'קריית היובל',rent:2000,total:8000,rooms:4,score:null,status:'check',notes:'8,000 ₪ לדירה (4 חדרים) - מתאים ל-4 שותפות, כ-2,000 ₪ לשותפה.',todo:'',date:'09.09.2026',src:'Madlan'},
-  {id:'s9',name:'יאנוש קורצאק 7',area:'קריית היובל',rent:null,total:10000,rooms:4,score:null,status:'check',notes:'דירת גן, 10,000 ₪ לדירה - יקרה יחסית.',todo:'',date:'09.09.2026',src:'Madlan'},
+   todo:'לברר מול המפרסמת: תאריך כניסה + מספר השותפות הכולל בנכס. לוודא התאמת אורח חיים.',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'מודעה'},
+  {id:'s4',name:'אורוגוואי 27',area:'קריית היובל',rent:null,total:4600,rooms:3,score:null,status:'check',notes:'4,600 ₪ לדירה (3 חדרים). לבדוק שטח בפועל - הנתון באתר לא אמין.',todo:'לבדוק שטח בפועל.',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'Madlan'},
+  {id:'s5',name:'עמנואל אולסבנגר 101',area:'קריית היובל',rent:null,total:4800,rooms:3,score:null,status:'check',notes:'4,800 ₪ לדירה (3 חדרים).',todo:'לבדוק שטח בפועל.',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'Madlan'},
+  {id:'s6',name:'ברזיל 18',area:'קריית היובל',rent:null,total:4850,rooms:3,score:null,status:'check',notes:'4,850 ₪ לדירה (3 חדרים).',todo:'לבדוק שטח בפועל.',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'Madlan'},
+  {id:'s7',name:'ורבורג 1',area:'קריית היובל',rent:1900,total:7600,rooms:4,score:null,status:'check',notes:'7,600 ₪ לדירה (4 חדרים) - מתאים ל-4 שותפות, כ-1,900 ₪ לשותפה.',todo:'',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'Madlan'},
+  {id:'s8',name:'וולטה עילית 7',area:'קריית היובל',rent:2000,total:8000,rooms:4,score:null,status:'check',notes:'8,000 ₪ לדירה (4 חדרים) - מתאים ל-4 שותפות, כ-2,000 ₪ לשותפה.',todo:'',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'Madlan'},
+  {id:'s9',name:'יאנוש קורצאק 7',area:'קריית היובל',rent:null,total:10000,rooms:4,score:null,status:'check',notes:'דירת גן, 10,000 ₪ לדירה - יקרה יחסית.',todo:'',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'Madlan'},
 ];
 
 /* ---------------- STATE ---------------- */
 let apts=load(); let filter='all'; let sortKey='score', sortDir=-1;
-function load(){ try{const r=localStorage.getItem(KEY); if(r){const a=JSON.parse(r); if(Array.isArray(a)&&a.length) return a;} }catch(e){} return JSON.parse(JSON.stringify(SEED)); }
+function load(){ try{const r=localStorage.getItem(KEY); if(r){const a=JSON.parse(r); if(Array.isArray(a)&&a.length) return a.map(x=>Object.assign({task:'',owner:'',phone:'',created:x.date},x));} }catch(e){} return JSON.parse(JSON.stringify(SEED)); }
 function save(){ try{localStorage.setItem(KEY,JSON.stringify(apts));}catch(e){} }
 
 /* ---------------- RENDER QUIZ ---------------- */
@@ -277,13 +297,15 @@ function buildFromQuiz(){
   const rentTxt=document.getElementById('aptRent').value.replace(/[^\d]/g,'');
   const auto = r.score===null?'check': r.score<6||ans.noise===2?'rejected':'candidate';
   return {id:'a'+Date.now(),name,area:document.getElementById('aptArea').value.trim(),rent:rentTxt?+rentTxt:null,score:r.score,status:auto,ans,flags:r.flags,
-    notes:document.getElementById('aptNotes').value.trim(),todo:'',travel:'',date:new Date().toLocaleDateString('he-IL'),src:'שאלון'};
+    notes:document.getElementById('aptNotes').value.trim(),task:document.getElementById('aptTask').value.trim(),
+    owner:document.getElementById('aptOwner').value.trim(),phone:document.getElementById('aptPhone').value.trim(),
+    todo:'',travel:'',date:stamp(),src:'שאלון'};
 }
 function calcAndAdd(){
   const a=buildFromQuiz(); if(!a) return;
   const v=verdict(a.score);
   const ex=apts.findIndex(x=>x.name===a.name);
-  if(ex>-1){ if(confirm('דירה בשם זה כבר קיימת ביומן. לעדכן אותה?')) {a.id=apts[ex].id; a.todo=apts[ex].todo; apts[ex]=a;} else return; } else apts.unshift(a);
+  if(ex>-1){ if(confirm('דירה בשם זה כבר קיימת ביומן. לעדכן אותה?')) {a.id=apts[ex].id; a.todo=apts[ex].todo; a.created=apts[ex].created||apts[ex].date; a.updated=stamp(); apts[ex]=a;} else return; } else {a.created=a.date; apts.unshift(a);}
   save(); renderJournal();
   document.getElementById('result').innerHTML=`
     <div class="score-row"><div class="score-big" style="color:${color(a.score)}">${a.score??'-'}</div><div><div style="font-weight:800">${a.name}</div><span class="badge ${v.c}">${v.t}</span></div></div>
@@ -297,14 +319,16 @@ function quizSummaryText(){
   const v=verdict(a.score);
   let t=`🏠 *סיכום דירה - ${a.name}*${a.area?' ('+a.area+')':''}\n📅 ${a.date}\n`;
   if(a.rent) t+=`💰 ${a.rent.toLocaleString()} ₪ לאדם\n`;
+  if(a.owner||a.phone) t+=`👤 בעל הבית: ${a.owner||''}${a.phone?' · '+a.phone:''}\n`;
   t+=`⭐ ציון: ${a.score??'-'}/10 - ${v.t}\n\n`;
   QUESTIONS.forEach((q,i)=>{ const x=a.ans[q.id]; t+=`${i+1}. ${q.t}: ${x===undefined?'-':LETTERS[x]+') '+q.o[x]}\n`; });
   if(a.flags.length) t+=`\n🚩 דגלים:\n`+a.flags.map(f=>'• '+f).join('\n')+'\n';
   if(a.notes) t+=`\n📝 ${a.notes}\n`;
+  if(a.task) t+=`\n✅ משימה להמשך: ${a.task}\n`;
   return t;
 }
 function copyWhatsApp(){ const t=quizSummaryText(); if(t) shareText(t); }
-function resetQuiz(){ document.querySelectorAll('#tab-quiz input[type=radio]').forEach(r=>r.checked=false); document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel')); ['aptName','aptArea','aptRent','aptNotes'].forEach(i=>document.getElementById(i).value=''); document.getElementById('result').classList.remove('show'); }
+function resetQuiz(){ document.querySelectorAll('#tab-quiz input[type=radio]').forEach(r=>r.checked=false); document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel')); ['aptName','aptArea','aptRent','aptNotes','aptOwner','aptPhone','aptTask'].forEach(i=>document.getElementById(i).value=''); document.getElementById('result').classList.remove('show'); }
 
 /* ---------------- JOURNAL ---------------- */
 const STATUS={candidate:{t:'מועמדת',c:'b-ok'},check:{t:'לבדוק',c:'b-info'},rejected:{t:'נפסלה',c:'b-bad'}};
@@ -321,6 +345,7 @@ function renderJournal(){
     <div class="card apt" style="--c:${color(a.score)}">
       <div class="top"><div><h3>${esc(a.name)}</h3><div class="sub">${esc(a.area||'')} · ${esc(a.src||'')} · ${esc(a.date||'')}</div></div><div class="ring">${a.score??'?'}</div></div>
       <span class="badge ${STATUS[a.status].c}">${STATUS[a.status].t}</span>
+      ${(a.owner||a.phone)?`<div class="owner">👤 ${esc(a.owner||'בעל הבית')}${a.phone?` · <a href="tel:${tel(a.phone)}">${esc(a.phone)}</a> <a class="wa" href="https://wa.me/${waNum(a.phone)}" target="_blank" rel="noopener">וואטסאפ</a>`:''}</div>`:''}
       <div class="kv">
         <span>₪ לאדם</span><b>${a.rent?a.rent.toLocaleString():(a.total?`${a.total.toLocaleString()} לדירה`:'-')}</b>
         <span>מיגון</span><b>${ansShort(a.ans,'shelter')}</b>
@@ -333,8 +358,13 @@ function renderJournal(){
       </div>
       ${a.notes?`<div class="notes">${esc(a.notes)}</div>`:''}
       ${a.todo?`<div class="todo">🔎 לברר: ${esc(a.todo)}</div>`:''}
+      ${a.task?`<div class="task">✅ משימה להמשך: ${esc(a.task)}</div>`:''}
+      <div class="stamp">🕐 נוצר: ${esc(a.created||a.date||'-')}${a.updated?` · עודכן: ${esc(a.updated)}`:''}</div>
       <div class="apt-actions">
         <button class="btn btn-ghost" onclick="cycleStatus('${a.id}')">🔄 סטטוס</button>
+        <button class="btn btn-ghost" onclick="editOwner('${a.id}')">👤 בעל הבית</button>
+        <button class="btn btn-ghost" onclick="editTask('${a.id}')">✅ משימה</button>
+        <button class="btn btn-ghost" onclick="editNotes('${a.id}')">📝 הערות</button>
         <button class="btn btn-ghost" onclick="editTodo('${a.id}')">🔎 לברר</button>
         <button class="btn btn-ghost" onclick="loadToQuiz('${a.id}')">📋 לשאלון</button>
         <button class="btn btn-danger" onclick="del('${a.id}')">🗑 מחק</button>
@@ -344,19 +374,27 @@ function renderJournal(){
     <td><b>${esc(a.name)}</b></td><td>${esc(a.area||'')}</td><td>${a.rent?a.rent.toLocaleString():(a.total?a.total.toLocaleString()+' (דירה)':'-')}</td>
     <td><span class="badge" style="background:${color(a.score)};color:#fff">${a.score??'-'}</span></td>
     <td><span class="badge ${STATUS[a.status].c}">${STATUS[a.status].t}</span></td>
-    <td>${ansShort(a.ans,'shelter')}</td><td>${ansShort(a.ans,'water')}</td><td>${ansShort(a.ans,'noise')}</td><td>${ansShort(a.ans,'sing')}</td><td>${esc(a.travel||'-')}</td></tr>`).join('');
+    <td>${ansShort(a.ans,'shelter')}</td><td>${ansShort(a.ans,'water')}</td><td>${ansShort(a.ans,'noise')}</td><td>${ansShort(a.ans,'sing')}</td><td>${esc(a.owner||'')}${a.phone?' '+esc(a.phone):''}</td><td style="white-space:normal;max-width:220px">${esc(a.task||'')}</td><td>${esc(a.updated||a.created||a.date||'')}</td></tr>`).join('');
+  const last=apts.map(a=>a.updated||a.created||a.date).filter(Boolean).map(x=>[x.replace(/(\d+)\.(\d+)\.(\d+)(.*)/,'$3-$2-$1$4'),x]).sort().pop();
+  document.getElementById('lastStamp').textContent=last?last[1]:'-';
 }
-function cycleStatus(id){ const a=apts.find(x=>x.id===id); const o=['candidate','check','rejected']; a.status=o[(o.indexOf(a.status)+1)%3]; save(); renderJournal(); }
-function editTodo(id){ const a=apts.find(x=>x.id===id); const v=prompt('מה צריך לברר על הדירה הזו?',a.todo||''); if(v!==null){a.todo=v.trim(); save(); renderJournal();} }
+function touch(a){ a.updated=stamp(); save(); renderJournal(); }
+function cycleStatus(id){ const a=apts.find(x=>x.id===id); const o=['candidate','check','rejected']; a.status=o[(o.indexOf(a.status)+1)%3]; touch(a); }
+function editTodo(id){ const a=apts.find(x=>x.id===id); const v=prompt('מה צריך לברר על הדירה הזו?',a.todo||''); if(v!==null){a.todo=v.trim(); touch(a);} }
+function editTask(id){ const a=apts.find(x=>x.id===id); const v=prompt('משימה להמשך מול בעל הבית:',a.task||''); if(v!==null){a.task=v.trim(); touch(a);} }
+function editNotes(id){ const a=apts.find(x=>x.id===id); const v=prompt('הערות כלליות:',a.notes||''); if(v!==null){a.notes=v.trim(); touch(a);} }
+function editOwner(id){ const a=apts.find(x=>x.id===id); const n=prompt('שם בעל הבית:',a.owner||''); if(n===null) return; const p=prompt('טלפון בעל הבית:',a.phone||''); if(p===null) return; a.owner=n.trim(); a.phone=p.trim(); touch(a); }
 function del(id){ const a=apts.find(x=>x.id===id); if(confirm(`למחוק את "${a.name}" מהיומן?`)){ apts=apts.filter(x=>x.id!==id); save(); renderJournal(); toast('נמחקה'); } }
-function loadToQuiz(id){ const a=apts.find(x=>x.id===id); resetQuiz(); document.getElementById('aptName').value=a.name; document.getElementById('aptArea').value=a.area||''; document.getElementById('aptRent').value=a.rent||''; document.getElementById('aptNotes').value=a.notes||'';
+function loadToQuiz(id){ const a=apts.find(x=>x.id===id); resetQuiz(); document.getElementById('aptName').value=a.name; document.getElementById('aptArea').value=a.area||''; document.getElementById('aptRent').value=a.rent||''; document.getElementById('aptNotes').value=a.notes||''; document.getElementById('aptOwner').value=a.owner||''; document.getElementById('aptPhone').value=a.phone||''; document.getElementById('aptTask').value=a.task||'';
   if(a.ans) Object.entries(a.ans).forEach(([k,v])=>{ const r=document.querySelector(`input[name="${k}"][value="${v}"]`); if(r){r.checked=true; markSel(r);} }); showTab('quiz'); window.scrollTo({top:0,behavior:'smooth'}); }
 function quickAdd(){ const n=document.getElementById('qName').value.trim(); if(!n){toast('הזן כתובת');return;} const r=document.getElementById('qRent').value.replace(/[^\d]/g,'');
-  apts.unshift({id:'a'+Date.now(),name:n,area:document.getElementById('qArea').value.trim(),rent:r?+r:null,score:null,status:'check',ans:{},flags:[],notes:'',todo:'למלא שאלון',travel:'',date:new Date().toLocaleDateString('he-IL'),src:'ידני'});
-  ['qName','qArea','qRent'].forEach(i=>document.getElementById(i).value=''); save(); renderJournal(); toast('נוספה ליומן'); }
+  const d=stamp();
+  apts.unshift({id:'a'+Date.now(),name:n,area:document.getElementById('qArea').value.trim(),rent:r?+r:null,score:null,status:'check',ans:{},flags:[],notes:'',task:'',todo:'למלא שאלון',travel:'',
+    owner:document.getElementById('qOwner').value.trim(),phone:document.getElementById('qPhone').value.trim(),date:d,created:d,src:'ידני'});
+  ['qName','qArea','qRent','qOwner','qPhone'].forEach(i=>document.getElementById(i).value=''); save(); renderJournal(); toast('נוספה ליומן'); }
 function copyJournalWA(){
-  let t=`🏠 *יומן דירות אביב - ${new Date().toLocaleDateString('he-IL')}*\n\n`;
-  sorted().forEach(a=>{ t+=`${a.score!=null?'⭐ '+a.score:'❔'} | *${a.name}*${a.area?' ('+a.area+')':''} | ${a.rent?a.rent.toLocaleString()+' ₪ לאדם':(a.total?a.total.toLocaleString()+' ₪ לדירה':'')} | ${STATUS[a.status].t}${a.todo?'\n   🔎 '+a.todo:''}\n`; });
+  let t=`🏠 *יומן דירות אביב - ${stamp()}*\n\n`;
+  sorted().forEach(a=>{ t+=`${a.score!=null?'⭐ '+a.score:'❔'} | *${a.name}*${a.area?' ('+a.area+')':''} | ${a.rent?a.rent.toLocaleString()+' ₪ לאדם':(a.total?a.total.toLocaleString()+' ₪ לדירה':'')} | ${STATUS[a.status].t}${a.owner||a.phone?'\n   👤 '+(a.owner||'')+(a.phone?' '+a.phone:''):''}${a.todo?'\n   🔎 '+a.todo:''}${a.task?'\n   ✅ '+a.task:''}\n   🕐 ${a.updated||a.created||a.date||''}\n`; });
   shareText(t);
 }
 function exportJSON(){ const b=new Blob([JSON.stringify(apts,null,2)],{type:'application/json'}); const u=URL.createObjectURL(b); const x=document.createElement('a'); x.href=u; x.download=`aviv-dirot-${Date.now()}.json`; x.click(); URL.revokeObjectURL(u); }
@@ -364,6 +402,10 @@ function importJSON(inp){ const f=inp.files[0]; if(!f) return; const rd=new File
 function resetSeed(){ if(confirm('לשחזר את 9 הדירות המקוריות? כל מה שהוספת יימחק.')){ apts=JSON.parse(JSON.stringify(SEED)); save(); renderJournal(); toast('שוחזר'); } }
 
 /* ---------------- UTIL ---------------- */
+function stamp(d){ d=d||new Date(); const p=n=>String(n).padStart(2,'0'); return `${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`; }
+function tel(p){ return String(p).replace(/[^\d+]/g,''); }
+function waNum(p){ let n=String(p).replace(/\D/g,''); if(n.startsWith('0')) n='972'+n.slice(1); return n; }
+function tickClock(){ document.getElementById('nowStamp').textContent=stamp(); } tickClock(); setInterval(tickClock,30000);
 function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
 function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(t._x); t._x=setTimeout(()=>t.classList.remove('show'),2200); }
 function shareText(t){
