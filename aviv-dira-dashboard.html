@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דירות אביב 2026 - סינון והשוואה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#1d4ed8; --primary-dark:#1e3a8a; --bg:#f4f6fb; --card:#ffffff; --text:#0f172a; --muted:#64748b;
+  --accent:#f59e0b; --ok:#16a34a; --warn:#d97706; --bad:#dc2626; --line:#e2e8f0; --radius:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{direction:rtl;font-family:'Noto Sans Hebrew',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh;padding-bottom:70px}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.fade{animation:fadeInUp .45s ease both}
+header{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;padding:22px 18px 16px;box-shadow:0 6px 24px rgba(29,78,216,.25)}
+header h1{font-size:1.35rem;font-weight:800;letter-spacing:-.01em}
+header p{opacity:.85;font-size:.85rem;margin-top:4px}
+.tabs{display:flex;gap:6px;max-width:960px;margin:14px auto 0;background:rgba(255,255,255,.14);border-radius:12px;padding:4px}
+.tabs button{flex:1;border:0;background:transparent;color:#fff;font:inherit;font-weight:600;padding:10px 6px;border-radius:9px;cursor:pointer;transition:.2s;font-size:.9rem}
+.tabs button.active{background:#fff;color:var(--primary-dark);box-shadow:0 2px 8px rgba(0,0,0,.15)}
+main{max-width:960px;margin:0 auto;padding:16px}
+.panel{display:none}.panel.active{display:block}
+.card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.05);margin-bottom:14px;border:1px solid var(--line)}
+label.lbl{display:block;font-weight:700;font-size:.95rem;margin-bottom:8px}
+input[type=text],textarea{width:100%;font:inherit;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;transition:.2s}
+input[type=text]:focus,textarea:focus{outline:0;border-color:var(--primary);box-shadow:0 0 0 3px rgba(29,78,216,.12)}
+.q{margin-bottom:12px}
+.q .qt{display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:8px;font-size:.95rem}
+.q .num{background:var(--primary);color:#fff;width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.opt{border:1.5px solid var(--line);border-radius:12px;padding:10px 8px;cursor:pointer;text-align:center;font-size:.85rem;font-weight:500;background:#fff;transition:.15s;user-select:none;min-height:56px;display:flex;align-items:center;justify-content:center}
+.opt:hover{border-color:#93c5fd;background:#eff6ff}
+.opt.sel{border-color:var(--primary);background:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(29,78,216,.3)}
+.opt.sel.good{background:var(--ok);border-color:var(--ok)}
+.opt.sel.mid{background:var(--warn);border-color:var(--warn)}
+.opt.sel.bad{background:var(--bad);border-color:var(--bad)}
+.opt input{display:none}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn{border:0;font:inherit;font-weight:700;padding:13px 18px;border-radius:12px;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:8px;font-size:.95rem}
+.btn-primary{background:var(--primary);color:#fff;flex:1;justify-content:center}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-wa{background:#25d366;color:#fff;flex:1;justify-content:center}
+.btn-wa:hover{filter:brightness(.92)}
+.btn-ghost{background:#fff;border:1.5px solid var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--primary);color:var(--primary)}
+.btn-danger{background:#fef2f2;color:var(--bad);border:1.5px solid #fecaca}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.result{display:none;margin-top:14px;padding:14px;border-radius:12px;background:#f8fafc;border:1px dashed var(--line)}
+.result.show{display:block;animation:fadeInUp .4s}
+.score-big{font-size:2.6rem;font-weight:800;line-height:1}
+.score-row{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700}
+.b-ok{background:#dcfce7;color:#166534}.b-warn{background:#fef3c7;color:#92400e}.b-bad{background:#fee2e2;color:#991b1b}.b-info{background:#dbeafe;color:#1e40af}.b-gray{background:#f1f5f9;color:#475569}
+.flags{list-style:none;margin-top:8px;display:flex;flex-direction:column;gap:5px;font-size:.85rem}
+.flags li::before{content:"⚠️ ";}
+.summary-box{margin-top:16px}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:14px}
+.stat{background:var(--card);border-radius:12px;padding:12px;text-align:center;border:1px solid var(--line)}
+.stat .v{font-size:1.5rem;font-weight:800;color:var(--primary)}
+.stat .l{font-size:.75rem;color:var(--muted)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 13px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;transition:.15s}
+.chip.active{background:var(--text);color:#fff;border-color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.apt{position:relative;overflow:hidden}
+.apt::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:6px;background:var(--c,var(--muted))}
+.apt h3{font-size:1.05rem;font-weight:800;margin-bottom:2px;padding-inline-start:4px}
+.apt .sub{color:var(--muted);font-size:.8rem;margin-bottom:8px;padding-inline-start:4px}
+.apt .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.ring{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.15rem;color:#fff;flex-shrink:0;background:var(--c,var(--muted))}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:.83rem;margin:8px 0;padding-inline-start:4px}
+.kv span:first-child{color:var(--muted)}
+.notes{font-size:.83rem;background:#f8fafc;border-radius:8px;padding:8px 10px;margin-top:6px;white-space:pre-wrap}
+.todo{font-size:.8rem;color:#92400e;background:#fffbeb;border-radius:8px;padding:6px 10px;margin-top:6px}
+.apt-actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.apt-actions .btn{padding:8px 12px;font-size:.8rem}
+.tablewrap{overflow-x:auto;margin-top:14px}
+table{width:100%;border-collapse:collapse;font-size:.82rem;background:#fff;border-radius:12px;overflow:hidden;min-width:640px}
+th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:#f1f5f9;font-weight:700;font-size:.78rem;color:#334155;cursor:pointer}
+tr:last-child td{border-bottom:0}
+details{margin-top:10px}
+summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--primary)}
+.small{font-size:.8rem;color:var(--muted)}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;padding:11px 18px;border-radius:12px;font-size:.88rem;opacity:0;transition:.3s;pointer-events:none;z-index:99;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.75rem;color:var(--muted);margin:6px 0 12px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:4px;vertical-align:middle}
+.rowbtn{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.rowbtn>div{flex:1;min-width:160px}
+@media(max-width:560px){
+  .opts{grid-template-columns:1fr}
+  .opt{min-height:44px;padding:9px}
+  .stats{grid-template-columns:repeat(3,1fr)}
+  header h1{font-size:1.15rem}
+  .tabs button{font-size:.82rem}
+}
+@media print{header .tabs,.actions,.apt-actions,.filters,.btn{display:none!important}.panel{display:block!important}}
+</style>
+</head>
+<body>
+
+<header class="fade">
+  <h1>🏠 דירות אביב 2026 - סינון והשוואה</h1>
+  <p>ירושלים · אקדמיה למוסיקה ולמחול (גבעת רם) · שאלון מהיר מול בעלי דירות + יומן מעקב</p>
+  <nav class="tabs" role="tablist">
+    <button class="active" data-tab="quiz" onclick="showTab('quiz')">📋 שאלון סינון</button>
+    <button data-tab="journal" onclick="showTab('journal')">📊 יומן והשוואה</button>
+  </nav>
+</header>
+
+<main>
+<!-- ============ TAB 1: QUIZ ============ -->
+<section id="tab-quiz" class="panel active fade">
+  <div class="card">
+    <label class="lbl" for="aptName">שם הדירה / כתובת</label>
+    <input type="text" id="aptName" placeholder="לדוגמה: ניקרגואה 9, קריית מנחם" autocomplete="off">
+    <div class="rowbtn" style="margin-top:10px">
+      <div><label class="lbl" for="aptArea" style="font-size:.85rem">שכונה</label><input type="text" id="aptArea" placeholder="קריית היובל / בית הכרם / עין כרם"></div>
+      <div><label class="lbl" for="aptRent" style="font-size:.85rem">שכ"ד לאדם (₪, אופציונלי)</label><input type="text" id="aptRent" inputmode="numeric" placeholder="2500"></div>
+    </div>
+  </div>
+
+  <div class="card" id="questions"></div>
+
+  <div class="card">
+    <label class="lbl" for="aptNotes">הערות חופשיות (אופציונלי)</label>
+    <textarea id="aptNotes" rows="2" placeholder="קומה, מעלית, מרחק לאקדמיה, מספר שותפים, תאריך כניסה..."></textarea>
+    <div class="actions" style="margin-top:12px">
+      <button class="btn btn-primary" onclick="calcAndAdd()">🧮 חשב ציון והוסף ליומן</button>
+      <button class="btn btn-wa" onclick="copyWhatsApp()">📱 העתק סיכום לוואטסאפ</button>
+      <button class="btn btn-ghost" onclick="resetQuiz()">↺ נקה</button>
+    </div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <details class="card">
+    <summary>איך מחושב הציון?</summary>
+    <p class="small" style="margin-top:8px">כל תשובה מקבלת נקודות (א=10, ב=6, ג=2) ומוכפלת במשקל השאלה. רעש ואימוני שירה מקבלים משקל כפול ומעלה, ותשובה "ג" בהן מורידה ניקוד נוסף. הציון הסופי מנורמל לסקלה 1-10.</p>
+    <ul class="small" style="margin:8px 18px 0;list-style:disc" id="weightsList"></ul>
+  </details>
+</section>
+
+<!-- ============ TAB 2: JOURNAL ============ -->
+<section id="tab-journal" class="panel fade">
+  <div class="stats">
+    <div class="stat"><div class="v" id="stTotal">0</div><div class="l">דירות ביומן</div></div>
+    <div class="stat"><div class="v" id="stActive">0</div><div class="l">מועמדות פעילות</div></div>
+    <div class="stat"><div class="v" id="stBest">-</div><div class="l">הציון הגבוה ביותר</div></div>
+  </div>
+
+  <div class="filters" id="filters">
+    <button class="chip active" data-f="all">הכל</button>
+    <button class="chip" data-f="candidate">מועמדת</button>
+    <button class="chip" data-f="check">לבדוק</button>
+    <button class="chip" data-f="rejected">נפסלה</button>
+  </div>
+  <div class="legend"><span><i style="background:#16a34a"></i>8+ מצוין</span><span><i style="background:#d97706"></i>6-7.9 סביר</span><span><i style="background:#dc2626"></i>מתחת ל-6 בעייתי</span><span><i style="background:#64748b"></i>ללא ציון</span></div>
+
+  <div class="grid" id="cards"></div>
+
+  <div class="tablewrap card" style="padding:0">
+    <table id="cmpTable">
+      <thead><tr>
+        <th onclick="sortBy('name')">דירה</th><th onclick="sortBy('area')">שכונה</th><th onclick="sortBy('rent')">₪ לאדם</th><th onclick="sortBy('score')">ציון</th><th>סטטוס</th><th>מיגון</th><th>מים חמים</th><th>רעש</th><th>נגינה</th><th>נסיעה</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+
+  <div class="card">
+    <label class="lbl">הוספה מהירה (ללא שאלון)</label>
+    <div class="rowbtn">
+      <div><input type="text" id="qName" placeholder="כתובת"></div>
+      <div><input type="text" id="qArea" placeholder="שכונה"></div>
+      <div><input type="text" id="qRent" inputmode="numeric" placeholder="₪ לאדם"></div>
+      <button class="btn btn-ghost" onclick="quickAdd()">➕ הוסף</button>
+    </div>
+    <div class="actions" style="margin-top:14px">
+      <button class="btn btn-wa" onclick="copyJournalWA()">📱 שלח טבלה לוואטסאפ</button>
+      <button class="btn btn-ghost" onclick="exportJSON()">⬇ ייצוא גיבוי</button>
+      <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">⬆ ייבוא גיבוי</button>
+      <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importJSON(this)">
+      <button class="btn btn-danger" onclick="resetSeed()">↺ שחזר נתוני בסיס</button>
+    </div>
+    <p class="small" style="margin-top:10px">הנתונים נשמרים בדפדפן הזה בלבד (LocalStorage). כדי להעביר למכשיר אחר - ייצוא גיבוי ואז ייבוא.</p>
+  </div>
+</section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------------- QUESTIONS ---------------- */
+const QUESTIONS = [
+  {id:'rent',   t:'שכר דירה לאדם', w:1.5, o:['עד 2,300 ₪','2,400-2,600 ₪','מעל 2,700 ₪'], short:['עד 2,300','2,400-2,600','2,700+']},
+  {id:'incl',   t:'מה כלול במחיר', w:1.0, o:['הכל כלול','חלק מהחשבונות','לא כולל כלום'], short:['הכל כלול','חלקי','לא כלול']},
+  {id:'extra',  t:'תשלומים נלווים משוערים לאדם', w:1.0, o:['עד 350 ₪','400-600 ₪','מעל 700 ₪'], short:['עד 350','400-600','700+']},
+  {id:'furn',   t:'מצב ריהוט', w:1.0, o:['מרוהטת קומפלט','ריהוט חלקי','ללא ריהוט'], short:['מרוהטת','חלקי','ללא']},
+  {id:'noise',  t:'רמת רעש ובנייה', w:2.5, o:['שקט לחלוטין','רעש עירוני רגיל','אתר בנייה / תמ"א סמוך'], short:['שקט','עירוני','בנייה'], penalty:2},
+  {id:'shelter',t:'פתרון מיגון', w:1.5, o:['ממ"ד בדירה','מקלט תקין בבניין','ללא מקלט בבניין'], short:['ממ"ד','מקלט','אין']},
+  {id:'water',  t:'מים חמים', w:0.5, o:['דוד שמש','דוד חשמל בלבד','חימום גז'], short:['דוד שמש','חשמל','גז']},
+  {id:'sing',   t:'אימוני שירה ונגינה ביום', w:2.5, o:['מתאפשר חופשי','בהגבלה','לא מתאפשר'], short:['חופשי','בהגבלה','אסור'], penalty:2.5},
+  {id:'exit',   t:'סעיף דייר חלופי', w:1.5, o:['קיים בחוזה','מותנה באישור בלבד','אין יציאה'], short:['בחוזה','באישור','אין']},
+  {id:'guar',   t:'בטחונות נדרשים', w:1.0, o:["צ'ק ביטחון / שטר חוב",'ערבים עם תלושים','ערבות בנקאית / מזומן'], short:["צ'ק/שטר",'ערבים','ערבות בנקאית']},
+];
+const PTS=[10,6,2];
+const LETTERS=['א','ב','ג'];
+const KEY='aviv_dirot_2026_v1';
+
+/* ---------------- SEED DATA ---------------- */
+const SEED=[
+  {id:'s1',name:'ניקרגואה 9 / החרצית 1',area:'קריית מנחם',rent:3250,score:7.2,status:'candidate',travel:'30 דק\' (קו 42 ישיר)',
+   ans:{rent:2,incl:2,extra:1,furn:1,noise:0,shelter:1,water:0,sing:1,exit:0,guar:0},
+   notes:'3.5 חדרים, קומה 2 ללא מעלית, ארונות קיר, מזגנים, דוד שמש, מקלט, אפשרות לדייר חלופי.\n5,000 ₪ + 240 ₪ ועד (לא כולל ארנונה וחשבונות) - כ-3,200-3,250 ₪ לאדם ב-2 שותפים.',
+   todo:'מתאימה רק ל-2 שותפים. לוודא הערכת ארנונה + חשמל בפועל.',date:'09.09.2026',src:'סיור'},
+  {id:'s2',name:'התומר 10',area:'בית הכרם',rent:2700,score:5.5,status:'rejected',travel:'',
+   ans:{rent:1,incl:0,extra:0,furn:0,noise:2,shelter:1,water:1,sing:1,exit:1,guar:0},
+   notes:'חדר בדירת שותפים, 2,650-2,750 ₪ הכל כלול.',
+   todo:'נפסלה: רעש ואבק כבד מאתר בנייה סמוך - פוגע בריכוז ובאימונים.',date:'09.09.2026',src:'סיור'},
+  {id:'s3',name:'עין כרם',area:'עין כרם',rent:2500,score:8.2,status:'candidate',travel:'לבדוק',
+   ans:{rent:0,incl:0,extra:0,furn:0,noise:0,shelter:1,water:0,sing:1,exit:1,guar:0},
+   notes:'מרוהטת קומפלט, גינה וחצר, מזגן בכל חדר, דוד שמש, מקלט. 2,500 ₪ הכל כלול.\nמגבלות: שומרת שבת וכשרות, ללא עישון, ללא חיות.',
+   todo:'לברר מול המפרסמת: תאריך כניסה + מספר השותפות הכולל בנכס. לוודא התאמת אורח חיים.',date:'09.09.2026',src:'מודעה'},
+  {id:'s4',name:'אורוגוואי 27',area:'קריית היובל',rent:null,total:4600,rooms:3,score:null,status:'check',notes:'4,600 ₪ לדירה (3 חדרים). לבדוק שטח בפועל - הנתון באתר לא אמין.',todo:'לבדוק שטח בפועל.',date:'09.09.2026',src:'Madlan'},
+  {id:'s5',name:'עמנואל אולסבנגר 101',area:'קריית היובל',rent:null,total:4800,rooms:3,score:null,status:'check',notes:'4,800 ₪ לדירה (3 חדרים).',todo:'לבדוק שטח בפועל.',date:'09.09.2026',src:'Madlan'},
+  {id:'s6',name:'ברזיל 18',area:'קריית היובל',rent:null,total:4850,rooms:3,score:null,status:'check',notes:'4,850 ₪ לדירה (3 חדרים).',todo:'לבדוק שטח בפועל.',date:'09.09.2026',src:'Madlan'},
+  {id:'s7',name:'ורבורג 1',area:'קריית היובל',rent:1900,total:7600,rooms:4,score:null,status:'check',notes:'7,600 ₪ לדירה (4 חדרים) - מתאים ל-4 שותפות, כ-1,900 ₪ לשותפה.',todo:'',date:'09.09.2026',src:'Madlan'},
+  {id:'s8',name:'וולטה עילית 7',area:'קריית היובל',rent:2000,total:8000,rooms:4,score:null,status:'check',notes:'8,000 ₪ לדירה (4 חדרים) - מתאים ל-4 שותפות, כ-2,000 ₪ לשותפה.',todo:'',date:'09.09.2026',src:'Madlan'},
+  {id:'s9',name:'יאנוש קורצאק 7',area:'קריית היובל',rent:null,total:10000,rooms:4,score:null,status:'check',notes:'דירת גן, 10,000 ₪ לדירה - יקרה יחסית.',todo:'',date:'09.09.2026',src:'Madlan'},
+];
+
+/* ---------------- STATE ---------------- */
+let apts=load(); let filter='all'; let sortKey='score', sortDir=-1;
+function load(){ try{const r=localStorage.getItem(KEY); if(r){const a=JSON.parse(r); if(Array.isArray(a)&&a.length) return a;} }catch(e){} return JSON.parse(JSON.stringify(SEED)); }
+function save(){ try{localStorage.setItem(KEY,JSON.stringify(apts));}catch(e){} }
+
+/* ---------------- RENDER QUIZ ---------------- */
+function renderQuestions(){
+  const cls=['good','mid','bad'];
+  document.getElementById('questions').innerHTML=QUESTIONS.map((q,i)=>`
+    <div class="q" data-q="${q.id}">
+      <div class="qt"><span class="num">${i+1}</span>${q.t}</div>
+      <div class="opts">${q.o.map((o,j)=>`<label class="opt ${cls[j]}"><input type="radio" name="${q.id}" value="${j}" onchange="markSel(this)">${LETTERS[j]}) ${o}</label>`).join('')}</div>
+    </div>`).join('');
+  document.getElementById('weightsList').innerHTML=QUESTIONS.map(q=>`<li>${q.t}: משקל ${q.w}${q.penalty?` (+ קנס ${q.penalty} על תשובה ג)`:''}</li>`).join('');
+}
+function markSel(inp){ inp.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel')); inp.parentElement.classList.add('sel'); }
+function getAnswers(){ const a={}; QUESTIONS.forEach(q=>{const c=document.querySelector(`input[name="${q.id}"]:checked`); if(c) a[q.id]=+c.value;}); return a; }
+
+/* ---------------- SCORING ---------------- */
+function computeScore(ans){
+  let sum=0,wsum=0,pen=0,flags=[];
+  QUESTIONS.forEach(q=>{ if(ans[q.id]===undefined) return; sum+=PTS[ans[q.id]]*q.w; wsum+=q.w;
+    if(q.penalty&&ans[q.id]===2){pen+=q.penalty; flags.push(q.id==='noise'?'אתר בנייה / תמ"א סמוך - פוגע בריכוז ובאימונים':'לא מתאפשר לתרגל שירה ונגינה בדירה');}
+    if(q.id==='shelter'&&ans[q.id]===2) flags.push('אין מקלט בבניין');
+    if(q.id==='exit'&&ans[q.id]===2) flags.push('אין סעיף יציאה / דייר חלופי - סיכון חוזי');
+    if(q.id==='guar'&&ans[q.id]===2) flags.push('דרישת ערבות בנקאית / מזומן - כבד');
+  });
+  if(!wsum) return {score:null,flags,answered:0};
+  let s=sum/wsum - pen; s=Math.max(1,Math.min(10,s));
+  return {score:Math.round(s*10)/10,flags,answered:Object.keys(ans).length};
+}
+function verdict(s){ if(s===null) return {t:'ללא ציון',c:'b-gray'}; if(s>=8) return {t:'מומלצת - לקדם',c:'b-ok'}; if(s>=6) return {t:'סבירה - לבדוק לעומק',c:'b-warn'}; return {t:'בעייתית - לשקול פסילה',c:'b-bad'}; }
+function color(s){ if(s===null||s===undefined) return '#64748b'; return s>=8?'#16a34a':s>=6?'#d97706':'#dc2626'; }
+
+/* ---------------- QUIZ ACTIONS ---------------- */
+function buildFromQuiz(){
+  const name=document.getElementById('aptName').value.trim();
+  if(!name){toast('הזן שם דירה או כתובת');document.getElementById('aptName').focus();return null;}
+  const ans=getAnswers(); const r=computeScore(ans);
+  if(r.answered<QUESTIONS.length){ if(!confirm(`ענית על ${r.answered} מתוך ${QUESTIONS.length} שאלות. להמשיך בכל זאת?`)) return null; }
+  const rentTxt=document.getElementById('aptRent').value.replace(/[^\d]/g,'');
+  const auto = r.score===null?'check': r.score<6||ans.noise===2?'rejected':'candidate';
+  return {id:'a'+Date.now(),name,area:document.getElementById('aptArea').value.trim(),rent:rentTxt?+rentTxt:null,score:r.score,status:auto,ans,flags:r.flags,
+    notes:document.getElementById('aptNotes').value.trim(),todo:'',travel:'',date:new Date().toLocaleDateString('he-IL'),src:'שאלון'};
+}
+function calcAndAdd(){
+  const a=buildFromQuiz(); if(!a) return;
+  const v=verdict(a.score);
+  const ex=apts.findIndex(x=>x.name===a.name);
+  if(ex>-1){ if(confirm('דירה בשם זה כבר קיימת ביומן. לעדכן אותה?')) {a.id=apts[ex].id; a.todo=apts[ex].todo; apts[ex]=a;} else return; } else apts.unshift(a);
+  save(); renderJournal();
+  document.getElementById('result').innerHTML=`
+    <div class="score-row"><div class="score-big" style="color:${color(a.score)}">${a.score??'-'}</div><div><div style="font-weight:800">${a.name}</div><span class="badge ${v.c}">${v.t}</span></div></div>
+    ${a.flags.length?`<ul class="flags">${a.flags.map(f=>`<li>${f}</li>`).join('')}</ul>`:'<div class="small">לא זוהו דגלים אדומים.</div>'}
+    <div class="actions" style="margin-top:12px"><button class="btn btn-ghost" onclick="showTab('journal')">📊 מעבר ליומן</button><button class="btn btn-wa" onclick="copyWhatsApp()">📱 שתף בוואטסאפ</button></div>`;
+  document.getElementById('result').classList.add('show');
+  toast('נוסף ליומן ✔');
+}
+function quizSummaryText(){
+  const a=buildFromQuiz(); if(!a) return null;
+  const v=verdict(a.score);
+  let t=`🏠 *סיכום דירה - ${a.name}*${a.area?' ('+a.area+')':''}\n📅 ${a.date}\n`;
+  if(a.rent) t+=`💰 ${a.rent.toLocaleString()} ₪ לאדם\n`;
+  t+=`⭐ ציון: ${a.score??'-'}/10 - ${v.t}\n\n`;
+  QUESTIONS.forEach((q,i)=>{ const x=a.ans[q.id]; t+=`${i+1}. ${q.t}: ${x===undefined?'-':LETTERS[x]+') '+q.o[x]}\n`; });
+  if(a.flags.length) t+=`\n🚩 דגלים:\n`+a.flags.map(f=>'• '+f).join('\n')+'\n';
+  if(a.notes) t+=`\n📝 ${a.notes}\n`;
+  return t;
+}
+function copyWhatsApp(){ const t=quizSummaryText(); if(t) shareText(t); }
+function resetQuiz(){ document.querySelectorAll('#tab-quiz input[type=radio]').forEach(r=>r.checked=false); document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel')); ['aptName','aptArea','aptRent','aptNotes'].forEach(i=>document.getElementById(i).value=''); document.getElementById('result').classList.remove('show'); }
+
+/* ---------------- JOURNAL ---------------- */
+const STATUS={candidate:{t:'מועמדת',c:'b-ok'},check:{t:'לבדוק',c:'b-info'},rejected:{t:'נפסלה',c:'b-bad'}};
+function ansShort(a,id){ if(!a||a[id]===undefined) return '-'; const q=QUESTIONS.find(q=>q.id===id); return q.short[a[id]]; }
+function sorted(){ return [...apts].sort((x,y)=>{ let a=x[sortKey],b=y[sortKey]; if(a==null) a=sortDir>0?Infinity:-Infinity; if(b==null) b=sortDir>0?Infinity:-Infinity; if(typeof a==='string') return a.localeCompare(b,'he')*sortDir; return (a-b)*sortDir; }); }
+function sortBy(k){ if(sortKey===k) sortDir*=-1; else {sortKey=k; sortDir=k==='score'?-1:1;} renderJournal(); }
+function renderJournal(){
+  const list=sorted().filter(a=>filter==='all'||a.status===filter);
+  document.getElementById('stTotal').textContent=apts.length;
+  document.getElementById('stActive').textContent=apts.filter(a=>a.status==='candidate').length;
+  const best=apts.filter(a=>a.score!=null).sort((a,b)=>b.score-a.score)[0];
+  document.getElementById('stBest').textContent=best?`${best.score}`:'-';
+  document.getElementById('cards').innerHTML=list.length?list.map(a=>`
+    <div class="card apt" style="--c:${color(a.score)}">
+      <div class="top"><div><h3>${esc(a.name)}</h3><div class="sub">${esc(a.area||'')} · ${esc(a.src||'')} · ${esc(a.date||'')}</div></div><div class="ring">${a.score??'?'}</div></div>
+      <span class="badge ${STATUS[a.status].c}">${STATUS[a.status].t}</span>
+      <div class="kv">
+        <span>₪ לאדם</span><b>${a.rent?a.rent.toLocaleString():(a.total?`${a.total.toLocaleString()} לדירה`:'-')}</b>
+        <span>מיגון</span><b>${ansShort(a.ans,'shelter')}</b>
+        <span>מים חמים</span><b>${ansShort(a.ans,'water')}</b>
+        <span>רעש</span><b>${ansShort(a.ans,'noise')}</b>
+        <span>נגינה</span><b>${ansShort(a.ans,'sing')}</b>
+        <span>דייר חלופי</span><b>${ansShort(a.ans,'exit')}</b>
+        ${a.travel?`<span>נסיעה</span><b>${esc(a.travel)}</b>`:''}
+        ${a.rooms?`<span>חדרים</span><b>${a.rooms}</b>`:''}
+      </div>
+      ${a.notes?`<div class="notes">${esc(a.notes)}</div>`:''}
+      ${a.todo?`<div class="todo">🔎 לברר: ${esc(a.todo)}</div>`:''}
+      <div class="apt-actions">
+        <button class="btn btn-ghost" onclick="cycleStatus('${a.id}')">🔄 סטטוס</button>
+        <button class="btn btn-ghost" onclick="editTodo('${a.id}')">🔎 לברר</button>
+        <button class="btn btn-ghost" onclick="loadToQuiz('${a.id}')">📋 לשאלון</button>
+        <button class="btn btn-danger" onclick="del('${a.id}')">🗑 מחק</button>
+      </div>
+    </div>`).join(''):'<div class="card small">אין דירות בסינון הזה.</div>';
+  document.querySelector('#cmpTable tbody').innerHTML=list.map(a=>`<tr>
+    <td><b>${esc(a.name)}</b></td><td>${esc(a.area||'')}</td><td>${a.rent?a.rent.toLocaleString():(a.total?a.total.toLocaleString()+' (דירה)':'-')}</td>
+    <td><span class="badge" style="background:${color(a.score)};color:#fff">${a.score??'-'}</span></td>
+    <td><span class="badge ${STATUS[a.status].c}">${STATUS[a.status].t}</span></td>
+    <td>${ansShort(a.ans,'shelter')}</td><td>${ansShort(a.ans,'water')}</td><td>${ansShort(a.ans,'noise')}</td><td>${ansShort(a.ans,'sing')}</td><td>${esc(a.travel||'-')}</td></tr>`).join('');
+}
+function cycleStatus(id){ const a=apts.find(x=>x.id===id); const o=['candidate','check','rejected']; a.status=o[(o.indexOf(a.status)+1)%3]; save(); renderJournal(); }
+function editTodo(id){ const a=apts.find(x=>x.id===id); const v=prompt('מה צריך לברר על הדירה הזו?',a.todo||''); if(v!==null){a.todo=v.trim(); save(); renderJournal();} }
+function del(id){ const a=apts.find(x=>x.id===id); if(confirm(`למחוק את "${a.name}" מהיומן?`)){ apts=apts.filter(x=>x.id!==id); save(); renderJournal(); toast('נמחקה'); } }
+function loadToQuiz(id){ const a=apts.find(x=>x.id===id); resetQuiz(); document.getElementById('aptName').value=a.name; document.getElementById('aptArea').value=a.area||''; document.getElementById('aptRent').value=a.rent||''; document.getElementById('aptNotes').value=a.notes||'';
+  if(a.ans) Object.entries(a.ans).forEach(([k,v])=>{ const r=document.querySelector(`input[name="${k}"][value="${v}"]`); if(r){r.checked=true; markSel(r);} }); showTab('quiz'); window.scrollTo({top:0,behavior:'smooth'}); }
+function quickAdd(){ const n=document.getElementById('qName').value.trim(); if(!n){toast('הזן כתובת');return;} const r=document.getElementById('qRent').value.replace(/[^\d]/g,'');
+  apts.unshift({id:'a'+Date.now(),name:n,area:document.getElementById('qArea').value.trim(),rent:r?+r:null,score:null,status:'check',ans:{},flags:[],notes:'',todo:'למלא שאלון',travel:'',date:new Date().toLocaleDateString('he-IL'),src:'ידני'});
+  ['qName','qArea','qRent'].forEach(i=>document.getElementById(i).value=''); save(); renderJournal(); toast('נוספה ליומן'); }
+function copyJournalWA(){
+  let t=`🏠 *יומן דירות אביב - ${new Date().toLocaleDateString('he-IL')}*\n\n`;
+  sorted().forEach(a=>{ t+=`${a.score!=null?'⭐ '+a.score:'❔'} | *${a.name}*${a.area?' ('+a.area+')':''} | ${a.rent?a.rent.toLocaleString()+' ₪ לאדם':(a.total?a.total.toLocaleString()+' ₪ לדירה':'')} | ${STATUS[a.status].t}${a.todo?'\n   🔎 '+a.todo:''}\n`; });
+  shareText(t);
+}
+function exportJSON(){ const b=new Blob([JSON.stringify(apts,null,2)],{type:'application/json'}); const u=URL.createObjectURL(b); const x=document.createElement('a'); x.href=u; x.download=`aviv-dirot-${Date.now()}.json`; x.click(); URL.revokeObjectURL(u); }
+function importJSON(inp){ const f=inp.files[0]; if(!f) return; const rd=new FileReader(); rd.onload=()=>{ try{ const d=JSON.parse(rd.result); if(!Array.isArray(d)) throw 0; apts=d; save(); renderJournal(); toast('יובא בהצלחה'); }catch(e){ toast('קובץ לא תקין'); } }; rd.readAsText(f); inp.value=''; }
+function resetSeed(){ if(confirm('לשחזר את 9 הדירות המקוריות? כל מה שהוספת יימחק.')){ apts=JSON.parse(JSON.stringify(SEED)); save(); renderJournal(); toast('שוחזר'); } }
+
+/* ---------------- UTIL ---------------- */
+function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(t._x); t._x=setTimeout(()=>t.classList.remove('show'),2200); }
+function shareText(t){
+  const done=()=>toast('הועתק ✔ - הדבק בוואטסאפ');
+  if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(t).then(done).catch(()=>fallback(t)); } else fallback(t);
+  if(/Android|iPhone|iPad/i.test(navigator.userAgent)){ setTimeout(()=>window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank'),300); }
+  function fallback(t){ const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');done();}catch(e){toast('לא הצלחתי להעתיק');} ta.remove(); }
+}
+function showTab(id){ document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+id)); document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id)); try{localStorage.setItem(KEY+'_tab',id);}catch(e){} }
+document.getElementById('filters').addEventListener('click',e=>{ const b=e.target.closest('.chip'); if(!b) return; filter=b.dataset.f; document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c===b)); renderJournal(); });
+
+renderQuestions(); renderJournal();
+try{ const t=localStorage.getItem(KEY+'_tab'); if(t) showTab(t); }catch(e){}
+</script>
+</body>
+</html>
