@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>שיטת העבודה - דירה לאביב</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--primary:#1d4ed8;--dark:#0f172a;--bg:#f4f6fb;--text:#0f172a;--muted:#64748b;--accent:#f59e0b;--wa:#25d366;--ok:#16a34a;--bad:#dc2626;--line:#e2e8f0;
+  --aviv:#db2777;--avi:#1d4ed8;--cowork:#7c3aed;--drive:#059669;--nb:#d97706}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{direction:rtl;font-family:'Noto Sans Hebrew',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.5}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+section,header{animation:fadeInUp .5s ease both}
+header{background:linear-gradient(135deg,#0f172a,#1e3a8a);color:#fff;padding:26px 18px 22px;text-align:center}
+header h1{font-size:1.5rem;font-weight:900}
+header p{opacity:.85;font-size:.9rem;margin-top:6px}
+.goal{display:inline-block;margin-top:12px;background:var(--accent);color:#0f172a;font-weight:900;padding:8px 18px;border-radius:999px;font-size:.95rem}
+main{max-width:900px;margin:0 auto;padding:16px}
+h2{font-size:1.15rem;font-weight:900;margin:22px 0 10px;display:flex;align-items:center;gap:8px}
+h2 .n{background:var(--dark);color:#fff;width:30px;height:30px;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:.9rem}
+.card{background:#fff;border-radius:16px;padding:16px;border:1px solid var(--line);box-shadow:0 6px 20px rgba(15,23,42,.05)}
+/* actors */
+.actors{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.actor{border-radius:14px;padding:14px 10px;color:#fff;text-align:center;position:relative}
+.actor .ic{font-size:2rem}
+.actor b{display:block;font-size:1rem;margin-top:4px}
+.actor span{font-size:.78rem;opacity:.92;display:block;margin-top:4px}
+/* flow */
+.flow{display:flex;flex-direction:column;gap:0}
+.step{display:grid;grid-template-columns:52px 1fr;gap:12px;align-items:start;position:relative;padding-bottom:18px}
+.step::before{content:"";position:absolute;right:25px;top:52px;bottom:0;width:3px;background:var(--line)}
+.step:last-child::before{display:none}
+.step .dot{width:52px;height:52px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;color:#fff;flex-shrink:0;box-shadow:0 4px 12px rgba(0,0,0,.15)}
+.step .body{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.step .who{font-size:.72rem;font-weight:700;padding:2px 9px;border-radius:999px;color:#fff;display:inline-block;margin-bottom:4px}
+.step h3{font-size:1rem;font-weight:900}
+.step p{font-size:.88rem;color:#334155;margin-top:3px}
+.step .t{font-size:.75rem;color:var(--muted);margin-top:6px}
+/* pipeline */
+.pipe{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px}
+.pipe div{flex:1;min-width:110px;text-align:center;background:#fff;border:2px solid var(--line);border-radius:12px;padding:10px 6px;font-size:.82rem;font-weight:700;position:relative}
+.pipe div small{display:block;font-weight:400;color:var(--muted);font-size:.72rem;margin-top:3px}
+.pipe div::after{content:"◀";position:absolute;left:-13px;top:50%;transform:translateY(-50%);color:#94a3b8;font-size:.8rem}
+.pipe div:last-child::after{display:none}
+.pipe .hot{border-color:var(--accent);background:#fffbeb}
+.pipe .end{border-color:var(--ok);background:#f0fdf4}
+/* rules */
+.rules{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px}
+.rule{background:#fff;border:1px solid var(--line);border-radius:14px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start}
+.rule .i{font-size:1.5rem}
+.rule b{display:block;font-size:.95rem}
+.rule span{font-size:.83rem;color:#334155}
+.sla{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;text-align:center}
+.sla div{background:#fff;border-radius:14px;padding:12px 6px;border:1px solid var(--line)}
+.sla .v{font-size:1.6rem;font-weight:900;color:var(--primary)}
+.sla .l{font-size:.78rem;color:var(--muted)}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.split .card h3{font-size:1rem;font-weight:900;margin-bottom:6px}
+.split ul{padding-inline-start:18px;font-size:.86rem}
+.split li{margin-bottom:4px}
+.links{display:flex;gap:10px;flex-wrap:wrap;margin-top:14px}
+.links a{flex:1;min-width:200px;text-align:center;background:var(--primary);color:#fff;text-decoration:none;font-weight:900;padding:14px;border-radius:14px}
+.links a.wa{background:var(--wa)}
+footer{text-align:center;color:var(--muted);font-size:.75rem;padding:18px}
+@media(max-width:560px){.split{grid-template-columns:1fr}.sla .v{font-size:1.3rem}header h1{font-size:1.25rem}}
+@media print{header{background:#1e3a8a!important;-webkit-print-color-adjust:exact}.links{display:none}}
+</style>
+</head>
+<body>
+<header>
+  <h1>🏠 דירה לאביב - שיטת העבודה</h1>
+  <p>ירושלים · אקדמיה למוסיקה ולמחול · פשוט, מהיר, בלי ליד שהולך לאיבוד</p>
+  <div class="goal">🎯 היעד: דירה חתומה תוך שבועיים</div>
+</header>
+
+<main>
+<h2><span class="n">1</span>מי עושה מה</h2>
+<div class="actors">
+  <div class="actor" style="background:var(--aviv)"><div class="ic">🎤</div><b>אביב</b><span>מאתרת מודעות, מתקשרת, מסיירת, ממלאת שאלון בטלפון</span></div>
+  <div class="actor" style="background:var(--avi)"><div class="ic">👨‍💼</div><b>אבי</b><span>מדבר עם בעלי דירות, בודק חוזה ובטחונות, מחליט</span></div>
+  <div class="actor" style="background:#0f172a"><div class="ic">📱</div><b>הדשבורד</b><span>שאלון 10 שאלות + ציון + יומן. אותו קישור לשניכם</span></div>
+  <div class="actor" style="background:var(--cowork)"><div class="ic">🧠</div><b>Cowork + מאסטרו</b><span>מנהל האירוע: מרכז, מזכיר, מכין תסריטי שיחה</span></div>
+  <div class="actor" style="background:var(--drive)"><div class="ic">📂</div><b>Drive + NotebookLM</b><span>מרכז האמת: כל מסמך, כל החלטה, כל Handoff</span></div>
+</div>
+
+<h2><span class="n">2</span>תזרים העבודה - מליד לחתימה</h2>
+<div class="flow">
+  <div class="step"><div class="dot" style="background:var(--aviv)">🔍</div><div class="body"><span class="who" style="background:var(--aviv)">אביב</span><h3>ליד חדש</h3><p>מודעה ביד2 / מדלן / פייסבוק. מיד: פותחת את הדשבורד, "הוספה מהירה" - כתובת, שכונה, מחיר, בעל הבית וטלפון. סטטוס: לבדוק.</p><div class="t">⏱ 1 דקה. ליד שלא נכנס ליומן - לא קיים.</div></div></div>
+  <div class="step"><div class="dot" style="background:var(--aviv)">📞</div><div class="body"><span class="who" style="background:var(--aviv)">אביב</span><h3>שיחת סינון ראשונה</h3><p>עם השאלון פתוח: שואלת את 10 השאלות ולוחצת. ציון מחושב מיד. מתחת ל-6 או אתר בנייה? נפסלה, לא מבזבזים סיור.</p><div class="t">⏱ 5 דקות. באותו יום שהליד נמצא.</div></div></div>
+  <div class="step"><div class="dot" style="background:var(--wa)">💬</div><div class="body"><span class="who" style="background:var(--wa)">אביב ← אבי</span><h3>"העתק סיכום לוואטסאפ"</h3><p>לחיצה אחת. הסיכום עם הציון, הדגלים, בעל הבית והמשימה נשלח לאבי. זו ההודעה היחידה שצריך - בלי טלפונים ארוכים.</p><div class="t">⏱ 10 שניות. אבי מקבל תמונת מצב מלאה.</div></div></div>
+  <div class="step"><div class="dot" style="background:var(--avi)">🤝</div><div class="body"><span class="who" style="background:var(--avi)">אבי</span><h3>שיחה עם בעל הבית</h3><p>ציון 7 ומעלה: אבי מתקשר (הטלפון לחיץ בכרטיס). מברר חוזה, דייר חלופי, בטחונות, תאריך כניסה. מעדכן "משימה להמשך" בכרטיס.</p><div class="t">⏱ תוך 24 שעות מהסיכום. בעלי דירות טובות נסגרות מהר.</div></div></div>
+  <div class="step"><div class="dot" style="background:var(--cowork)">🧠</div><div class="body"><span class="who" style="background:var(--cowork)">Cowork + מאסטרו</span><h3>ריכוז והחלטה</h3><p>אבי מדביק את סיכומי הוואטסאפ בשיחת Cowork "אביב דירה ירושלים". מאסטרו מעדכן את גיליון הדירות ומסמך האינדקס ב-Drive, ומחזיר: "3 המובילות, הצעד הבא לכל אחת".</p><div class="t">⏱ פעם ביום, 5 דקות.</div></div></div>
+  <div class="step"><div class="dot" style="background:var(--aviv)">🚶</div><div class="body"><span class="who" style="background:var(--aviv)">אביב (+ אבי אם אפשר)</span><h3>סיור</h3><p>רק לדירות עם ציון 7+. בסיור: בודקת חלונות ורעש, מקלט, מים חמים, מבקשת לנסות לשיר 30 שניות. אחרי הסיור: "לשאלון" בכרטיס, מתקנת תשובות, שולחת סיכום מעודכן.</p><div class="t">⏱ עדכון תוך שעה מהסיור, כל עוד זוכרים.</div></div></div>
+  <div class="step"><div class="dot" style="background:var(--ok)">✍️</div><div class="body"><span class="who" style="background:var(--ok)">אבי</span><h3>חוזה וחתימה</h3><p>אבי בודק חוזה (סעיף דייר חלופי, בטחונות סבירים, צ'ק "לביטחון בלבד"). החוזה החתום נשמר ב-Drive תחת 03_דיור_ירושלים. סטטוס בדשבורד: מועמדת ✔ נסגר.</p><div class="t">🏁 סיום. Handoff אחרון למאסטרו.</div></div></div>
+</div>
+
+<h2><span class="n">3</span>מסלול ליד - אף אחד לא נופל</h2>
+<div class="card">
+  <div class="pipe">
+    <div>🆕 חדש<small>ביומן, לבדוק</small></div>
+    <div class="hot">📞 סונן<small>יש ציון</small></div>
+    <div class="hot">💬 נשלח לאבי<small>וואטסאפ</small></div>
+    <div class="hot">🤝 בעל הבית<small>אבי דיבר</small></div>
+    <div>🚶 סיור<small>נקבע / בוצע</small></div>
+    <div class="end">✍️ חתימה<small>או נפסלה</small></div>
+  </div>
+  <p style="font-size:.85rem;color:#334155;margin-top:10px">כל ליד נמצא בשלב אחד בלבד. בכל בוקר אבי פותח את היומן, מסנן "לבדוק" ו"מועמדת", ובודק: לכל כרטיס יש <b>משימה להמשך</b> ו<b>תאריך עדכון מהיום או אתמול</b>? אם לא - זה הליד שמטפלים בו ראשון.</p>
+</div>
+
+<h2><span class="n">4</span>שלושה מספרים שקובעים את הקצב</h2>
+<div class="sla">
+  <div><div class="v">24 ש'</div><div class="l">מליד חדש לשיחת סינון + סיכום</div></div>
+  <div><div class="v">48 ש'</div><div class="l">מציון 7+ לסיור</div></div>
+  <div><div class="v">3</div><div class="l">דירות מועמדות פעילות במקביל, לא פחות</div></div>
+</div>
+
+<h2><span class="n">5</span>כללי הברזל</h2>
+<div class="rules">
+  <div class="rule"><div class="i">📱</div><div><b>ליד = כרטיס בדשבורד</b><span>שום מודעה לא נשארת רק בצ'אט או בראש. 1 דקה להוסיף.</span></div></div>
+  <div class="rule"><div class="i">💬</div><div><b>ערוץ אחד: וואטסאפ</b><span>הסיכום מהדשבורד הוא ההודעה. בלי הודעות קוליות ארוכות, בלי "תזכיר לי מה היה".</span></div></div>
+  <div class="rule"><div class="i">🚫</div><div><b>לא מסיירים מתחת ל-7</b><span>הציון חוסך זמן. אתר בנייה או איסור שירה = נפסלה, ממשיכים.</span></div></div>
+  <div class="rule"><div class="i">👨‍💼</div><div><b>אבי מדבר עם בעלי הבית</b><span>חוזה, בטחונות, דייר חלופי, מחיר. אביב מסננת ומסיירת.</span></div></div>
+  <div class="rule"><div class="i">📂</div><div><b>Drive = האמת</b><span>החלטה שלא כתובה במסמך האינדקס לא קיימת. מאסטרו ב-Cowork מעדכן.</span></div></div>
+  <div class="rule"><div class="i">🧠</div><div><b>שיחה אחת ב-Cowork</b><span>"אביב דירה ירושלים". ג'מיני = יועץ בלבד, לא מנהל ולא זיכרון.</span></div></div>
+  <div class="rule"><div class="i">💾</div><div><b>גיבוי שבועי</b><span>"ייצוא גיבוי" מהדשבורד ל-Drive, כי הנתונים בדפדפן של הטלפון.</span></div></div>
+  <div class="rule"><div class="i">📅</div><div><b>עדכון יומי של 5 דקות</b><span>אבי ב-Cowork כל ערב: מה חדש, מה תקוע, מה מחר.</span></div></div>
+</div>
+
+<h2><span class="n">6</span>הצ'ק-ליסט של כל אחד</h2>
+<div class="split">
+  <div class="card"><h3 style="color:var(--aviv)">🎤 אביב - כל יום</h3><ul>
+    <li>סריקת מודעות (יד2, מדלן, קבוצות פייסבוק) - 15 דקות</li>
+    <li>כל מודעה מתאימה → הוספה מהירה בדשבורד</li>
+    <li>שיחת סינון עם השאלון פתוח</li>
+    <li>"העתק סיכום לוואטסאפ" → לאבא</li>
+    <li>סיורים רק ל-7+, ובסיור לנסות לשיר</li>
+    <li>אחרי סיור: לעדכן כרטיס ולשלוח סיכום מחדש</li>
+  </ul></div>
+  <div class="card"><h3 style="color:var(--avi)">👨‍💼 אבי - כל יום</h3><ul>
+    <li>קורא סיכומי וואטסאפ, מתקשר לבעלי דירות 7+ תוך 24 שעות</li>
+    <li>מעדכן "משימה להמשך" ו"בעל הבית" בכרטיס</li>
+    <li>ערב: מדביק סיכומים ב-Cowork, מאסטרו מעדכן Drive</li>
+    <li>בודק שלכל ליד פתוח יש משימה ותאריך עדכון</li>
+    <li>חוזה: דייר חלופי, בטחונות, צ'ק "לביטחון בלבד"</li>
+    <li>שבועי: גיבוי JSON + Handoff אם השיחה ארוכה</li>
+  </ul></div>
+</div>
+
+<div class="links">
+  <a href="https://avi7756-design.github.io/avi-sites/aviv-dira-dashboard.html">📱 פתח את הדשבורד</a>
+  <a class="wa" href="https://wa.me/?text=%F0%9F%8F%A0%20%D7%94%D7%93%D7%A9%D7%91%D7%95%D7%A8%D7%93%20%D7%9C%D7%93%D7%99%D7%A8%D7%95%D7%AA%3A%20https%3A%2F%2Favi7756-design.github.io%2Favi-sites%2Faviv-dira-dashboard.html%0A%D7%A9%D7%99%D7%98%D7%AA%20%D7%94%D7%A2%D7%91%D7%95%D7%93%D7%94%3A%20https%3A%2F%2Favi7756-design.github.io%2Favi-sites%2Faviv-dira-workflow.html">💬 שלח לאביב בוואטסאפ</a>
+</div>
+</main>
+<footer>אבי חזן · 10.09.2026 · מרכז אמת: Drive 06_אביב · ניהול: Cowork + מאסטרו</footer>
+</body>
+</html>
