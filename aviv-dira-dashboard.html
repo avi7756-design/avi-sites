@@ -83,6 +83,9 @@ input[type=text]:focus,textarea:focus,select:focus{outline:0;border-color:var(--
 .owner a{color:var(--primary);font-weight:700;text-decoration:none}
 .owner a.wa{background:#25d366;color:#fff;border-radius:999px;padding:1px 9px;font-size:.72rem;margin-inline-start:4px}
 .nophone{color:#b91c1c;font-weight:700;background:#fef2f2;border-radius:999px;padding:1px 8px;font-size:.72rem}
+.findphone{font-size:.78rem;color:#92400e;background:#fffbeb;border-radius:8px;padding:5px 9px;margin-top:4px}
+.findphone a{color:#92400e;font-weight:700}
+.findphone-none{color:#991b1b;background:#fef2f2}
 .syncbadge{font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:999px;margin-inline-start:6px;display:inline-block}
 .syncbadge.s-ok{background:#dcfce7;color:#166534}
 .syncbadge.s-error{background:#fee2e2;color:#991b1b}
@@ -536,6 +539,12 @@ function field(label,value,missingLabel){
   if(value) return `<span>${esc(label)}</span><b>${esc(value)}</b>`;
   return `<span>${esc(label)}</span><b><span class="nophone">${esc(missingLabel||('חסר '+label))}</span></b>`;
 }
+function phoneHelper(it){
+  if(it.phone) return '';
+  if(!it.sourceLink) return '<div class="findphone findphone-none">⚠️ אין גם מקור - אין דרך לאתר טלפון, לחפש ידנית</div>';
+  if(/^https?:\/\//.test(it.sourceLink)) return `<div class="findphone"><a href="${escAttr(it.sourceLink)}" target="_blank" rel="noopener">🔍 חפש טלפון במקור (${esc(it.sourceLink)})</a></div>`;
+  return `<div class="findphone">🔍 לבדוק מול המקור: <b>${esc(it.sourceLink)}</b></div>`;
+}
 function parseDMY(d){ if(!d) return null; const m=String(d).match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/); if(!m) return null; return new Date(+m[3],+m[2]-1,+m[1]); }
 function isOverdue(d){ const dt=parseDMY(d); if(!dt) return false; const today=new Date(); today.setHours(0,0,0,0); return dt<today; }
 function isDueTodayOrOverdue(d){ const dt=parseDMY(d); if(!dt) return false; const today=new Date(); today.setHours(0,0,0,0); const tmr=new Date(today); tmr.setDate(tmr.getDate()+1); return dt<tmr; }
@@ -592,6 +601,7 @@ function renderSheetTab(){
       <div class="top"><div><h3>${esc(it.address||'ללא כתובת')}</h3><div class="sub">${esc(it.area||'')}${it.updated?' · עודכן '+esc(it.updated):''} · שורה ${it.row}</div></div><div class="ring">${esc(it.rating||'?')}</div></div>
       <span class="badge ${statusClass(it.status)}">${esc(it.status)}</span>
       <div class="owner">👤 ${it.contact?esc(it.contact):'<span class="nophone">חסר איש קשר</span>'} · ${it.phone?`<a href="tel:${tel(it.phone)}">${esc(it.phone)}</a> <a class="wa" href="https://wa.me/${waNum(it.phone)}" target="_blank" rel="noopener">וואטסאפ</a>`:'<span class="nophone">חסר טלפון</span>'}</div>
+      ${phoneHelper(it)}
       <div class="kv">
         ${field('שכ"ד לאדם', it.rentPerPerson)}
         ${field('שכ"ד מלא', it.rentFull)}
