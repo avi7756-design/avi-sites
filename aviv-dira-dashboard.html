@@ -75,7 +75,10 @@ input[type=text]:focus,textarea:focus,select:focus{outline:0;border-color:var(--
 .ring{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.05rem;color:#fff;flex-shrink:0;background:var(--c,var(--muted));text-align:center;padding:2px}
 .kv{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:.83rem;margin:8px 0;padding-inline-start:4px}
 .kv span:first-child{color:var(--muted)}
-.notes{font-size:.83rem;background:#f8fafc;border-radius:8px;padding:8px 10px;margin-top:6px;white-space:pre-wrap}
+.notes{font-size:.83rem;background:#f8fafc;border-radius:8px;padding:8px 10px;margin-top:6px;white-space:pre-wrap;max-height:150px;overflow-y:auto;border:1px solid var(--line)}
+.noterow{display:flex;gap:6px;margin-top:6px}
+.noterow input{flex:1;font-size:.85rem;padding:8px 10px}
+.noterow .btn{padding:8px 14px;font-size:.85rem}
 .owner{font-size:.85rem;margin:8px 0 2px;padding-inline-start:4px}
 .owner a{color:var(--primary);font-weight:700;text-decoration:none}
 .owner a.wa{background:#25d366;color:#fff;border-radius:999px;padding:1px 9px;font-size:.72rem;margin-inline-start:4px}
@@ -99,7 +102,7 @@ input[type=text]:focus,textarea:focus,select:focus{outline:0;border-color:var(--
 .editbox summary{font-size:.85rem;color:var(--primary)}
 .editbox label{display:block;font-weight:700;font-size:.78rem;margin:8px 0 4px;color:#334155}
 .editbox input[type=text],.editbox textarea,.editbox select{padding:9px 10px;font-size:.85rem}
-.editbox textarea{min-height:60px}
+.editbox textarea{min-height:60px;max-height:140px;overflow-y:auto}
 .tablewrap{overflow-x:auto;margin-top:14px}
 table{width:100%;border-collapse:collapse;font-size:.82rem;background:#fff;border-radius:12px;overflow:hidden;min-width:640px}
 th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
@@ -495,9 +498,22 @@ function appendResult(r){
   const sel=document.getElementById('ed'+r+'_result'); const val=sel.value; if(!val) return;
   const ta=document.getElementById('ed'+r+'_notes');
   const line=`[${stamp()}] תוצאת שיחה: ${val}`;
-  ta.value = ta.value ? (line+'\n'+ta.value) : line;
+  ta.value = ta.value ? (ta.value+'\n'+line) : line;
   sel.value='';
+  ta.scrollTop=ta.scrollHeight;
 }
+async function quickAddNote(row){
+  const inp=document.getElementById('nq'+row); if(!inp) return;
+  const val=inp.value.trim(); if(!val) return;
+  const it=sheetItems.find(x=>x.row===row); if(!it) return;
+  const line=`[${stamp()}] ${val}`;
+  const combined=it.notes?(it.notes+'\n'+line):line;
+  inp.disabled=true;
+  const ok=await writeSheet('update',{notes:combined},row);
+  inp.disabled=false;
+  if(ok){ inp.value=''; toast('הערה נוספה ✔'); refreshSheet(false); }
+}
+function noteKeydown(ev,row){ if(ev.key==='Enter'){ ev.preventDefault(); quickAddNote(row); } }
 async function submitEdit(r){
   const fields={
     contact:document.getElementById('ed'+r+'_contact').value.trim(),
@@ -582,7 +598,11 @@ function renderSheetTab(){
         ${field('אחראי', it.responsible)}
         ${field('תאריך יעד', it.dueDate)}
       </div>
-      ${it.notes?`<div class="notes">${esc(it.notes)}</div>`:''}
+      ${it.notes?`<div class="notes" id="nlog${it.row}">${esc(it.notes)}</div>`:''}
+      <div class="noterow">
+        <input type="text" id="nq${it.row}" placeholder="הערה אחרי השיחה..." onkeydown="noteKeydown(event,${it.row})">
+        <button class="btn btn-primary" onclick="quickAddNote(${it.row})">➕ הוסף</button>
+      </div>
       ${it.nextAction?`<div class="task">✅ ${esc(it.nextAction)}</div>`:''}
       ${it.dueDate?`<div class="duebox${isOverdue(it.dueDate)?' overdue':''}">📅 יעד: ${esc(it.dueDate)}${isOverdue(it.dueDate)?' - עבר התאריך!':''}</div>`:''}
       ${it.sourceLink?`<div class="stamp">🔗 ${/^https?:\/\//.test(it.sourceLink)?`<a href="${escAttr(it.sourceLink)}" target="_blank" rel="noopener">${esc(it.sourceLink)}</a>`:esc(it.sourceLink)}</div>`:''}
@@ -592,6 +612,7 @@ function renderSheetTab(){
         <a class="btn btn-ghost" href="https://docs.google.com/spreadsheets/d/1aJgGX7GnP_13VwlDswcwj2N66V5KbkG97_v0-WdPc6E/edit#gid=0&range=A${it.row}" target="_blank" rel="noopener">📝 פתח בגיליון</a>
       </div>
     </div>`).join('');
+  document.querySelectorAll('#cards .notes').forEach(el=>{ el.scrollTop=el.scrollHeight; });
   document.querySelector('#cmpTable tbody').innerHTML=list.map(it=>`<tr>
     <td><b>${esc(it.address||'-')}</b></td><td>${esc(it.area||'-')}</td>
     <td>${esc(it.rentPerPerson||it.rentFull||'-')}</td><td>${esc(it.rating||'-')}</td>
