@@ -78,6 +78,12 @@ input[type=text]:focus,textarea:focus{outline:0;border-color:var(--primary);box-
 .owner{font-size:.85rem;margin:8px 0 2px;padding-inline-start:4px}
 .owner a{color:var(--primary);font-weight:700;text-decoration:none}
 .owner a.wa{background:#25d366;color:#fff;border-radius:999px;padding:1px 9px;font-size:.72rem;margin-inline-start:4px}
+.nophone{color:#b91c1c;font-weight:700;background:#fef2f2;border-radius:999px;padding:1px 8px;font-size:.72rem}
+.syncbadge{font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:999px;margin-inline-start:6px;display:inline-block}
+.syncbadge.s-ok{background:#dcfce7;color:#166534}
+.syncbadge.s-error{background:#fee2e2;color:#991b1b}
+.syncbadge.s-syncing{background:#dbeafe;color:#1e40af}
+.syncbadge.s-off,.syncbadge.s-idle{background:#f1f5f9;color:#475569}
 .task{font-size:.8rem;color:#065f46;background:#ecfdf5;border-radius:8px;padding:6px 10px;margin-top:6px;white-space:pre-wrap}
 .stamp{font-size:.72rem;color:var(--muted);margin-top:8px;padding-inline-start:4px}
 .todo{font-size:.8rem;color:#92400e;background:#fffbeb;border-radius:8px;padding:6px 10px;margin-top:6px}
@@ -189,6 +195,19 @@ summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--primary)}
     <div class="stat"><div class="v" id="stBest">-</div><div class="l">הציון הגבוה ביותר</div></div>
   </div>
 
+  <details class="card" id="syncCard" style="margin-bottom:10px">
+    <summary>☁️ סנכרון בין מכשירים <span id="syncStatus" class="syncbadge s-off">📴 מקומי בלבד</span></summary>
+    <p class="small" style="margin:8px 0">כדי שאתה ואביב תראו את אותם הנתונים משני מכשירים, מדביקים כאן קישור לשרת סנכרון (Google Apps Script). הקמה חד-פעמית, כ-5 דקות - ראו את קובץ ההוראות שקיבלת. בלי קישור - הדשבורד ממשיך לעבוד מקומית כרגיל.</p>
+    <div class="rowbtn">
+      <div><input type="text" id="syncUrlInput" placeholder="https://script.google.com/macros/s/.../exec"></div>
+      <button class="btn btn-ghost" onclick="saveSyncUrl()">💾 שמור והתחבר</button>
+    </div>
+    <div class="actions" style="margin-top:8px">
+      <button class="btn btn-ghost" onclick="doPull(false)">🔄 סנכרן עכשיו</button>
+      <button class="btn btn-danger" onclick="disconnectSync()">🔌 נתק סנכרון</button>
+    </div>
+  </details>
+
   <div class="searchbox">
     <span class="ico">🔍</span>
     <input type="text" id="searchBox" placeholder="חיפוש חופשי - שם, שכונה, בעל הבית, טלפון, הערות, משימה..." autocomplete="off" oninput="onSearch()">
@@ -234,7 +253,7 @@ summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--primary)}
       <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importJSON(this)">
       <button class="btn btn-danger" onclick="resetSeed()">↺ שחזר נתוני בסיס</button>
     </div>
-    <p class="small" style="margin-top:10px">הנתונים נשמרים בדפדפן הזה בלבד (LocalStorage). כדי להעביר למכשיר אחר - ייצוא גיבוי ואז ייבוא.</p>
+    <p class="small" style="margin-top:10px">הנתונים נשמרים תמיד בדפדפן הזה (LocalStorage), וגם בענן אם הופעל סנכרון למעלה. בלי סנכרון - להעברה למכשיר אחר: ייצוא גיבוי ואז ייבוא.</p>
   </div>
 </section>
 </main>
@@ -286,7 +305,51 @@ const SEED=[
 /* ---------------- STATE ---------------- */
 let apts=load(); let filter='all'; let sortKey='score', sortDir=-1; let searchQuery='';
 function load(){ try{const r=localStorage.getItem(KEY); if(r){const a=JSON.parse(r); if(Array.isArray(a)&&a.length) return a.map(x=>Object.assign({task:'',owner:'',phone:'',created:x.date},x));} }catch(e){} return JSON.parse(JSON.stringify(SEED)); }
-function save(){ try{localStorage.setItem(KEY,JSON.stringify(apts));}catch(e){} }
+function save(){ try{localStorage.setItem(KEY,JSON.stringify(apts));}catch(e){} schedulePush(); }
+
+/* ---------------- CLOUD SYNC (optional Google Apps Script backend) ---------------- */
+const SYNC_KEY=KEY+'_syncurl';
+function getSyncUrl(){ try{ return (localStorage.getItem(SYNC_KEY)||'').trim(); }catch(e){ return ''; } }
+function setSyncUrl(u){ try{ localStorage.setItem(SYNC_KEY,u); }catch(e){} }
+function setSyncStatus(s){
+  const el=document.getElementById('syncStatus'); if(!el) return;
+  const map={off:'📴 מקומי בלבד',syncing:'🔄 מסנכרן…',ok:'☁️ מסונכרן',error:'⚠️ שגיאה - עובד מקומית'};
+  el.textContent=map[s]||map.off; el.className='syncbadge s-'+s;
+}
+function parseStamp(s){ if(!s) return 0; const m=String(s).match(/(\d{1,2})\.(\d{1,2})\.(\d{4})\s+(\d{1,2}):(\d{2})/); if(!m) return 0; return new Date(+m[3],+m[2]-1,+m[1],+m[4],+m[5]).getTime(); }
+function recTime(a){ return parseStamp(a.updated||a.created||a.date); }
+function mergeRecords(local,remote){
+  const map=new Map();
+  (local||[]).forEach(r=>{ if(r&&r.id) map.set(r.id,r); });
+  (remote||[]).forEach(r=>{ if(!r||!r.id) return; const ex=map.get(r.id); if(!ex||recTime(r)>recTime(ex)) map.set(r.id,r); });
+  return Array.from(map.values());
+}
+function fetchWithTimeout(url,opts,ms){ const ctrl=new AbortController(); const id=setTimeout(()=>ctrl.abort(),ms||8000); return fetch(url,Object.assign({},opts,{signal:ctrl.signal})).finally(()=>clearTimeout(id)); }
+async function cloudGet(){ const url=getSyncUrl(); if(!url) return null; const res=await fetchWithTimeout(url,{method:'GET'},8000); if(!res.ok) throw new Error('HTTP '+res.status); const data=await res.json(); return Array.isArray(data.records)?data.records:[]; }
+async function cloudPost(records){ const url=getSyncUrl(); if(!url) return; const res=await fetchWithTimeout(url,{method:'POST',body:JSON.stringify({records:records}),headers:{'Content-Type':'text/plain;charset=utf-8'}},8000); if(!res.ok) throw new Error('HTTP '+res.status); }
+let pushTimer=null;
+function schedulePush(){ if(!getSyncUrl()) return; clearTimeout(pushTimer); pushTimer=setTimeout(doPush,1200); }
+async function doPush(){ if(!getSyncUrl()) return; setSyncStatus('syncing'); try{ await cloudPost(apts); setSyncStatus('ok'); }catch(e){ setSyncStatus('error'); } }
+async function doPull(manual){
+  if(!getSyncUrl()){ setSyncStatus('off'); return; }
+  setSyncStatus('syncing');
+  try{
+    const remote=await cloudGet();
+    apts=mergeRecords(apts,remote);
+    try{localStorage.setItem(KEY,JSON.stringify(apts));}catch(e){}
+    renderJournal();
+    await cloudPost(apts);
+    setSyncStatus('ok');
+    if(manual) toast('סונכרן עם הענן ✔');
+  }catch(e){ setSyncStatus('error'); if(manual) toast('שגיאת סנכרון - ממשיך מקומית'); }
+}
+function saveSyncUrl(){
+  const v=document.getElementById('syncUrlInput').value.trim();
+  if(v && !/^https:\/\//.test(v)){ toast('הקישור חייב להתחיל ב-https://'); return; }
+  setSyncUrl(v);
+  if(v){ toast('מתחבר…'); doPull(true); } else { setSyncStatus('off'); toast('סנכרון כבוי'); }
+}
+function disconnectSync(){ setSyncUrl(''); setSyncStatus('off'); const i=document.getElementById('syncUrlInput'); if(i) i.value=''; toast('נותק מהענן, ממשיך מקומית'); }
 
 /* ---------------- RENDER QUIZ ---------------- */
 function renderQuestions(){
@@ -375,7 +438,7 @@ function renderJournal(){
     <div class="card apt" style="--c:${color(a.score)}">
       <div class="top"><div><h3>${esc(a.name)}</h3><div class="sub">${esc(a.area||'')} · ${esc(a.src||'')} · ${esc(a.date||'')}</div></div><div class="ring">${a.score??'?'}</div></div>
       <span class="badge ${STATUS[a.status].c}">${STATUS[a.status].t}</span>
-      ${(a.owner||a.phone)?`<div class="owner">👤 ${esc(a.owner||'בעל הבית')}${a.phone?` · <a href="tel:${tel(a.phone)}">${esc(a.phone)}</a> <a class="wa" href="https://wa.me/${waNum(a.phone)}" target="_blank" rel="noopener">וואטסאפ</a>`:''}</div>`:''}
+      <div class="owner">👤 ${esc(a.owner||'בעל הבית לא ידוע')} · ${a.phone?`<a href="tel:${tel(a.phone)}">${esc(a.phone)}</a> <a class="wa" href="https://wa.me/${waNum(a.phone)}" target="_blank" rel="noopener">וואטסאפ</a>`:`<span class="nophone">חסר טלפון</span>`}</div>
       <div class="kv">
         <span>₪ לאדם</span><b>${a.rent?a.rent.toLocaleString():(a.total?`${a.total.toLocaleString()} לדירה`:'-')}</b>
         <span>מיגון</span><b>${ansShort(a.ans,'shelter')}</b>
@@ -401,7 +464,7 @@ function renderJournal(){
     <td><b>${esc(a.name)}</b></td><td>${esc(a.area||'')}</td><td>${a.rent?a.rent.toLocaleString():(a.total?a.total.toLocaleString()+' (דירה)':'-')}</td>
     <td><span class="badge" style="background:${color(a.score)};color:#fff">${a.score??'-'}</span></td>
     <td><span class="badge ${STATUS[a.status].c}">${STATUS[a.status].t}</span></td>
-    <td>${ansShort(a.ans,'shelter')}</td><td>${ansShort(a.ans,'water')}</td><td>${ansShort(a.ans,'noise')}</td><td>${ansShort(a.ans,'sing')}</td><td>${esc(a.owner||'')}${a.phone?' '+esc(a.phone):''}</td><td style="white-space:normal;max-width:220px">${esc(a.task||'')}</td><td>${esc(a.updated||a.created||a.date||'')}</td></tr>`).join('');
+    <td>${ansShort(a.ans,'shelter')}</td><td>${ansShort(a.ans,'water')}</td><td>${ansShort(a.ans,'noise')}</td><td>${ansShort(a.ans,'sing')}</td><td>${esc(a.owner||'לא ידוע')}${a.phone?' · '+esc(a.phone):' · <span class="nophone">חסר טלפון</span>'}</td><td style="white-space:normal;max-width:220px">${esc(a.task||'')}</td><td>${esc(a.updated||a.created||a.date||'')}</td></tr>`).join('');
   const last=apts.map(a=>a.updated||a.created||a.date).filter(Boolean).map(x=>[x.replace(/(\d+)\.(\d+)\.(\d+)(.*)/,'$3-$2-$1$4'),x]).sort().pop();
   document.getElementById('lastStamp').textContent=last?last[1]:'-';
 }
@@ -493,6 +556,8 @@ document.getElementById('filters').addEventListener('click',e=>{ const b=e.targe
 
 renderQuestions(); renderJournal();
 try{ const t=localStorage.getItem(KEY+'_tab'); if(t) showTab(t); }catch(e){}
+try{ document.getElementById('syncUrlInput').value=getSyncUrl(); }catch(e){}
+if(getSyncUrl()) doPull(false); else setSyncStatus('off');
 </script>
 </body>
 </html>
