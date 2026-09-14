@@ -71,7 +71,7 @@ input[type=text]:focus,textarea:focus{outline:0;border-color:var(--primary);box-
 .apt h3{font-size:1.05rem;font-weight:800;margin-bottom:2px;padding-inline-start:4px}
 .apt .sub{color:var(--muted);font-size:.8rem;margin-bottom:8px;padding-inline-start:4px}
 .apt .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
-.ring{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.15rem;color:#fff;flex-shrink:0;background:var(--c,var(--muted))}
+.ring{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.05rem;color:#fff;flex-shrink:0;background:var(--c,var(--muted));text-align:center;padding:2px}
 .kv{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:.83rem;margin:8px 0;padding-inline-start:4px}
 .kv span:first-child{color:var(--muted)}
 .notes{font-size:.83rem;background:#f8fafc;border-radius:8px;padding:8px 10px;margin-top:6px;white-space:pre-wrap}
@@ -85,14 +85,19 @@ input[type=text]:focus,textarea:focus{outline:0;border-color:var(--primary);box-
 .syncbadge.s-syncing{background:#dbeafe;color:#1e40af}
 .syncbadge.s-off,.syncbadge.s-idle{background:#f1f5f9;color:#475569}
 .task{font-size:.8rem;color:#065f46;background:#ecfdf5;border-radius:8px;padding:6px 10px;margin-top:6px;white-space:pre-wrap}
+.duebox{font-size:.8rem;color:#92400e;background:#fffbeb;border-radius:8px;padding:6px 10px;margin-top:6px}
+.duebox.overdue{color:#991b1b;background:#fef2f2;font-weight:700}
 .stamp{font-size:.72rem;color:var(--muted);margin-top:8px;padding-inline-start:4px}
-.todo{font-size:.8rem;color:#92400e;background:#fffbeb;border-radius:8px;padding:6px 10px;margin-top:6px}
 .apt-actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
 .apt-actions .btn{padding:8px 12px;font-size:.8rem}
+.extra{margin-top:8px}
+.extra summary{font-size:.78rem;color:var(--muted);cursor:pointer}
+.extra .exrow{font-size:.8rem;margin-top:4px;padding-inline-start:4px}
+.extra .exrow b{color:var(--muted);font-weight:600}
 .tablewrap{overflow-x:auto;margin-top:14px}
 table{width:100%;border-collapse:collapse;font-size:.82rem;background:#fff;border-radius:12px;overflow:hidden;min-width:640px}
 th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
-th{background:#f1f5f9;font-weight:700;font-size:.78rem;color:#334155;cursor:pointer}
+th{background:#f1f5f9;font-weight:700;font-size:.78rem;color:#334155}
 tr:last-child td{border-bottom:0}
 details{margin-top:10px}
 summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--primary)}
@@ -111,18 +116,8 @@ summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--primary)}
 .searchbox .clr.show{display:block}
 .searchbox .clr:hover{background:#f1f5f9}
 .search-count{font-size:.78rem;color:var(--muted);margin:-4px 0 10px}
-.modal-overlay{display:none;position:fixed;inset:0;background:rgba(15,23,42,.55);z-index:200;align-items:flex-end;justify-content:center}
-.modal-overlay.show{display:flex}
-.modal-box{background:#fff;border-radius:18px 18px 0 0;max-width:520px;width:100%;max-height:90vh;overflow-y:auto;padding:18px 18px 24px;animation:slideUp .22s ease}
-@keyframes slideUp{from{transform:translateY(24px);opacity:.5}to{transform:translateY(0);opacity:1}}
-@media(min-width:640px){.modal-overlay{align-items:center;padding:20px}.modal-box{border-radius:18px}}
-.modal-box h2{font-size:1.1rem;margin-bottom:12px}
-.modal-box label{display:block;font-weight:700;font-size:.85rem;margin:10px 0 6px}
-.modal-box input[type=text],.modal-box textarea,.modal-box select{width:100%;font:inherit;padding:10px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff}
-.modal-box textarea{min-height:56px;resize:vertical}
-.modal-actions{display:flex;gap:10px;margin-top:16px}
-.modal-actions .btn{flex:1;justify-content:center}
-.confirm-box p{font-size:.97rem;margin-bottom:4px;line-height:1.5}
+.emptystate{text-align:center;padding:20px 10px}
+.emptystate .big{font-size:2.4rem;margin-bottom:8px}
 @media(max-width:560px){
   .opts{grid-template-columns:1fr}
   .opt{min-height:44px;padding:9px}
@@ -137,8 +132,8 @@ summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--primary)}
 
 <header class="fade">
   <h1>🏠 דירות אביב 2026 - סינון והשוואה</h1>
-  <p>ירושלים · אקדמיה למוסיקה ולמחול (גבעת רם) · שאלון מהיר מול בעלי דירות + יומן מעקב</p>
-  <p style="font-size:.75rem;opacity:.75;margin-top:2px">🕐 עכשיו: <span id="nowStamp"></span> · עדכון אחרון ביומן: <span id="lastStamp">-</span></p>
+  <p>ירושלים · אקדמיה למוסיקה ולמחול (גבעת רם) · שאלון מהיר מול בעלי דירות + יומן חי מהגיליון</p>
+  <p style="font-size:.75rem;opacity:.75;margin-top:2px">🕐 עכשיו: <span id="nowStamp"></span> · עודכן מהגיליון: <span id="sheetFetchedAt">-</span></p>
   <nav class="tabs" role="tablist">
     <button class="active" data-tab="quiz" onclick="showTab('quiz')">📋 שאלון סינון</button>
     <button data-tab="journal" onclick="showTab('journal')">📊 יומן והשוואה</button>
@@ -170,10 +165,10 @@ summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--primary)}
   <div class="card">
     <label class="lbl" for="aptNotes">הערות חופשיות (אופציונלי)</label>
     <textarea id="aptNotes" rows="2" placeholder="קומה, מעלית, מרחק לאקדמיה, מספר שותפים, תאריך כניסה..."></textarea>
-    <label class="lbl" for="aptTask" style="margin-top:10px">משימה להמשך מול בעל הבית</label>
+    <label class="lbl" for="aptTask" style="margin-top:10px">פעולה הבאה / משימה להמשך מול בעל הבית</label>
     <textarea id="aptTask" rows="2" placeholder="לדוגמה: לחזור אליו ביום ראשון לגבי תאריך כניסה, לבקש חוזה לדוגמה..."></textarea>
     <div class="actions" style="margin-top:12px">
-      <button class="btn btn-primary" onclick="calcAndAdd()">🧮 חשב ציון והוסף ליומן</button>
+      <button class="btn btn-primary" onclick="calcScore()">🧮 חשב ציון</button>
       <button class="btn btn-wa" onclick="copyWhatsApp()">📱 העתק סיכום לוואטסאפ</button>
       <button class="btn btn-ghost" onclick="resetQuiz()">↺ נקה</button>
     </div>
@@ -184,86 +179,63 @@ summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--primary)}
     <summary>איך מחושב הציון?</summary>
     <p class="small" style="margin-top:8px">כל תשובה מקבלת נקודות (א=10, ב=6, ג=2) ומוכפלת במשקל השאלה. רעש ואימוני שירה מקבלים משקל כפול ומעלה, ותשובה "ג" בהן מורידה ניקוד נוסף. הציון הסופי מנורמל לסקלה 1-10.</p>
     <ul class="small" style="margin:8px 18px 0;list-style:disc" id="weightsList"></ul>
+    <p class="small" style="margin-top:8px">הדירה עדיין לא נכנסת אוטומטית ליומן - היומן קורא ישירות מהגיליון "מעקב_דירות_קריית_היובל". אחרי החישוב, השתמשו ב"📋 העתק שורה להדבקה בגיליון" כדי להעביר את הפרטים.</p>
   </details>
 </section>
 
-<!-- ============ TAB 2: JOURNAL ============ -->
+<!-- ============ TAB 2: JOURNAL (live from Drive Sheet) ============ -->
 <section id="tab-journal" class="panel fade">
-  <div class="stats">
-    <div class="stat"><div class="v" id="stTotal">0</div><div class="l">דירות ביומן</div></div>
-    <div class="stat"><div class="v" id="stActive">0</div><div class="l">מועמדות פעילות</div></div>
-    <div class="stat"><div class="v" id="stBest">-</div><div class="l">הציון הגבוה ביותר</div></div>
-  </div>
-
-  <details class="card" id="syncCard" style="margin-bottom:10px">
-    <summary>☁️ סנכרון בין מכשירים <span id="syncStatus" class="syncbadge s-off">📴 מקומי בלבד</span></summary>
-    <p class="small" style="margin:8px 0">כדי שאתה ואביב תראו את אותם הנתונים משני מכשירים, מדביקים כאן קישור לשרת סנכרון (Google Apps Script). הקמה חד-פעמית, כ-5 דקות - ראו את קובץ ההוראות שקיבלת. בלי קישור - הדשבורד ממשיך לעבוד מקומית כרגיל.</p>
+  <details class="card" id="sheetCard" style="margin-bottom:10px">
+    <summary>📄 מקור נתונים: גיליון Drive <span id="sheetStatus" class="syncbadge s-off">⚪ לא מוגדר</span></summary>
+    <p class="small" style="margin:8px 0">היומן קורא בזמן אמת מהגיליון "מעקב_דירות_קריית_היובל" - כך שאתה ואביב רואים תמיד את אותם נתונים, מכל מכשיר. חיבור לקריאה בלבד: שום דבר מהדשבורד לא נכתב חזרה לגיליון. עריכות נעשות ישירות בגיליון.</p>
+    <p class="small" style="margin:8px 0"><b>הקמה חד-פעמית (כ-5 דקות, רק אתה יכול לבצע):</b> פתח את הגיליון עצמו ← תוספים ← Apps Script ← הדבק את הקוד שקיבלת (aviv-dira-sheet-reader.gs.txt) ← Deploy כ-Web app (Execute as: Me, Access: Anyone) ← העתק את הקישור ← הדבק כאן. הגיליון עצמו נשאר פרטי כרגיל - רק הקישור הזה חושף קריאה.</p>
     <div class="rowbtn">
-      <div><input type="text" id="syncUrlInput" placeholder="https://script.google.com/macros/s/.../exec"></div>
-      <button class="btn btn-ghost" onclick="saveSyncUrl()">💾 שמור והתחבר</button>
+      <div><input type="text" id="sheetUrlInput" placeholder="https://script.google.com/macros/s/.../exec"></div>
+      <button class="btn btn-ghost" onclick="saveSheetUrl()">💾 שמור והתחבר</button>
     </div>
     <div class="actions" style="margin-top:8px">
-      <button class="btn btn-ghost" onclick="doPull(false)">🔄 סנכרן עכשיו</button>
-      <button class="btn btn-danger" onclick="disconnectSync()">🔌 נתק סנכרון</button>
+      <button class="btn btn-ghost" onclick="refreshSheet(true)">🔄 רענן עכשיו</button>
+      <a class="btn btn-ghost" href="https://docs.google.com/spreadsheets/d/1aJgGX7GnP_13VwlDswcwj2N66V5KbkG97_v0-WdPc6E/edit" target="_blank" rel="noopener">📝 פתח את הגיליון לעריכה</a>
+      <button class="btn btn-danger" onclick="disconnectSheet()">🔌 נתק</button>
     </div>
   </details>
 
+  <div class="stats">
+    <div class="stat"><div class="v" id="stTotal">0</div><div class="l">דירות בגיליון</div></div>
+    <div class="stat"><div class="v" id="stMissing">0</div><div class="l">חסרים פרטי קשר</div></div>
+    <div class="stat"><div class="v" id="stBest">-</div><div class="l">הדירוג הגבוה ביותר</div></div>
+  </div>
+
   <div class="searchbox">
     <span class="ico">🔍</span>
-    <input type="text" id="searchBox" placeholder="חיפוש חופשי - שם, שכונה, בעל הבית, טלפון, הערות, משימה..." autocomplete="off" oninput="onSearch()">
+    <input type="text" id="searchBox" placeholder="חיפוש חופשי - כתובת, שכונה, איש קשר, טלפון, הערות..." autocomplete="off" oninput="onSearch()">
     <button class="clr" id="searchClr" onclick="clearSearch()">✕</button>
   </div>
   <div class="search-count" id="searchCount"></div>
 
   <div class="filters" id="filters">
     <button class="chip active" data-f="all">הכל</button>
-    <button class="chip" data-f="candidate">מועמדת</button>
-    <button class="chip" data-f="check">לבדוק</button>
-    <button class="chip" data-f="rejected">נפסלה</button>
   </div>
-  <div class="legend"><span><i style="background:#16a34a"></i>8+ מצוין</span><span><i style="background:#d97706"></i>6-7.9 סביר</span><span><i style="background:#dc2626"></i>מתחת ל-6 בעייתי</span><span><i style="background:#64748b"></i>ללא ציון</span></div>
 
   <div class="grid" id="cards"></div>
 
   <div class="tablewrap card" style="padding:0">
     <table id="cmpTable">
       <thead><tr>
-        <th onclick="sortBy('name')">דירה</th><th onclick="sortBy('area')">שכונה</th><th onclick="sortBy('rent')">₪ לאדם</th><th onclick="sortBy('score')">ציון</th><th>סטטוס</th><th>מיגון</th><th>מים חמים</th><th>רעש</th><th>נגינה</th><th>בעל הבית</th><th>משימה</th><th>עדכון</th>
+        <th>כתובת</th><th>שכונה</th><th>שכ"ד</th><th>דירוג</th><th>סטטוס</th><th>איש קשר</th><th>אחראי</th><th>תאריך יעד</th><th>עדכון</th>
       </tr></thead>
       <tbody></tbody>
     </table>
   </div>
 
-  <div class="card">
-    <label class="lbl">הוספה מהירה (ללא שאלון)</label>
-    <div class="rowbtn">
-      <div><input type="text" id="qName" placeholder="כתובת"></div>
-      <div><input type="text" id="qArea" placeholder="שכונה"></div>
-      <div><input type="text" id="qRent" inputmode="numeric" placeholder="₪ לאדם"></div>
-    </div>
-    <div class="rowbtn" style="margin-top:8px">
-      <div><input type="text" id="qOwner" placeholder="בעל הבית"></div>
-      <div><input type="text" id="qPhone" inputmode="tel" placeholder="טלפון"></div>
-      <button class="btn btn-ghost" onclick="quickAdd()">➕ הוסף</button>
-    </div>
-    <div class="actions" style="margin-top:14px">
-      <button class="btn btn-wa" onclick="copyJournalWA()">📱 שלח טבלה לוואטסאפ</button>
-      <button class="btn btn-ghost" onclick="exportJSON()">⬇ ייצוא גיבוי</button>
-      <button class="btn btn-ghost" onclick="document.getElementById('importFile').click()">⬆ ייבוא גיבוי</button>
-      <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importJSON(this)">
-      <button class="btn btn-danger" onclick="resetSeed()">↺ שחזר נתוני בסיס</button>
-    </div>
-    <p class="small" style="margin-top:10px">הנתונים נשמרים תמיד בדפדפן הזה (LocalStorage), וגם בענן אם הופעל סנכרון למעלה. בלי סנכרון - להעברה למכשיר אחר: ייצוא גיבוי ואז ייבוא.</p>
-  </div>
+  <p class="small" style="margin-top:10px">כל שינוי (סטטוס, הערות, איש קשר) - נעשה ישירות בגיליון. הדשבורד מרענן אוטומטית כל דקה כשהטאב פתוח, ותמיד אפשר "🔄 רענן עכשיו".</p>
 </section>
 </main>
 
 <div class="toast" id="toast"></div>
-<div class="modal-overlay" id="editOverlay"><div class="modal-box" id="editBox"></div></div>
-<div class="modal-overlay" id="confirmOverlay"><div class="modal-box confirm-box" id="confirmBox"></div></div>
 
 <script>
-/* ---------------- QUESTIONS ---------------- */
+/* ---------------- QUESTIONS (Quiz tab scoring tool) ---------------- */
 const QUESTIONS = [
   {id:'rent',   t:'שכר דירה לאדם', w:1.5, o:['עד 2,300 ₪','2,400-2,600 ₪','מעל 2,700 ₪'], short:['עד 2,300','2,400-2,600','2,700+']},
   {id:'incl',   t:'מה כלול במחיר', w:1.0, o:['הכל כלול','חלק מהחשבונות','לא כולל כלום'], short:['הכל כלול','חלקי','לא כלול']},
@@ -280,78 +252,6 @@ const PTS=[10,6,2];
 const LETTERS=['א','ב','ג'];
 const KEY='aviv_dirot_2026_v1';
 
-/* ---------------- SEED DATA ---------------- */
-const SEED=[
-  {id:'s1',name:'ניקרגואה 9 / החרצית 1',area:'קריית מנחם',rent:3250,score:7.2,status:'candidate',travel:'30 דק\' (קו 42 ישיר)',
-   ans:{rent:2,incl:2,extra:1,furn:1,noise:0,shelter:1,water:0,sing:1,exit:0,guar:0},
-   notes:'3.5 חדרים, קומה 2 ללא מעלית, ארונות קיר, מזגנים, דוד שמש, מקלט, אפשרות לדייר חלופי.\n5,000 ₪ + 240 ₪ ועד (לא כולל ארנונה וחשבונות) - כ-3,200-3,250 ₪ לאדם ב-2 שותפים.',
-   todo:'מתאימה רק ל-2 שותפים. לוודא הערכת ארנונה + חשמל בפועל.',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'סיור'},
-  {id:'s2',name:'התומר 10',area:'בית הכרם',rent:2700,score:5.5,status:'rejected',travel:'',
-   ans:{rent:1,incl:0,extra:0,furn:0,noise:2,shelter:1,water:1,sing:1,exit:1,guar:0},
-   notes:'חדר בדירת שותפים, 2,650-2,750 ₪ הכל כלול.',
-   todo:'נפסלה: רעש ואבק כבד מאתר בנייה סמוך - פוגע בריכוז ובאימונים.',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'סיור'},
-  {id:'s3',name:'עין כרם',area:'עין כרם',rent:2500,score:8.2,status:'candidate',travel:'לבדוק',
-   ans:{rent:0,incl:0,extra:0,furn:0,noise:0,shelter:1,water:0,sing:1,exit:1,guar:0},
-   notes:'מרוהטת קומפלט, גינה וחצר, מזגן בכל חדר, דוד שמש, מקלט. 2,500 ₪ הכל כלול.\nמגבלות: שומרת שבת וכשרות, ללא עישון, ללא חיות.',
-   todo:'לברר מול המפרסמת: תאריך כניסה + מספר השותפות הכולל בנכס. לוודא התאמת אורח חיים.',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'מודעה'},
-  {id:'s4',name:'אורוגוואי 27',area:'קריית היובל',rent:null,total:4600,rooms:3,score:null,status:'check',notes:'4,600 ₪ לדירה (3 חדרים). לבדוק שטח בפועל - הנתון באתר לא אמין.',todo:'לבדוק שטח בפועל.',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'Madlan'},
-  {id:'s5',name:'עמנואל אולסבנגר 101',area:'קריית היובל',rent:null,total:4800,rooms:3,score:null,status:'check',notes:'4,800 ₪ לדירה (3 חדרים).',todo:'לבדוק שטח בפועל.',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'Madlan'},
-  {id:'s6',name:'ברזיל 18',area:'קריית היובל',rent:null,total:4850,rooms:3,score:null,status:'check',notes:'4,850 ₪ לדירה (3 חדרים).',todo:'לבדוק שטח בפועל.',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'Madlan'},
-  {id:'s7',name:'ורבורג 1',area:'קריית היובל',rent:1900,total:7600,rooms:4,score:null,status:'check',notes:'7,600 ₪ לדירה (4 חדרים) - מתאים ל-4 שותפות, כ-1,900 ₪ לשותפה.',todo:'',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'Madlan'},
-  {id:'s8',name:'וולטה עילית 7',area:'קריית היובל',rent:2000,total:8000,rooms:4,score:null,status:'check',notes:'8,000 ₪ לדירה (4 חדרים) - מתאים ל-4 שותפות, כ-2,000 ₪ לשותפה.',todo:'',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'Madlan'},
-  {id:'s9',name:'יאנוש קורצאק 7',area:'קריית היובל',rent:null,total:10000,rooms:4,score:null,status:'check',notes:'דירת גן, 10,000 ₪ לדירה - יקרה יחסית.',todo:'',date:'09.09.2026 20:00',created:'09.09.2026 20:00',src:'Madlan'},
-];
-
-/* ---------------- STATE ---------------- */
-let apts=load(); let filter='all'; let sortKey='score', sortDir=-1; let searchQuery='';
-function load(){ try{const r=localStorage.getItem(KEY); if(r){const a=JSON.parse(r); if(Array.isArray(a)&&a.length) return a.map(x=>Object.assign({task:'',owner:'',phone:'',created:x.date},x));} }catch(e){} return JSON.parse(JSON.stringify(SEED)); }
-function save(){ try{localStorage.setItem(KEY,JSON.stringify(apts));}catch(e){} schedulePush(); }
-
-/* ---------------- CLOUD SYNC (optional Google Apps Script backend) ---------------- */
-const SYNC_KEY=KEY+'_syncurl';
-function getSyncUrl(){ try{ return (localStorage.getItem(SYNC_KEY)||'').trim(); }catch(e){ return ''; } }
-function setSyncUrl(u){ try{ localStorage.setItem(SYNC_KEY,u); }catch(e){} }
-function setSyncStatus(s){
-  const el=document.getElementById('syncStatus'); if(!el) return;
-  const map={off:'📴 מקומי בלבד',syncing:'🔄 מסנכרן…',ok:'☁️ מסונכרן',error:'⚠️ שגיאה - עובד מקומית'};
-  el.textContent=map[s]||map.off; el.className='syncbadge s-'+s;
-}
-function parseStamp(s){ if(!s) return 0; const m=String(s).match(/(\d{1,2})\.(\d{1,2})\.(\d{4})\s+(\d{1,2}):(\d{2})/); if(!m) return 0; return new Date(+m[3],+m[2]-1,+m[1],+m[4],+m[5]).getTime(); }
-function recTime(a){ return parseStamp(a.updated||a.created||a.date); }
-function mergeRecords(local,remote){
-  const map=new Map();
-  (local||[]).forEach(r=>{ if(r&&r.id) map.set(r.id,r); });
-  (remote||[]).forEach(r=>{ if(!r||!r.id) return; const ex=map.get(r.id); if(!ex||recTime(r)>recTime(ex)) map.set(r.id,r); });
-  return Array.from(map.values());
-}
-function fetchWithTimeout(url,opts,ms){ const ctrl=new AbortController(); const id=setTimeout(()=>ctrl.abort(),ms||8000); return fetch(url,Object.assign({},opts,{signal:ctrl.signal})).finally(()=>clearTimeout(id)); }
-async function cloudGet(){ const url=getSyncUrl(); if(!url) return null; const res=await fetchWithTimeout(url,{method:'GET'},8000); if(!res.ok) throw new Error('HTTP '+res.status); const data=await res.json(); return Array.isArray(data.records)?data.records:[]; }
-async function cloudPost(records){ const url=getSyncUrl(); if(!url) return; const res=await fetchWithTimeout(url,{method:'POST',body:JSON.stringify({records:records}),headers:{'Content-Type':'text/plain;charset=utf-8'}},8000); if(!res.ok) throw new Error('HTTP '+res.status); }
-let pushTimer=null;
-function schedulePush(){ if(!getSyncUrl()) return; clearTimeout(pushTimer); pushTimer=setTimeout(doPush,1200); }
-async function doPush(){ if(!getSyncUrl()) return; setSyncStatus('syncing'); try{ await cloudPost(apts); setSyncStatus('ok'); }catch(e){ setSyncStatus('error'); } }
-async function doPull(manual){
-  if(!getSyncUrl()){ setSyncStatus('off'); return; }
-  setSyncStatus('syncing');
-  try{
-    const remote=await cloudGet();
-    apts=mergeRecords(apts,remote);
-    try{localStorage.setItem(KEY,JSON.stringify(apts));}catch(e){}
-    renderJournal();
-    await cloudPost(apts);
-    setSyncStatus('ok');
-    if(manual) toast('סונכרן עם הענן ✔');
-  }catch(e){ setSyncStatus('error'); if(manual) toast('שגיאת סנכרון - ממשיך מקומית'); }
-}
-function saveSyncUrl(){
-  const v=document.getElementById('syncUrlInput').value.trim();
-  if(v && !/^https:\/\//.test(v)){ toast('הקישור חייב להתחיל ב-https://'); return; }
-  setSyncUrl(v);
-  if(v){ toast('מתחבר…'); doPull(true); } else { setSyncStatus('off'); toast('סנכרון כבוי'); }
-}
-function disconnectSync(){ setSyncUrl(''); setSyncStatus('off'); const i=document.getElementById('syncUrlInput'); if(i) i.value=''; toast('נותק מהענן, ממשיך מקומית'); }
-
-/* ---------------- RENDER QUIZ ---------------- */
 function renderQuestions(){
   const cls=['good','mid','bad'];
   document.getElementById('questions').innerHTML=QUESTIONS.map((q,i)=>`
@@ -364,7 +264,6 @@ function renderQuestions(){
 function markSel(inp){ inp.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel')); inp.parentElement.classList.add('sel'); }
 function getAnswers(){ const a={}; QUESTIONS.forEach(q=>{const c=document.querySelector(`input[name="${q.id}"]:checked`); if(c) a[q.id]=+c.value;}); return a; }
 
-/* ---------------- SCORING ---------------- */
 function computeScore(ans){
   let sum=0,wsum=0,pen=0,flags=[];
   QUESTIONS.forEach(q=>{ if(ans[q.id]===undefined) return; sum+=PTS[ans[q.id]]*q.w; wsum+=q.w;
@@ -380,31 +279,28 @@ function computeScore(ans){
 function verdict(s){ if(s===null) return {t:'ללא ציון',c:'b-gray'}; if(s>=8) return {t:'מומלצת - לקדם',c:'b-ok'}; if(s>=6) return {t:'סבירה - לבדוק לעומק',c:'b-warn'}; return {t:'בעייתית - לשקול פסילה',c:'b-bad'}; }
 function color(s){ if(s===null||s===undefined) return '#64748b'; return s>=8?'#16a34a':s>=6?'#d97706':'#dc2626'; }
 
-/* ---------------- QUIZ ACTIONS ---------------- */
 function buildFromQuiz(){
   const name=document.getElementById('aptName').value.trim();
   if(!name){toast('הזן שם דירה או כתובת');document.getElementById('aptName').focus();return null;}
   const ans=getAnswers(); const r=computeScore(ans);
-  if(r.answered<QUESTIONS.length){ if(!confirm(`ענית על ${r.answered} מתוך ${QUESTIONS.length} שאלות. להמשיך בכל זאת?`)) return null; }
   const rentTxt=document.getElementById('aptRent').value.replace(/[^\d]/g,'');
-  const auto = r.score===null?'check': r.score<6||ans.noise===2?'rejected':'candidate';
-  return {id:'a'+Date.now(),name,area:document.getElementById('aptArea').value.trim(),rent:rentTxt?+rentTxt:null,score:r.score,status:auto,ans,flags:r.flags,
+  const auto = r.score===null?'לבדוק': r.score<6||ans.noise===2?'נפסלה':'מועמדת';
+  return {name,area:document.getElementById('aptArea').value.trim(),rent:rentTxt?+rentTxt:null,score:r.score,status:auto,ans,flags:r.flags,
     notes:document.getElementById('aptNotes').value.trim(),task:document.getElementById('aptTask').value.trim(),
-    owner:document.getElementById('aptOwner').value.trim(),phone:document.getElementById('aptPhone').value.trim(),
-    todo:'',travel:'',date:stamp(),src:'שאלון'};
+    owner:document.getElementById('aptOwner').value.trim(),phone:document.getElementById('aptPhone').value.trim(),date:stamp()};
 }
-function calcAndAdd(){
+function calcScore(){
   const a=buildFromQuiz(); if(!a) return;
   const v=verdict(a.score);
-  const ex=apts.findIndex(x=>x.name===a.name);
-  if(ex>-1){ if(confirm('דירה בשם זה כבר קיימת ביומן. לעדכן אותה?')) {a.id=apts[ex].id; a.todo=apts[ex].todo; a.created=apts[ex].created||apts[ex].date; a.updated=stamp(); apts[ex]=a;} else return; } else {a.created=a.date; apts.unshift(a);}
-  save(); renderJournal();
   document.getElementById('result').innerHTML=`
-    <div class="score-row"><div class="score-big" style="color:${color(a.score)}">${a.score??'-'}</div><div><div style="font-weight:800">${a.name}</div><span class="badge ${v.c}">${v.t}</span></div></div>
-    ${a.flags.length?`<ul class="flags">${a.flags.map(f=>`<li>${f}</li>`).join('')}</ul>`:'<div class="small">לא זוהו דגלים אדומים.</div>'}
-    <div class="actions" style="margin-top:12px"><button class="btn btn-ghost" onclick="showTab('journal')">📊 מעבר ליומן</button><button class="btn btn-wa" onclick="copyWhatsApp()">📱 שתף בוואטסאפ</button></div>`;
+    <div class="score-row"><div class="score-big" style="color:${color(a.score)}">${a.score??'-'}</div><div><div style="font-weight:800">${esc(a.name)}</div><span class="badge ${v.c}">${v.t}</span></div></div>
+    ${a.flags.length?`<ul class="flags">${a.flags.map(f=>`<li>${esc(f)}</li>`).join('')}</ul>`:'<div class="small">לא זוהו דגלים אדומים.</div>'}
+    <div class="actions" style="margin-top:12px">
+      <button class="btn btn-wa" onclick="copyWhatsApp()">📱 שתף בוואטסאפ</button>
+      <button class="btn btn-ghost" onclick="copySheetRow()">📋 העתק שורה להדבקה בגיליון</button>
+    </div>`;
   document.getElementById('result').classList.add('show');
-  toast('נוסף ליומן ✔');
+  toast('הציון חושב ✔');
 }
 function quizSummaryText(){
   const a=buildFromQuiz(); if(!a) return null;
@@ -416,148 +312,183 @@ function quizSummaryText(){
   QUESTIONS.forEach((q,i)=>{ const x=a.ans[q.id]; t+=`${i+1}. ${q.t}: ${x===undefined?'-':LETTERS[x]+') '+q.o[x]}\n`; });
   if(a.flags.length) t+=`\n🚩 דגלים:\n`+a.flags.map(f=>'• '+f).join('\n')+'\n';
   if(a.notes) t+=`\n📝 ${a.notes}\n`;
-  if(a.task) t+=`\n✅ משימה להמשך: ${a.task}\n`;
+  if(a.task) t+=`\n✅ פעולה הבאה: ${a.task}\n`;
   return t;
 }
 function copyWhatsApp(){ const t=quizSummaryText(); if(t) shareText(t); }
+function copySheetRow(){
+  const a=buildFromQuiz(); if(!a) return;
+  // עמודות הגיליון: כתובת, שכונה, שכ"ד מלא, ₪ לאדם, דירוג, איש קשר, טלפון, סטטוס, אחראי, פעולה הבאה, תאריך יעד, הערות, מקור/קישור, תאריך עדכון
+  const cells=[a.name, a.area, '', a.rent||'', a.score??'', a.owner, a.phone, a.status, '', a.task, '', a.notes, 'דשבורד', a.date];
+  const tsv=cells.map(c=>String(c==null?'':c).replace(/\t/g,' ').replace(/\n/g,' / ')).join('\t');
+  shareText(tsv,true);
+}
 function resetQuiz(){ document.querySelectorAll('#tab-quiz input[type=radio]').forEach(r=>r.checked=false); document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel')); ['aptName','aptArea','aptRent','aptNotes','aptOwner','aptPhone','aptTask'].forEach(i=>document.getElementById(i).value=''); document.getElementById('result').classList.remove('show'); }
 
-/* ---------------- JOURNAL ---------------- */
-const STATUS={candidate:{t:'מועמדת',c:'b-ok'},check:{t:'לבדוק',c:'b-info'},rejected:{t:'נפסלה',c:'b-bad'}};
-function ansShort(a,id){ if(!a||a[id]===undefined) return '-'; const q=QUESTIONS.find(q=>q.id===id); return q.short[a[id]]; }
-function sorted(){ return [...apts].sort((x,y)=>{ let a=x[sortKey],b=y[sortKey]; if(a==null) a=sortDir>0?Infinity:-Infinity; if(b==null) b=sortDir>0?Infinity:-Infinity; if(typeof a==='string') return a.localeCompare(b,'he')*sortDir; return (a-b)*sortDir; }); }
-function sortBy(k){ if(sortKey===k) sortDir*=-1; else {sortKey=k; sortDir=k==='score'?-1:1;} renderJournal(); }
-function renderJournal(){
-  const list=sorted().filter(a=>(filter==='all'||a.status===filter)&&matchesSearch(a,searchQuery));
-  document.getElementById('searchCount').textContent = searchQuery ? `נמצאו ${list.length} תוצאות ל-"${searchQuery}"` : '';
-  document.getElementById('stTotal').textContent=apts.length;
-  document.getElementById('stActive').textContent=apts.filter(a=>a.status==='candidate').length;
-  const best=apts.filter(a=>a.score!=null).sort((a,b)=>b.score-a.score)[0];
-  document.getElementById('stBest').textContent=best?`${best.score}`:'-';
-  document.getElementById('cards').innerHTML=list.length?list.map(a=>`
-    <div class="card apt" style="--c:${color(a.score)}">
-      <div class="top"><div><h3>${esc(a.name)}</h3><div class="sub">${esc(a.area||'')} · ${esc(a.src||'')} · ${esc(a.date||'')}</div></div><div class="ring">${a.score??'?'}</div></div>
-      <span class="badge ${STATUS[a.status].c}">${STATUS[a.status].t}</span>
-      <div class="owner">👤 ${esc(a.owner||'בעל הבית לא ידוע')} · ${a.phone?`<a href="tel:${tel(a.phone)}">${esc(a.phone)}</a> <a class="wa" href="https://wa.me/${waNum(a.phone)}" target="_blank" rel="noopener">וואטסאפ</a>`:`<span class="nophone">חסר טלפון</span>`}</div>
+/* ---------------- JOURNAL: live read from Drive Sheet via Apps Script ---------------- */
+const SHEET_KEY=KEY+'_sheeturl';
+const CACHE_KEY=KEY+'_sheetcache';
+const FIELD_ALIASES={
+  address:['כתובת'], area:['שכונה'],
+  rentFull:['שכ"ד מלא לדירה','שכ"ד מלא','שכ״ד מלא','מחיר חודשי'],
+  rentPerPerson:['₪ לאדם','שכר דירה לאדם'],
+  rating:['דירוג','ציון'],
+  contact:['איש קשר','בעל הבית'],
+  phone:['טלפון'],
+  status:['סטטוס'],
+  responsible:['אחראי'],
+  nextAction:['פעולה הבאה','משימה'],
+  dueDate:['תאריך יעד'],
+  notes:['הערות'],
+  sourceLink:['מקור/קישור','מקור','קישור'],
+  updated:['תאריך עדכון','תאריך בדיקה'],
+};
+let sheetItems=[]; let sheetHeaders=[]; let sheetFilter='all'; let sheetSearch=''; let sheetTimer=null;
+
+function getSheetUrl(){ try{ return (localStorage.getItem(SHEET_KEY)||'').trim(); }catch(e){ return ''; } }
+function setSheetUrl(u){ try{ localStorage.setItem(SHEET_KEY,u); }catch(e){} }
+function setSheetStatus(s){
+  const el=document.getElementById('sheetStatus'); if(!el) return;
+  const map={off:'⚪ לא מוגדר',loading:'🔄 טוען…',ok:'🟢 מחובר לגיליון',error:'🔴 שגיאת חיבור - מציג עותק שמור',empty:'⚪ הגיליון ריק'};
+  el.textContent=map[s]||map.off; el.className='syncbadge s-'+(s==='ok'?'ok':s==='error'?'error':s==='loading'?'syncing':'off');
+}
+function fetchWithTimeout(url,opts,ms){ const ctrl=new AbortController(); const id=setTimeout(()=>ctrl.abort(),ms||10000); return fetch(url,Object.assign({},opts,{signal:ctrl.signal})).finally(()=>clearTimeout(id)); }
+function loadCache(){ try{ const r=localStorage.getItem(CACHE_KEY); if(r){ const d=JSON.parse(r); sheetItems=d.items||[]; sheetHeaders=d.headers||[]; return d.fetchedAt||''; } }catch(e){} return ''; }
+function saveCache(fetchedAt){ try{ localStorage.setItem(CACHE_KEY,JSON.stringify({items:sheetItems,headers:sheetHeaders,fetchedAt})); }catch(e){} }
+
+function mapItem(raw,headers){
+  const usedHeaders=new Set(); Object.values(FIELD_ALIASES).forEach(list=>list.forEach(h=>usedHeaders.add(h)));
+  const get=field=>{ const aliases=FIELD_ALIASES[field]; for(const a of aliases){ if(raw[a]!==undefined && String(raw[a]).trim()!=='') return String(raw[a]).trim(); } return ''; };
+  const extra=headers.filter(h=>!usedHeaders.has(h) && raw[h]!==undefined && String(raw[h]).trim()!=='').map(h=>({label:h,value:String(raw[h]).trim()}));
+  return {row:raw._row, address:get('address'), area:get('area'), rentFull:get('rentFull'), rentPerPerson:get('rentPerPerson'),
+    rating:get('rating'), contact:get('contact'), phone:get('phone'), status:get('status')||'לא מוגדר',
+    responsible:get('responsible'), nextAction:get('nextAction'), dueDate:get('dueDate'), notes:get('notes'),
+    sourceLink:get('sourceLink'), updated:get('updated'), extra};
+}
+async function refreshSheet(manual){
+  const url=getSheetUrl();
+  if(!url){ setSheetStatus('off'); loadCache(); renderSheetTab(); return; }
+  setSheetStatus('loading');
+  try{
+    const res=await fetchWithTimeout(url+(url.includes('?')?'&':'?')+'cb='+Date.now(),{method:'GET'},12000);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    const headers=data.headers||[];
+    sheetItems=(data.items||[]).map(raw=>mapItem(raw,headers));
+    sheetHeaders=headers;
+    const now=stamp();
+    saveCache(now);
+    document.getElementById('sheetFetchedAt').textContent=now;
+    setSheetStatus(sheetItems.length?'ok':'empty');
+    if(manual) toast('רוענן מהגיליון ✔');
+  }catch(e){
+    const cachedAt=loadCache();
+    setSheetStatus('error');
+    document.getElementById('sheetFetchedAt').textContent=cachedAt?('שמור מ-'+cachedAt+' (לא מחובר עכשיו)'):'-';
+    if(manual) toast('שגיאת חיבור לגיליון - מציג עותק שמור אם יש');
+  }
+  renderSheetTab();
+}
+function saveSheetUrl(){
+  const v=document.getElementById('sheetUrlInput').value.trim();
+  if(v && !/^https:\/\//.test(v)){ toast('הקישור חייב להתחיל ב-https://'); return; }
+  setSheetUrl(v);
+  if(v){ toast('מתחבר…'); refreshSheet(true); startAutoRefresh(); } else { setSheetStatus('off'); toast('חיבור לגיליון כבוי'); stopAutoRefresh(); }
+}
+function disconnectSheet(){ setSheetUrl(''); setSheetStatus('off'); const i=document.getElementById('sheetUrlInput'); if(i) i.value=''; stopAutoRefresh(); toast('נותק מהגיליון'); }
+function startAutoRefresh(){ stopAutoRefresh(); sheetTimer=setInterval(()=>{ if(!document.hidden) refreshSheet(false); },60000); }
+function stopAutoRefresh(){ if(sheetTimer) clearInterval(sheetTimer); sheetTimer=null; }
+
+function statusColor(s){ s=String(s||''); if(/מועמד|נקבע סיור/.test(s)) return '#16a34a'; if(/נפסל|לא רלוונט|הושכר/.test(s)) return '#dc2626'; if(/לבדוק|ממתין|לברר/.test(s)) return '#d97706'; return '#64748b'; }
+function statusClass(s){ const c=statusColor(s); return c==='#16a34a'?'b-ok':c==='#dc2626'?'b-bad':c==='#d97706'?'b-warn':'b-gray'; }
+function field(label,value,missingLabel){
+  if(value) return `<span>${esc(label)}</span><b>${esc(value)}</b>`;
+  return `<span>${esc(label)}</span><b><span class="nophone">${esc(missingLabel||('חסר '+label))}</span></b>`;
+}
+function isOverdue(d){ if(!d) return false; const m=String(d).match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/); if(!m) return false; const dt=new Date(+m[3],+m[2]-1,+m[1]); const today=new Date(); today.setHours(0,0,0,0); return dt<today; }
+function matchesSearch(it,q){ if(!q) return true; const hay=[it.address,it.area,it.contact,it.phone,it.notes,it.nextAction,it.status,it.responsible,it.sourceLink].filter(Boolean).join(' ').toLowerCase(); return hay.includes(q); }
+function onSearch(){ sheetSearch=document.getElementById('searchBox').value.trim().toLowerCase(); document.getElementById('searchClr').classList.toggle('show',!!sheetSearch); renderSheetTab(); }
+function clearSearch(){ document.getElementById('searchBox').value=''; sheetSearch=''; document.getElementById('searchClr').classList.remove('show'); renderSheetTab(); }
+
+function renderFilters(){
+  const statuses=Array.from(new Set(sheetItems.map(it=>it.status).filter(Boolean)));
+  const el=document.getElementById('filters');
+  el.innerHTML=`<button class="chip${sheetFilter==='all'?' active':''}" data-f="all">הכל</button>`+
+    statuses.map(s=>`<button class="chip${sheetFilter===s?' active':''}" data-f="${escAttr(s)}">${esc(s)}</button>`).join('');
+}
+function renderSheetTab(){
+  renderFilters();
+  const list=sheetItems.filter(it=>(sheetFilter==='all'||it.status===sheetFilter)&&matchesSearch(it,sheetSearch));
+  document.getElementById('searchCount').textContent = sheetSearch ? `נמצאו ${list.length} תוצאות ל-"${sheetSearch}"` : '';
+  document.getElementById('stTotal').textContent=sheetItems.length;
+  document.getElementById('stMissing').textContent=sheetItems.filter(it=>!it.contact||!it.phone).length;
+  const nums=sheetItems.map(it=>parseFloat(String(it.rating||'').replace(',','.'))).filter(n=>!isNaN(n));
+  document.getElementById('stBest').textContent=nums.length?Math.max(...nums):'-';
+
+  if(!getSheetUrl()){
+    document.getElementById('cards').innerHTML=`<div class="card emptystate"><div class="big">📄</div>
+      <div style="font-weight:800;margin-bottom:6px">היומן עוד לא מחובר לגיליון</div>
+      <p class="small">פתחו את "📄 מקור נתונים: גיליון Drive" למעלה, בצעו את ההקמה החד-פעמית, והדביקו כאן את הקישור.</p></div>`;
+    document.querySelector('#cmpTable tbody').innerHTML='';
+    return;
+  }
+  if(!list.length){
+    document.getElementById('cards').innerHTML='<div class="card small">אין דירות בסינון הזה.</div>';
+    document.querySelector('#cmpTable tbody').innerHTML='';
+    return;
+  }
+  document.getElementById('cards').innerHTML=list.map(it=>`
+    <div class="card apt" style="--c:${statusColor(it.status)}">
+      <div class="top"><div><h3>${esc(it.address||'ללא כתובת')}</h3><div class="sub">${esc(it.area||'')}${it.updated?' · עודכן '+esc(it.updated):''} · שורה ${it.row} בגיליון</div></div><div class="ring">${esc(it.rating||'?')}</div></div>
+      <span class="badge ${statusClass(it.status)}">${esc(it.status)}</span>
+      <div class="owner">👤 ${it.contact?esc(it.contact):'<span class="nophone">חסר איש קשר</span>'} · ${it.phone?`<a href="tel:${tel(it.phone)}">${esc(it.phone)}</a> <a class="wa" href="https://wa.me/${waNum(it.phone)}" target="_blank" rel="noopener">וואטסאפ</a>`:'<span class="nophone">חסר טלפון</span>'}</div>
       <div class="kv">
-        <span>₪ לאדם</span><b>${a.rent?a.rent.toLocaleString():(a.total?`${a.total.toLocaleString()} לדירה`:'-')}</b>
-        <span>מיגון</span><b>${ansShort(a.ans,'shelter')}</b>
-        <span>מים חמים</span><b>${ansShort(a.ans,'water')}</b>
-        <span>רעש</span><b>${ansShort(a.ans,'noise')}</b>
-        <span>נגינה</span><b>${ansShort(a.ans,'sing')}</b>
-        <span>דייר חלופי</span><b>${ansShort(a.ans,'exit')}</b>
-        ${a.travel?`<span>נסיעה</span><b>${esc(a.travel)}</b>`:''}
-        ${a.rooms?`<span>חדרים</span><b>${a.rooms}</b>`:''}
+        ${field('שכ"ד לאדם', it.rentPerPerson)}
+        ${field('שכ"ד מלא', it.rentFull)}
+        ${field('אחראי', it.responsible)}
+        ${field('תאריך יעד', it.dueDate)}
       </div>
-      ${a.notes?`<div class="notes">${esc(a.notes)}</div>`:''}
-      ${a.todo?`<div class="todo">🔎 לברר: ${esc(a.todo)}</div>`:''}
-      ${a.task?`<div class="task">✅ משימה להמשך: ${esc(a.task)}</div>`:''}
-      <div class="stamp">🕐 נוצר: ${esc(a.created||a.date||'-')}${a.updated?` · עודכן: ${esc(a.updated)}`:''}</div>
+      ${it.notes?`<div class="notes">${esc(it.notes)}</div>`:''}
+      ${it.nextAction?`<div class="task">✅ ${esc(it.nextAction)}</div>`:''}
+      ${it.dueDate?`<div class="duebox${isOverdue(it.dueDate)?' overdue':''}">📅 יעד: ${esc(it.dueDate)}${isOverdue(it.dueDate)?' - עבר התאריך!':''}</div>`:''}
+      ${it.sourceLink?`<div class="stamp">🔗 ${/^https?:\/\//.test(it.sourceLink)?`<a href="${escAttr(it.sourceLink)}" target="_blank" rel="noopener">${esc(it.sourceLink)}</a>`:esc(it.sourceLink)}</div>`:''}
+      ${it.extra&&it.extra.length?`<details class="extra"><summary>עוד פרטים מהגיליון (${it.extra.length})</summary>${it.extra.map(e=>`<div class="exrow"><b>${esc(e.label)}:</b> ${esc(e.value)}</div>`).join('')}</details>`:''}
       <div class="apt-actions">
-        <button class="btn btn-ghost" onclick="cycleStatus('${a.id}')">🔄 סטטוס</button>
-        <button class="btn btn-ghost" onclick="openEditModal('${a.id}')">✏️ עריכה מלאה</button>
-        <button class="btn btn-ghost" onclick="loadToQuiz('${a.id}')">📋 לשאלון</button>
-        <button class="btn btn-danger" onclick="del('${a.id}')">🗑 מחק</button>
+        <a class="btn btn-ghost" href="https://docs.google.com/spreadsheets/d/1aJgGX7GnP_13VwlDswcwj2N66V5KbkG97_v0-WdPc6E/edit#gid=0&range=A${it.row}" target="_blank" rel="noopener">✏️ עריכה בגיליון</a>
       </div>
-    </div>`).join(''):'<div class="card small">אין דירות בסינון הזה.</div>';
-  document.querySelector('#cmpTable tbody').innerHTML=list.map(a=>`<tr>
-    <td><b>${esc(a.name)}</b></td><td>${esc(a.area||'')}</td><td>${a.rent?a.rent.toLocaleString():(a.total?a.total.toLocaleString()+' (דירה)':'-')}</td>
-    <td><span class="badge" style="background:${color(a.score)};color:#fff">${a.score??'-'}</span></td>
-    <td><span class="badge ${STATUS[a.status].c}">${STATUS[a.status].t}</span></td>
-    <td>${ansShort(a.ans,'shelter')}</td><td>${ansShort(a.ans,'water')}</td><td>${ansShort(a.ans,'noise')}</td><td>${ansShort(a.ans,'sing')}</td><td>${esc(a.owner||'לא ידוע')}${a.phone?' · '+esc(a.phone):' · <span class="nophone">חסר טלפון</span>'}</td><td style="white-space:normal;max-width:220px">${esc(a.task||'')}</td><td>${esc(a.updated||a.created||a.date||'')}</td></tr>`).join('');
-  const last=apts.map(a=>a.updated||a.created||a.date).filter(Boolean).map(x=>[x.replace(/(\d+)\.(\d+)\.(\d+)(.*)/,'$3-$2-$1$4'),x]).sort().pop();
-  document.getElementById('lastStamp').textContent=last?last[1]:'-';
+    </div>`).join('');
+  document.querySelector('#cmpTable tbody').innerHTML=list.map(it=>`<tr>
+    <td><b>${esc(it.address||'-')}</b></td><td>${esc(it.area||'-')}</td>
+    <td>${esc(it.rentPerPerson||it.rentFull||'-')}</td><td>${esc(it.rating||'-')}</td>
+    <td><span class="badge ${statusClass(it.status)}">${esc(it.status)}</span></td>
+    <td>${it.contact?esc(it.contact):'<span class="nophone">חסר</span>'}${it.phone?' · '+esc(it.phone):''}</td>
+    <td>${it.responsible?esc(it.responsible):'<span class="nophone">חסר</span>'}</td>
+    <td>${it.dueDate?esc(it.dueDate):'<span class="nophone">חסר</span>'}</td>
+    <td>${esc(it.updated||'-')}</td></tr>`).join('');
 }
-function touch(a){ a.updated=stamp(); save(); renderJournal(); }
-function cycleStatus(id){ const a=apts.find(x=>x.id===id); const o=['candidate','check','rejected']; a.status=o[(o.indexOf(a.status)+1)%3]; touch(a); }
-function editTodo(id){ const a=apts.find(x=>x.id===id); const v=prompt('מה צריך לברר על הדירה הזו?',a.todo||''); if(v!==null){a.todo=v.trim(); touch(a);} }
-function editTask(id){ const a=apts.find(x=>x.id===id); const v=prompt('משימה להמשך מול בעל הבית:',a.task||''); if(v!==null){a.task=v.trim(); touch(a);} }
-function editNotes(id){ const a=apts.find(x=>x.id===id); const v=prompt('הערות כלליות:',a.notes||''); if(v!==null){a.notes=v.trim(); touch(a);} }
-function editOwner(id){ const a=apts.find(x=>x.id===id); const n=prompt('שם בעל הבית:',a.owner||''); if(n===null) return; const p=prompt('טלפון בעל הבית:',a.phone||''); if(p===null) return; a.owner=n.trim(); a.phone=p.trim(); touch(a); }
-function del(id){ const a=apts.find(x=>x.id===id); customConfirm(`למחוק את "${a.name}" מהיומן?`, ()=>{ apts=apts.filter(x=>x.id!==id); save(); renderJournal(); toast('נמחקה'); }); }
-function matchesSearch(a,q){ if(!q) return true; const hay=[a.name,a.area,a.owner,a.phone,a.notes,a.task,a.todo,a.travel,a.src,(STATUS[a.status]||{}).t].filter(Boolean).join(' ').toLowerCase(); return hay.includes(q); }
-function onSearch(){ searchQuery=document.getElementById('searchBox').value.trim().toLowerCase(); document.getElementById('searchClr').classList.toggle('show',!!searchQuery); renderJournal(); }
-function clearSearch(){ document.getElementById('searchBox').value=''; searchQuery=''; document.getElementById('searchClr').classList.remove('show'); renderJournal(); }
-function escAttr(s){ return esc(s===undefined||s===null?'':String(s)); }
-function openEditModal(id){
-  const a=apts.find(x=>x.id===id); if(!a) return;
-  document.getElementById('editBox').innerHTML=`
-    <h2>✏️ עריכת פרטי הדירה</h2>
-    <label>שם הדירה / כתובת</label><input type="text" id="edName" value="${escAttr(a.name)}">
-    <div class="rowbtn" style="margin-top:8px">
-      <div><label>שכונה</label><input type="text" id="edArea" value="${escAttr(a.area||'')}"></div>
-      <div><label>שכ"ד לאדם (₪)</label><input type="text" id="edRent" inputmode="numeric" value="${a.rent??''}"></div>
-    </div>
-    <div class="rowbtn">
-      <div><label>נסיעה לאקדמיה</label><input type="text" id="edTravel" value="${escAttr(a.travel||'')}"></div>
-      <div><label>סטטוס</label><select id="edStatus"><option value="candidate"${a.status==='candidate'?' selected':''}>מועמדת</option><option value="check"${a.status==='check'?' selected':''}>לבדוק</option><option value="rejected"${a.status==='rejected'?' selected':''}>נפסלה</option></select></div>
-    </div>
-    <div class="rowbtn">
-      <div><label>בעל הבית</label><input type="text" id="edOwner" value="${escAttr(a.owner||'')}"></div>
-      <div><label>טלפון</label><input type="text" id="edPhone" inputmode="tel" value="${escAttr(a.phone||'')}"></div>
-    </div>
-    <label>הערות כלליות</label><textarea id="edNotes">${escAttr(a.notes||'')}</textarea>
-    <label>משימה להמשך מול בעל הבית</label><textarea id="edTask">${escAttr(a.task||'')}</textarea>
-    <label>מה צריך לברר</label><textarea id="edTodo">${escAttr(a.todo||'')}</textarea>
-    <div class="modal-actions">
-      <button class="btn btn-ghost" onclick="closeEditModal()">ביטול</button>
-      <button class="btn btn-primary" onclick="saveEdit('${id}')">💾 שמור</button>
-    </div>`;
-  document.getElementById('editOverlay').classList.add('show');
-}
-function closeEditModal(){ document.getElementById('editOverlay').classList.remove('show'); }
-function saveEdit(id){
-  const a=apts.find(x=>x.id===id); if(!a) return;
-  const name=document.getElementById('edName').value.trim(); if(!name){toast('הזן שם דירה');return;}
-  a.name=name; a.area=document.getElementById('edArea').value.trim();
-  const rentTxt=document.getElementById('edRent').value.replace(/[^\d]/g,''); a.rent=rentTxt?+rentTxt:null;
-  a.travel=document.getElementById('edTravel').value.trim(); a.status=document.getElementById('edStatus').value;
-  a.owner=document.getElementById('edOwner').value.trim(); a.phone=document.getElementById('edPhone').value.trim();
-  a.notes=document.getElementById('edNotes').value.trim(); a.task=document.getElementById('edTask').value.trim(); a.todo=document.getElementById('edTodo').value.trim();
-  closeEditModal(); touch(a); toast('נשמר ✔');
-}
-function customConfirm(msg,onYes){
-  document.getElementById('confirmBox').innerHTML=`<p>${esc(msg)}</p><div class="modal-actions"><button class="btn btn-ghost" onclick="closeConfirm()">ביטול</button><button class="btn btn-primary" id="confirmYes">אישור</button></div>`;
-  document.getElementById('confirmOverlay').classList.add('show');
-  document.getElementById('confirmYes').onclick=()=>{ closeConfirm(); onYes(); };
-}
-function closeConfirm(){ document.getElementById('confirmOverlay').classList.remove('show'); }
-function loadToQuiz(id){ const a=apts.find(x=>x.id===id); resetQuiz(); document.getElementById('aptName').value=a.name; document.getElementById('aptArea').value=a.area||''; document.getElementById('aptRent').value=a.rent||''; document.getElementById('aptNotes').value=a.notes||''; document.getElementById('aptOwner').value=a.owner||''; document.getElementById('aptPhone').value=a.phone||''; document.getElementById('aptTask').value=a.task||'';
-  if(a.ans) Object.entries(a.ans).forEach(([k,v])=>{ const r=document.querySelector(`input[name="${k}"][value="${v}"]`); if(r){r.checked=true; markSel(r);} }); showTab('quiz'); window.scrollTo({top:0,behavior:'smooth'}); }
-function quickAdd(){ const n=document.getElementById('qName').value.trim(); if(!n){toast('הזן כתובת');return;} const r=document.getElementById('qRent').value.replace(/[^\d]/g,'');
-  const d=stamp();
-  apts.unshift({id:'a'+Date.now(),name:n,area:document.getElementById('qArea').value.trim(),rent:r?+r:null,score:null,status:'check',ans:{},flags:[],notes:'',task:'',todo:'למלא שאלון',travel:'',
-    owner:document.getElementById('qOwner').value.trim(),phone:document.getElementById('qPhone').value.trim(),date:d,created:d,src:'ידני'});
-  ['qName','qArea','qRent','qOwner','qPhone'].forEach(i=>document.getElementById(i).value=''); save(); renderJournal(); toast('נוספה ליומן'); }
-function copyJournalWA(){
-  let t=`🏠 *יומן דירות אביב - ${stamp()}*\n\n`;
-  sorted().forEach(a=>{ t+=`${a.score!=null?'⭐ '+a.score:'❔'} | *${a.name}*${a.area?' ('+a.area+')':''} | ${a.rent?a.rent.toLocaleString()+' ₪ לאדם':(a.total?a.total.toLocaleString()+' ₪ לדירה':'')} | ${STATUS[a.status].t}${a.owner||a.phone?'\n   👤 '+(a.owner||'')+(a.phone?' '+a.phone:''):''}${a.todo?'\n   🔎 '+a.todo:''}${a.task?'\n   ✅ '+a.task:''}\n   🕐 ${a.updated||a.created||a.date||''}\n`; });
-  shareText(t);
-}
-function exportJSON(){ const b=new Blob([JSON.stringify(apts,null,2)],{type:'application/json'}); const u=URL.createObjectURL(b); const x=document.createElement('a'); x.href=u; x.download=`aviv-dirot-${Date.now()}.json`; x.click(); URL.revokeObjectURL(u); }
-function importJSON(inp){ const f=inp.files[0]; if(!f) return; const rd=new FileReader(); rd.onload=()=>{ try{ const d=JSON.parse(rd.result); if(!Array.isArray(d)) throw 0; apts=d; save(); renderJournal(); toast('יובא בהצלחה'); }catch(e){ toast('קובץ לא תקין'); } }; rd.readAsText(f); inp.value=''; }
-function resetSeed(){ customConfirm('לשחזר את 9 הדירות המקוריות? כל מה שהוספת יימחק.', ()=>{ apts=JSON.parse(JSON.stringify(SEED)); save(); renderJournal(); toast('שוחזר'); }); }
+document.getElementById('filters').addEventListener('click',e=>{ const b=e.target.closest('.chip'); if(!b) return; sheetFilter=b.dataset.f; renderSheetTab(); });
 
 /* ---------------- UTIL ---------------- */
 function stamp(d){ d=d||new Date(); const p=n=>String(n).padStart(2,'0'); return `${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`; }
 function tel(p){ return String(p).replace(/[^\d+]/g,''); }
 function waNum(p){ let n=String(p).replace(/\D/g,''); if(n.startsWith('0')) n='972'+n.slice(1); return n; }
 function tickClock(){ document.getElementById('nowStamp').textContent=stamp(); } tickClock(); setInterval(tickClock,30000);
-function esc(s){ return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function escAttr(s){ return esc(s); }
 function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(t._x); t._x=setTimeout(()=>t.classList.remove('show'),2200); }
-function shareText(t){
-  const done=()=>toast('הועתק ✔ - הדבק בוואטסאפ');
+function shareText(t,tsvMode){
+  const done=()=>toast(tsvMode?'הועתק ✔ - הדבק כשורה חדשה בגיליון':'הועתק ✔ - הדבק בוואטסאפ');
   if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(t).then(done).catch(()=>fallback(t)); } else fallback(t);
-  if(/Android|iPhone|iPad/i.test(navigator.userAgent)){ setTimeout(()=>window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank'),300); }
+  if(!tsvMode && /Android|iPhone|iPad/i.test(navigator.userAgent)){ setTimeout(()=>window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank'),300); }
   function fallback(t){ const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');done();}catch(e){toast('לא הצלחתי להעתיק');} ta.remove(); }
 }
 function showTab(id){ document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+id)); document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id)); try{localStorage.setItem(KEY+'_tab',id);}catch(e){} }
-document.getElementById('filters').addEventListener('click',e=>{ const b=e.target.closest('.chip'); if(!b) return; filter=b.dataset.f; document.querySelectorAll('.chip').forEach(c=>c.classList.toggle('active',c===b)); renderJournal(); });
 
-renderQuestions(); renderJournal();
+renderQuestions();
+loadCache(); renderSheetTab();
 try{ const t=localStorage.getItem(KEY+'_tab'); if(t) showTab(t); }catch(e){}
-try{ document.getElementById('syncUrlInput').value=getSyncUrl(); }catch(e){}
-if(getSyncUrl()) doPull(false); else setSyncStatus('off');
+try{ document.getElementById('sheetUrlInput').value=getSheetUrl(); }catch(e){}
+if(getSheetUrl()){ refreshSheet(false); startAutoRefresh(); } else { setSheetStatus('off'); }
 </script>
 </body>
 </html>
