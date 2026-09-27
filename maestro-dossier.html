@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>תיק כתובת — מאסטרו נדל"ן</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Heebo',Arial,sans-serif;background:#0e1726;color:#e9eef7;padding:14px;line-height:1.5}
+  .wrap{max-width:900px;margin:0 auto}
+  header{text-align:center;margin-bottom:10px}
+  h1{font-size:22px;font-weight:800;color:#fff}
+  .sub{font-size:13px;color:#8ba0bf;margin-top:4px}
+  .nav{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin:12px 0}
+  .nav a{background:#1c2940;color:#cfe0f7;text-decoration:none;border-radius:8px;padding:7px 13px;font-size:13px;font-weight:600}
+  .nav a.on{background:#c08a3e;color:#0e1726;font-weight:800}
+  .addr{background:#101a2e;border:1px solid #2c3e5c;border-radius:12px;padding:12px;margin-bottom:12px}
+  .addr .r{display:flex;gap:8px;flex-wrap:wrap;align-items:end}
+  .addr label{display:block;font-size:12px;color:#9fb3d1;margin-bottom:3px}
+  .addr input{background:#1a2742;border:1px solid #2c3e5c;border-radius:7px;padding:9px;color:#fff;font-family:inherit;font-size:14px;width:130px}
+  .btn{border:none;border-radius:9px;padding:11px 16px;font-size:14px;font-weight:800;font-family:inherit;cursor:pointer;background:#c08a3e;color:#0e1726}
+  .btn2{background:#26344f;color:#cfe0f7}
+  .hs{background:#3a1a1a;color:#ff9f8c;border-radius:10px;padding:11px;text-align:center;font-weight:800;margin:10px 0;display:none}
+  .score{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;margin:12px 0}
+  .score div{background:#16213a;border-radius:12px;padding:12px 18px;text-align:center}
+  .score b{display:block;font-size:24px;color:#fff}
+  .stars{font-size:26px;color:#ffd86b}
+  table{width:100%;border-collapse:collapse;font-size:13px;margin-top:8px}
+  th,td{padding:8px 6px;text-align:right;border-bottom:1px solid #243050;vertical-align:top}
+  th{background:#1c2940;color:#9fd9cc;font-weight:700}
+  td input[type=text]{width:100%;background:#1a2742;border:1px solid #2c3e5c;border-radius:6px;padding:7px;color:#fff;font-family:inherit;font-size:13px}
+  td select{width:100%;background:#1a2742;border:1px solid #2c3e5c;border-radius:6px;padding:7px;color:#fff;font-family:inherit;font-size:13px}
+  .srcl{color:#6fb1ff;text-decoration:none;font-weight:700;font-size:12px;white-space:nowrap}
+  .note{background:#10182a;border-radius:10px;padding:10px;font-size:12px;color:#9fb3d1;border:1px dashed #2c3e5c;margin-bottom:10px}
+  .foot{text-align:center;font-size:11px;color:#6b7e9c;margin-top:16px}
+  @media print{.nav,.btn,.btn2,.addr .r button{display:none}body{background:#fff;color:#000}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>🗂️ תיק כתובת — תעודת זהות של העסקה</h1>
+    <div class="sub">כתובת → קישורי מקור אוטומטיים → ניקוד → כוכבים</div>
+  </header>
+  <nav class="nav">
+    <a href="https://avi7756-design.github.io/avi-sites/maestro-nadlan.html">🏠 ראשי</a>
+    <a href="https://avi7756-design.github.io/avi-sites/maestro-leads.html">💎 לידים</a>
+    <a class="on" href="#">🗂️ תיק כתובת</a>
+    <a href="https://avi7756-design.github.io/avi-sites/deal-swot/">🔬 בדיקה עמוקה</a>
+  </nav>
+
+  <div class="note">⚠️ <b>מה אוטומטי ומה לא:</b> הכלי בונה לבד קישורי-עומק לכל המקורות הרשמיים. <b>עיקולים והערות אזהרה</b> דורשים <b>נסח טאבו בתשלום</b>, ו<b>תביעות</b> דורשות בדיקת עו"ד — הם מסומנים כ-Hard Stop עד שנבדקו. אין דרך חוקית לשלוף אותם אוטומטית.</div>
+
+  <div class="addr">
+    <div class="r">
+      <div><label>עיר</label><input id="city" value="קרית ים"></div>
+      <div><label>רחוב</label><input id="street" value="ברזילאי"></div>
+      <div><label>מספר</label><input id="num" value="16" style="width:70px"></div>
+      <button class="btn" onclick="build()">🔗 בנה תיק</button>
+      <button class="btn btn2" onclick="save()">💾 שמור</button>
+      <button class="btn btn2" onclick="window.print()">🖨 הדפס / PDF</button>
+    </div>
+  </div>
+
+  <div class="hs" id="hsBanner">🚫 Hard Stop פתוח — לא ניתן לאשר עסקה עד לבדיקת נסח טאבו / עו"ד</div>
+
+  <div class="score">
+    <div>ניקוד<b id="pts">0</b></div>
+    <div>דירוג<b class="stars" id="stars">⭐</b></div>
+    <div>נבדקו<b id="done">0/10</b></div>
+  </div>
+
+  <table id="tbl">
+    <tr><th style="width:22%">פרמטר</th><th style="width:30%">ממצא</th><th style="width:33%">ניקוד</th><th>🔗 מקור</th></tr>
+  </table>
+
+  <div class="foot">מאסטרו נדל"ן · תיק כתובת · כל ניקוד עם מקור · עיקולים/תביעות = נסח טאבו + עו"ד</div>
+</div>
+
+<script>
+var P=[
+ {id:'gush',n:'גוש / חלקה / ייעוד',s:'govmap',o:[['לא נבדק',0],['מגורים ✅',5],['ייעוד לא מגורים ❌',-15]]},
+ {id:'taba',n:'תב"ע / זכויות בנייה',s:'mavat',o:[['לא נבדק',0],['זכויות לא מנוצלות ✅',10],['תוכנית בהפקדה 💡',6],['אין זכויות',0],['מגבלות ❌',-5]]},
+ {id:'renew',n:'התחדשות / פינוי-בינוי',s:'renew',o:[['לא נבדק',0],['מאושר + יזם נבחר ✅',10],['תוכנית אושרה',6],['"מיועד" / שמועה ⚠️',-10],['אין',0]]},
+ {id:'danger',n:'מבנה מסוכן',s:'city',o:[['לא נבדק',0],['נקי ✅',3],['צו מבנה מסוכן 🚩',-10]]},
+ {id:'ikul',n:'עיקולים / הערות אזהרה',s:'tabu',o:[['לא נבדק — Hard Stop',-99],['נקי (נסח) ✅',5],['יש עיקול/הערה ❌',-99]]},
+ {id:'legal',n:'תביעות משפטיות',s:'court',o:[['לא נבדק — Hard Stop',-99],['נקי (עו"ד) ✅',3],['יש תביעה ❌',-99]]},
+ {id:'kones',n:'כונס נכסים',s:'kones',o:[['לא נבדק',0],['לא בכינוס ✅',2],['בכינוס — הזדמנות 💡',5]]},
+ {id:'comps',n:'Comps / מחיר מול שוק',s:'nadlan',o:[['לא נבדק',0],['20%+ מתחת לשוק ✅',15],['10% מתחת',8],['במחיר שוק',3],['מעל השוק ❌',-5]]},
+ {id:'transit',n:'תחבורה (מטרונית/רק"ל)',s:'transit',o:[['לא נבדק',0],['תחנה קרובה, נפתח בשנה ✅',10],['2-3 שנים',6],['4+ שנים',2],['אין',0]]},
+ {id:'env',n:'סביבה (ביה"ס/רעש/זיהום/תרבות)',s:'madlan',o:[['לא נבדק',0],['ציוני שכונה גבוהים ✅',8],['בינוני',4],['נמוך ❌',-5]]}
+];
+
+function links(city,street,num){
+  var a=encodeURIComponent(street+' '+num+' '+city);
+  var c=encodeURIComponent(city);
+  return {
+    govmap:'https://www.govmap.gov.il/?q='+a,
+    mavat:'https://mavat.iplan.gov.il/SV4',
+    renew:'https://www.govmap.gov.il/?lay=200720',
+    city:'https://www.google.com/search?q='+c+'+מבנים+מסוכנים+עירייה',
+    tabu:'https://ecom.gov.il/voucherspa/main/homepage',
+    court:'https://www.google.com/search?q=נט+המשפט+חיפוש+תיק',
+    kones:'https://www.google.com/search?q='+a+'+כונס+נכסים+כינוס',
+    nadlan:'https://www.nadlan.gov.il/?search='+a,
+    transit:'https://www.transisrael.co.il/',
+    madlan:'https://www.madlan.co.il/area-info/'+c+'-ישראל'
+  };
+}
+
+function build(){
+  var city=document.getElementById('city').value.trim();
+  var street=document.getElementById('street').value.trim();
+  var num=document.getElementById('num').value.trim();
+  var L=links(city,street,num);
+  var t=document.getElementById('tbl');
+  t.innerHTML='<tr><th style="width:22%">פרמטר</th><th style="width:30%">ממצא</th><th style="width:33%">ניקוד</th><th>🔗 מקור</th></tr>';
+  P.forEach(function(p){
+    var tr=document.createElement('tr');
+    var opts=p.o.map(function(o,i){return '<option value="'+o[1]+'">'+o[0]+'</option>';}).join('');
+    tr.innerHTML='<td><b>'+p.n+'</b></td>'+
+      '<td><input type="text" id="f_'+p.id+'" placeholder="מה מצאת?"></td>'+
+      '<td><select id="s_'+p.id+'" onchange="calc()">'+opts+'</select></td>'+
+      '<td><a class="srcl" target="_blank" href="'+L[p.s]+'">פתח מקור ↗</a></td>';
+    t.appendChild(tr);
+  });
+  load();calc();
+}
+
+function calc(){
+  var pts=0,hs=false,done=0;
+  P.forEach(function(p){
+    var el=document.getElementById('s_'+p.id);if(!el)return;
+    var v=parseInt(el.value,10);
+    if(v===-99){hs=true;}else{pts+=v;}
+    if(el.selectedIndex>0)done++;
+  });
+  document.getElementById('pts').textContent=pts;
+  document.getElementById('done').textContent=done+'/'+P.length;
+  document.getElementById('hsBanner').style.display=hs?'block':'none';
+  var s='⭐';
+  if(hs)s='❌';
+  else if(pts>=60)s='⭐⭐⭐⭐⭐';
+  else if(pts>=45)s='⭐⭐⭐⭐';
+  else if(pts>=30)s='⭐⭐⭐';
+  else if(pts>=18)s='⭐⭐';
+  document.getElementById('stars').textContent=s;
+}
+
+function key(){return 'dossier_'+document.getElementById('city').value+'_'+document.getElementById('street').value+'_'+document.getElementById('num').value;}
+function save(){
+  var o={};
+  P.forEach(function(p){
+    var f=document.getElementById('f_'+p.id),s=document.getElementById('s_'+p.id);
+    if(f&&s)o[p.id]={f:f.value,s:s.value};
+  });
+  localStorage.setItem(key(),JSON.stringify(o));
+  alert('✔ התיק נשמר במכשיר הזה');
+}
+function load(){
+  var raw=localStorage.getItem(key());if(!raw)return;
+  var o=JSON.parse(raw);
+  P.forEach(function(p){
+    var f=document.getElementById('f_'+p.id),s=document.getElementById('s_'+p.id);
+    if(f&&o[p.id])f.value=o[p.id].f||'';
+    if(s&&o[p.id])s.value=o[p.id].s;
+  });
+}
+build();
+</script>
+</body>
+</html>

@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl"><head><meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>מרכז השליטה · אבי חזן</title>
+<style>
+:root{--bg:#f4f6fb;--card:#fff;--ink:#1e293b;--soft:#64748b;--line:#e2e8f0;
+--blue:#2563eb;--green:#16a34a;--purple:#7c3aed;--amber:#d97706;--red:#dc2626;--cyan:#0891b2;--pink:#db2777;
+--r:16px;--font:'Segoe UI',Arial,sans-serif;--sh:0 4px 18px rgba(30,41,59,.08)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:var(--font);background:var(--bg);color:var(--ink);direction:rtl;line-height:1.6;padding-bottom:80px}
+/* top bar */
+.bar{background:linear-gradient(135deg,#4338ca,#0891b2);color:#fff;padding:14px 20px;position:sticky;top:0;z-index:40;display:flex;align-items:center;gap:12px;flex-wrap:wrap;box-shadow:0 2px 12px rgba(0,0,0,.15)}
+.bar h1{font-size:20px;font-weight:800}
+.bar .btns{margin-inline-start:auto;display:flex;gap:8px}
+.bar button{background:rgba(255,255,255,.2);color:#fff;border:1px solid rgba(255,255,255,.35);border-radius:10px;padding:8px 14px;font-size:14px;font-weight:700;cursor:pointer;font-family:inherit}
+.bar button:hover{background:rgba(255,255,255,.32)}
+.bar button.f1{background:#fbbf24;color:#7c2d12;border-color:#fbbf24}
+.wrap{max-width:1100px;margin:0 auto;padding:0 18px}
+.search{margin:16px 0 6px}
+.search input{width:100%;background:#fff;border:1px solid var(--line);border-radius:12px;padding:13px 16px;font-size:16px;font-family:inherit;box-shadow:var(--sh)}
+.search input:focus{outline:none;border-color:var(--blue)}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:12px;margin:14px 0}
+.stat{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;text-align:center;box-shadow:var(--sh)}
+.stat .n{font-size:30px;font-weight:800;color:var(--blue)}.stat .l{font-size:13px;color:var(--soft)}
+.chips{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}
+.chip{background:#fff;border:1px solid var(--line);border-radius:18px;padding:6px 14px;font-size:13px;cursor:pointer;font-weight:600;color:var(--soft)}
+.chip:hover,.chip.on{background:#eef2ff;color:var(--blue);border-color:#c7d2fe}
+h2.cat{font-size:20px;font-weight:800;margin:24px 0 12px;display:flex;align-items:center;gap:10px;border-bottom:2px solid var(--line);padding-bottom:6px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(255px,1fr));gap:14px}
+.proj{background:#fff;border:1px solid var(--line);border-radius:14px;padding:16px;box-shadow:var(--sh);transition:.2s;border-top:4px solid var(--blue);position:relative;cursor:pointer}
+.proj:hover{transform:translateY(-3px);box-shadow:0 8px 26px rgba(30,41,59,.14)}
+.proj.star{border-top-color:var(--amber);background:#fffdf5}
+.proj .del{position:absolute;top:8px;left:8px;width:24px;height:24px;border-radius:50%;background:#fee2e2;color:#dc2626;border:none;font-weight:800;cursor:pointer;font-size:13px;line-height:1;display:flex;align-items:center;justify-content:center;opacity:.5}
+.proj .del:hover{opacity:1;background:#dc2626;color:#fff}
+.proj .ic{font-size:26px}.proj h3{font-size:16px;font-weight:700;margin:4px 0}
+.proj p{font-size:13px;color:var(--soft)}
+.proj .path{font-size:11px;color:#94a3b8;font-family:monospace;background:#f8fafc;border:1px solid var(--line);border-radius:6px;padding:5px 8px;margin-top:8px;word-break:break-all}
+.proj .path:hover{background:#eef2ff}
+.proj .openbtn{width:100%;margin-top:10px;background:linear-gradient(135deg,#f59e0b,#e0851a);color:#fff;border:none;padding:9px;border-radius:8px;font-size:13.5px;font-weight:800;cursor:pointer;box-shadow:0 3px 10px rgba(245,158,11,.3)}
+.proj .openbtn:hover{filter:brightness(1.07)}
+.badge{display:inline-block;font-size:10px;font-weight:700;padding:2px 8px;border-radius:10px;margin-top:6px;background:#fef3c7;color:#b45309}
+.home-btn{position:fixed;bottom:20px;left:20px;z-index:45;background:var(--blue);color:#fff;border:none;border-radius:50px;padding:14px 20px;font-size:15px;font-weight:800;cursor:pointer;box-shadow:0 6px 20px rgba(37,99,235,.4);font-family:inherit}
+.home-btn:hover{background:#1d4ed8}
+.foot{text-align:center;color:var(--soft);font-size:12px;margin-top:26px}
+.upd{background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:14px 16px;margin-top:16px;font-size:14px;color:#166534}
+/* overlay */
+.overlay{position:fixed;inset:0;background:rgba(15,23,42,.6);z-index:60;display:none;align-items:flex-start;justify-content:center;padding:30px 14px;overflow-y:auto}
+.overlay.show{display:flex}
+.sheet{background:#fff;border-radius:18px;max-width:820px;width:100%;padding:26px;box-shadow:0 20px 60px rgba(0,0,0,.3);position:relative}
+.sheet .x{position:absolute;top:16px;left:16px;width:34px;height:34px;border-radius:50%;background:#f1f5f9;border:none;font-size:18px;cursor:pointer;font-weight:800}
+.sheet h2{font-size:24px;margin-bottom:6px;color:#4338ca}
+.sheet h3{font-size:18px;margin:18px 0 8px;color:var(--ink);border-bottom:2px solid var(--line);padding-bottom:5px}
+/* flow */
+.flow{display:flex;flex-wrap:wrap;gap:6px;align-items:center;justify-content:center;margin:10px 0}
+.fstep{background:#eef2ff;border:1px solid #c7d2fe;border-radius:12px;padding:10px 14px;text-align:center;font-size:13px;font-weight:600;color:#3730a3;min-width:110px}
+.fstep .fi{font-size:22px;display:block}
+.farr{font-size:20px;color:#94a3b8}
+.infb{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px;margin:12px 0}
+.ib{background:#f8fafc;border:1px solid var(--line);border-radius:12px;padding:14px;text-align:center}
+.ib .n{font-size:24px;font-weight:800;color:var(--purple)}.ib .l{font-size:12px;color:var(--soft)}
+.faq{border:1px solid var(--line);border-radius:12px;margin:8px 0;overflow:hidden}
+.faq summary{padding:13px 16px;font-weight:700;cursor:pointer;font-size:15px;background:#f8fafc;list-style:none}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary:before{content:"▶ ";color:var(--blue);font-size:11px}
+.faq[open] summary:before{content:"▼ "}
+.faq .a{padding:12px 16px;font-size:14px;color:var(--soft);border-top:1px solid var(--line)}
+.hidden{display:none!important}
+</style></head><body>
+
+<div class="bar">
+ <h1>🎛️ מרכז השליטה</h1>
+ <div class="btns">
+  <button onclick="goHome()">🏠 בית</button>
+  <button class="f1" onclick="openGuide()">❓ F1 · עזרה</button>
+ </div>
+</div>
+
+<div class="wrap" id="home">
+ <div class="search"><input id="q" placeholder="🔎 חפש פרויקט, נושא, או תיקייה..."></div>
+ <div class="stats" id="stats"></div>
+ <div class="chips" id="chips"></div>
+ <div id="board"></div>
+ <div class="upd" id="updbox"></div>
+ <div class="foot">מרכז השליטה · לעדכון בקש מ-Claude "עדכן מרכז שליטה" · לחץ F1 למדריך</div>
+</div>
+
+<button class="home-btn" onclick="goHome()">🏠 חזרה לבית</button>
+
+<!-- GUIDE OVERLAY -->
+<div class="overlay" id="guide">
+ <div class="sheet">
+  <button class="x" onclick="closeGuide()">✕</button>
+  <h2>📖 מדריך מלא — איך משתמשים במרכז השליטה</h2>
+  <p style="color:var(--soft)">כל מה שצריך לדעת בעמוד אחד. לחץ F1 בכל רגע כדי לפתוח את זה שוב.</p>
+
+  <h3>🎯 מה זה בכלל</h3>
+  <p style="font-size:15px">זו <b>מפה של כל הפרויקטים שלך</b>. כל ריבוע = תיקייה אמיתית בשולחן העבודה. במקום לחפש בין עשרות תיקיות — הכל כאן, לפי קטגוריות. <b>שום קובץ לא נמחק מהמחשב</b> — זו רק מפה.</p>
+
+  <h3>🔄 תזרים הזרימה — איך מנתחים עסקה חדשה</h3>
+  <div class="flow">
+   <div class="fstep"><span class="fi">📥</span>עסקה נכנסת</div><span class="farr">←</span>
+   <div class="fstep"><span class="fi">⭐</span>פתח "ארגז ניתוח"</div><span class="farr">←</span>
+   <div class="fstep"><span class="fi">📋</span>העתק פרומפט</div><span class="farr">←</span>
+   <div class="fstep"><span class="fi">🤖</span>הדבק ב-AI + מסמכים</div><span class="farr">←</span>
+   <div class="fstep"><span class="fi">📊</span>קבל דוח החלטה</div><span class="farr">←</span>
+   <div class="fstep"><span class="fi">💾</span>שמור בפרויקט</div>
+  </div>
+
+  <h3>📊 המספרים שלך</h3>
+  <div class="infb" id="guideStats"></div>
+
+  <h3>🖱️ מה כל כפתור עושה</h3>
+  <div class="infb">
+   <div class="ib"><div class="n">🔎</div><div class="l">חיפוש — מסנן פרויקטים מיד</div></div>
+   <div class="ib"><div class="n">📁</div><div class="l">לחיצה על נתיב — מעתיקה לפתיחה ב-Explorer</div></div>
+   <div class="ib"><div class="n">✕</div><div class="l">X אדום בכרטיס — מוחק פרויקט מהלוח</div></div>
+   <div class="ib"><div class="n">🏠</div><div class="l">כפתור בית — חזרה למעלה תמיד</div></div>
+  </div>
+
+  <h3>❓ שאלות ותשובות (שאתה צפוי לשאול)</h3>
+  <div id="faq"></div>
+ </div>
+</div>
+
+<script>
+const DEFAULT_DATA={
+ updated:"22.7.2026",
+ root:"C:\\Users\\Avi\\OneDrive\\שולחן העבודה\\05_מסמכים_כלליים\\",
+ categories:[
+  {name:"פרויקטים עסקיים ויזמות",icon:"🏗️",color:"#2563eb",projects:[
+    {id:"analysis",ic:"⭐",name:"ארגז ניתוח פרויקטים",desc:"הפרומפטים והתבניות לניתוח כל עסקה (נדל\"ן + עסקים כושלים)",path:"יזמות  ניתוח פרוייקטים-22.7.26",star:true},
+    {id:"hunter",ic:"🎯",name:"מנוע רכישת עסקים",desc:"4 שכבות: HUNTER מאתר ← FIT מסנן לפי הכישורים שלך ← ANALYZER בודק ← TURNAROUND מבריא. פתח את הקוקפיט לשיגור ללוחות ומעקב מדורג.",path:"יזמות  ניתוח פרוייקטים-22.7.26",link:"מנוע_איתור_עסקאות.html",star:true},
+    {id:"dm",ic:"🏢",name:"דיור מוגן ובתי אבות",desc:"חלוץ 39, רחובות, כפר תבור + ספריית שווי (10 שומות)",path:"יזמות בתי אבות דיור מוגן 24.6.26"},
+    {id:"maestro",ic:"🏠",name:"מאסטרו נדל\"ן ראשי",desc:"מרכז הנדל\"ן הראשי",path:"00_מאסטרו_נדלן_ראשי"},
+    {id:"nadlan",ic:"📈",name:"יזמות ונדל\"ן",desc:"סימולטור כדאיות, ארגז כלים, צ'קליסטים לרכישה/השכרה",path:"יזמות_ונדלן"},
+    {id:"invest",ic:"💼",name:"תיק עבודות למשקיעים",desc:"פרופיל מקצועי + תיק להצגה למשקיעים",path:"00_תיק_עבודות_והצגה_למשקיעים - אבי חזן 26.6.26"},
+    {id:"eilat1",ic:"🌅",name:"אחי אילת - שיווק",desc:"שיווק דירות אחי אילת",path:"06_שיווק_דירות_אחי_אילת"},
+    {id:"eilat2",ic:"📌",name:"אחי אילת - שוטף",desc:"ניהול שוטף אחי אילת",path:"שוטף אחי אילת  18072026"},
+    {id:"koach",ic:"👥",name:"חברת כוח אדם",desc:"פרויקט חברת כוח אדם",path:"חברת כח אדם 060726"},
+  ]},
+  {name:"כלים, תבניות ואוטומציה",icon:"🧰",color:"#7c3aed",projects:[
+    {id:"templates",ic:"📄",name:"תבניות חוזרות",desc:"פרומפטים והוראות שחוזרים בכל פרויקט",path:"תבניות_חוזרות"},
+    {id:"auto",ic:"⚙️",name:"אינדקס אוטומציה",desc:"אוטומציות ומנגנונים",path:"אינדקס_אוטומציה"},
+    {id:"ver",ic:"🗂️",name:"אינדקס גרסאות",desc:"מעקב גרסאות",path:"גרסאות_INDEX"},
+  ]},
+  {name:"כספים וניהול",icon:"💰",color:"#16a34a",projects:[
+    {id:"exp",ic:"🧾",name:"ניהול הוצאות אישי",desc:"חשבון הוצאות אישי",path:"אישי ניהול חשבון הוצאות 20.6"},
+    {id:"home",ic:"🏡",name:"כלכלת בית",desc:"ניהול כלכלת הבית",path:"כלכלת בית 22.6.26"},
+    {id:"sup",ic:"📊",name:"התחשבנות ספקים",desc:"חשבונות והתחשבנות מול ספקים",path:"חשבנות והתחשבנות ספקים -28.4.26"},
+  ]},
+  {name:"אישי, משפחה ולימוד",icon:"👨‍👩‍👧",color:"#db2777",projects:[
+    {id:"yona",ic:"🎓",name:"יונה - לימודים",desc:"חומרי לימוד",path:"יונה לימודים"},
+    {id:"mind",ic:"🧠",name:"כוחו של התת-מודע",desc:"אפליקציית mind-space + חומרים",path:"כוחו של התת מודע  7.7.26"},
+    {id:"ortal",ic:"📁",name:"אורטל",desc:"תיקיית אורטל",path:"אורטל 2.7.26"},
+  ]},
+  {name:"ניהול, מעקב וגיבוי",icon:"📋",color:"#0891b2",projects:[
+    {id:"todo",ic:"✅",name:"לביצוע ומעקב",desc:"משימות פתוחות ומעקב",path:"לביצוע_ומעקב"},
+    {id:"chats",ic:"💬",name:"סיכומי שיחות",desc:"סיכומי שיחות עם מודלי AI",path:"סיכומי_שיחות"},
+    {id:"backup",ic:"☁️",name:"גיבויים",desc:"OneDrive וגיבויים",path:"OneDrive_וגיבויים"},
+  ]},
+ ]
+};
+const FAQ=[
+ ["מה זה הלוח הזה?","מפה ויזואלית של כל הפרויקטים והתיקיות שלך בשולחן העבודה, מסודרים לפי קטגוריות. מטרה אחת: שלא תצטרך לזכור איפה כל דבר."],
+ ["איך אני מוחק פרויקט שלא רלוונטי?","לחץ על ה-✕ האדום בפינת הכרטיס. הוא נעלם מהלוח מיד. (הקובץ עצמו במחשב לא נמחק — רק ירד מהמפה.)"],
+ ["מחקתי בטעות — איך מחזירים?","בקש מ-Claude \"עדכן מרכז שליטה\" והכל חוזר. או לחץ על כפתור השחזור אם הופיע."],
+ ["איך פותחים תיקייה אמיתית?","לחץ על שורת הנתיב האפורה בכרטיס — היא מועתקת ללוח. הדבק ב-Explorer (בשורת הכתובת) ולחץ Enter."],
+ ["איך אני מנתח עסקה חדשה?","לך לכרטיס הכתום ⭐ \"ארגז ניתוח\". שם יש פרומפט — מעתיקים אותו, מדביקים ב-ChatGPT/Gemini, גוררים את מסמכי העסקה, ומקבלים דוח החלטה."],
+ ["מה ההבדל בין נדל\"ן לעסק כושל?","שני פרומפטים שונים בארגז הניתוח: אחד לעסקאות נדל\"ן/דיור מוגן, אחד לרכישת שליטה והבראת עסקים כושלים. בחר לפי סוג העסקה."],
+ ["איך הלוח מתעדכן?","בקש מ-Claude \"עדכן מרכז שליטה\". הוא סורק מחדש את שולחן העבודה ומוסיף/מסיר פרויקטים."],
+ ["אפשר לפתוח מהנייד?","כן — בקש מ-Claude \"דרייב\" והוא יעלה את הלוח ל-Google Drive עם קישור מוגן שנפתח מכל מכשיר."],
+ ["הקבצים שלי בטוחים?","לגמרי. הלוח הוא רק מפה. מחיקה כאן לא נוגעת בקבצים האמיתיים במחשב."],
+ ["למה חלק מהכרטיסים כתומים?","כתום ⭐ = נקודת התחלה. כרגע זה \"ארגז הניתוח\" — משם מתחילים כל עסקה חדשה."],
+ ["מה זה NotebookLM ואיך זה מתחבר?","כלי של Google לענות על שאלות מתוך מסמכים. בארגז הניתוח יש קובץ הוראות שמדביקים אליו פעם אחת, ואז הוא עובד לפי השיטה שלך."],
+ ["איך אני מאתר עסק לרכישה שמתאים לי?","פתח את הקוקפיט (כפתור 🚀 בכרטיס הכתום). שם: (1) כפתורי שיגור ישירים ל-8 לוחות אמיתיים, (2) טבלת מעקב מדורגת לפי AVI FIT. חשוב להבין את חלוקת העבודה: קלוד ב-Cowork *כן* יכול לסרוק חי את הרשת ולהחזיר מועמדים (לחץ 'צור פקודת סריקה'), הפרומפט הנייד ב-ChatGPT/Gemini חלש בגלישה, וקובץ ה-HTML עצמו לא זוחל — הוא לוח הפיקוד."],
+ ["מה 4 השכבות של מנוע רכישת העסקים?","HUNTER (מאתר ומדרג) ← AVI FIT (התאמה אישית /100) ← ANALYZER (בודק מספרים, חובות ושליטה) ← TURNAROUND (תוכנית הבראה 100 יום). מזינים עסקה, עוברים שכבה-שכבה, ומתקדמים רק עם אחת."],
+];
+
+let DATA=JSON.parse(JSON.stringify(DEFAULT_DATA));
+try{const s=localStorage.getItem('avi_cc_deleted');if(s){const del=JSON.parse(s);DATA.categories.forEach(c=>c.projects=c.projects.filter(p=>!del.includes(p.id)));}}catch(e){}
+function saveDeleted(id){try{const s=localStorage.getItem('avi_cc_deleted');const del=s?JSON.parse(s):[];if(!del.includes(id)){del.push(id);localStorage.setItem('avi_cc_deleted',JSON.stringify(del));}}catch(e){}}
+
+function allProjects(){return DATA.categories.flatMap(c=>c.projects);}
+function renderStats(){
+ const total=allProjects().length, cats=DATA.categories.filter(c=>c.projects.length).length, biz=(DATA.categories[0].projects||[]).length;
+ document.getElementById('stats').innerHTML=`
+  <div class="stat"><div class="n">${total}</div><div class="l">פרויקטים ותיקיות</div></div>
+  <div class="stat"><div class="n">${cats}</div><div class="l">קטגוריות</div></div>
+  <div class="stat"><div class="n">${biz}</div><div class="l">פרויקטים עסקיים</div></div>
+  <div class="stat"><div class="n">⭐</div><div class="l">ארגז ניתוח מוכן</div></div>`;
+ document.getElementById('updbox').innerHTML=`🔄 <b>הלוח מעודכן ל-${DATA.updated}.</b> נוסף פרויקט? בקש מ-Claude "עדכן מרכז שליטה". למדריך מלא — לחץ F1.`;
+ document.getElementById('chips').innerHTML=`<span class="chip on" data-c="">הכל</span>`+DATA.categories.filter(c=>c.projects.length).map((c,i)=>`<span class="chip" data-c="${i}">${c.icon} ${c.name}</span>`).join('');
+}
+let catFilter='';
+function card(p){
+ return `<div class="proj ${p.star?'star':''}">
+  <button class="del" title="הסר מהלוח" onclick="event.stopPropagation();delProj('${p.id}')">✕</button>
+  <div class="ic">${p.ic}</div>
+  <h3>${p.name}</h3>
+  <p>${p.desc}</p>
+  ${p.star?'<span class="badge">⭐ התחל כאן לניתוח עסקה</span>':''}
+  ${p.link?`<button class="openbtn" onclick="event.stopPropagation();window.location.href='${p.link}'">🚀 פתח קוקפיט איתור</button>`:''}
+  <div class="path" title="לחץ להעתקה" onclick="event.stopPropagation();copyPath(this,'${(DATA.root+p.path).replace(/\\/g,'\\\\')}')">📁 ${DATA.root}${p.path}</div>
+ </div>`;
+}
+function copyPath(el,path){try{navigator.clipboard.writeText(path);}catch(e){}const o=el.innerHTML;el.textContent='✔ הנתיב הועתק! הדבק ב-Explorer';setTimeout(()=>el.innerHTML=o,1500);}
+function delProj(id){
+ DATA.categories.forEach(c=>c.projects=c.projects.filter(p=>p.id!==id));
+ saveDeleted(id); renderStats(); render();
+}
+function render(){
+ const q=(document.getElementById('q').value||'').toLowerCase();
+ const board=document.getElementById('board'); board.innerHTML='';
+ DATA.categories.forEach((c,i)=>{
+  if(catFilter!==''&&String(i)!==catFilter)return;
+  const projs=c.projects.filter(p=>!q||JSON.stringify(p).toLowerCase().includes(q));
+  if(!projs.length)return;
+  const sec=document.createElement('div');
+  sec.innerHTML=`<h2 class="cat" style="border-color:${c.color}"><span>${c.icon}</span> ${c.name}</h2><div class="grid">${projs.map(card).join('')}</div>`;
+  board.appendChild(sec);
+ });
+ if(!board.innerHTML)board.innerHTML='<p style="text-align:center;color:var(--soft);padding:40px">לא נמצאו פרויקטים.</p>';
+}
+function goHome(){catFilter='';document.getElementById('q').value='';document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));document.querySelector('.chip').classList.add('on');render();window.scrollTo({top:0,behavior:'smooth'});}
+function openGuide(){document.getElementById('guide').classList.add('show');}
+function closeGuide(){document.getElementById('guide').classList.remove('show');}
+function renderGuide(){
+ const c=allProjects().length;
+ document.getElementById('guideStats').innerHTML=`
+  <div class="ib"><div class="n">${c}</div><div class="l">פרויקטים על הלוח</div></div>
+  <div class="ib"><div class="n">5</div><div class="l">קטגוריות</div></div>
+  <div class="ib"><div class="n">2</div><div class="l">מנועי ניתוח (נדל\"ן + עסקים)</div></div>
+  <div class="ib"><div class="n">∞</div><div class="l">עסקאות שאפשר לנתח</div></div>`;
+ document.getElementById('faq').innerHTML=FAQ.map(([q,a])=>`<details class="faq"><summary>${q}</summary><div class="a">${a}</div></details>`).join('');
+}
+document.getElementById('q').addEventListener('input',render);
+document.getElementById('chips').addEventListener('click',e=>{const ch=e.target.closest('.chip');if(!ch)return;document.querySelectorAll('.chip').forEach(x=>x.classList.remove('on'));ch.classList.add('on');catFilter=ch.dataset.c;render();});
+document.addEventListener('keydown',e=>{if(e.key==='F1'){e.preventDefault();openGuide();}if(e.key==='Escape')closeGuide();});
+document.getElementById('guide').addEventListener('click',e=>{if(e.target.id==='guide')closeGuide();});
+renderStats();render();renderGuide();
+</script></body></html>

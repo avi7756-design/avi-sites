@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AVI HUNTER — דשבורד v4</title>
+<style>
+:root{color-scheme:light}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",Arial,sans-serif;background:#0d1117;color:#e0e6f0;line-height:1.5;padding:16px;min-height:100vh}
+.doc{max-width:820px;margin:0 auto}
+.hdr{background:linear-gradient(135deg,#0f2e1d,#1d5a3a);border-radius:16px;padding:20px 24px;margin-bottom:14px}
+.hdr h1{font-size:20px;color:#fff}
+.hdr .sub{font-size:12px;color:#8fd5ab;margin-top:3px}
+.badge{display:inline-block;background:#16351f;color:#7fe0a5;font-size:11px;font-weight:700;padding:3px 10px;border-radius:20px;margin-top:8px;border:1px solid #2a6b40}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px;margin-bottom:14px}
+.card{background:#131c2b;border:1px solid #233149;border-radius:12px;padding:13px 15px}
+.card b{display:block;font-size:11px;color:#7a8aa3;margin-bottom:3px}
+.card .v{font-size:19px;font-weight:800;color:#fff}
+.card .v.g{color:#2ecc71}
+.card .v.y{color:#f0c040}
+.panel{background:#131c2b;border:1px solid #233149;border-radius:14px;padding:15px 17px;margin-bottom:12px}
+.panel.core{border-color:#1d7a44;background:#10241a}
+.panel.prot{border-color:#2a5a8a;background:#101a28}
+.panel.fx{border-color:#7a5a1d;background:#241f10}
+.panel h2{font-size:14px;margin-bottom:9px;color:#9fe6bd}
+.panel.prot h2{color:#8fbce6}
+.panel.fx h2{color:#e6cd8f}
+.row{display:flex;justify-content:space-between;align-items:center;font-size:13px;padding:6px 0;border-bottom:1px solid #1c2940;gap:8px}
+.row:last-child{border:0}
+.row span:last-child{font-weight:700;color:#fff;text-align:left}
+.alloc .bar{height:9px;background:#1c2940;border-radius:6px;overflow:hidden;margin:3px 0 8px}
+.alloc .bar>div{height:100%;background:linear-gradient(90deg,#1d7a44,#2ecc71)}
+.st{font-size:10px;font-weight:700;padding:2px 8px;border-radius:12px;white-space:nowrap}
+.st.todo{background:#3a2a10;color:#f0c040;border:1px solid #6b5520}
+.st.next{background:#10243a;color:#6bb0f0;border:1px solid #244a6b}
+.st.done{background:#16351f;color:#7fe0a5;border:1px solid #2a6b40}
+input{background:#0d1117;border:1px solid #2a3a55;border-radius:8px;color:#fff;padding:6px 9px;font-size:14px;width:110px;text-align:center}
+.links{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.links a{flex:1;min-width:130px;text-align:center;background:#1a2740;border:1px solid #2a3a55;color:#bcd2f5;text-decoration:none;padding:10px;border-radius:10px;font-size:13px;font-weight:600}
+.links a:hover{background:#22406a}
+.sub2{font-size:11px;color:#6a7894;margin:2px 0 8px}
+.note{font-size:11px;color:#6a7894;text-align:center;margin-top:12px}
+</style>
+</head>
+<body>
+<div style="position:fixed;top:8px;left:8px;z-index:99999;display:flex;gap:6px;font-family:Arial,sans-serif">
+<a href="https://avi7756-design.github.io/avi-sites/maestro-nadlan.html" style="background:#4ea1ff;color:#06121f;text-decoration:none;border-radius:8px;padding:6px 11px;font-size:13px;font-weight:700">🏠 ראשי</a>
+<button onclick="history.back()" style="background:#222d3d;color:#fff;border:1px solid #2e3c4f;border-radius:8px;padding:6px 10px;font-size:13px;cursor:pointer">◀</button>
+<button onclick="history.forward()" style="background:#222d3d;color:#fff;border:1px solid #2e3c4f;border-radius:8px;padding:6px 10px;font-size:13px;cursor:pointer">▶</button>
+</div>
+<nav id="avi-nav" dir="rtl" style="position:sticky;top:0;z-index:99999;display:flex;gap:8px;justify-content:center;align-items:center;background:#15233f;padding:8px 10px;border-bottom:1px solid #2a3a55;font-family:'Segoe UI',Arial,sans-serif"><button onclick="history.back()" style="cursor:pointer;border:1px solid #34527d;border-radius:8px;background:#23386a;color:#fff;font-size:13px;font-weight:700;padding:7px 14px;font-family:inherit">◀ אחורה</button><a href="dashboard-v4.html" style="cursor:pointer;border:1px solid #2a6b40;border-radius:8px;background:#2ecc71;color:#0d1117;font-size:13px;font-weight:800;padding:7px 16px;text-decoration:none;display:inline-block">🏠 דשבורד (בית)</a><button onclick="history.forward()" style="cursor:pointer;border:1px solid #34527d;border-radius:8px;background:#23386a;color:#fff;font-size:13px;font-weight:700;padding:7px 14px;font-family:inherit">קדימה ▶</button></nav>
+
+<div class="doc">
+<div class="hdr">
+  <h1>🎯 AVI HUNTER — דשבורד v4</h1>
+  <div class="sub">תיק מדד מוגן · עצמאי (ללא n8n) · <span id="h-date">6.7.26</span> · BOOT · ליבה 25% · השוק רגוע</div>
+  <span class="badge">🟢 פעיל · אפס הרצות ענן · תמיד נפתח</span>
+</div>
+
+<!-- === AVI HUNTER v5 ADDITIVE START (Decision Cockpit) === -->
+<section id="ahv5-cockpit" class="ahv5-cockpit" dir="rtl" aria-label="AVI HUNTER Decision Cockpit"></section>
+<script>
+/* AVI HUNTER v5 - שכבת החלטה אדיטיבית. אינה נוגעת ב-v4. try/catch כדי שלעולם לא ישבור את הדשבורד. */
+(function(){
+  window.ahv5State = {
+    date:"06.07.26", mode:"BOOT", marketStatus:"יום ירוק · שוק רגוע", doctrine:"v4",
+    build:"v5.1 · פריסה 08.07.26 · ec14f94",
+    navText:"~₪687K",
+    market:{ usdIls:2.9973, vix:15.8, vixTrend:"↓",
+      note:"שוק רגוע: S&P ~7,483, VIX 15.8 (שפל). זהב התאושש (IAU ירוק +$52). ליבה ב-25% אחרי מנה 2.",
+      fx30:"חלש מהממוצע ↓",
+      timing:"אין פעולה · הבא: מנה 3 (DCA) · המרה לפי צורך (לא ממתינים ל-2.90)" },
+    core:{ shares:83, avgCost:685.41, value:56842, pnl:-48 },
+    cash:{ ils:211964, usd:66858, securities:91192 },
+    sleeves:[
+      {label:"ליבה VOO", now:25, target:75, role:"מנוע צמיחה (DCA)"},
+      {label:"הגנה",     now:15, target:15, role:"SHY+IEF+זהב"},
+      {label:"מזומן",    now:60, target:10, role:"תחמושת לפריסה"},
+      {label:"לוויין",   now:0,  target:0,  role:"סגור (v4)"}
+    ],
+    nextAction:"מנה 3 ליבה — DCA ב-15.7 (לפי לוח, גם בשיא)"
+  };
+  try{var _c=window.ahv5State.cash,_f=window.ahv5State.market.usdIls;window.ahv5State.navText="~₪"+Math.round((_c.ils+(_c.usd+_c.securities)*_f)/1000)+"K";}catch(e){}
+  function regime(v){
+    if(v>=30) return {t:"🔴 סופה · משבר אמיתי", c:"ahv5-bad",
+      action:"בדוק הקפאת DCA, בדוק הגדלת IAU ל-50% מההגנה ומזומן עד 25% — לפי כלל סופה. VOO לא נמכר!",
+      allowed:["בדוק הקפאת DCA","בדוק הגדלת IAU","בדוק הגדלת מזומן"],
+      forbidden:["מכירת VOO","\"סופה=הזדמנות\"","פאניקה"]};
+    if(v>=25) return {t:"🟠 רוח · סכנה מתקרבת", c:"ahv5-orange",
+      action:"בדוק DCA בחצי קצב, בדוק הגדלת IAU +5%, בדוק ביטול הזמנות פתוחות — לפי טריגר. לא \"לתפוס תחתית\".",
+      allowed:["בדוק DCA חצי קצב","בדוק הגדלת זהב","בדוק ביטול הזמנות"],
+      forbidden:["\"לתפוס תחתית\"","פוזיציה חדשה","DCA אגרסיבי"]};
+    if(v>=20) return {t:"🟡 ערב · אזהרה מוקדמת", c:"ahv5-warn",
+      action:"ממשיך v4 כרגיל, אבל בלי \"להעמיס\" על דיפים. השלמת הגנה בהדרגה.",
+      allowed:["DCA רגיל","הגנה הדרגתית","המתנה"],
+      forbidden:["\"להעמיס\" VOO","לוויין","המרה מואצת"]};
+    return {t:"🟢 שקט · ממשיך v4", c:"ahv5-good",
+      action:"השוק בריא. זמן לסבלנות, לא להזדמנויות. ממשיך DCA רגיל.",
+      allowed:["DCA רגיל","השלמת הגנה","המרה בסולם"],
+      forbidden:["פתיחת לוויין","שינוי דוקטרינה","\"מפסיד תשואה\""]};
+  }
+  function status(s){
+    var gap=+(s.now-s.target).toFixed(1);
+    if(Math.abs(gap)<=2) return {t:"✅ ביעד", c:"ahv5-ok", g:gap};
+    if(gap<0) return {t:"🔵 בבנייה", c:"ahv5-build", g:gap};
+    return {t:"🔶 עודף", c:"ahv5-over", g:gap};
+  }
+  window.ahv5Render=null;
+  window.ahv5Guard=function(){
+    try{
+      var el=document.getElementById("ahv5-guardResult"); if(!el) return;
+      el.innerHTML='<strong>לפני פעולה חריגה — עצור:</strong><br>1. כתובה בדוקטרינת v4?<br>2. יש טריגר מספרי ברור?<br>3. מתוכננת ולא רגשית?<br><span class="ahv5-danger">אם תשובה שלילית — לא מבצעים.</span>';
+    }catch(e){}
+  };
+  function render(){
+    var st=window.ahv5State, root=document.getElementById("ahv5-cockpit");
+    if(!root||!st) return;
+    var r=regime(st.market.vix);
+    var cards=st.sleeves.map(function(s){
+      var st2=status(s);
+      var w = s.target===0 ? 0 : Math.min(100, Math.max(0, Math.round(s.now/s.target*100)));
+      return '<article class="ahv5-card"><div class="ahv5-ctop"><strong>'+s.label+'</strong><span class="'+st2.c+'">'+st2.t+'</span></div>'+
+        '<div class="ahv5-nums"><span>נוכחי '+s.now+'%</span><span>יעד '+s.target+'%</span></div>'+
+        '<div class="ahv5-bar"><i style="width:'+w+'%"></i></div>'+
+        '<p>'+s.role+' · פער '+(st2.g>0?"+":"")+st2.g+'%</p></article>';
+    }).join("");
+    root.innerHTML =
+      '<div class="ahv5-head"><div><div class="ahv5-kick">AVI HUNTER v5 · שכבת החלטה</div>'+
+      '<h2 class="ahv5-h2">🎯 Cockpit החלטה</h2>'+
+      '<p class="ahv5-sub">'+st.date+' · '+st.mode+' · '+st.marketStatus+' · NAV '+st.navText+' · דוקטרינה '+st.doctrine+'</p></div>'+
+      '<div class="ahv5-badge '+r.c+'"><strong>'+r.t+'</strong><small>VIX '+st.market.vix+' · $/₪ '+st.market.usdIls+' · VOO '+(st.core.pnl>=0?'+$':'−$')+Math.abs(st.core.pnl)+'</small></div></div>'+
+      '<div class="ahv5-grid">'+cards+'</div>'+
+      '<div class="ahv5-next"><span>▶ הפעולה הבאה:</span> <strong>'+st.nextAction+'</strong></div>'+
+      '<div class="ahv5-regime '+r.c+'"><span>🛡️ דיסציפלינה (VIX '+st.market.vix+'):</span> <strong>'+r.t+'</strong> — '+r.action+'</div>'+
+      '<div class="ahv5-rules">'+
+        '<div class="ahv5-rule ahv5-allowed"><h3>✅ מותר</h3><ul>'+r.allowed.map(function(x){return "<li>"+x+"</li>";}).join("")+'</ul></div>'+
+        '<div class="ahv5-rule ahv5-forbidden"><h3>⛔ אסור</h3><ul>'+r.forbidden.map(function(x){return "<li>"+x+"</li>";}).join("")+'</ul></div>'+
+        '<div class="ahv5-rule ahv5-guardbox"><h3>🛡️ בדיקת פעולה חריגה</h3><button type="button" class="ahv5-gbtn" onclick="ahv5Guard()">בדוק לפני פעולה</button><p id="ahv5-guardResult">לפני שינוי הקצאה / לוויין / מכירה / המרה — הפעל בדיקה.</p></div>'+
+      '</div>'+
+      '<div class="ahv5-anchor">🧠 זכור: "סבלנות עכשיו = $4,308 שלא אאבד שוב"</div>';
+  }
+  window.ahv5Render=render;
+  try{ render(); }catch(e){ try{console.warn("ahv5 cockpit failed (dashboard unaffected):",e);}catch(_){ } }
+})();
+</script>
+<style>
+.ahv5-cockpit{margin:0 0 16px;padding:16px;border:1px solid rgba(90,140,255,.35);border-radius:16px;background:linear-gradient(145deg,#0b1324,#101b33);color:#eef4ff}
+.ahv5-head{display:flex;justify-content:space-between;align-items:flex-start;gap:14px;margin-bottom:12px}
+.ahv5-kick{font-size:11px;color:#91a4c9;margin-bottom:3px}
+.ahv5-h2{margin:0;font-size:19px}
+.ahv5-sub{margin:5px 0 0;color:#aebbd6;font-size:11.5px}
+.ahv5-badge{min-width:150px;padding:9px 11px;border-radius:12px;text-align:left;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.09)}
+.ahv5-badge strong{display:block;font-size:13px}.ahv5-badge small{display:block;margin-top:3px;color:#aebbd6;font-size:10.5px}
+.ahv5-good{color:#87efb4}.ahv5-warn{color:#ffd36f}.ahv5-orange{color:#ffb070}.ahv5-bad{color:#ff9b9b}
+.ahv5-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px}
+.ahv5-card{padding:11px;border-radius:12px;background:rgba(255,255,255,.055);border:1px solid rgba(255,255,255,.08)}
+.ahv5-ctop{display:flex;justify-content:space-between;gap:8px;font-size:12.5px}.ahv5-ctop span{white-space:nowrap;font-weight:700}
+.ahv5-nums{display:flex;justify-content:space-between;margin-top:9px;font-size:11px;color:#b8c4df}
+.ahv5-bar{margin-top:7px;height:7px;border-radius:99px;background:rgba(255,255,255,.09);overflow:hidden}
+.ahv5-bar i{display:block;height:100%;background:linear-gradient(90deg,#2f6fd0,#6ee7b7)}
+.ahv5-card p{margin:8px 0 0;color:#9eaccb;font-size:11px;line-height:1.4}
+.ahv5-ok{color:#8df0b3}.ahv5-build{color:#87bfff}.ahv5-over{color:#ffd27e}
+.ahv5-regime{margin:0 0 12px;padding:10px 13px;border-radius:12px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.08);font-size:12.5px;line-height:1.5}.ahv5-regime span{color:#aebbd6}
+.ahv5-anchor{margin-top:12px;text-align:center;color:#f0c040;font-size:12px;font-weight:700}
+.ahv5-next{margin:12px 0;padding:11px 13px;border-radius:12px;background:rgba(47,111,208,.16);border:1px solid rgba(47,111,208,.26);font-size:13px}
+.ahv5-next span{color:#aebbd6}
+.ahv5-rules{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:10px}
+.ahv5-rule{padding:11px;border-radius:12px;background:rgba(255,255,255,.045);border:1px solid rgba(255,255,255,.075)}
+.ahv5-rule h3{margin:0 0 7px;font-size:13px}.ahv5-rule ul{margin:0;padding-right:16px;color:#c6d0e7;font-size:12px;line-height:1.6}
+.ahv5-allowed{border-color:rgba(110,231,183,.22)}.ahv5-forbidden{border-color:rgba(255,155,155,.22)}.ahv5-guardbox{border-color:rgba(255,211,111,.24)}
+.ahv5-gbtn{width:100%;cursor:pointer;border:0;border-radius:10px;padding:9px 11px;font-weight:800;color:#101827;background:#ffd36f}
+.ahv5-guardbox p{margin:8px 0 0;color:#c6d0e7;font-size:12px;line-height:1.55}
+.ahv5-danger{color:#ff9b9b;font-weight:800}
+@media(max-width:920px){.ahv5-grid{grid-template-columns:repeat(2,1fr)}.ahv5-rules{grid-template-columns:1fr}}
+@media(max-width:620px){.ahv5-head{flex-direction:column}.ahv5-badge{width:100%;text-align:right}.ahv5-grid{grid-template-columns:1fr}}
+</style>
+<!-- === AVI HUNTER v5 ADDITIVE END === -->
+
+<div class="cards">
+  <div class="card"><b>NAV</b><span class="v" id="nav">—</span></div>
+  <div class="card"><b>ליבה (VOO)</b><span class="v" style="color:#f0c040" id="c-core-pnl">−$48</span></div>
+  <div class="card"><b>פריסת ליבה</b><span class="v" id="c-core-pct">~25%</span></div>
+  <div class="card"><b>USD/ILS</b><span class="v y" id="c-fx">2.9973</span></div>
+  <div class="card"><b>VIX</b><span class="v g" id="c-vix">15.8↓</span></div>
+</div>
+
+<!-- v5 ניקוי: פאנל "מצב דיסציפלינה" הוסר — הלוגיקה (4 תרחישי VIX) עברה ל-Cockpit -->
+
+<div class="panel fx">
+  <h2>📈 תמונת שוק — <span id="m-date">6.7.26</span> · BOOT (שני)</h2>
+  <div class="sub2" id="m-note">שוק רגוע: S&P ~7,483, VIX 15.8 (שפל). זהב התאושש (IAU ירוק +$52). ליבה ב-25% אחרי מנה 2.</div>
+  <div class="row"><span>USD/ILS</span><span><span id="m-fx">2.9973</span> · ~3.00, לא הגיע ל-2.90</span></div>
+  <div class="row"><span>שקל מול ממוצע 30 יום (2.895)</span><span style="color:#f0c040" id="m-fx30">חלש מהממוצע ↓</span></div>
+  <div class="row"><span>VIX</span><span style="color:#2ecc71"><span id="m-vix">15.8</span> ↓ — רגוע מאוד</span></div>
+  <div class="row"><span>מסקנה תזמון</span><span id="m-timing">אין פעולה · הבא: מנה 3 (DCA) · המרה לפי צורך (לא ממתינים ל-2.90)</span></div>
+</div>
+
+<div class="panel core">
+  <h2>🟢 ליבה (VOO · S&amp;P 500) — המנוע</h2>
+  <div class="row"><span>מניות</span><span id="core-shares">83 VOO</span></div>
+  <div class="row"><span>עלות ממוצעת</span><span id="core-cost">$685.41</span></div>
+  <div class="row"><span>שווי</span><span id="core-value">~$56,842</span></div>
+  <div class="row"><span>רווח לא-ממומש</span><span style="color:#f0c040" id="core-pnl">−$48</span></div>
+  <div class="row"><span>פריסה מתוך יעד 75%</span><span id="core-pct">~25%</span></div>
+  <div class="row"><span>מנה 2 (VOO)</span><span><span class="st next">מתוזמן 2.7</span></span></div>
+</div>
+
+<!-- v5 ניקוי: פאנל "הקצאת יעד v4" הוסר — מוצג כעת בקלפי ה-Cockpit -->
+
+<div class="panel prot">
+  <h2>🛡️ שכבת הגנה 15% — נפרס ~$34.5K (100% הושלם) 🎯</h2>
+  <div class="sub2">ממומן מהמזומן הדולרי הקיים ($121K) — לא תלוי בהמרת שקלים.</div>
+  <div class="row"><span><b>SHY</b> · אג"ח 1-3ש' · עוגן (40%)</span><span>168 @ 81.92 <span class="st done">✅ נפרס מלא</span></span></div>
+  <div class="row"><span><b>IEF</b> · אג"ח 7-10ש' · הגנת-קריסה (30%)</span><span>110 @ 94.50 <span class="st done">✅ נפרס מלא</span></span></div>
+  <div class="row"><span><b>IAU</b> · זהב · הגנת-משבר (30%)</span><span>132 @ 77.12 <span class="st done">✅ נפרס מלא</span></span></div>
+  <div class="sub2">✅ שכבת ההגנה הושלמה במלואה (15%). נותר: בניית הליבה (DCA 2.7) + המרת שקלים.</div>
+</div>
+
+<div class="panel fx">
+  <h2>💱 סולם המרת שקלים — ₪79K → $ (~$26.7K @ 2.955)</h2>
+  <div class="sub2">הכרח לטווח: צריך ~$144K לליבה, יש $121K דולרי → רוב השקלים חייבים להפוך לדולר.</div>
+  <div class="row"><span>מנה א' (~₪26K)</span><span>@2.9714 → $8,750 <span class="st done">✅ בוצע 22.6</span></span></div>
+  <div class="row"><span>מנה ב' (~₪26K)</span><span>בריבאונד ל-2.88–2.90 <span class="st todo">ממתין</span></span></div>
+  <div class="row"><span>מנה ג' (~₪27K)</span><span>גיבוי תוך 2-3 שב' <span class="st todo">ממתין</span></span></div>
+</div>
+
+<div class="panel" style="border-color:#5a4a7a;background:#161226">
+  <h2 style="color:#c7b3f0">🎯 תרחישי PCE — תוכנית פעולה</h2>
+  <div class="sub2">PCE (אינפלציית הפד) מתפרסם השבוע — מגיבים אחרי הנתון, לא לפניו. 🟢 פעל · 🟡 הדרגתי · 🔴 המתן · ⚪ ללא פעולה</div>
+  <div style="display:flex;gap:8px;flex-wrap:wrap">
+    <div style="flex:1;min-width:200px;background:#1a1320;border:1px solid #5a2a2a;border-top:3px solid #c0334a;border-radius:10px;padding:11px">
+      <div style="font-weight:800;color:#fff;font-size:13px">🔴 PCE חם · מעל הצפי ✅ התממש</div>
+      <div style="font-size:11px;color:#9aa0b3;margin:3px 0 7px">תשואות↑ · מניות↓ · VIX↑ · דולר↑</div>
+      <div style="font-size:12px;line-height:1.8;color:#cdd6e6">🟢 <b>IEF</b> השלם חצי — אג"ח זול<br>🟢 <b>IAU</b> השלם חצי — גידור אינפלציה<br>🔴 <b>המרה</b> המתן — שקל נחלש<br>⚪ <b>ליבה</b> אל תיגע — DCA יקנה זול</div>
+    </div>
+    <div style="flex:1;min-width:200px;background:#1f1a10;border:1px solid #5a4a20;border-top:3px solid #f0c040;border-radius:10px;padding:11px">
+      <div style="font-weight:800;color:#fff;font-size:13px">🟡 PCE בצפי · בקו</div>
+      <div style="font-size:11px;color:#9aa0b3;margin:3px 0 7px">שוק יציב · תנודתיות יורדת</div>
+      <div style="font-size:12px;line-height:1.8;color:#cdd6e6">🟡 <b>IEF</b> הדרגתי — ללא דחיפות<br>🟡 <b>IAU</b> הדרגתי — על דשדוש<br>🔴 <b>המרה</b> המתן לטריגר 2.88-2.90<br>⚪ <b>ליבה</b> כרגיל</div>
+    </div>
+    <div style="flex:1;min-width:200px;background:#10241a;border:1px solid #1d5a3a;border-top:3px solid #2ecc71;border-radius:10px;padding:11px">
+      <div style="font-weight:800;color:#fff;font-size:13px">🟢 PCE קר · מתחת לצפי</div>
+      <div style="font-size:11px;color:#9aa0b3;margin:3px 0 7px">תשואות↓ · מניות↑ · דולר↓</div>
+      <div style="font-size:12px;line-height:1.8;color:#cdd6e6">🟡 <b>IEF</b> השלם — אך פספסת מחיר זול<br>🟡 <b>IAU</b> ייתכן ירידה — המתן לכניסה<br>🟢 <b>המרה</b> ייתכן טריגר! שקל מתחזק<br>⚪ <b>ליבה</b> כרגיל</div>
+    </div>
+  </div>
+  <div class="sub2" style="margin-top:8px">SHY מלא — לא נוגעים בשום תרחיש. הליבה (VOO) תמיד DCA, לא מתוזמנת.</div>
+</div>
+
+<div class="panel" id="avi-prompts" style="border-color:#3a5a8a;background:#0f1826">
+  <h2 style="color:#8fbce6">📋 אזור פרומפטים — העתק והדבק לקלוד</h2>
+  <div class="sub2">לחץ "העתק", פתח צ'אט עם קלוד, הדבק, וצרף את קבצי ה-Flex.</div>
+  <div style="margin-top:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;gap:8px">
+      <b style="font-size:13px">🌅 דוח יומי (BOOT) — כל בוקר מסחר</b>
+      <button onclick="copyP('p1',this)" style="cursor:pointer;border:1px solid #2a6b40;border-radius:8px;background:#2ecc71;color:#0d1117;font-size:12px;font-weight:700;padding:5px 12px;font-family:inherit;white-space:nowrap">העתק</button>
+    </div>
+    <pre id="p1" style="white-space:pre-wrap;background:#0a0f17;border:1px solid #233149;border-radius:8px;padding:10px;font-size:11px;color:#cdd6e6;max-height:110px;overflow:auto;font-family:inherit;margin:0">הפעל BOOT יומי לתיק AVI HUNTER (v4 - תיק מדד מוגן). מצורפים קבצי IBKR Flex. בצע: (1) קרא קבצים - פוזיציות, NAV, מזומן, שינויים. (2) סרוק שוק חי - VIX, S&P, USD/ILS, מאקרו. (3) אימות דו-מקורי מול ה-STATE. (4) בדוק תוכנית מול יעד (ליבה 75% / הגנה 15% / מזומן 10% / לוויין 0%). (5) תן BOOT תמציתי + החלטות (פעולה/החזקה עם נימוק). (6) אם חסר מידע - נסח שאלות לבנק (קריאת מסך בלבד, בלי ביצוע). (7) הכן בלוק עדכון דשבורד מאומת ל-Claude Code. שמור על v4; כל פעולה פיננסית מבוצעת על ידי בלבד.</pre>
+  </div>
+  <div style="margin-top:10px">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;gap:8px">
+      <b style="font-size:13px">📊 דוח מלא — שישי / כשרוצים גרפים</b>
+      <button onclick="copyP('p2',this)" style="cursor:pointer;border:1px solid #244a6b;border-radius:8px;background:#23386a;color:#fff;font-size:12px;font-weight:700;padding:5px 12px;font-family:inherit;white-space:nowrap">העתק</button>
+    </div>
+    <pre id="p2" style="white-space:pre-wrap;background:#0a0f17;border:1px solid #233149;border-radius:8px;padding:10px;font-size:11px;color:#cdd6e6;max-height:110px;overflow:auto;font-family:inherit;margin:0">הפעל BOOT יומי לתיק AVI HUNTER (v4) + תן דוח מלא. מצורפים קבצי Flex (כולל do6_RISK_SHIELD ו-Positions_PnL). כלול: תשואה (TWR + מול S&P 500), סיכון (חשיפה מנייתית, drawdown, תנודתיות, VIX), גרפים (מגמת NAV, הקצאה, תרומת כל פוזיציה), אינפוגרפיקה של מצב התיק, החלטות, ועצות לשיפור תשואה והקטנת סיכון. שמור על v4; כל פעולה מבוצעת על ידי בלבד.</pre>
+  </div>
+  <div class="sub2" style="margin-top:8px">💡 <b>מתי:</b> יומי — כל בוקר (תמציתי, 30 שניות). מלא — שישי או כשרוצים ניתוח עומק. תמיד צרף את קבצי ה-Flex.</div>
+</div>
+
+<script>
+function copyP(id,btn){try{var t=document.getElementById(id).innerText;navigator.clipboard.writeText(t);var o=btn.textContent;btn.textContent='הועתק ✓';setTimeout(function(){btn.textContent=o;},1500);}catch(e){alert('בחר והעתק ידנית');}}
+</script>
+
+<div class="panel">
+  <h2>💰 מחשבון NAV (עדכן שער/יתרות)</h2>
+  <div class="row"><span>מזומן שקלי ₪</span><span><input id="ils" type="number" value="211964"></span></div>
+  <div class="row"><span>מזומן דולרי $</span><span><input id="usd" type="number" value="66858"></span></div>
+  <div class="row"><span>שווי ניירות $ (VOO+הגנה)</span><span><input id="voo" type="number" value="91192"></span></div>
+  <div class="row"><span>שער USD/ILS</span><span><input id="fx" type="number" step="0.001" value="2.9973"></span></div>
+  <div class="row" style="font-size:15px"><span><b>NAV מחושב</b></span><span class="g" id="nav2">—</span></div>
+  <div class="row" style="font-size:13px"><span>NAV ב-$</span><span class="g" id="navusd">—</span></div>
+</div>
+
+<!-- === v5 ADDITIVE: Flex import === -->
+<div class="panel" id="flex-import" style="border-color:#2a6b55;background:#0f1f1b">
+  <h2 style="color:#8fe6c9">📥 ייבוא Flex (IBKR) — עדכון אוטומטי</h2>
+  <div class="sub2">גרור לכאן <b>do2_POSITIONS.csv</b> (או לחץ לבחירה). הדשבורד יתעדכן לבד: מזומן ₪/$, VOO, ניירות, שער USD/ILS, והקצאה. ⚠️ VIX נשאר ידני (לא בקובץ). הקובץ נקרא מקומית בדפדפן בלבד.</div>
+  <div id="flex-drop" style="border:2px dashed #2a6b55;border-radius:12px;padding:18px;text-align:center;color:#8fbcae;cursor:pointer;background:#0c1a16;font-size:13px;font-weight:600">שחרר כאן קובץ · או לחץ לבחירה
+    <input id="flex-file" type="file" accept=".csv,text/csv" style="display:none"></div>
+  <div id="flex-result" class="sub2" style="margin-top:8px"></div>
+</div>
+
+<div class="panel">
+  <h2>🔗 כלים</h2>
+  <div class="links">
+    <a href="checklist-v4.html">✅ צ'קליסט</a>
+    <a href="journal.html">📓 יומן</a>
+    <a href="nav-tracker.html">📊 מעקב NAV</a>
+    <a href="discipline-rules.html">🛡️ דיסציפלינה</a>
+    <a href="risk-return-baseline.html">📊 Baseline סיכון</a>
+    <a href="portfolio-simulator.html">🎮 סימולטור תרחישים</a>
+    <a href="doctrine-v4.html">📖 דוקטרינה v4</a>
+    <a href="index-5stars.html">🗂️ אינדקס</a>
+  </div>
+</div>
+
+<div class="note">דשבורד עצמאי · נפתח מהמחשב, אפס תלות ב-n8n · עדכן ידנית בעת פריסה · אין באמור ייעוץ השקעות<br><span id="build-stamp" style="color:#4a5570"></span></div>
+</div>
+<script>
+function calc(){
+ const ils=+document.getElementById('ils').value||0;
+ const usd=+document.getElementById('usd').value||0;
+ const voo=+document.getElementById('voo').value||0;
+ const fx=+document.getElementById('fx').value||0;
+ const nav=ils+(usd+voo)*fx;
+ const t='₪'+Math.round(nav).toLocaleString();
+ document.getElementById('nav').textContent=t;
+ document.getElementById('nav2').textContent=t;
+ document.getElementById('navusd').textContent= fx? '$'+Math.round(nav/fx).toLocaleString() : '—';
+}
+function _set(id,v){var el=document.getElementById(id);if(el)el.textContent=String(v);}
+function _val(id,v){var el=document.getElementById(id);if(el)el.value=v;}
+function bindV4(){try{
+  var st=window.ahv5State;if(!st)return;
+  var pnl=(st.core.pnl>=0?'+$':'−$')+Math.abs(st.core.pnl);
+  var pct='~'+st.sleeves[0].now+'%';
+  _set('c-core-pnl',pnl);_set('c-core-pct',pct);_set('c-fx',st.market.usdIls);_set('c-vix',st.market.vix+(st.market.vixTrend||''));
+  _set('m-fx',st.market.usdIls);_set('m-vix',st.market.vix);
+  _set('core-shares',st.core.shares+' VOO');_set('core-cost','$'+st.core.avgCost);
+  _set('core-value','~$'+st.core.value.toLocaleString());_set('core-pnl',pnl);_set('core-pct',pct);
+  _val('ils',st.cash.ils);_val('usd',st.cash.usd);_val('voo',st.cash.securities);_val('fx',st.market.usdIls);
+  _set('h-date',st.date);_set('m-date',st.date);
+  if(st.market.note!=null)_set('m-note',st.market.note);
+  if(st.market.fx30!=null)_set('m-fx30',st.market.fx30);
+  if(st.market.timing!=null)_set('m-timing',st.market.timing);
+  if(st.build)_set('build-stamp','גרסה: '+st.build);
+}catch(e){try{console.warn('bindV4 skipped:',e);}catch(_){}}}
+bindV4();
+document.querySelectorAll('input').forEach(function(i){i.addEventListener('input',calc)});
+calc();
+
+</script>
+<script>
+/* v5 ADDITIVE: Flex import (client-side, try/catch, מזין את ahv5State). לעולם לא שובר את הדשבורד. */
+(function(){
+  try{
+  var drop=document.getElementById('flex-drop'), inp=document.getElementById('flex-file'), out=document.getElementById('flex-result');
+  if(!drop||!inp) return;
+  function pl(line){var o=[],c='',q=false;for(var i=0;i<line.length;i++){var ch=line[i];
+    if(ch=='"'){if(q&&line[i+1]=='"'){c+='"';i++;}else q=!q;}else if(ch==','&&!q){o.push(c);c='';}else c+=ch;}o.push(c);return o;}
+  function tables(t){var L=t.split(/\r?\n/).filter(function(l){return l.trim().length;}),T=[],cur=null;
+    L.forEach(function(l){var f=pl(l),h=f[0];
+      if(h=='ClientAccountID'||h=='CurrencyPrimary'){cur={header:f,rows:[]};T.push(cur);}
+      else if(cur){var ob={};cur.header.forEach(function(k,i){ob[k]=f[i];});cur.rows.push(ob);}});return T;}
+  function extract(t){var T=tables(t),res={positions:[]};
+    T.forEach(function(tb){var H=tb.header;
+      if(H.indexOf('CloseQuantity')>=0&&H.indexOf('AssetClass')>=0){tb.rows.forEach(function(r){if(r.AssetClass=='CASH'){
+        if(r.Symbol=='ILS')res.ils=+r.CloseQuantity;
+        if(r.Symbol=='USD'){res.usd=+r.CloseQuantity;res.fx=+r.ClosePrice;}}});}
+      if(H.indexOf('PositionValue')>=0&&H.indexOf('FifoPnlUnrealized')>=0){tb.rows.forEach(function(r){if(r.Symbol)
+        res.positions.push({sym:r.Symbol,qty:+r.Quantity,value:+r.PositionValue,cost:+r.CostBasisPrice,pnl:+r.FifoPnlUnrealized});});}
+    });return res;}
+  function apply(res){var st=window.ahv5State,rep=[];if(!st)return rep;
+    if(res.fx){st.market.usdIls=+res.fx.toFixed(4);rep.push('USD/ILS '+st.market.usdIls);}
+    if(res.ils!=null){st.cash.ils=Math.round(res.ils);rep.push('מזומן ₪'+st.cash.ils.toLocaleString());}
+    if(res.usd!=null){st.cash.usd=Math.round(res.usd);rep.push('מזומן $'+st.cash.usd.toLocaleString());}
+    var fx=st.market.usdIls,prot=['SHY','IEF','IAU'],sec=0,pr=0,co=0;
+    if(res.positions&&res.positions.length){res.positions.forEach(function(p){sec+=p.value;
+      if(p.sym=='VOO'){st.core.shares=Math.round(p.qty);st.core.avgCost=+p.cost.toFixed(2);st.core.value=Math.round(p.value);st.core.pnl=Math.round(p.pnl);co=p.value;rep.push('VOO '+st.core.shares+' @ $'+st.core.avgCost);}
+      if(prot.indexOf(p.sym)>=0)pr+=p.value;});
+      st.cash.securities=Math.round(sec);rep.push('ניירות $'+st.cash.securities.toLocaleString());}
+    var nav=st.cash.ils+(st.cash.usd+st.cash.securities)*fx;st.navText='~₪'+Math.round(nav/1000)+'K';
+    if(res.positions&&res.positions.length&&nav>0){var cil=st.cash.ils+st.cash.usd*fx;
+      st.sleeves[0].now=Math.round(co*fx/nav*100);st.sleeves[1].now=Math.round(pr*fx/nav*100);
+      st.sleeves[2].now=Math.round(cil/nav*100);var kn=(co+pr)*fx+cil;
+      st.sleeves[3].now=Math.max(0,Math.round((nav-kn)/nav*100));}
+    return rep;}
+  function refresh(){try{if(typeof window.ahv5Render=='function')window.ahv5Render();}catch(e){}
+    try{if(typeof bindV4=='function')bindV4();}catch(e){}try{if(typeof calc=='function')calc();}catch(e){}}
+  function handle(file){var fr=new FileReader();
+    fr.onload=function(){try{var res=extract(String(fr.result));
+      if(res.ils==null&&(!res.positions||!res.positions.length)){out.innerHTML='<span style="color:#f5a8a8">לא זוהה קובץ Flex תקין (לא נמצאה טבלת מזומן/פוזיציות). ודא שזה do2_POSITIONS.csv.</span>';return;}
+      var rp=apply(res);refresh();
+      out.innerHTML='<span style="color:#8fe6c9">✅ עודכן:</span> '+rp.join(' · ')+' <span style="color:#6a7894">('+file.name+')</span>';
+    }catch(e){out.innerHTML='<span style="color:#f5a8a8">שגיאה בפרסור: '+e.message+'</span>';}};
+    fr.onerror=function(){out.innerHTML='<span style="color:#f5a8a8">שגיאה בקריאת הקובץ</span>';};
+    fr.readAsText(file);}
+  drop.addEventListener('click',function(){inp.click();});
+  inp.addEventListener('change',function(){if(inp.files&&inp.files[0])handle(inp.files[0]);});
+  ['dragover','dragenter'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.style.background='#12241d';});});
+  ['dragleave'].forEach(function(ev){drop.addEventListener(ev,function(e){e.preventDefault();drop.style.background='#0c1a16';});});
+  drop.addEventListener('drop',function(e){e.preventDefault();drop.style.background='#0c1a16';if(e.dataTransfer&&e.dataTransfer.files&&e.dataTransfer.files[0])handle(e.dataTransfer.files[0]);});
+  }catch(e){try{console.warn('flex import init failed:',e);}catch(_){}}
+})();
+</script>
+</body>
+</html>
