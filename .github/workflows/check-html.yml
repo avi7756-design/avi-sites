@@ -1,0 +1,29 @@
+# בדיקת תקינות HTML אוטומטית בכל push לריפו
+# רץ חינם ב-GitHub Actions; אם משהו נשבר תקבל מייל ויראה X אדום על הקומיט
+name: Check HTML integrity
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - '*.html'
+      - 'tools/check-html.py'
+      - '.github/workflows/check-html.yml'
+  pull_request:
+    branches: [main]
+  workflow_dispatch:  # מאפשר הרצה ידנית מ-Actions tab
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run HTML integrity check
+        run: python tools/check-html.py
