@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>דירות אביב 2026 - סינון והשוואה</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Hebrew:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --primary:#1d4ed8; --primary-dark:#1e3a8a; --bg:#f4f6fb; --card:#ffffff; --text:#0f172a; --muted:#64748b;
+  --accent:#f59e0b; --ok:#16a34a; --warn:#d97706; --bad:#dc2626; --line:#e2e8f0; --radius:16px;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{direction:rtl;font-family:'Noto Sans Hebrew',system-ui,sans-serif;background:var(--bg);color:var(--text);line-height:1.55;min-height:100vh;padding-bottom:70px}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+.fade{animation:fadeInUp .45s ease both}
+header{background:linear-gradient(135deg,var(--primary-dark),var(--primary));color:#fff;padding:22px 18px 16px;box-shadow:0 6px 24px rgba(29,78,216,.25)}
+header h1{font-size:1.35rem;font-weight:800;letter-spacing:-.01em}
+header p{opacity:.85;font-size:.85rem;margin-top:4px}
+.tabs{display:flex;gap:6px;max-width:960px;margin:14px auto 0;background:rgba(255,255,255,.14);border-radius:12px;padding:4px}
+.tabs button{flex:1;border:0;background:transparent;color:#fff;font:inherit;font-weight:600;padding:10px 6px;border-radius:9px;cursor:pointer;transition:.2s;font-size:.9rem}
+.tabs button.active{background:#fff;color:var(--primary-dark);box-shadow:0 2px 8px rgba(0,0,0,.15)}
+main{max-width:960px;margin:0 auto;padding:16px}
+.panel{display:none}.panel.active{display:block}
+.card{background:var(--card);border-radius:var(--radius);padding:16px;box-shadow:0 1px 3px rgba(15,23,42,.06),0 8px 24px rgba(15,23,42,.05);margin-bottom:14px;border:1px solid var(--line)}
+label.lbl{display:block;font-weight:700;font-size:.95rem;margin-bottom:8px}
+input[type=text],textarea,select{width:100%;font:inherit;padding:11px 12px;border:1.5px solid var(--line);border-radius:10px;background:#fff;transition:.2s}
+input[type=text]:focus,textarea:focus,select:focus{outline:0;border-color:var(--primary);box-shadow:0 0 0 3px rgba(29,78,216,.12)}
+.q{margin-bottom:12px}
+.q .qt{display:flex;align-items:center;gap:8px;font-weight:700;margin-bottom:8px;font-size:.95rem}
+.q .num{background:var(--primary);color:#fff;width:26px;height:26px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;font-size:.8rem;flex-shrink:0}
+.opts{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.opt{border:1.5px solid var(--line);border-radius:12px;padding:10px 8px;cursor:pointer;text-align:center;font-size:.85rem;font-weight:500;background:#fff;transition:.15s;user-select:none;min-height:56px;display:flex;align-items:center;justify-content:center}
+.opt:hover{border-color:#93c5fd;background:#eff6ff}
+.opt.sel{border-color:var(--primary);background:var(--primary);color:#fff;box-shadow:0 4px 12px rgba(29,78,216,.3)}
+.opt.sel.good{background:var(--ok);border-color:var(--ok)}
+.opt.sel.mid{background:var(--warn);border-color:var(--warn)}
+.opt.sel.bad{background:var(--bad);border-color:var(--bad)}
+.opt input{display:none}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:6px}
+.btn{border:0;font:inherit;font-weight:700;padding:13px 18px;border-radius:12px;cursor:pointer;transition:.2s;display:inline-flex;align-items:center;gap:8px;font-size:.95rem}
+.btn-primary{background:var(--primary);color:#fff;flex:1;justify-content:center}
+.btn-primary:hover{background:var(--primary-dark)}
+.btn-primary:disabled{background:#93c5fd}
+.btn-wa{background:#25d366;color:#fff;flex:1;justify-content:center}
+.btn-wa:hover{filter:brightness(.92)}
+.btn-ghost{background:#fff;border:1.5px solid var(--line);color:var(--text)}
+.btn-ghost:hover{border-color:var(--primary);color:var(--primary)}
+.btn-danger{background:#fef2f2;color:var(--bad);border:1.5px solid #fecaca}
+.btn:disabled{opacity:.5;cursor:not-allowed}
+.result{display:none;margin-top:14px;padding:14px;border-radius:12px;background:#f8fafc;border:1px dashed var(--line)}
+.result.show{display:block;animation:fadeInUp .4s}
+.score-big{font-size:2.6rem;font-weight:800;line-height:1}
+.score-row{display:flex;align-items:center;gap:14px;margin-bottom:8px}
+.badge{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.75rem;font-weight:700}
+.b-ok{background:#dcfce7;color:#166534}.b-warn{background:#fef3c7;color:#92400e}.b-bad{background:#fee2e2;color:#991b1b}.b-info{background:#dbeafe;color:#1e40af}.b-gray{background:#f1f5f9;color:#475569}
+.flags{list-style:none;margin-top:8px;display:flex;flex-direction:column;gap:5px;font-size:.85rem}
+.flags li::before{content:"⚠️ ";}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px;margin-bottom:14px}
+.stat{background:var(--card);border-radius:12px;padding:10px 6px;text-align:center;border:1px solid var(--line)}
+.stat .v{font-size:1.3rem;font-weight:800;color:var(--primary)}
+.stat.warn .v{color:var(--bad)}
+.stat .l{font-size:.68rem;color:var(--muted)}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chip{border:1.5px solid var(--line);background:#fff;border-radius:999px;padding:6px 13px;font:inherit;font-size:.82rem;font-weight:600;cursor:pointer;transition:.15s}
+.chip.active{background:var(--text);color:#fff;border-color:var(--text)}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px}
+.apt{position:relative;overflow:hidden}
+.apt::before{content:"";position:absolute;inset-inline-start:0;top:0;bottom:0;width:6px;background:var(--c,var(--muted))}
+.apt h3{font-size:1.05rem;font-weight:800;margin-bottom:2px;padding-inline-start:4px}
+.apt .sub{color:var(--muted);font-size:.8rem;margin-bottom:8px;padding-inline-start:4px}
+.apt .top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.ring{width:56px;height:56px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:1.05rem;color:#fff;flex-shrink:0;background:var(--c,var(--muted));text-align:center;padding:2px}
+.kv{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:.83rem;margin:8px 0;padding-inline-start:4px}
+.kv span:first-child{color:var(--muted)}
+.notes{font-size:.83rem;background:#f8fafc;border-radius:8px;padding:8px 10px;margin-top:6px;white-space:pre-wrap;max-height:150px;overflow-y:auto;border:1px solid var(--line)}
+.noterow{display:flex;gap:6px;margin-top:6px}
+.noterow input{flex:1;font-size:.85rem;padding:8px 10px}
+.noterow .btn{padding:8px 14px;font-size:.85rem}
+.owner{font-size:.85rem;margin:8px 0 2px;padding-inline-start:4px}
+.owner a{color:var(--primary);font-weight:700;text-decoration:none}
+.owner a.wa{background:#25d366;color:#fff;border-radius:999px;padding:1px 9px;font-size:.72rem;margin-inline-start:4px}
+.nophone{color:#b91c1c;font-weight:700;background:#fef2f2;border-radius:999px;padding:1px 8px;font-size:.72rem}
+.findphone{font-size:.78rem;color:#92400e;background:#fffbeb;border-radius:8px;padding:5px 9px;margin-top:4px}
+.findphone a{color:#92400e;font-weight:700}
+.findphone-none{color:#991b1b;background:#fef2f2}
+.syncbadge{font-size:.68rem;font-weight:700;padding:2px 8px;border-radius:999px;margin-inline-start:6px;display:inline-block}
+.syncbadge.s-ok{background:#dcfce7;color:#166534}
+.syncbadge.s-error{background:#fee2e2;color:#991b1b}
+.syncbadge.s-syncing{background:#dbeafe;color:#1e40af}
+.syncbadge.s-off,.syncbadge.s-idle{background:#f1f5f9;color:#475569}
+.task{font-size:.8rem;color:#065f46;background:#ecfdf5;border-radius:8px;padding:6px 10px;margin-top:6px;white-space:pre-wrap}
+.duebox{font-size:.8rem;color:#92400e;background:#fffbeb;border-radius:8px;padding:6px 10px;margin-top:6px}
+.duebox.overdue{color:#991b1b;background:#fef2f2;font-weight:700}
+.stamp{font-size:.72rem;color:var(--muted);margin-top:8px;padding-inline-start:4px}
+.apt-actions{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.apt-actions .btn{padding:8px 12px;font-size:.8rem}
+.extra{margin-top:8px}
+.extra summary{font-size:.78rem;color:var(--muted);cursor:pointer}
+.extra .exrow{font-size:.8rem;margin-top:4px;padding-inline-start:4px}
+.extra .exrow b{color:var(--muted);font-weight:600}
+.editbox{margin-top:10px;background:#f8fafc;border-radius:12px;padding:12px;border:1px dashed var(--primary)}
+.editbox summary{font-size:.85rem;color:var(--primary)}
+.editbox label{display:block;font-weight:700;font-size:.78rem;margin:8px 0 4px;color:#334155}
+.editbox input[type=text],.editbox textarea,.editbox select{padding:9px 10px;font-size:.85rem}
+.editbox textarea{min-height:60px;max-height:140px;overflow-y:auto}
+.tablewrap{overflow-x:auto;margin-top:14px}
+table{width:100%;border-collapse:collapse;font-size:.82rem;background:#fff;border-radius:12px;overflow:hidden;min-width:640px}
+th,td{padding:9px 10px;text-align:right;border-bottom:1px solid var(--line);white-space:nowrap}
+th{background:#f1f5f9;font-weight:700;font-size:.78rem;color:#334155}
+tr:last-child td{border-bottom:0}
+details{margin-top:10px}
+summary{cursor:pointer;font-weight:700;font-size:.9rem;color:var(--primary)}
+.small{font-size:.8rem;color:var(--muted)}
+.toast{position:fixed;bottom:18px;left:50%;transform:translateX(-50%) translateY(20px);background:var(--text);color:#fff;padding:11px 18px;border-radius:12px;font-size:.88rem;opacity:0;transition:.3s;pointer-events:none;z-index:99;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+.legend{display:flex;gap:10px;flex-wrap:wrap;font-size:.75rem;color:var(--muted);margin:6px 0 12px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-inline-end:4px;vertical-align:middle}
+.rowbtn{display:flex;gap:8px;align-items:flex-end;flex-wrap:wrap}
+.rowbtn>div{flex:1;min-width:150px}
+.searchbox{position:relative;margin-bottom:10px}
+.searchbox input{width:100%;font:inherit;padding:12px 40px 12px 14px;border:1.5px solid var(--line);border-radius:12px;background:#fff}
+.searchbox input:focus{outline:0;border-color:var(--primary);box-shadow:0 0 0 3px rgba(29,78,216,.12)}
+.searchbox .ico{position:absolute;inset-inline-start:12px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none;font-size:1rem}
+.searchbox .clr{position:absolute;inset-inline-end:8px;top:50%;transform:translateY(-50%);background:none;border:0;color:var(--muted);font-size:1.05rem;cursor:pointer;padding:6px 8px;display:none;border-radius:8px}
+.searchbox .clr.show{display:block}
+.searchbox .clr:hover{background:#f1f5f9}
+.search-count{font-size:.78rem;color:var(--muted);margin:-4px 0 10px}
+.emptystate{text-align:center;padding:20px 10px}
+.emptystate .big{font-size:2.4rem;margin-bottom:8px}
+.quickadd{border:2px solid var(--primary)}
+@media(max-width:560px){
+  .opts{grid-template-columns:1fr}
+  .opt{min-height:44px;padding:9px}
+  header h1{font-size:1.15rem}
+  .tabs button{font-size:.82rem}
+}
+@media print{header .tabs,.actions,.apt-actions,.filters,.btn{display:none!important}.panel{display:block!important}}
+</style>
+</head>
+<body>
+
+<header class="fade">
+  <h1>🏠 דירות אביב 2026 - סינון והשוואה</h1>
+  <p>ירושלים · אקדמיה למוסיקה ולמחול (גבעת רם) · כלי אחד לכל התהליך</p>
+  <p style="font-size:.75rem;opacity:.75;margin-top:2px">🕐 עכשיו: <span id="nowStamp"></span> · עודכן מהגיליון: <span id="sheetFetchedAt">-</span></p>
+  <nav class="tabs" role="tablist">
+    <button class="active" data-tab="quiz" onclick="showTab('quiz')">📋 שאלון סינון</button>
+    <button data-tab="journal" onclick="showTab('journal')">📊 יומן והשוואה</button>
+  </nav>
+</header>
+
+<main>
+<!-- ============ TAB 1: QUIZ ============ -->
+<section id="tab-quiz" class="panel active fade">
+  <div class="card">
+    <label class="lbl" for="aptName">שם הדירה / כתובת</label>
+    <input type="text" id="aptName" placeholder="לדוגמה: ניקרגואה 9, קריית מנחם" autocomplete="off">
+    <div class="rowbtn" style="margin-top:10px">
+      <div><label class="lbl" for="aptArea" style="font-size:.85rem">שכונה</label><input type="text" id="aptArea" placeholder="קריית היובל / בית הכרם / עין כרם"></div>
+      <div><label class="lbl" for="aptRent" style="font-size:.85rem">שכ"ד לאדם (₪, אופציונלי)</label><input type="text" id="aptRent" inputmode="numeric" placeholder="2500"></div>
+    </div>
+  </div>
+
+  <div class="card">
+    <label class="lbl">בעל הבית</label>
+    <div class="rowbtn">
+      <div><input type="text" id="aptOwner" placeholder="שם בעל הבית / המפרסם"></div>
+      <div><input type="text" id="aptPhone" inputmode="tel" placeholder="טלפון (050-1234567)"></div>
+    </div>
+  </div>
+
+  <div class="card" id="questions"></div>
+
+  <div class="card">
+    <label class="lbl" for="aptNotes">הערות חופשיות (אופציונלי)</label>
+    <textarea id="aptNotes" rows="2" placeholder="קומה, מעלית, מרחק לאקדמיה, מספר שותפים, תאריך כניסה..."></textarea>
+    <label class="lbl" for="aptTask" style="margin-top:10px">פעולה הבאה / משימה להמשך מול בעל הבית</label>
+    <textarea id="aptTask" rows="2" placeholder="לדוגמה: לחזור אליו ביום ראשון לגבי תאריך כניסה, לבקש חוזה לדוגמה..."></textarea>
+    <div class="actions" style="margin-top:12px">
+      <button class="btn btn-primary" onclick="calcScore()">🧮 חשב ציון</button>
+      <button class="btn btn-wa" onclick="copyWhatsApp()">📱 העתק סיכום לוואטסאפ</button>
+      <button class="btn btn-ghost" onclick="resetQuiz()">↺ נקה</button>
+    </div>
+    <div class="result" id="result"></div>
+  </div>
+
+  <details class="card">
+    <summary>איך מחושב הציון?</summary>
+    <p class="small" style="margin-top:8px">כל תשובה מקבלת נקודות (א=10, ב=6, ג=2) ומוכפלת במשקל השאלה. רעש ואימוני שירה מקבלים משקל כפול ומעלה, ותשובה "ג" בהן מורידה ניקוד נוסף. הציון הסופי מנורמל לסקלה 1-10.</p>
+    <ul class="small" style="margin:8px 18px 0;list-style:disc" id="weightsList"></ul>
+  </details>
+</section>
+
+<!-- ============ TAB 2: JOURNAL (single source of truth - lives in the Drive Sheet) ============ -->
+<section id="tab-journal" class="panel fade">
+  <details class="card" id="sheetCard" style="margin-bottom:10px">
+    <summary>📄 מקור נתונים: גיליון Drive <span id="sheetStatus" class="syncbadge s-off">⚪ לא מוגדר</span></summary>
+    <p class="small" style="margin:8px 0">הדשבורד הוא הכלי היחיד: קורא וכותב ישירות לגיליון "מעקב_דירות_קריית_היובל". אין יותר Excel - כל מה שממלאים כאן נכנס לגיליון מיד, ואתה ואביב רואים אותו דבר משני מכשירים.</p>
+    <p class="small" style="margin:8px 0"><b>הקמה חד-פעמית (כ-5 דקות, רק אתה יכול לבצע):</b> פתח את הגיליון עצמו ← תוספים ← Apps Script ← הדבק את הקוד שקיבלת (aviv-dira-sheet-api.gs.txt) ← Deploy כ-Web app (Execute as: Me, Access: Anyone) ← העתק את הקישור ← הדבק כאן.</p>
+    <div class="rowbtn">
+      <div><input type="text" id="sheetUrlInput" placeholder="https://script.google.com/macros/s/.../exec"></div>
+      <button class="btn btn-ghost" onclick="saveSheetUrl()">💾 שמור והתחבר</button>
+    </div>
+    <div class="actions" style="margin-top:8px">
+      <button class="btn btn-ghost" onclick="refreshSheet(true)">🔄 רענן עכשיו</button>
+      <a class="btn btn-ghost" href="https://docs.google.com/spreadsheets/d/1aJgGX7GnP_13VwlDswcwj2N66V5KbkG97_v0-WdPc6E/edit" target="_blank" rel="noopener">📝 פתח את הגיליון</a>
+      <button class="btn btn-danger" onclick="disconnectSheet()">🔌 נתק</button>
+    </div>
+  </details>
+
+  <div class="card quickadd">
+    <label class="lbl">➕ הוספה מהירה מהשטח</label>
+    <p class="small" style="margin-bottom:8px">רק כתובת חובה. ממלאים מה שיש, לוחצים הוסף - זה נכנס ישר לגיליון, שניכם רואים מיד.</p>
+    <div class="rowbtn">
+      <div><input type="text" id="qaAddress" placeholder="כתובת *"></div>
+      <div><input type="text" id="qaArea" placeholder="שכונה"></div>
+    </div>
+    <div class="rowbtn" style="margin-top:8px">
+      <div><input type="text" id="qaRentPerson" inputmode="numeric" placeholder="₪ לאדם"></div>
+      <div><input type="text" id="qaRentFull" inputmode="numeric" placeholder='שכ"ד מלא לדירה'></div>
+    </div>
+    <div class="rowbtn" style="margin-top:8px">
+      <div><input type="text" id="qaContact" placeholder="איש קשר"></div>
+      <div><input type="text" id="qaPhone" inputmode="tel" placeholder="טלפון"></div>
+    </div>
+    <div class="rowbtn" style="margin-top:8px">
+      <div><label class="lbl" style="font-size:.8rem">סטטוס</label><select id="qaStatus"></select></div>
+      <div><label class="lbl" style="font-size:.8rem">מי מזין</label><select id="qaResponsible"><option>אבי</option><option>אביב</option></select></div>
+    </div>
+    <label class="lbl" style="margin-top:8px;font-size:.8rem">הערות / מה ראיתי</label>
+    <textarea id="qaNotes" rows="2" placeholder="מרוהטת, קומה, מעלית, אווירה, מה סוכם..."></textarea>
+    <button class="btn btn-primary" id="qaSubmitBtn" style="margin-top:10px;width:100%" onclick="submitQuickAdd()">➕ הוסף לגיליון</button>
+  </div>
+
+  <div class="stats" id="statsRow"></div>
+
+  <div class="searchbox">
+    <span class="ico">🔍</span>
+    <input type="text" id="searchBox" placeholder="חיפוש חופשי - כתובת, שכונה, איש קשר, טלפון, הערות..." autocomplete="off" oninput="onSearch()">
+    <button class="clr" id="searchClr" onclick="clearSearch()">✕</button>
+  </div>
+  <div class="search-count" id="searchCount"></div>
+
+  <div class="filters" id="filters">
+    <button class="chip active" data-f="all">הכל</button>
+  </div>
+
+  <div class="grid" id="cards"></div>
+
+  <div class="tablewrap card" style="padding:0">
+    <table id="cmpTable">
+      <thead><tr>
+        <th>כתובת</th><th>שכונה</th><th>שכ"ד</th><th>דירוג</th><th>סטטוס</th><th>איש קשר</th><th>אחראי</th><th>תאריך יעד</th><th>עדכון</th>
+      </tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<script>
+/* ---------------- QUESTIONS (Quiz tab scoring tool) ---------------- */
+const QUESTIONS = [
+  {id:'rent',   t:'שכר דירה לאדם', w:1.5, o:['עד 2,300 ₪','2,400-2,600 ₪','מעל 2,700 ₪'], short:['עד 2,300','2,400-2,600','2,700+']},
+  {id:'incl',   t:'מה כלול במחיר', w:1.0, o:['הכל כלול','חלק מהחשבונות','לא כולל כלום'], short:['הכל כלול','חלקי','לא כלול']},
+  {id:'extra',  t:'תשלומים נלווים משוערים לאדם', w:1.0, o:['עד 350 ₪','400-600 ₪','מעל 700 ₪'], short:['עד 350','400-600','700+']},
+  {id:'furn',   t:'מצב ריהוט', w:1.0, o:['מרוהטת קומפלט','ריהוט חלקי','ללא ריהוט'], short:['מרוהטת','חלקי','ללא']},
+  {id:'noise',  t:'רמת רעש ובנייה', w:2.5, o:['שקט לחלוטין','רעש עירוני רגיל','אתר בנייה / תמ"א סמוך'], short:['שקט','עירוני','בנייה'], penalty:2},
+  {id:'shelter',t:'פתרון מיגון', w:1.5, o:['ממ"ד בדירה','מקלט תקין בבניין','ללא מקלט בבניין'], short:['ממ"ד','מקלט','אין']},
+  {id:'water',  t:'מים חמים', w:0.5, o:['דוד שמש','דוד חשמל בלבד','חימום גז'], short:['דוד שמש','חשמל','גז']},
+  {id:'sing',   t:'אימוני שירה ונגינה ביום', w:2.5, o:['מתאפשר חופשי','בהגבלה','לא מתאפשר'], short:['חופשי','בהגבלה','אסור'], penalty:2.5},
+  {id:'exit',   t:'סעיף דייר חלופי', w:1.5, o:['קיים בחוזה','מותנה באישור בלבד','אין יציאה'], short:['בחוזה','באישור','אין']},
+  {id:'guar',   t:'בטחונות נדרשים', w:1.0, o:["צ'ק ביטחון / שטר חוב",'ערבים עם תלושים','ערבות בנקאית / מזומן'], short:["צ'ק/שטר",'ערבים','ערבות בנקאית']},
+];
+const PTS=[10,6,2];
+const LETTERS=['א','ב','ג'];
+const KEY='aviv_dirot_2026_v1';
+const STATUS_OPTIONS=['לבדוק','ממתין לתשובה','להתקשר מאוחר יותר','נקבע סיור','מועמדת','נפסלה','לא רלוונטי','הושכרה לאחרים'];
+const RESULT_OPTIONS=['לא נענה','השארתי הודעה','דיברנו','ביקשו שאתקשר מאוחר יותר','נשלח ווטסאפ','לא רלוונטי'];
+const TERMINAL_STATUSES=['נפסלה','לא רלוונטי','הושכרה לאחרים'];
+
+function renderQuestions(){
+  const cls=['good','mid','bad'];
+  document.getElementById('questions').innerHTML=QUESTIONS.map((q,i)=>`
+    <div class="q" data-q="${q.id}">
+      <div class="qt"><span class="num">${i+1}</span>${q.t}</div>
+      <div class="opts">${q.o.map((o,j)=>`<label class="opt ${cls[j]}"><input type="radio" name="${q.id}" value="${j}" onchange="markSel(this)">${LETTERS[j]}) ${o}</label>`).join('')}</div>
+    </div>`).join('');
+  document.getElementById('weightsList').innerHTML=QUESTIONS.map(q=>`<li>${q.t}: משקל ${q.w}${q.penalty?` (+ קנס ${q.penalty} על תשובה ג)`:''}</li>`).join('');
+}
+function markSel(inp){ inp.closest('.opts').querySelectorAll('.opt').forEach(o=>o.classList.remove('sel')); inp.parentElement.classList.add('sel'); }
+function getAnswers(){ const a={}; QUESTIONS.forEach(q=>{const c=document.querySelector(`input[name="${q.id}"]:checked`); if(c) a[q.id]=+c.value;}); return a; }
+
+function computeScore(ans){
+  let sum=0,wsum=0,pen=0,flags=[];
+  QUESTIONS.forEach(q=>{ if(ans[q.id]===undefined) return; sum+=PTS[ans[q.id]]*q.w; wsum+=q.w;
+    if(q.penalty&&ans[q.id]===2){pen+=q.penalty; flags.push(q.id==='noise'?'אתר בנייה / תמ"א סמוך - פוגע בריכוז ובאימונים':'לא מתאפשר לתרגל שירה ונגינה בדירה');}
+    if(q.id==='shelter'&&ans[q.id]===2) flags.push('אין מקלט בבניין');
+    if(q.id==='exit'&&ans[q.id]===2) flags.push('אין סעיף יציאה / דייר חלופי - סיכון חוזי');
+    if(q.id==='guar'&&ans[q.id]===2) flags.push('דרישת ערבות בנקאית / מזומן - כבד');
+  });
+  if(!wsum) return {score:null,flags,answered:0};
+  let s=sum/wsum - pen; s=Math.max(1,Math.min(10,s));
+  return {score:Math.round(s*10)/10,flags,answered:Object.keys(ans).length};
+}
+function verdict(s){ if(s===null) return {t:'ללא ציון',c:'b-gray'}; if(s>=8) return {t:'מומלצת - לקדם',c:'b-ok'}; if(s>=6) return {t:'סבירה - לבדוק לעומק',c:'b-warn'}; return {t:'בעייתית - לשקול פסילה',c:'b-bad'}; }
+function color(s){ if(s===null||s===undefined) return '#64748b'; return s>=8?'#16a34a':s>=6?'#d97706':'#dc2626'; }
+
+function buildFromQuiz(){
+  const name=document.getElementById('aptName').value.trim();
+  if(!name){toast('הזן שם דירה או כתובת');document.getElementById('aptName').focus();return null;}
+  const ans=getAnswers(); const r=computeScore(ans);
+  const rentTxt=document.getElementById('aptRent').value.replace(/[^\d]/g,'');
+  const auto = r.score===null?'לבדוק': r.score<6||ans.noise===2?'נפסלה':'מועמדת';
+  return {name,area:document.getElementById('aptArea').value.trim(),rent:rentTxt?+rentTxt:null,score:r.score,status:auto,ans,flags:r.flags,
+    notes:document.getElementById('aptNotes').value.trim(),task:document.getElementById('aptTask').value.trim(),
+    owner:document.getElementById('aptOwner').value.trim(),phone:document.getElementById('aptPhone').value.trim(),date:stamp()};
+}
+function calcScore(){
+  const a=buildFromQuiz(); if(!a) return;
+  const v=verdict(a.score);
+  document.getElementById('result').innerHTML=`
+    <div class="score-row"><div class="score-big" style="color:${color(a.score)}">${a.score??'-'}</div><div><div style="font-weight:800">${esc(a.name)}</div><span class="badge ${v.c}">${v.t}</span></div></div>
+    ${a.flags.length?`<ul class="flags">${a.flags.map(f=>`<li>${esc(f)}</li>`).join('')}</ul>`:'<div class="small">לא זוהו דגלים אדומים.</div>'}
+    <div class="actions" style="margin-top:12px">
+      <button class="btn btn-wa" onclick="copyWhatsApp()">📱 שתף בוואטסאפ</button>
+      <button class="btn btn-primary" onclick="sendQuizToSheet()">✍️ הוסף לגיליון</button>
+    </div>`;
+  document.getElementById('result').classList.add('show');
+  toast('הציון חושב ✔');
+}
+function quizSummaryText(){
+  const a=buildFromQuiz(); if(!a) return null;
+  const v=verdict(a.score);
+  let t=`🏠 *סיכום דירה - ${a.name}*${a.area?' ('+a.area+')':''}\n📅 ${a.date}\n`;
+  if(a.rent) t+=`💰 ${a.rent.toLocaleString()} ₪ לאדם\n`;
+  if(a.owner||a.phone) t+=`👤 בעל הבית: ${a.owner||''}${a.phone?' · '+a.phone:''}\n`;
+  t+=`⭐ ציון: ${a.score??'-'}/10 - ${v.t}\n\n`;
+  QUESTIONS.forEach((q,i)=>{ const x=a.ans[q.id]; t+=`${i+1}. ${q.t}: ${x===undefined?'-':LETTERS[x]+') '+q.o[x]}\n`; });
+  if(a.flags.length) t+=`\n🚩 דגלים:\n`+a.flags.map(f=>'• '+f).join('\n')+'\n';
+  if(a.notes) t+=`\n📝 ${a.notes}\n`;
+  if(a.task) t+=`\n✅ פעולה הבאה: ${a.task}\n`;
+  return t;
+}
+function copyWhatsApp(){ const t=quizSummaryText(); if(t) shareText(t); }
+async function sendQuizToSheet(){
+  const a=buildFromQuiz(); if(!a) return;
+  if(!getSheetUrl()){ toast('קודם חברו לגיליון בטאב היומן'); return; }
+  const fields={address:a.name, area:a.area, rentPerPerson:a.rent||'', rating:a.score??'', contact:a.owner, phone:a.phone,
+    status:a.status, nextAction:a.task, notes:a.notes, sourceLink:'דשבורד - שאלון'};
+  const ok=await writeSheet('add', fields);
+  if(ok){ toast('נוסף לגיליון ✔'); refreshSheet(false); }
+}
+function resetQuiz(){ document.querySelectorAll('#tab-quiz input[type=radio]').forEach(r=>r.checked=false); document.querySelectorAll('.opt').forEach(o=>o.classList.remove('sel')); ['aptName','aptArea','aptRent','aptNotes','aptOwner','aptPhone','aptTask'].forEach(i=>document.getElementById(i).value=''); document.getElementById('result').classList.remove('show'); }
+
+/* ---------------- JOURNAL: single source of truth = the Drive Sheet, read + write ---------------- */
+const SHEET_KEY=KEY+'_sheeturl';
+const CACHE_KEY=KEY+'_sheetcache';
+const RESP_KEY=KEY+'_lastresp';
+const FIELD_ALIASES={
+  address:['כתובת'], area:['שכונה'],
+  rentFull:['שכ"ד מלא לדירה','שכ"ד מלא','שכ״ד מלא','מחיר חודשי'],
+  rentPerPerson:['₪ לאדם','שכר דירה לאדם'],
+  rating:['דירוג','ציון'],
+  contact:['איש קשר','בעל הבית'],
+  phone:['טלפון'],
+  status:['סטטוס'],
+  responsible:['אחראי'],
+  nextAction:['פעולה הבאה','משימה'],
+  dueDate:['תאריך יעד'],
+  notes:['הערות'],
+  sourceLink:['מקור/קישור','מקור','קישור'],
+  updated:['תאריך עדכון','תאריך בדיקה'],
+};
+let sheetItems=[]; let sheetHeaders=[]; let sheetFilter='all'; let sheetSearch=''; let sheetTimer=null;
+
+function getSheetUrl(){ try{ return (localStorage.getItem(SHEET_KEY)||'').trim(); }catch(e){ return ''; } }
+function setSheetUrl(u){ try{ localStorage.setItem(SHEET_KEY,u); }catch(e){} }
+function setSheetStatus(s){
+  const el=document.getElementById('sheetStatus'); if(!el) return;
+  const map={off:'⚪ לא מוגדר',loading:'🔄 טוען…',ok:'🟢 מחובר לגיליון',error:'🔴 שגיאת חיבור - מציג עותק שמור',empty:'⚪ הגיליון ריק'};
+  el.textContent=map[s]||map.off; el.className='syncbadge s-'+(s==='ok'?'ok':s==='error'?'error':s==='loading'?'syncing':'off');
+}
+function fetchWithTimeout(url,opts,ms){ const ctrl=new AbortController(); const id=setTimeout(()=>ctrl.abort(),ms||12000); return fetch(url,Object.assign({},opts,{signal:ctrl.signal})).finally(()=>clearTimeout(id)); }
+function loadCache(){ try{ const r=localStorage.getItem(CACHE_KEY); if(r){ const d=JSON.parse(r); sheetItems=d.items||[]; sheetHeaders=d.headers||[]; return d.fetchedAt||''; } }catch(e){} return ''; }
+function saveCache(fetchedAt){ try{ localStorage.setItem(CACHE_KEY,JSON.stringify({items:sheetItems,headers:sheetHeaders,fetchedAt})); }catch(e){} }
+
+function mapItem(raw,headers){
+  const usedHeaders=new Set(); Object.values(FIELD_ALIASES).forEach(list=>list.forEach(h=>usedHeaders.add(h)));
+  const get=field=>{ const aliases=FIELD_ALIASES[field]; for(const a of aliases){ if(raw[a]!==undefined && String(raw[a]).trim()!=='') return String(raw[a]).trim(); } return ''; };
+  const extra=headers.filter(h=>!usedHeaders.has(h) && raw[h]!==undefined && String(raw[h]).trim()!=='').map(h=>({label:h,value:String(raw[h]).trim()}));
+  return {row:raw._row, address:get('address'), area:get('area'), rentFull:get('rentFull'), rentPerPerson:get('rentPerPerson'),
+    rating:get('rating'), contact:get('contact'), phone:get('phone'), status:get('status')||'לא מוגדר',
+    responsible:get('responsible'), nextAction:get('nextAction'), dueDate:get('dueDate'), notes:get('notes'),
+    sourceLink:get('sourceLink'), updated:get('updated'), extra};
+}
+async function refreshSheet(manual){
+  const url=getSheetUrl();
+  if(!url){ setSheetStatus('off'); loadCache(); renderSheetTab(); return; }
+  setSheetStatus('loading');
+  try{
+    const res=await fetchWithTimeout(url+(url.includes('?')?'&':'?')+'cb='+Date.now(),{method:'GET'},12000);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    const headers=data.headers||[];
+    sheetItems=(data.items||[]).map(raw=>mapItem(raw,headers));
+    sheetHeaders=headers;
+    const now=stamp();
+    saveCache(now);
+    document.getElementById('sheetFetchedAt').textContent=now;
+    setSheetStatus(sheetItems.length?'ok':'empty');
+    if(manual) toast('רוענן מהגיליון ✔');
+  }catch(e){
+    const cachedAt=loadCache();
+    setSheetStatus('error');
+    document.getElementById('sheetFetchedAt').textContent=cachedAt?('שמור מ-'+cachedAt+' (לא מחובר עכשיו)'):'-';
+    if(manual) toast('שגיאת חיבור לגיליון - מציג עותק שמור אם יש');
+  }
+  renderSheetTab();
+}
+async function writeSheet(action,fields,row){
+  const url=getSheetUrl();
+  if(!url){ toast('קודם חברו לגיליון'); return false; }
+  try{
+    const body={action,fields}; if(row) body.row=row;
+    const res=await fetchWithTimeout(url,{method:'POST',body:JSON.stringify(body),headers:{'Content-Type':'text/plain;charset=utf-8'}},15000);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const data=await res.json();
+    if(!data.ok) throw new Error(data.error||'שגיאה לא ידועה');
+    return true;
+  }catch(e){ toast('שגיאת שמירה: '+(e.message||e)); return false; }
+}
+function saveSheetUrl(){
+  const v=document.getElementById('sheetUrlInput').value.trim();
+  if(v && !/^https:\/\//.test(v)){ toast('הקישור חייב להתחיל ב-https://'); return; }
+  setSheetUrl(v);
+  if(v){ toast('מתחבר…'); refreshSheet(true); startAutoRefresh(); } else { setSheetStatus('off'); toast('חיבור לגיליון כבוי'); stopAutoRefresh(); }
+}
+function disconnectSheet(){ setSheetUrl(''); setSheetStatus('off'); const i=document.getElementById('sheetUrlInput'); if(i) i.value=''; stopAutoRefresh(); toast('נותק מהגיליון'); }
+function startAutoRefresh(){ stopAutoRefresh(); sheetTimer=setInterval(()=>{ if(!document.hidden) refreshSheet(false); },60000); }
+function stopAutoRefresh(){ if(sheetTimer) clearInterval(sheetTimer); sheetTimer=null; }
+
+/* ---- quick add ---- */
+async function submitQuickAdd(){
+  const address=document.getElementById('qaAddress').value.trim();
+  if(!address){ toast('הזן כתובת'); document.getElementById('qaAddress').focus(); return; }
+  const responsible=document.getElementById('qaResponsible').value;
+  const fields={
+    address, area:document.getElementById('qaArea').value.trim(),
+    rentPerPerson:document.getElementById('qaRentPerson').value.trim(),
+    rentFull:document.getElementById('qaRentFull').value.trim(),
+    contact:document.getElementById('qaContact').value.trim(),
+    phone:document.getElementById('qaPhone').value.trim(),
+    status:document.getElementById('qaStatus').value,
+    responsible, notes:document.getElementById('qaNotes').value.trim(),
+    sourceLink:'דשבורד - '+responsible,
+  };
+  const btn=document.getElementById('qaSubmitBtn'); btn.disabled=true; btn.textContent='שומר…';
+  const ok=await writeSheet('add',fields);
+  btn.disabled=false; btn.textContent='➕ הוסף לגיליון';
+  if(ok){
+    toast('נוסף לגיליון ✔');
+    try{ localStorage.setItem(RESP_KEY,responsible); }catch(e){}
+    ['qaAddress','qaArea','qaRentPerson','qaRentFull','qaContact','qaPhone','qaNotes'].forEach(id=>document.getElementById(id).value='');
+    document.getElementById('qaStatus').value='לבדוק';
+    refreshSheet(false);
+  }
+}
+
+/* ---- inline quick-edit per card ---- */
+function editFormHTML(it){
+  const r=it.row;
+  return `<details class="editbox">
+    <summary>✏️ עדכון מהיר</summary>
+    <div class="rowbtn" style="margin-top:8px">
+      <div><label>איש קשר</label><input type="text" id="ed${r}_contact" value="${escAttr(it.contact)}"></div>
+      <div><label>טלפון</label><input type="text" id="ed${r}_phone" value="${escAttr(it.phone)}"></div>
+    </div>
+    <div class="rowbtn">
+      <div><label>שכ"ד לאדם</label><input type="text" id="ed${r}_rentPerPerson" value="${escAttr(it.rentPerPerson)}"></div>
+      <div><label>דירוג</label><input type="text" id="ed${r}_rating" value="${escAttr(it.rating)}"></div>
+    </div>
+    <label>סטטוס</label>
+    <select id="ed${r}_status">${STATUS_OPTIONS.map(s=>`<option${s===it.status?' selected':''}>${esc(s)}</option>`).join('')}</select>
+    <label>תוצאת שיחה (מוסיף שורה להערות)</label>
+    <select id="ed${r}_result" onchange="appendResult(${r})"><option value="">- בחר -</option>${RESULT_OPTIONS.map(x=>`<option>${esc(x)}</option>`).join('')}</select>
+    <label>פעולה הבאה</label><input type="text" id="ed${r}_nextAction" value="${escAttr(it.nextAction)}">
+    <label>תאריך יעד</label><input type="text" id="ed${r}_dueDate" value="${escAttr(it.dueDate)}" placeholder="DD.MM.YYYY">
+    <label>הערות</label><textarea id="ed${r}_notes">${escAttr(it.notes)}</textarea>
+    <div class="actions" style="margin-top:10px">
+      <button class="btn btn-primary" onclick="submitEdit(${r})">💾 שמור לגיליון</button>
+    </div>
+  </details>`;
+}
+function appendResult(r){
+  const sel=document.getElementById('ed'+r+'_result'); const val=sel.value; if(!val) return;
+  const ta=document.getElementById('ed'+r+'_notes');
+  const line=`[${stamp()}] תוצאת שיחה: ${val}`;
+  ta.value = ta.value ? (ta.value+'\n'+line) : line;
+  sel.value='';
+  ta.scrollTop=ta.scrollHeight;
+}
+async function quickAddNote(row){
+  const inp=document.getElementById('nq'+row); if(!inp) return;
+  const val=inp.value.trim(); if(!val) return;
+  const it=sheetItems.find(x=>x.row===row); if(!it) return;
+  const line=`[${stamp()}] ${val}`;
+  const combined=it.notes?(it.notes+'\n'+line):line;
+  inp.disabled=true;
+  const ok=await writeSheet('update',{notes:combined},row);
+  inp.disabled=false;
+  if(ok){ inp.value=''; toast('הערה נוספה ✔'); refreshSheet(false); }
+}
+function noteKeydown(ev,row){ if(ev.key==='Enter'){ ev.preventDefault(); quickAddNote(row); } }
+async function submitEdit(r){
+  const fields={
+    contact:document.getElementById('ed'+r+'_contact').value.trim(),
+    phone:document.getElementById('ed'+r+'_phone').value.trim(),
+    rentPerPerson:document.getElementById('ed'+r+'_rentPerPerson').value.trim(),
+    rating:document.getElementById('ed'+r+'_rating').value.trim(),
+    status:document.getElementById('ed'+r+'_status').value,
+    nextAction:document.getElementById('ed'+r+'_nextAction').value.trim(),
+    dueDate:document.getElementById('ed'+r+'_dueDate').value.trim(),
+    notes:document.getElementById('ed'+r+'_notes').value.trim(),
+  };
+  const ok=await writeSheet('update',fields,r);
+  if(ok){ toast('עודכן בגיליון ✔'); refreshSheet(false); }
+}
+
+/* ---- rendering ---- */
+function statusColor(s){ if(TERMINAL_STATUSES.includes(s)) return '#dc2626'; if(/מועמד|נקבע סיור/.test(s||'')) return '#16a34a'; if(/לבדוק|ממתין|לברר/.test(s||'')) return '#d97706'; return '#64748b'; }
+function statusClass(s){ const c=statusColor(s); return c==='#16a34a'?'b-ok':c==='#dc2626'?'b-bad':c==='#d97706'?'b-warn':'b-gray'; }
+function field(label,value,missingLabel){
+  if(value) return `<span>${esc(label)}</span><b>${esc(value)}</b>`;
+  return `<span>${esc(label)}</span><b><span class="nophone">${esc(missingLabel||('חסר '+label))}</span></b>`;
+}
+function phoneHelper(it){
+  if(it.phone) return '';
+  if(!it.sourceLink) return '<div class="findphone findphone-none">⚠️ אין גם מקור - אין דרך לאתר טלפון, לחפש ידנית</div>';
+  if(/^https?:\/\//.test(it.sourceLink)) return `<div class="findphone"><a href="${escAttr(it.sourceLink)}" target="_blank" rel="noopener">🔍 חפש טלפון במקור (${esc(it.sourceLink)})</a></div>`;
+  return `<div class="findphone">🔍 לבדוק מול המקור: <b>${esc(it.sourceLink)}</b></div>`;
+}
+function parseDMY(d){ if(!d) return null; const m=String(d).match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/); if(!m) return null; return new Date(+m[3],+m[2]-1,+m[1]); }
+function isOverdue(d){ const dt=parseDMY(d); if(!dt) return false; const today=new Date(); today.setHours(0,0,0,0); return dt<today; }
+function isDueTodayOrOverdue(d){ const dt=parseDMY(d); if(!dt) return false; const today=new Date(); today.setHours(0,0,0,0); const tmr=new Date(today); tmr.setDate(tmr.getDate()+1); return dt<tmr; }
+function daysStale(u){ const m=String(u||'').match(/(\d{1,2})\.(\d{1,2})\.(\d{4})/); if(!m) return null; const dt=new Date(+m[3],+m[2]-1,+m[1]); return Math.floor((Date.now()-dt.getTime())/86400000); }
+function matchesSearch(it,q){ if(!q) return true; const hay=[it.address,it.area,it.contact,it.phone,it.notes,it.nextAction,it.status,it.responsible,it.sourceLink].filter(Boolean).join(' ').toLowerCase(); return hay.includes(q); }
+function onSearch(){ sheetSearch=document.getElementById('searchBox').value.trim().toLowerCase(); document.getElementById('searchClr').classList.toggle('show',!!sheetSearch); renderSheetTab(); }
+function clearSearch(){ document.getElementById('searchBox').value=''; sheetSearch=''; document.getElementById('searchClr').classList.remove('show'); renderSheetTab(); }
+
+function renderFilters(){
+  const statuses=Array.from(new Set(sheetItems.map(it=>it.status).filter(Boolean)));
+  const el=document.getElementById('filters');
+  el.innerHTML=`<button class="chip${sheetFilter==='all'?' active':''}" data-f="all">הכל</button>`+
+    statuses.map(s=>`<button class="chip${sheetFilter===s?' active':''}" data-f="${escAttr(s)}">${esc(s)}</button>`).join('');
+}
+function renderStats(){
+  const active=sheetItems.filter(it=>!TERMINAL_STATUSES.includes(it.status));
+  const missingContact=sheetItems.filter(it=>!it.contact||!it.phone).length;
+  const nums=sheetItems.map(it=>parseFloat(String(it.rating||'').replace(',','.'))).filter(n=>!isNaN(n));
+  const bestRating=nums.length?Math.max(...nums):'-';
+  const prices=active.map(it=>parseFloat(String(it.rentPerPerson||'').replace(/[^\d.]/g,''))).filter(n=>!isNaN(n)&&n>0);
+  const cheapest=prices.length?Math.min(...prices).toLocaleString():'-';
+  const dueSoon=active.filter(it=>it.dueDate&&isDueTodayOrOverdue(it.dueDate)).length;
+  const stale=active.filter(it=>{ const d=daysStale(it.updated); return d!==null&&d>=3; }).length;
+  const tiles=[
+    {v:sheetItems.length,l:'סה"כ דירות'},
+    {v:active.length,l:'פעילות'},
+    {v:missingContact,l:'חסרים פרטי קשר',warn:missingContact>0},
+    {v:dueSoon,l:'🔥 לחזור היום/עבר',warn:dueSoon>0},
+    {v:stale,l:'⏳ לא עודכנו 3+ ימים',warn:stale>0},
+    {v:cheapest==='-'?'-':cheapest+' ₪',l:'הזול ביותר פעיל'},
+    {v:bestRating,l:'הדירוג הגבוה פעיל'},
+  ];
+  document.getElementById('statsRow').innerHTML=tiles.map(t=>`<div class="stat${t.warn?' warn':''}"><div class="v">${t.v}</div><div class="l">${esc(t.l)}</div></div>`).join('');
+}
+function renderSheetTab(){
+  renderFilters(); renderStats();
+  const list=sheetItems.filter(it=>(sheetFilter==='all'||it.status===sheetFilter)&&matchesSearch(it,sheetSearch));
+  document.getElementById('searchCount').textContent = sheetSearch ? `נמצאו ${list.length} תוצאות ל-"${sheetSearch}"` : '';
+
+  if(!getSheetUrl()){
+    document.getElementById('cards').innerHTML=`<div class="card emptystate"><div class="big">📄</div>
+      <div style="font-weight:800;margin-bottom:6px">היומן עוד לא מחובר לגיליון</div>
+      <p class="small">פתחו את "📄 מקור נתונים: גיליון Drive" למעלה, בצעו את ההקמה החד-פעמית, והדביקו כאן את הקישור.</p></div>`;
+    document.querySelector('#cmpTable tbody').innerHTML='';
+    return;
+  }
+  if(!list.length){
+    document.getElementById('cards').innerHTML='<div class="card small">אין דירות בסינון הזה.</div>';
+    document.querySelector('#cmpTable tbody').innerHTML='';
+    return;
+  }
+  document.getElementById('cards').innerHTML=list.map(it=>`
+    <div class="card apt" style="--c:${statusColor(it.status)}">
+      <div class="top"><div><h3>${esc(it.address||'ללא כתובת')}</h3><div class="sub">${esc(it.area||'')}${it.updated?' · עודכן '+esc(it.updated):''} · שורה ${it.row}</div></div><div class="ring">${esc(it.rating||'?')}</div></div>
+      <span class="badge ${statusClass(it.status)}">${esc(it.status)}</span>
+      <div class="owner">👤 ${it.contact?esc(it.contact):'<span class="nophone">חסר איש קשר</span>'} · ${it.phone?`<a href="tel:${tel(it.phone)}">${esc(it.phone)}</a> <a class="wa" href="https://wa.me/${waNum(it.phone)}" target="_blank" rel="noopener">וואטסאפ</a>`:'<span class="nophone">חסר טלפון</span>'}</div>
+      ${phoneHelper(it)}
+      <div class="kv">
+        ${field('שכ"ד לאדם', it.rentPerPerson)}
+        ${field('שכ"ד מלא', it.rentFull)}
+        ${field('אחראי', it.responsible)}
+        ${field('תאריך יעד', it.dueDate)}
+      </div>
+      ${it.notes?`<div class="notes" id="nlog${it.row}">${esc(it.notes)}</div>`:''}
+      <div class="noterow">
+        <input type="text" id="nq${it.row}" placeholder="הערה אחרי השיחה..." onkeydown="noteKeydown(event,${it.row})">
+        <button class="btn btn-primary" onclick="quickAddNote(${it.row})">➕ הוסף</button>
+      </div>
+      ${it.nextAction?`<div class="task">✅ ${esc(it.nextAction)}</div>`:''}
+      ${it.dueDate?`<div class="duebox${isOverdue(it.dueDate)?' overdue':''}">📅 יעד: ${esc(it.dueDate)}${isOverdue(it.dueDate)?' - עבר התאריך!':''}</div>`:''}
+      ${it.sourceLink?`<div class="stamp">🔗 ${/^https?:\/\//.test(it.sourceLink)?`<a href="${escAttr(it.sourceLink)}" target="_blank" rel="noopener">${esc(it.sourceLink)}</a>`:esc(it.sourceLink)}</div>`:''}
+      ${it.extra&&it.extra.length?`<details class="extra"><summary>עוד פרטים מהגיליון (${it.extra.length})</summary>${it.extra.map(e=>`<div class="exrow"><b>${esc(e.label)}:</b> ${esc(e.value)}</div>`).join('')}</details>`:''}
+      ${editFormHTML(it)}
+      <div class="apt-actions">
+        <a class="btn btn-ghost" href="https://docs.google.com/spreadsheets/d/1aJgGX7GnP_13VwlDswcwj2N66V5KbkG97_v0-WdPc6E/edit#gid=0&range=A${it.row}" target="_blank" rel="noopener">📝 פתח בגיליון</a>
+      </div>
+    </div>`).join('');
+  document.querySelectorAll('#cards .notes').forEach(el=>{ el.scrollTop=el.scrollHeight; });
+  document.querySelector('#cmpTable tbody').innerHTML=list.map(it=>`<tr>
+    <td><b>${esc(it.address||'-')}</b></td><td>${esc(it.area||'-')}</td>
+    <td>${esc(it.rentPerPerson||it.rentFull||'-')}</td><td>${esc(it.rating||'-')}</td>
+    <td><span class="badge ${statusClass(it.status)}">${esc(it.status)}</span></td>
+    <td>${it.contact?esc(it.contact):'<span class="nophone">חסר</span>'}${it.phone?' · '+esc(it.phone):''}</td>
+    <td>${it.responsible?esc(it.responsible):'<span class="nophone">חסר</span>'}</td>
+    <td>${it.dueDate?esc(it.dueDate):'<span class="nophone">חסר</span>'}</td>
+    <td>${esc(it.updated||'-')}</td></tr>`).join('');
+}
+document.getElementById('filters').addEventListener('click',e=>{ const b=e.target.closest('.chip'); if(!b) return; sheetFilter=b.dataset.f; renderSheetTab(); });
+
+/* ---------------- UTIL ---------------- */
+function stamp(d){ d=d||new Date(); const p=n=>String(n).padStart(2,'0'); return `${p(d.getDate())}.${p(d.getMonth()+1)}.${d.getFullYear()} ${p(d.getHours())}:${p(d.getMinutes())}`; }
+function tel(p){ return String(p).replace(/[^\d+]/g,''); }
+function waNum(p){ let n=String(p).replace(/\D/g,''); if(n.startsWith('0')) n='972'+n.slice(1); return n; }
+function tickClock(){ document.getElementById('nowStamp').textContent=stamp(); } tickClock(); setInterval(tickClock,30000);
+function esc(s){ return String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c])); }
+function escAttr(s){ return esc(s); }
+function toast(m){ const t=document.getElementById('toast'); t.textContent=m; t.classList.add('show'); clearTimeout(t._x); t._x=setTimeout(()=>t.classList.remove('show'),2600); }
+function shareText(t){
+  const done=()=>toast('הועתק ✔ - הדבק בוואטסאפ');
+  if(navigator.clipboard&&window.isSecureContext){ navigator.clipboard.writeText(t).then(done).catch(()=>fallback(t)); } else fallback(t);
+  if(/Android|iPhone|iPad/i.test(navigator.userAgent)){ setTimeout(()=>window.open('https://wa.me/?text='+encodeURIComponent(t),'_blank'),300); }
+  function fallback(t){ const ta=document.createElement('textarea'); ta.value=t; document.body.appendChild(ta); ta.select(); try{document.execCommand('copy');done();}catch(e){toast('לא הצלחתי להעתיק');} ta.remove(); }
+}
+function showTab(id){ document.querySelectorAll('.panel').forEach(p=>p.classList.toggle('active',p.id==='tab-'+id)); document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('active',b.dataset.tab===id)); try{localStorage.setItem(KEY+'_tab',id);}catch(e){} }
+
+renderQuestions();
+document.getElementById('qaStatus').innerHTML=STATUS_OPTIONS.map(s=>`<option${s==='לבדוק'?' selected':''}>${esc(s)}</option>`).join('');
+try{ const r=localStorage.getItem(RESP_KEY); if(r) document.getElementById('qaResponsible').value=r; }catch(e){}
+loadCache(); renderSheetTab();
+try{ const t=localStorage.getItem(KEY+'_tab'); if(t) showTab(t); }catch(e){}
+try{ document.getElementById('sheetUrlInput').value=getSheetUrl(); }catch(e){}
+if(getSheetUrl()){ refreshSheet(false); startAutoRefresh(); } else { setSheetStatus('off'); }
+</script>
+</body>
+</html>
