@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>📊 מעקב NAV יומי · AVI HUNTER</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",Arial,sans-serif;background:#0d1117;color:#e6edf3;padding:20px;direction:rtl;line-height:1.5}
+  .wrap{max-width:1100px;margin:0 auto}
+  h1{font-size:22px;margin-bottom:6px;color:#fff}
+  .sub{color:#9aa0a6;font-size:13px;margin-bottom:18px}
+  .panel{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:16px;margin-bottom:14px}
+  h2{font-size:16px;margin-bottom:12px;color:#fff}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px}
+  label{display:block;font-size:12px;color:#9aa0a6;margin-bottom:4px}
+  input,select{width:100%;background:#0d1117;border:1px solid #30363d;border-radius:6px;color:#e6edf3;padding:8px 10px;font-size:14px;font-family:inherit}
+  input:focus{outline:none;border-color:#2ecc71}
+  .btn{cursor:pointer;border:1px solid #2a6b40;background:#2ecc71;color:#0d1117;font-weight:800;padding:9px 16px;border-radius:8px;font-size:13px;font-family:inherit}
+  .btn:hover{background:#3ee17e}
+  .btn.alt{background:#23386a;color:#fff;border-color:#34527d}
+  .btn.alt:hover{background:#2d4685}
+  .btn.del{background:#5a2a2a;color:#fff;border:1px solid #8a3a3a;padding:4px 8px;font-size:11px;font-weight:600}
+  .row-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:12px}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  th{text-align:right;background:#21262d;padding:8px;color:#9aa0a6;font-weight:600;font-size:12px;border-bottom:1px solid #30363d}
+  td{padding:8px;border-bottom:1px solid #21262d;color:#cdd6e6}
+  tr:hover td{background:#1a1f28}
+  .num{font-family:"JetBrains Mono",Consolas,monospace;text-align:left;direction:ltr}
+  .up{color:#2ecc71}
+  .down{color:#e74c3c}
+  .nav-bar{position:sticky;top:0;z-index:99;display:flex;gap:8px;justify-content:center;align-items:center;background:#15233f;padding:8px 10px;border-bottom:1px solid #2a3a55;margin:-20px -20px 16px}
+  .nav-bar a,.nav-bar button{cursor:pointer;border:1px solid #34527d;border-radius:8px;background:#23386a;color:#fff;font-size:13px;font-weight:700;padding:7px 14px;font-family:inherit;text-decoration:none}
+  .nav-bar a.home{background:#2ecc71;color:#0d1117;border-color:#2a6b40}
+  .chart{background:#0d1117;border:1px solid #21262d;border-radius:8px;padding:12px;margin-top:10px}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:8px;margin-bottom:14px}
+  .stat{background:#1a1f28;border:1px solid #21262d;border-radius:8px;padding:10px}
+  .stat .lbl{font-size:11px;color:#9aa0a6;margin-bottom:2px}
+  .stat .val{font-size:18px;font-weight:800;color:#fff;font-family:monospace}
+  .stat .val.g{color:#2ecc71}
+  .stat .val.r{color:#e74c3c}
+  .stat .val.y{color:#f0c040}
+  .empty{text-align:center;padding:30px;color:#9aa0a6;font-style:italic}
+  .toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#2ecc71;color:#0d1117;padding:12px 24px;border-radius:8px;font-weight:800;box-shadow:0 4px 20px rgba(0,0,0,0.3);z-index:9999;display:none}
+  .hint{background:#1a2030;border:1px solid #2a3550;border-radius:8px;padding:10px;font-size:12px;color:#9aa0b3;margin-top:10px}
+  details{margin-top:10px}
+  summary{cursor:pointer;color:#7fb3ff;font-size:12px;padding:6px 0}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <button onclick="history.back()">◀ אחורה</button>
+  <a class="home" href="dashboard-v4.html">🏠 דשבורד</a>
+  <button onclick="history.forward()">קדימה ▶</button>
+</nav>
+
+<div class="wrap">
+
+<h1>📊 מעקב NAV יומי</h1>
+<div class="sub">רישום יומי של שווי התיק - שמירה אוטומטית בדפדפן · גיבוי ידני לקובץ. אין באמור ייעוץ השקעות.</div>
+
+<div class="panel">
+  <h2>➕ הזנת רשומה חדשה</h2>
+  <div class="grid">
+    <div><label>תאריך</label><input type="date" id="f-date"></div>
+    <div><label>USD/ILS</label><input type="number" step="0.0001" id="f-fx" placeholder="2.9700"></div>
+    <div><label>מזומן USD ($)</label><input type="number" step="0.01" id="f-cash-usd" placeholder="105747"></div>
+    <div><label>מזומן ILS (₪)</label><input type="number" step="0.01" id="f-cash-ils" placeholder="211964"></div>
+    <div><label>שווי ניירות $ (VOO+הגנה)</label><input type="number" step="0.01" id="f-positions" placeholder="52333"></div>
+    <div><label>הערה (אופציונלי)</label><input type="text" id="f-note" placeholder="למשל: השלמת IEF/IAU"></div>
+  </div>
+  <div class="row-actions">
+    <button class="btn" onclick="saveEntry()">💾 שמור רשומה</button>
+    <button class="btn alt" onclick="calcOnly()">🧮 חשב NAV (לא שמור)</button>
+  </div>
+  <div id="preview" class="hint" style="display:none;margin-top:12px"></div>
+</div>
+
+<div class="panel">
+  <h2>📈 סטטיסטיקות</h2>
+  <div class="stat-grid" id="stats">
+    <div class="stat"><div class="lbl">רשומות</div><div class="val" id="s-count">0</div></div>
+    <div class="stat"><div class="lbl">NAV אחרון</div><div class="val" id="s-last">-</div></div>
+    <div class="stat"><div class="lbl">שינוי משבוע</div><div class="val" id="s-7d">-</div></div>
+    <div class="stat"><div class="lbl">שינוי מחודש</div><div class="val" id="s-30d">-</div></div>
+    <div class="stat"><div class="lbl">שיא NAV</div><div class="val" id="s-peak">-</div></div>
+  </div>
+  <div class="chart" id="chart-wrap">
+    <svg id="chart" width="100%" height="200" preserveAspectRatio="none" viewBox="0 0 800 200"></svg>
+  </div>
+</div>
+
+<div class="panel">
+  <h2>📋 כל הרשומות</h2>
+  <div id="table-wrap"></div>
+  <div class="row-actions">
+    <button class="btn" onclick="exportJSON()">⬇️ ייצא ל-JSON (גיבוי)</button>
+    <button class="btn alt" onclick="document.getElementById('import-file').click()">⬆️ ייבא מ-JSON</button>
+    <input type="file" id="import-file" accept=".json" style="display:none" onchange="importJSON(event)">
+    <button class="btn alt" onclick="clearAll()" style="background:#5a2a2a;border-color:#8a3a3a">🗑️ מחק הכל</button>
+  </div>
+  <details>
+    <summary>איפה הנתונים נשמרים?</summary>
+    <div class="hint" style="margin-top:6px">הנתונים נשמרים ב-localStorage של הדפדפן. <b>חשוב:</b> אם תנקה היסטוריית דפדפן בלי לייצא קודם - תאבד הכל. מומלץ לייצא לקובץ JSON פעם בשבוע ולשמור ב-OneDrive.</div>
+  </details>
+</div>
+
+</div>
+
+<div id="toast" class="toast">✅ נשמר</div>
+
+<script>
+"use strict";
+const KEY = "avi-hunter-nav-history";
+
+function load(){ try { return JSON.parse(localStorage.getItem(KEY)||"[]"); } catch(e){ return []; } }
+function save(arr){ localStorage.setItem(KEY, JSON.stringify(arr)); }
+function toast(msg){ const t=document.getElementById("toast"); t.textContent=msg; t.style.display="block"; setTimeout(()=>t.style.display="none", 2000); }
+function fmt(n){ return Number(n||0).toLocaleString("he-IL",{maximumFractionDigits:0}); }
+function fmtPct(n){ const s=(n>=0?"+":"")+n.toFixed(2)+"%"; return s; }
+
+function calcNAV(fx, cashUSD, cashILS, positions){
+  // NAV ILS = (cash USD + positions USD) * FX + cash ILS
+  return ((cashUSD||0) + (positions||0)) * (fx||0) + (cashILS||0);
+}
+
+function readForm(){
+  return {
+    date: document.getElementById("f-date").value,
+    fx: parseFloat(document.getElementById("f-fx").value)||0,
+    cashUSD: parseFloat(document.getElementById("f-cash-usd").value)||0,
+    cashILS: parseFloat(document.getElementById("f-cash-ils").value)||0,
+    positions: parseFloat(document.getElementById("f-positions").value)||0,
+    note: document.getElementById("f-note").value||""
+  };
+}
+
+function calcOnly(){
+  const r = readForm();
+  if(!r.fx){ alert("הזן USD/ILS"); return; }
+  const nav = calcNAV(r.fx, r.cashUSD, r.cashILS, r.positions);
+  const totalUSD = (r.cashUSD + r.positions) + (r.cashILS / r.fx);
+  document.getElementById("preview").style.display = "block";
+  document.getElementById("preview").innerHTML =
+    `<b>NAV מחושב:</b> ₪${fmt(nav)} (≈ $${fmt(totalUSD)})<br>` +
+    `<small>= ($${fmt(r.cashUSD)} + $${fmt(r.positions)}) × ${r.fx} + ₪${fmt(r.cashILS)}</small>`;
+}
+
+function saveEntry(){
+  const r = readForm();
+  if(!r.date){ alert("הזן תאריך"); return; }
+  if(!r.fx){ alert("הזן USD/ILS"); return; }
+  const nav = calcNAV(r.fx, r.cashUSD, r.cashILS, r.positions);
+  const arr = load();
+  // החלפה אם יש כבר רשומה לאותו תאריך
+  const idx = arr.findIndex(e => e.date === r.date);
+  const entry = {...r, nav, ts: new Date().toISOString()};
+  if(idx >= 0){
+    if(!confirm("יש כבר רשומה ל-"+r.date+". להחליף?")) return;
+    arr[idx] = entry;
+  } else {
+    arr.push(entry);
+  }
+  arr.sort((a,b) => a.date.localeCompare(b.date));
+  save(arr);
+  toast("✅ נשמר");
+  document.getElementById("f-note").value = "";
+  document.getElementById("preview").style.display = "none";
+  render();
+}
+
+function deleteEntry(date){
+  if(!confirm("למחוק רשומה של "+date+"?")) return;
+  const arr = load().filter(e => e.date !== date);
+  save(arr);
+  toast("🗑️ נמחק");
+  render();
+}
+
+function clearAll(){
+  if(!confirm("למחוק את כל ההיסטוריה? (פעולה לא הפיכה - יש לייצא קודם!)")) return;
+  if(!confirm("בטוח? כל ההיסטוריה תימחק.")) return;
+  save([]);
+  toast("🗑️ הכל נמחק");
+  render();
+}
+
+function exportJSON(){
+  const arr = load();
+  if(!arr.length){ alert("אין נתונים לייצא"); return; }
+  const blob = new Blob([JSON.stringify(arr, null, 2)], {type:"application/json"});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement("a");
+  a.href = url;
+  a.download = "avi-hunter-nav-history-" + new Date().toISOString().slice(0,10) + ".json";
+  a.click();
+  URL.revokeObjectURL(url);
+  toast("⬇️ הורד");
+}
+
+function importJSON(ev){
+  const file = ev.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = function(e){
+    try {
+      const arr = JSON.parse(e.target.result);
+      if(!Array.isArray(arr)) throw new Error("פורמט לא תקין");
+      const current = load();
+      if(current.length > 0){
+        if(!confirm("יש "+current.length+" רשומות קיימות. למזג ("+arr.length+" חדשות)?\n\nOK = למזג, Cancel = להחליף")){
+          save(arr.sort((a,b)=>a.date.localeCompare(b.date)));
+        } else {
+          const merged = [...current];
+          arr.forEach(e => {
+            const idx = merged.findIndex(x => x.date === e.date);
+            if(idx >= 0) merged[idx] = e;
+            else merged.push(e);
+          });
+          save(merged.sort((a,b)=>a.date.localeCompare(b.date)));
+        }
+      } else {
+        save(arr.sort((a,b)=>a.date.localeCompare(b.date)));
+      }
+      toast("⬆️ יובא בהצלחה");
+      render();
+    } catch(err){
+      alert("שגיאה בייבוא: " + err.message);
+    }
+  };
+  reader.readAsText(file);
+  ev.target.value = "";
+}
+
+function render(){
+  const arr = load();
+  // טבלה
+  const wrap = document.getElementById("table-wrap");
+  if(!arr.length){
+    wrap.innerHTML = '<div class="empty">אין רשומות עדיין - הזן את הראשונה למעלה</div>';
+  } else {
+    const rows = [...arr].reverse().map((e, i) => {
+      const prev = arr[arr.length - 2 - i];
+      let change = "";
+      if(prev){
+        const pct = ((e.nav - prev.nav) / prev.nav) * 100;
+        const cls = pct >= 0 ? "up" : "down";
+        change = '<span class="'+cls+'">'+fmtPct(pct)+'</span>';
+      }
+      return '<tr>' +
+        '<td>'+e.date+'</td>' +
+        '<td class="num">₪'+fmt(e.nav)+'</td>' +
+        '<td class="num">'+change+'</td>' +
+        '<td class="num">'+(e.fx||"-").toString().substring(0,6)+'</td>' +
+        '<td class="num">$'+fmt(e.cashUSD)+'</td>' +
+        '<td class="num">₪'+fmt(e.cashILS)+'</td>' +
+        '<td class="num">$'+fmt(e.positions)+'</td>' +
+        '<td style="color:#9aa0a6;font-size:11px">'+(e.note||"-")+'</td>' +
+        '<td><button class="btn del" onclick="deleteEntry(\''+e.date+'\')">מחק</button></td>' +
+        '</tr>';
+    }).join("");
+    wrap.innerHTML = '<table><thead><tr>' +
+      '<th>תאריך</th><th>NAV (₪)</th><th>שינוי</th><th>FX</th>' +
+      '<th>מזומן $</th><th>מזומן ₪</th><th>ניירות $</th><th>הערה</th><th></th>' +
+      '</tr></thead><tbody>'+rows+'</tbody></table>';
+  }
+
+  // סטטיסטיקות
+  document.getElementById("s-count").textContent = arr.length;
+  if(arr.length){
+    const last = arr[arr.length-1];
+    document.getElementById("s-last").textContent = "₪"+fmt(last.nav);
+
+    const target7 = new Date(last.date);
+    target7.setDate(target7.getDate()-7);
+    const ref7 = [...arr].reverse().find(e => e.date <= target7.toISOString().slice(0,10));
+    const s7 = document.getElementById("s-7d");
+    if(ref7){
+      const p = ((last.nav-ref7.nav)/ref7.nav)*100;
+      s7.textContent = fmtPct(p);
+      s7.className = "val " + (p>=0?"g":"r");
+    } else { s7.textContent="-"; }
+
+    const target30 = new Date(last.date);
+    target30.setDate(target30.getDate()-30);
+    const ref30 = [...arr].reverse().find(e => e.date <= target30.toISOString().slice(0,10));
+    const s30 = document.getElementById("s-30d");
+    if(ref30){
+      const p = ((last.nav-ref30.nav)/ref30.nav)*100;
+      s30.textContent = fmtPct(p);
+      s30.className = "val " + (p>=0?"g":"r");
+    } else { s30.textContent="-"; }
+
+    const peak = Math.max(...arr.map(e=>e.nav));
+    document.getElementById("s-peak").textContent = "₪"+fmt(peak);
+  } else {
+    document.getElementById("s-last").textContent = "-";
+    document.getElementById("s-7d").textContent = "-";
+    document.getElementById("s-30d").textContent = "-";
+    document.getElementById("s-peak").textContent = "-";
+  }
+
+  // גרף SVG
+  drawChart(arr);
+}
+
+function drawChart(arr){
+  const svg = document.getElementById("chart");
+  svg.innerHTML = "";
+  if(arr.length < 2){
+    svg.innerHTML = '<text x="400" y="100" text-anchor="middle" fill="#9aa0a6" font-size="14">צריך לפחות 2 רשומות כדי להציג גרף</text>';
+    return;
+  }
+  const W = 800, H = 200, P = 30;
+  const navs = arr.map(e => e.nav);
+  const min = Math.min(...navs), max = Math.max(...navs);
+  const range = max - min || 1;
+  const n = arr.length;
+  const points = arr.map((e, i) => {
+    const x = P + (i / (n-1)) * (W - 2*P);
+    const y = H - P - ((e.nav - min) / range) * (H - 2*P);
+    return [x, y, e];
+  });
+  // קו
+  const path = points.map((p,i) => (i===0?"M":"L") + p[0].toFixed(1) + "," + p[1].toFixed(1)).join(" ");
+  svg.innerHTML += '<path d="'+path+'" fill="none" stroke="#2ecc71" stroke-width="2"/>';
+  // נקודות
+  points.forEach(p => {
+    svg.innerHTML += '<circle cx="'+p[0].toFixed(1)+'" cy="'+p[1].toFixed(1)+'" r="3" fill="#2ecc71"/>';
+  });
+  // מינ/מקס תוויות
+  svg.innerHTML += '<text x="5" y="20" fill="#9aa0a6" font-size="11">₪'+fmt(max)+'</text>';
+  svg.innerHTML += '<text x="5" y="'+(H-10)+'" fill="#9aa0a6" font-size="11">₪'+fmt(min)+'</text>';
+  // תאריך ראשון/אחרון
+  svg.innerHTML += '<text x="'+P+'" y="'+(H-5)+'" fill="#9aa0a6" font-size="10">'+arr[0].date+'</text>';
+  svg.innerHTML += '<text x="'+(W-P)+'" y="'+(H-5)+'" text-anchor="end" fill="#9aa0a6" font-size="10">'+arr[n-1].date+'</text>';
+}
+
+// אתחול - תאריך היום בטופס
+document.getElementById("f-date").value = new Date().toISOString().slice(0,10);
+render();
+</script>
+
+</body>
+</html>

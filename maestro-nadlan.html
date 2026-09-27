@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>🏠 מאסטרו נדל"ן - אבי חזן</title>
+<link rel="manifest" href="manifest-nadlan.json">
+<meta name="theme-color" content="#4a382b">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="מאסטרו נדל״ן">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="icon" href="apple-touch-icon.png">
+<style>
+  :root{
+    --terra:#c1764c; --terra-d:#a05c3a; --brown:#4a382b; --brown-s:#78624f;
+    --gold:#c9a25a; --cream:#fbf4e9; --card:#fff; --line:#e6d9c2;
+    --invest:#2c6ca5; --invest-bg:#eaf2fa; --market:#2e7d32; --market-bg:#e9f5ec;
+    --shadow:0 2px 10px rgba(74,56,43,.08);
+  }
+  *{margin:0;padding:0;box-sizing:border-box;font-family:'Segoe UI',Arial,sans-serif;}
+  body{background:var(--cream);color:var(--brown);line-height:1.6;padding:0 0 50px;-webkit-tap-highlight-color:transparent;}
+  header{background:linear-gradient(135deg,var(--brown) 0%,var(--terra-d) 100%);color:#fff;padding:22px 18px 18px;text-align:center;box-shadow:var(--shadow);}
+  header h1{font-size:24px;letter-spacing:.5px;}
+  header p{font-size:13px;opacity:.85;margin-top:4px;}
+  .wrap{max-width:1000px;margin:0 auto;padding:18px 14px;}
+  .pillar{margin-bottom:26px;}
+  .pillar-head{display:flex;align-items:center;gap:10px;margin:0 4px 12px;}
+  .pillar-head .dot{width:12px;height:12px;border-radius:50%;}
+  .pillar-head h2{font-size:19px;}
+  .pillar-head .sub{font-size:12px;color:var(--brown-s);margin-right:auto;}
+  .pi .dot{background:var(--invest);} .pm .dot{background:var(--market);}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:12px;}
+  .tile{display:block;text-decoration:none;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:16px;color:var(--brown);box-shadow:var(--shadow);transition:transform .12s,border-color .12s;position:relative;overflow:hidden;}
+  .tile:active{transform:scale(.97);}
+  .tile.invest{border-top:4px solid var(--invest);}
+  .tile.market{border-top:4px solid var(--market);}
+  .tile .ico{font-size:30px;line-height:1;}
+  .tile b{display:block;font-size:16px;margin:8px 0 3px;}
+  .tile small{color:var(--brown-s);font-size:12.5px;display:block;}
+  .tile .badge{position:absolute;top:12px;left:12px;font-size:10px;font-weight:bold;padding:2px 8px;border-radius:20px;}
+  .b-live{background:var(--market-bg);color:var(--market);}
+  .b-app{background:var(--invest-bg);color:var(--invest);}
+  .b-soon{background:#f4eee2;color:var(--brown-s);}
+  .primary{grid-column:1/-1;background:linear-gradient(120deg,var(--terra) 0%,var(--terra-d) 100%);color:#fff;border:none;}
+  .primary b,.primary small{color:#fff;} .primary small{opacity:.9;}
+  .primary .ico{font-size:34px;}
+  .quick{display:flex;gap:8px;flex-wrap:wrap;justify-content:center;margin:6px 4px 22px;}
+  .qbtn{background:var(--card);border:1px solid var(--line);border-radius:30px;padding:8px 16px;font-size:13px;font-weight:bold;color:var(--terra-d);text-decoration:none;box-shadow:var(--shadow);}
+  .qbtn:active{background:var(--cream);}
+  .trade-link{text-align:center;margin-top:8px;}
+  .trade-link a{color:var(--brown-s);font-size:12px;text-decoration:none;border-bottom:1px dotted var(--brown-s);}
+  footer{text-align:center;font-size:11px;color:var(--brown-s);margin-top:18px;}
+  .note{background:#fff7e8;border:1px solid #f0e0bf;border-radius:12px;padding:10px 14px;font-size:12.5px;color:var(--brown-s);margin:0 4px 18px;}
+</style>
+</head>
+<body>
+<nav style="position:sticky;top:0;z-index:99998;display:flex;gap:5px;justify-content:center;flex-wrap:wrap;background:#16233a;padding:7px 8px;border-bottom:2px solid #c08a3e;font-family:Arial,sans-serif">
+<a href="https://avi7756-design.github.io/avi-sites/maestro-nadlan.html" style="color:#06121f;text-decoration:none;background:#c08a3e;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:700">🏠 ראשי</a>
+<a href="https://avi7756-design.github.io/avi-sites/maestro-leads.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">📊 לידים</a>
+<a href="https://avi7756-design.github.io/avi-sites/deal-swot/" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">🔬 בדיקה עמוקה</a>
+<a href="https://avi7756-design.github.io/avi-sites/maestro-compass.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">🧭 מצפן</a>
+<a href="https://avi7756-design.github.io/avi-sites/maestro-system.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">🎯 מערכת</a>
+<a href="https://avi7756-design.github.io/avi-sites/maestro-prompts.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">🧩 פרומפטים</a>
+<a href="https://avi7756-design.github.io/avi-sites/maestro-flow.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">🚦 איך זה עובד</a>
+<a href="https://avi7756-design.github.io/avi-sites/maestro-dossier.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">🗂️ תיק כתובת</a>
+<a href="https://avi7756-design.github.io/avi-sites/maestro-process.html" style="color:#fff;text-decoration:none;background:#2c3e5c;border-radius:7px;padding:6px 12px;font-size:13px;font-weight:600">⚙️ תהליך</a>
+</nav>
+<header>
+  <h1>🏠 מאסטרו נדל"ן</h1>
+  <p>מרכז הבקרה לנדל"ן של אבי חזן · כל הכלים במקום אחד</p>
+</header>
+
+<section style="margin:18px auto;max-width:820px">
+  <h2 style="font-size:18px;font-weight:800;color:#c08a3e;text-align:center;margin-bottom:10px">📋 לידים חיים + בודק דגלים</h2>
+  <iframe src="maestro-leads.html" style="width:100%;height:1000px;border:1px solid #2c3e5c;border-radius:14px;background:#0e1726" loading="lazy" title="דשבורד לידים"></iframe>
+</section>
+
+<div class="wrap">
+
+  <div class="quick">
+    <a class="qbtn" href="https://avi7756-design.github.io/avi-sites/manage.html">🎯 משימות היום</a>
+    <a class="qbtn" href="maestro-leads.html">📊 לידים</a>
+    <a class="qbtn" href="https://avi7756-design.github.io/avi-sites/deal-sourcing.html">💎 יהלומים</a>
+    <a class="qbtn" href="https://t.me/Avi_eilat5_bot" target="_blank">🤖 רישום מהיר</a>
+    <a class="qbtn" href="cashflow.html">💰 תזרים</a>
+    <a class="qbtn" href="agenda.html">📅 יומן</a>
+    <a class="qbtn" href="area-research.html">🗺️ מחקר אזור</a>
+    <a class="qbtn" href="learning-log.html">🧠 למידה</a>
+    <a class="qbtn" href="maestro-help.html">📚 עזרה</a>
+  </div>
+
+
+  <!-- עמוד 1: השקעות -->
+  <section class="pillar pi">
+    <div class="pillar-head">
+      <span class="dot"></span>
+      <h2>🏢 השקעות נדל"ן</h2>
+      <span class="sub">קנייה · ניתוח · החלטה</span>
+    </div>
+    <div class="grid">
+      <a class="tile invest" href="maestro-prompts.html"><span class="badge b-app">חדש</span><div class="ico">🧩</div><b>ספריית פרומפטים</b><small>פרומפטים מוכנים לכל מודל שפה + וואטסאפ - מקודדים את מודל היהלום</small></a>
+      <a class="tile invest" href="maestro-flow.html"><span class="badge b-app">חדש</span><div class="ico">🚦</div><b>איך זה עובד (5 צעדים)</b><small>תרשים זרימה פשוט - כל התרחישים 💎🔍❌</small></a>
+      <a class="tile invest" href="maestro-dossier.html"><span class="badge b-app">חדש</span><div class="ico">🗂️</div><b>תיק כתובת</b><small>כתובת → מקורות → ניקוד → כוכבים</small></a>
+      <a class="tile invest" href="maestro-process.html"><span class="badge b-app">חדש</span><div class="ico">⚙️</div><b>תהליך עסקה (8 שלבים)</b><small>מי עושה מה, איפה השערים, פרומפטים מוכנים</small></a>
+      <a class="tile invest" href="https://avi7756-design.github.io/avi-sites/deal-report.html">
+        <span class="badge b-app">דוח</span>
+        <div class="ico">📑</div>
+        <b>דוח עסקה + תזרים</b>
+        <small>סימולטור כדאיות, IRR, תשואות ושמירה ל-Pipeline</small>
+      </a>
+      <a class="tile invest" href="maestro-system.html"><span class="badge b-app">חדש</span><div class="ico">🎯</div><b>מערכת העבודה (מצפן יומי)</b><small>3 עמודים, שערי החלטה, ריתמוס</small></a>
+      <a class="tile invest" href="learning-log.html"><span class="badge b-app">חדש</span><div class="ico">🧠</div><b>יומן למידה</b><small>החלטות ותוצאות - המערכת לומדת מה עובד + ניתוח עומק AI</small></a>
+      <a class="tile invest" href="maestro-infographic.html"><span class="badge b-app">חדש</span><div class="ico">📊</div><b>המערכת במבט אחד (אינפוגרפיקה)</b><small>תזרים העבודה, מודל היהלום ומרווח הביטחון - להצגה למשקיע</small></a>
+    </div>
+  </section>
+
+  <!-- עמוד 2: שיווק והשכרה -->
+  <section class="pillar pm">
+    <div class="pillar-head">
+      <span class="dot"></span>
+      <h2>📣 שיווק והשכרה</h2>
+      <span class="sub">דירה אחי אילת 5 · 3,700 ₪</span>
+    </div>
+    <div class="grid">
+      <a class="tile market primary" href="https://avi7756-design.github.io/avi-sites/manage.html">
+        <span class="badge b-app">אפליקציה</span>
+        <div class="ico">🎯</div>
+        <b>מרכז ניהול שיווק</b>
+        <small>משימות היום, הודעות מוכנות, שו"ת, התנגדויות, ערוצי פרסום - המסך הראשי שלך</small>
+      </a>
+      <a class="tile market" href="cashflow.html"><span class="badge b-app">חדש</span><div class="ico">💰</div><b>תזרים מזומנים</b><small>הכנסות, הוצאות, רווח נקי ותשואה לכל נכס + תזכורות תשלום</small></a>
+      <a class="tile market" href="maestro-leads.html"><span class="badge b-app">דשבורד</span><div class="ico">📊</div><b>דשבורד לידים</b><small>לידים חיים + בודק דגלים מוטמע + יומן ופניות - הכל במסך אחד</small></a>
+      <a class="tile market" href="agenda.html"><span class="badge b-app">חדש</span><div class="ico">📅</div><b>יומן ומשימות</b><small>משימות, פגישות ותזכורות עם חתימת זמן + ניתוח ותובנות</small></a>
+      <a class="tile market" href="https://avi7756-design.github.io/avi-sites/dira-gallery/" target="_blank">
+        <span class="badge b-live">● חי</span>
+        <div class="ico">🏠</div>
+        <b>דף נחיתה + גלריה</b>
+        <small>הקישור שאתה שולח ללקוחות - תמונות, סרטון ושקיפות</small>
+      </a>
+      <a class="tile market" href="https://t.me/Avi_eilat5_bot" target="_blank">
+        <span class="badge b-live">● חי</span>
+        <div class="ico">🤖</div>
+        <b>בוט טלגרם</b>
+        <small>רישום ליד ב-5 שניות + חבילת פרסום בוקר אוטומטית</small>
+      </a>
+      <a class="tile market" href="maestro-help.html"><span class="badge b-app">חדש</span><div class="ico">📚</div><b>מרכז עזרה והדרכה</b><small>תזרימי עבודה, מדריך כפתורים, שאלות-תשובות וחיפוש</small></a>
+    </div>
+  </section>
+
+  <div class="note">
+    💡 <b>טיפ:</b> הוסף את הדף הזה למסך הבית (ספארי → שיתוף → הוסף למסך הבית) ותקבל אפליקציית "מאסטרו נדל"ן" אחת שפותחת את הכל.
+  </div>
+
+
+  <footer>
+    מאסטרו נדל"ן v1.0 · <span id="dt"></span> · אבי חזן
+  </footer>
+</div>
+<script>
+  // version + date stamp
+  try{ var s=document.getElementById('dt'); var d=new Date();
+    s.textContent='עודכן '+String(d.getDate()).padStart(2,'0')+'/'+String(d.getMonth()+1).padStart(2,'0')+'/'+d.getFullYear();
+  }catch(e){}
+</script>
+<script src="nav.js"></script>
+<script src="help.js"></script>
+<script src="modules/maestro-core.js"></script>
+<script src="modules/maestro-cmd.js"></script>
+<script src="modules/maestro-wizard.js"></script>
+<script src="modules/maestro-flowmap.js"></script>
+</body>
+</html>

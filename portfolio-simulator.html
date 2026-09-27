@@ -1,0 +1,351 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>🎮 סימולטור תרחישים · AVI HUNTER</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:"Segoe UI",Arial,sans-serif;background:#0d1117;color:#e6edf3;padding:20px;direction:rtl;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto}
+  h1{font-size:24px;margin-bottom:6px;color:#fff}
+  h2{font-size:17px;margin:12px 0 10px;color:#fff}
+  h3{font-size:14px;margin:8px 0 6px;color:#fff}
+  .sub{color:#9aa0a6;font-size:13px;margin-bottom:16px}
+  .panel{background:#161b22;border:1px solid #21262d;border-radius:12px;padding:16px;margin-bottom:14px}
+  .panel.input{background:#101a28;border-color:#2a5a8a}
+  .panel.result{background:#0f1f17;border-color:#1d5a3a}
+  .panel.warn{background:#1f1a10;border-color:#5a4a20}
+  .panel.danger{background:#1a1320;border-color:#5a2a2a}
+  .nav-bar{position:sticky;top:0;z-index:99;display:flex;gap:8px;justify-content:center;align-items:center;background:#15233f;padding:8px 10px;border-bottom:1px solid #2a3a55;margin:-20px -20px 16px}
+  .nav-bar a,.nav-bar button{cursor:pointer;border:1px solid #34527d;border-radius:8px;background:#23386a;color:#fff;font-size:13px;font-weight:700;padding:7px 14px;font-family:inherit;text-decoration:none}
+  .nav-bar a.home{background:#2ecc71;color:#0d1117;border-color:#2a6b40}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:14px}
+  label{display:block;font-size:12px;color:#9aa0a6;margin-bottom:4px}
+  input[type=number]{width:100%;background:#0d1117;border:1px solid #30363d;color:#e6edf3;padding:10px;border-radius:8px;font-size:16px;font-family:monospace;text-align:left;direction:ltr}
+  input[type=range]{width:100%;accent-color:#2ecc71}
+  .slider-box{display:flex;align-items:center;gap:10px}
+  .slider-box input[type=number]{width:90px;font-size:18px;font-weight:800}
+  .btn{cursor:pointer;border:1px solid #2a6b40;background:#2ecc71;color:#0d1117;font-weight:800;padding:10px 18px;border-radius:8px;font-size:14px;font-family:inherit}
+  .btn:hover{background:#3ee17e}
+  .btn.alt{background:#23386a;color:#fff;border-color:#34527d}
+  table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+  th{text-align:right;background:#21262d;padding:8px;color:#9aa0a6;font-weight:600;font-size:12px}
+  td{padding:8px;border-bottom:1px solid #21262d;color:#cdd6e6}
+  .num{font-family:"JetBrains Mono",Consolas,monospace;text-align:left;direction:ltr}
+  .stat-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:8px;margin:10px 0}
+  .stat{background:#1a1f28;border:1px solid #21262d;border-radius:10px;padding:12px}
+  .stat .lbl{font-size:11px;color:#9aa0a6;margin-bottom:4px}
+  .stat .val{font-size:22px;font-weight:800;color:#fff;font-family:monospace}
+  .stat .val.g{color:#2ecc71}
+  .stat .val.y{color:#f0c040}
+  .stat .val.r{color:#e74c3c}
+  .verdict{padding:18px;border-radius:10px;margin:14px 0;font-size:15px;font-weight:600}
+  .verdict.green{background:#0f1f17;border:2px solid #2ecc71;color:#9fe6bd}
+  .verdict.yellow{background:#1f1a10;border:2px solid #f0c040;color:#f0d99a}
+  .verdict.orange{background:#1f1610;border:2px solid #f0883e;color:#f5b899}
+  .verdict.red{background:#1a1320;border:2px solid #c0334a;color:#f5a8a8}
+  .bar{height:24px;background:#1a1f28;border-radius:6px;overflow:hidden;display:flex;margin:8px 0}
+  .bar > div{display:flex;align-items:center;justify-content:center;color:#fff;font-size:11px;font-weight:700;padding:0 4px}
+  .bar > .stocks{background:#2ecc71}
+  .bar > .bonds{background:#3498db}
+  .bar > .gold{background:#f0c040}
+  .bar > .cash{background:#7f8c8d}
+  .compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0}
+  @media(max-width:700px){.compare-grid{grid-template-columns:1fr}}
+  .card-cmp{background:#1a1f28;border:1px solid #21262d;border-radius:10px;padding:14px}
+  .card-cmp h3{margin-top:0;font-size:14px;padding-bottom:6px;border-bottom:1px solid #21262d}
+  .row{display:flex;justify-content:space-between;padding:5px 0;font-size:13px}
+  .row span:last-child{color:#fff;font-weight:600;font-family:monospace}
+  details{margin-top:10px}
+  summary{cursor:pointer;color:#7fb3ff;font-size:13px;padding:8px;background:#1a1f28;border-radius:6px}
+  .checklist{padding-right:20px}
+  .checklist li{margin-bottom:6px;font-size:13px;color:#cdd6e6}
+  .foot{text-align:center;color:#9aa0a6;font-size:11px;padding:14px 0}
+</style>
+</head>
+<body>
+
+<nav class="nav-bar">
+  <button onclick="history.back()">◀ אחורה</button>
+  <a class="home" href="dashboard-v4.html">🏠 דשבורד</a>
+  <button onclick="history.forward()">קדימה ▶</button>
+</nav>
+
+<div class="wrap">
+
+<h1>🎮 סימולטור תרחישים</h1>
+<div class="sub">תכניס יעד תשואה - תראה מה זה דורש, מה הסיכון, ואם זה הגיוני בכלל. <b>אין באמור ייעוץ השקעות.</b></div>
+
+<div class="panel input">
+  <h2>🎯 הזנת יעד</h2>
+
+  <div class="grid">
+    <div>
+      <label>יעד תשואה שנתית (%)</label>
+      <div class="slider-box">
+        <input type="number" id="i-return" value="10" step="0.5" min="0" max="25" oninput="syncRange('i-return','r-return');simulate()">
+        <input type="range" id="r-return" value="10" step="0.5" min="0" max="25" oninput="syncNumber('r-return','i-return');simulate()">
+      </div>
+      <div style="font-size:11px;color:#9aa0a6;margin-top:4px">לדוגמה: 10% = $68K רווח על תיק של $681K</div>
+    </div>
+    <div>
+      <label>אופק זמן (שנים)</label>
+      <input type="number" id="i-years" value="10" step="1" min="1" max="30" oninput="simulate()">
+      <div style="font-size:11px;color:#9aa0a6;margin-top:4px">ככל שיותר ארוך - יותר סובלנות לתנודתיות</div>
+    </div>
+    <div>
+      <label>NAV נוכחי (₪)</label>
+      <input type="number" id="i-nav" value="681000" step="1000" oninput="simulate()">
+    </div>
+    <div>
+      <label>סובלנות לירידה זמנית (%)</label>
+      <input type="number" id="i-dd" value="25" step="5" min="5" max="60" oninput="simulate()">
+      <div style="font-size:11px;color:#9aa0a6;margin-top:4px">אם התיק יורד יותר מזה - תמכור בפאניקה?</div>
+    </div>
+  </div>
+</div>
+
+<div id="result-area"></div>
+
+<div class="panel">
+  <h2>📚 הנחות הסימולטור</h2>
+  <details>
+    <summary>איך החישוב עובד?</summary>
+    <div style="padding:10px;background:#1a1f28;border-radius:8px;font-size:12px;color:#cdd6e6;margin-top:6px;line-height:1.8">
+      <b>תשואות צפויות (היסטוריות):</b><br>
+      • מניות (SPY): 9.5% נומינלי, 6.5% ריאלי (1972-2025)<br>
+      • אג"ח (IEF): 4.5%<br>
+      • זהב (IAU): 4%<br>
+      • מזומן (MMF): 5% נוכחי, 3% היסטורי<br><br>
+
+      <b>תנודתיות שנתית (היסטורית):</b><br>
+      • מניות: 16%<br>
+      • אג"ח: 5%<br>
+      • זהב: 15%<br>
+      • מזומן: 0%<br><br>
+
+      <b>Max Drawdown צפוי:</b><br>
+      • מניות 100%: ~50% (2008, 2020)<br>
+      • 75/25: ~30%<br>
+      • 60/40: ~25%<br>
+      • 40/60: ~15%<br>
+      • 100% מזומן: 0% (אבל סיכון אינפלציה)<br><br>
+
+      <b>הנוסחה לציון "הסתברות":</b> כמה הקצאה מסוימת עם פיזור היסטורי תפגוש את היעד ב-X שנים. זה <b>קירוב</b>, לא דיוק מתמטי.
+    </div>
+  </details>
+</div>
+
+<div class="panel danger">
+  <h2>🛡️ 6 שאלות שמשמעותית לפני שינוי</h2>
+  <ol class="checklist">
+    <li>האם המצב הכלכלי שלי באמת השתנה (נכסים, חובות, הכנסה) - או שהשוק עלה ואני מקנא?</li>
+    <li>אם התיק יירד 30% מחר - האם אתעלם או אמכור?</li>
+    <li>האם יש לי <b>כלי מוכח</b> (Win Rate &gt;55% מתועד) או רק "תחושה"?</li>
+    <li>האם תיעדתי את הסיבה ביומן (journal.html)?</li>
+    <li>האם השינוי הוא הדרגתי (3 חודשים) או מיידי?</li>
+    <li>האם אני יכול לחזור ל-v4 אם זה לא יעבוד, בלי לאבד יותר מ-5%?</li>
+  </ol>
+  <div style="margin-top:10px;padding:10px;background:#1a1320;border:1px solid #5a2a2a;border-radius:8px;font-size:13px">
+    <b>אם ענית "לא" על יותר מ-2:</b> אל תשנה. תפתח את <a href="discipline-rules.html" style="color:#f5a8a8">discipline-rules.html</a> ותקרא שוב.
+  </div>
+</div>
+
+<div class="foot">portfolio-simulator · v1 · 23.6.2026 · אין באמור ייעוץ השקעות · הערכות מבוססות נתוני עבר</div>
+
+</div>
+
+<script>
+"use strict";
+
+// תשואות נומינליות שנתיות צפויות
+const RET = { stocks: 9.5, bonds: 4.5, gold: 4.0, cash: 5.0 };
+// תנודתיות שנתית
+const VOL = { stocks: 16, bonds: 5, gold: 15, cash: 0 };
+
+function syncRange(numId, rangeId){
+  document.getElementById(rangeId).value = document.getElementById(numId).value;
+}
+function syncNumber(rangeId, numId){
+  document.getElementById(numId).value = document.getElementById(rangeId).value;
+}
+
+function calcAlloc(targetReturn){
+  // חישוב הקצאה דרושה לעמידה ביעד
+  // הנחה: יחס בין מניות/אג"ח/זהב/מזומן נורמלי
+  // SPY=9.5, BONDS=4.5, CASH=5
+  // אם target > 9.5 = נדרשות מניות מעל 100% (אגרסיבי)
+  if(targetReturn <= 4){
+    return { stocks: 0, bonds: 0, gold: 0, cash: 100, type: "cash" };
+  }
+  if(targetReturn <= 5.5){
+    return { stocks: 15, bonds: 15, gold: 5, cash: 65, type: "conservative" };
+  }
+  if(targetReturn <= 7){
+    return { stocks: 50, bonds: 25, gold: 10, cash: 15, type: "60/40 lite" };
+  }
+  if(targetReturn <= 8.5){
+    // v4 style
+    return { stocks: 75, bonds: 9, gold: 6, cash: 10, type: "v4 (current)" };
+  }
+  if(targetReturn <= 9.5){
+    return { stocks: 90, bonds: 5, gold: 5, cash: 0, type: "aggressive equity" };
+  }
+  if(targetReturn <= 10.5){
+    return { stocks: 100, bonds: 0, gold: 0, cash: 0, type: "100% equity" };
+  }
+  if(targetReturn <= 12){
+    return { stocks: 100, bonds: 0, gold: 0, cash: 0, type: "concentrated/timing", risky: true };
+  }
+  return { stocks: 100, bonds: 0, gold: 0, cash: 0, type: "speculation", danger: true };
+}
+
+function expectedReturn(a){
+  return (a.stocks*RET.stocks + a.bonds*RET.bonds + a.gold*RET.gold + a.cash*RET.cash) / 100;
+}
+
+function expectedVol(a){
+  // הערכה מפושטת: שורש סכום ריבועים
+  const s2 = Math.pow(a.stocks*VOL.stocks/100, 2);
+  const b2 = Math.pow(a.bonds*VOL.bonds/100, 2);
+  const g2 = Math.pow(a.gold*VOL.gold/100, 2);
+  return Math.sqrt(s2 + b2 + g2);
+}
+
+function expectedDD(a){
+  // קירוב: 50% מהמניות + 10% מאג"ח/זהב
+  return Math.round(a.stocks*0.5 + a.bonds*0.1 + a.gold*0.3);
+}
+
+function probability(targetReturn, actualReturn, vol, years){
+  // ניחוש גס: ככל שיותר שנים → יותר סיכוי להגיע לממוצע
+  // אם target = actual → 50% / +1% sigma → ~32% / וכו'
+  const sigma = vol / Math.sqrt(years);
+  const z = (actualReturn - targetReturn) / sigma;
+  // קירוב CDF
+  if(z >= 2) return 95;
+  if(z >= 1) return 80;
+  if(z >= 0.5) return 65;
+  if(z >= 0) return 50;
+  if(z >= -0.5) return 35;
+  if(z >= -1) return 20;
+  if(z >= -2) return 5;
+  return 2;
+}
+
+function fmtNAV(n){ return "₪" + Math.round(n).toLocaleString("he-IL"); }
+function fmtUSD(n){ return "$" + Math.round(n).toLocaleString("he-IL"); }
+
+function simulate(){
+  const target = parseFloat(document.getElementById("i-return").value) || 0;
+  const years = parseInt(document.getElementById("i-years").value) || 10;
+  const nav = parseFloat(document.getElementById("i-nav").value) || 0;
+  const ddTol = parseInt(document.getElementById("i-dd").value) || 0;
+
+  const alloc = calcAlloc(target);
+  const actualRet = expectedReturn(alloc);
+  const vol = expectedVol(alloc);
+  const dd = expectedDD(alloc);
+  const prob = probability(target, actualRet, vol, years);
+  const navFinal = nav * Math.pow(1 + target/100, years);
+  const navDdAbs = nav * dd / 100;
+
+  // השוואה ל-v4
+  const v4 = { stocks: 75, bonds: 9, gold: 6, cash: 10 };
+  const v4ret = expectedReturn(v4);
+  const v4dd = expectedDD(v4);
+  const v4final = nav * Math.pow(1 + v4ret/100, years);
+
+  // פסיקה
+  let verdict, vcls, vtext;
+  if(target <= 7){
+    verdict = "✅ הגיוני וסביר";
+    vcls = "green";
+    vtext = "יעד שמרני - אפשר להשיג בלי סיכון גדול. הקצאה דורשת פחות מניות, יותר אג\"ח/מזומן.";
+  } else if(target <= 8.5){
+    verdict = "✅ במסגרת v4";
+    vcls = "green";
+    vtext = "זה בערך מה ש-v4 כבר נותנת. <b>אין סיבה לשנות.</b> אתה כבר במקום הנכון.";
+  } else if(target <= 10){
+    verdict = "🟡 דורש סיכון משמעותי";
+    vcls = "yellow";
+    vtext = "צריך להגדיל מניות ל-90-100%. תקבל +1-2% אבל הסיכון יכפיל את עצמו. <b>תשלם על כל 1% מעל v4 ביחס של 5:1 בסיכון.</b>";
+  } else if(target <= 12){
+    verdict = "🟠 דורש כישרון מוכח";
+    vcls = "orange";
+    vtext = "לא מספיק SPY - צריך בחירת מניות / תזמון שוק. <b>אצלך הוכח שאין אלפא</b> (P&L -$4,308, WR 36%). יעד לא ריאלי בלי כלי חדש.";
+  } else {
+    verdict = "🔴 ספקולציה - לא ריאלי";
+    vcls = "red";
+    vtext = "מעל 12% שנתי לאורך 10+ שנים - רק 5% מהמשקיעים המקצועיים משיגים. עבורך זה <b>ספקולציה</b>, לא השקעה. הסיכון להפסד 50%+ גבוה מהסיכוי לרווח.";
+  }
+
+  // בדיקת סובלנות
+  let ddWarn = "";
+  if(dd > ddTol){
+    ddWarn = '<div class="verdict red" style="margin-top:8px"><b>⚠️ אזהרת סובלנות:</b> ההקצאה הזו צפויה לירידה זמנית של ' + dd + '%, אבל אמרת שאתה מסוגל לסבול רק עד ' + ddTol + '%. <b>תשנה את אחד מהשניים: יעד תשואה (להוריד), או סובלנות (להעלות).</b></div>';
+  }
+
+  // HTML של תוצאות
+  const html =
+    '<div class="panel result">' +
+      '<h2>📊 התוצאה - יעד ' + target + '% שנתי ל-' + years + ' שנים</h2>' +
+      '<div class="verdict ' + vcls + '">' + verdict + '<br><span style="font-weight:400;font-size:14px">' + vtext + '</span></div>' +
+      ddWarn +
+
+      '<h3>הקצאה דרושה</h3>' +
+      '<div class="bar">' +
+        (alloc.stocks ? '<div class="stocks" style="width:' + alloc.stocks + '%">' + alloc.stocks + '% מניות</div>' : '') +
+        (alloc.bonds ? '<div class="bonds" style="width:' + alloc.bonds + '%">' + alloc.bonds + '% אג"ח</div>' : '') +
+        (alloc.gold ? '<div class="gold" style="width:' + alloc.gold + '%">' + alloc.gold + '% זהב</div>' : '') +
+        (alloc.cash ? '<div class="cash" style="width:' + alloc.cash + '%">' + alloc.cash + '% מזומן</div>' : '') +
+      '</div>' +
+      '<div style="text-align:center;color:#9aa0a6;font-size:12px;margin-bottom:14px">סוג: ' + alloc.type + '</div>' +
+
+      '<div class="stat-grid">' +
+        '<div class="stat"><div class="lbl">תשואה צפויה ממוצעת</div><div class="val g">' + actualRet.toFixed(1) + '%</div></div>' +
+        '<div class="stat"><div class="lbl">תנודתיות שנתית</div><div class="val y">' + vol.toFixed(1) + '%</div></div>' +
+        '<div class="stat"><div class="lbl">Max Drawdown צפוי</div><div class="val ' + (dd>30?'r':(dd>15?'y':'g')) + '">-' + dd + '%</div></div>' +
+        '<div class="stat"><div class="lbl">סיכוי לעמוד ביעד</div><div class="val ' + (prob>60?'g':(prob>30?'y':'r')) + '">' + prob + '%</div></div>' +
+      '</div>' +
+
+      '<h3>השוואה ל-v4 (נוכחי)</h3>' +
+      '<div class="compare-grid">' +
+        '<div class="card-cmp">' +
+          '<h3>🎯 התרחיש שלך</h3>' +
+          '<div class="row"><span>תשואה</span><span>' + target + '%</span></div>' +
+          '<div class="row"><span>הקצאת מניות</span><span>' + alloc.stocks + '%</span></div>' +
+          '<div class="row"><span>סיכון ירידה</span><span>-' + dd + '%</span></div>' +
+          '<div class="row"><span>ב-' + years + ' שנים → NAV</span><span>' + fmtNAV(navFinal) + '</span></div>' +
+          '<div class="row"><span>סיכון בש"ח</span><span style="color:#f0c040">-' + fmtNAV(navDdAbs) + '</span></div>' +
+        '</div>' +
+        '<div class="card-cmp">' +
+          '<h3>🛡️ v4 הקיים</h3>' +
+          '<div class="row"><span>תשואה</span><span>' + v4ret.toFixed(1) + '%</span></div>' +
+          '<div class="row"><span>הקצאת מניות</span><span>75%</span></div>' +
+          '<div class="row"><span>סיכון ירידה</span><span>-' + v4dd + '%</span></div>' +
+          '<div class="row"><span>ב-' + years + ' שנים → NAV</span><span>' + fmtNAV(v4final) + '</span></div>' +
+          '<div class="row"><span>סיכון בש"ח</span><span style="color:#f0c040">-' + fmtNAV(nav*v4dd/100) + '</span></div>' +
+        '</div>' +
+      '</div>' +
+
+      '<h3>השאלות שאתה צריך לענות לעצמך</h3>' +
+      '<table>' +
+        '<tr><td>1. האם אני יכול לחיות עם ירידה של <b>' + fmtNAV(navDdAbs) + '</b> זמנית?</td></tr>' +
+        '<tr><td>2. האם ' + (navFinal-v4final > 0 ? 'הפרש של ' + fmtNAV(navFinal-v4final) + ' מעל v4' : 'אין יתרון מעל v4') + ' שווה את הסיכון הנוסף?</td></tr>' +
+        '<tr><td>3. סיכוי של ' + prob + '% לעמוד ביעד - האם אני מוכן לקבל את ה-' + (100-prob) + '% האחרים?</td></tr>' +
+        (alloc.risky||alloc.danger ? '<tr><td><b style="color:#f5a8a8">4. אין כלי לבחירת מניות מוכח אצלך (5★ הוכח כושל). מאיפה יבוא ה-' + (target-9.5).toFixed(1) + '% מעל SPY?</b></td></tr>' : '') +
+      '</table>' +
+
+    '</div>';
+
+  document.getElementById("result-area").innerHTML = html;
+}
+
+// אתחל
+simulate();
+</script>
+
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>בודק דגלים אדומים — מאסטרו נדל"ן</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@400;600;800&display=swap');
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Heebo',Arial,sans-serif;background:#0e1726;color:#e9eef7;padding:14px;line-height:1.55}
+  .wrap{max-width:760px;margin:0 auto}
+  h1{font-size:21px;font-weight:800;color:#fff;text-align:center}
+  .sub{font-size:13px;color:#8ba0bf;text-align:center;margin:4px 0 12px}
+  .nav{display:flex;gap:6px;justify-content:center;flex-wrap:wrap;margin-bottom:14px}
+  .nav a{background:#1c2940;color:#cfe0f7;text-decoration:none;border-radius:8px;padding:7px 13px;font-size:13px;font-weight:600}
+  .nav a.on{background:#c08a3e;color:#0e1726;font-weight:800}
+  textarea{width:100%;min-height:150px;background:#1a2742;border:1px solid #2c3e5c;border-radius:10px;padding:12px;color:#fff;font-family:inherit;font-size:14px;resize:vertical}
+  .ctl{display:flex;gap:8px;align-items:center;margin:10px 0;flex-wrap:wrap}
+  .ctl label{font-size:13px;color:#9fb3d1}
+  .ctl input{width:110px;background:#1a2742;border:1px solid #2c3e5c;border-radius:7px;padding:8px;color:#fff;font-family:inherit}
+  .btn{border:none;border-radius:9px;padding:12px 18px;font-size:15px;font-weight:800;font-family:inherit;cursor:pointer;background:#c08a3e;color:#0e1726;flex:1}
+  .out{margin-top:14px}
+  .verdict{font-size:20px;font-weight:800;text-align:center;padding:14px;border-radius:12px;margin-bottom:12px}
+  .v-red{background:#3a1a1a;color:#ff8f7a}.v-yel{background:#3a3318;color:#ffd86b}.v-grn{background:#16331f;color:#7fe3a4}
+  .metric{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+  .metric .m{background:#16213a;border-radius:9px;padding:9px 12px;font-size:13px}
+  .metric .m b{color:#fff;font-size:15px}
+  .flag{background:#241620;border-right:4px solid #c0563e;border-radius:9px;padding:10px 12px;margin-bottom:8px;font-size:14px}
+  .flag.ok{background:#16331f;border-right-color:#3fae9b}
+  .flag .t{font-weight:700;color:#ffb3a0}
+  .flag.ok .t{color:#7fe3a4}
+  .hint{font-size:12px;color:#8ba0bf;margin-top:10px}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>🚩 בודק דגלים אדומים</h1>
+  <div class="sub">הדבק טקסט מודעה → דגלים + ₪/מ"ר לפי טאבו, לפני שתתקשר</div>
+  <nav class="nav">
+    <a href="https://avi7756-design.github.io/avi-sites/maestro-nadlan.html">🏠 ראשי</a>
+    <a href="https://avi7756-design.github.io/avi-sites/maestro-leads.html">💎 לידים</a>
+    <a class="on" href="#">🚩 בודק</a>
+  </nav>
+
+  <textarea id="txt" placeholder="הדבק כאן את כל טקסט המודעה מיד2/מדלן..."></textarea>
+  <div class="ctl">
+    <label>benchmark אזור (₪/מ"ר):</label>
+    <input type="number" id="bench" value="16300">
+    <button class="btn" onclick="run()">בדוק מודעה ▸</button>
+  </div>
+  <div class="out" id="out"></div>
+  <div class="hint">הבודק מנתח טקסט בלבד — לא תחליף לאימות טאבו/GovMap. דגל = לברר, לא בהכרח לפסול.</div>
+</div>
+
+<script>
+function run(){
+  var t=document.getElementById('txt').value;
+  var bench=parseFloat(document.getElementById('bench').value)||16300;
+  var out=document.getElementById('out');
+  if(t.trim().length<10){out.innerHTML='<div class="flag">הדבק טקסט מודעה קודם.</div>';return;}
+
+  // --- extract price ---
+  var nums=(t.match(/[\d][\d,\.]{4,}/g)||[]).map(function(s){return parseInt(s.replace(/[^\d]/g,''),10);}).filter(function(n){return n>=200000&&n<9000000;});
+  var price=nums.length?Math.max.apply(null,nums.filter(function(n){return n>=300000;}).concat(nums)):0;
+  // pick the most "asking-like": prefer a number 300k-3M
+  var cand=nums.filter(function(n){return n>=300000&&n<=3000000;});
+  if(cand.length)price=cand.sort(function(a,b){return b-a;})[0];
+
+  // --- sizes ---
+  var tabu=null,market=null;
+  var mt=t.match(/טאבו[^\d]{0,8}(\d{2,3})\s*מ/);
+  if(mt)tabu=parseInt(mt[1],10);
+  var ar=t.match(/ארנונה[^\d]{0,8}(\d{2,3})/);
+  var arnona=ar?parseInt(ar[1],10):null;
+  // marketing size: all "NN מ"ר", take the largest plausible
+  var sizes=(t.match(/(\d{2,3})\s*מ["׳'׳]?ר/g)||[]).map(function(s){return parseInt(s,10);}).filter(function(n){return n>=15&&n<=400;});
+  if(sizes.length)market=Math.max.apply(null,sizes);
+  var sizeForCalc=tabu||market;
+  var ppm=(price&&sizeForCalc)?Math.round(price/sizeForCalc):null;
+
+  var flags=[],hard=0;
+
+  // Tabu vs marketing mismatch
+  if(tabu&&market&&market-tabu>=10){
+    flags.push(['🚩 חריגת בנייה?','טאבו '+tabu+' מ"ר אבל מציינים '+market+' מ"ר — '+(market-tabu)+' מ"ר כנראה לא רשומים. תמחר לפי טאבו!',1]);hard++;
+  } else if(arnona&&market&&market-arnona>=10){
+    flags.push(['🚩 פער ארנונה/גודל','ארנונה '+arnona+' מ"ר מול '+market+' מ"ר — בדוק רישום.',1]);hard++;
+  }
+  function has(re,t2,d){ if(re.test(t)){flags.push(['🚩 '+t2,d,0]);} }
+  if(/(פינוי\s*בינוי|פינוי-בינוי|תמ"?א|התחדשות|הריסה|מתחם)/.test(t)){flags.push(['🚩 התחדשות/פינוי-בינוי','אם זו הסיבה ל"זול" — תזת החזק בלבד, ובדוק שזה מאושר ולא שמועה (Hard Stop).',1]);hard++;}
+  has(/(נפל מחוזה|מחיר סופי|זריזים|בהזדמנות|הזדמנות|גמיש|למכירה מהיר|דחוף)/,'לחץ/מצוקת מכירה','טקטיקת לחץ — שאל "למה זה זול?" וקח זמן.');
+  has(/100%\s*מימון/,'"100% מימון" חשוד','בנק ממן לפי טאבו. הבטחת 100% לרוב קשורה לחריגה/גוש-חלקה בעייתי.');
+  has(/(מקלט במרחק|ללא ממ"?ד|אין ממ)/,'אין ממ"ד','בניין ישן. אין מרחב מוגן בדירה.');
+  has(/(דרך עכו|דרך חיפה|כביש ראשי|עורק|רעש)/,'כביש ראשי/רעש','מוריד ARV ושכירות לצמיתות.');
+  has(/(דרוש שיפוץ|לשיפוץ|דרושה השקעה|זקוקה לשיפוץ)/,'דרוש שיפוץ','הוסף עלות שיפוץ לחישוב.');
+  has(/(חלוקה|מחולקת|ליחידות)/,'חלוקה ליחידות','חלוקה לרוב דורשת היתר — בדוק חוקיות.');
+
+  // verdict
+  var vClass='v-grn',vTxt='🟢 נקי יחסית — שווה בדיקה';
+  var ppmFlag = ppm&&ppm>bench*1.05;
+  if(hard>0||ppmFlag){vClass='v-red';vTxt='❌ זהירות — דגלים מהותיים';}
+  else if(flags.length>0){vClass='v-yel';vTxt='🔶 גבולי — יש דגלים לברר';}
+
+  var html='<div class="verdict '+vClass+'">'+vTxt+'</div>';
+  html+='<div class="metric">';
+  html+='<div class="m">מחיר<br><b>'+(price?price.toLocaleString():'?')+' ₪</b></div>';
+  html+='<div class="m">טאבו<br><b>'+(tabu?tabu+' מ"ר':'לא צוין')+'</b></div>';
+  html+='<div class="m">שיווקי<br><b>'+(market?market+' מ"ר':'?')+'</b></div>';
+  html+='<div class="m">₪/מ"ר ('+(tabu?'טאבו':'שיווקי')+')<br><b style="color:'+(ppmFlag?'#ff8f7a':'#7fe3a4')+'">'+(ppm?ppm.toLocaleString():'?')+'</b></div>';
+  html+='<div class="m">מול benchmark<br><b>'+(ppm?Math.round((ppm/bench-1)*100)+'%':'?')+'</b></div>';
+  html+='</div>';
+
+  if(!tabu&&market){html+='<div class="flag"><span class="t">⚠️ טאבו לא צוין</span><br>חישוב לפי שיווקי ('+market+' מ"ר). שאל את המתווך מה הגודל הרשום — זה הדגל מס\' 1 שלמדנו.</div>';}
+
+  if(flags.length){flags.forEach(function(f){html+='<div class="flag"><span class="t">'+f[0]+'</span><br>'+f[1]+'</div>';});}
+  else if(tabu){html+='<div class="flag ok"><span class="t">✔ לא זוהו מילות-מלכודת</span><br>עדיין אמת טאבו/GovMap לפני שיחה.</div>';}
+
+  out.innerHTML=html;
+}
+</script>
+</body>
+</html>
