@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>החלפת סיסמת הצפנה</title>
+<style>
+  body { font-family: system-ui, -apple-system, "Segoe UI", sans-serif; background:#0f1115; color:#eaeaea; margin:0; padding:16px; }
+  .box { background:#1b1e26; padding:1.25rem; border-radius:14px; max-width:560px; margin:0 auto 1rem; }
+  h1 { font-size:1.25rem; margin:.25rem 0 1rem; }
+  h2 { font-size:1rem; margin:0 0 .5rem; color:#9fb4ff; }
+  label { display:block; margin-top:.6rem; font-size:.95rem; }
+  input { width:100%; box-sizing:border-box; padding:.65rem; margin:.3rem 0; border-radius:8px; border:1px solid #333; background:#0f1115; color:#fff; font-size:1rem; }
+  button { width:100%; padding:.75rem; margin-top:.6rem; border-radius:8px; border:none; background:#4f7cff; color:#fff; font-size:1rem; cursor:pointer; }
+  button:disabled { background:#333; color:#888; cursor:default; }
+  .ok { color:#5fd38d; } .bad { color:#ff6b6b; } .muted { color:#999; font-size:.85rem; }
+  #log div { margin:.2rem 0; }
+</style>
+</head>
+<body>
+<div class="box">
+  <h1>החלפת סיסמת ההצפנה - לוח בקרה + ווייז התיק</h1>
+  <div class="muted">הכל רץ בתוך הדפדפן שלך. הסיסמה והמקורות לא נשלחים לשום מקום.</div>
+</div>
+
+<div class="box">
+  <h2>1. קובצי המקור (מ-Drive)</h2>
+  <label>לוח בקרה - בוררות מוניץ.html</label>
+  <input id="fc" type="file" accept=".html,text/html">
+  <label>ווייז התיק - מפת מצב חיה.html</label>
+  <input id="fw" type="file" accept=".html,text/html">
+</div>
+
+<form class="box" id="frm" autocomplete="on">
+  <h2>2. סיסמה חדשה</h2>
+  <div class="muted">לחץ בשדה הסיסמה ובחר "הצעת סיסמה חזקה" של Chrome - היא נשמרת אוטומטית במנהל הסיסמאות של Google.</div>
+  <label>שם משתמש</label>
+  <input id="user" name="username" autocomplete="username" value="borrot-munitz">
+  <label>סיסמה חדשה</label>
+  <input id="pw" name="new-password" type="password" autocomplete="new-password" minlength="12">
+  <button id="enc" type="submit">3. הצפן ובדוק</button>
+</form>
+
+<div class="box">
+  <h2>תוצאות</h2>
+  <div id="log" class="muted">טרם הופעל.</div>
+  <button id="dlc" type="button" disabled>הורד c-b8bf7936a4.html</button>
+  <button id="dlw" type="button" disabled>הורד w-1f324f9d8b.html</button>
+  <button id="live" type="button">4. בדוק את הדפים החיים</button>
+</div>
+
+<script>
+const PAGES = { c: "c-b8bf7936a4.html", w: "w-1f324f9d8b.html" };
+const OLD_SALTS = { c: "L4yroMSIMxHbbq8xEKyVpg==", w: "lVJlzmBO+x3a08Wgd6qg/Q==" };
+const PAYLOAD_RE = /const PAYLOAD = \{[^\n]*\};/;
+const out = { c: null, w: null };
+const srcHash = { c: null, w: null };
+const logEl = document.getElementById("log");
+
+function log(msg, cls) {
+  if (logEl.classList.contains("muted")) { logEl.classList.remove("muted"); logEl.textContent = ""; }
+  const d = document.createElement("div");
+  if (cls) d.className = cls;
+  d.textContent = msg;
+  logEl.appendChild(d);
+}
+function b64(bytes) { let s = ""; for (let i = 0; i < bytes.length; i += 0x8000) s += String.fromCharCode.apply(null, bytes.subarray(i, i + 0x8000)); return btoa(s); }
+function unb64(s) { return Uint8Array.from(atob(s), ch => ch.charCodeAt(0)); }
+async function sha(bytes) { return b64(new Uint8Array(await crypto.subtle.digest("SHA-256", bytes))); }
+async function keyFor(pw, saltBytes, usage) {
+  const base = await crypto.subtle.importKey("raw", new TextEncoder().encode(pw), { name: "PBKDF2" }, false, ["deriveKey"]);
+  return crypto.subtle.deriveKey({ name: "PBKDF2", salt: saltBytes, iterations: 250000, hash: "SHA-256" },
+    base, { name: "AES-GCM", length: 256 }, false, [usage]);
+}
+async function tryOpen(pw, payload) {
+  try {
+    const key = await keyFor(pw, unb64(payload.salt), "decrypt");
+    return new Uint8Array(await crypto.subtle.decrypt({ name: "AES-GCM", iv: unb64(payload.iv) }, key, unb64(payload.ciphertext)));
+  } catch (e) { return null; }
+}
+async function fetchLive(name) {
+  const r = await fetch(name + "?nc=" + Date.now(), { cache: "no-store" });
+  if (!r.ok) throw new Error(name + " HTTP " + r.status);
+  return r.text();
+}
+function payloadOf(html) {
+  const m = html.match(PAYLOAD_RE);
+  if (!m) throw new Error("PAYLOAD not found");
+  return JSON.parse(m[0].slice("const PAYLOAD = ".length, -1));
+}
+function download(name, text) {
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(new Blob([text], { type: "text/html" }));
+  a.download = name;
+  document.body.appendChild(a); a.click(); a.remove();
+}
+
+document.getElementById("frm").addEventListener("submit", async ev => {
+  ev.preventDefault();
+  const pw = document.getElementById("pw").value;
+  logEl.textContent = ""; logEl.classList.add("muted");
+  const files = { c: document.getElementById("fc").files[0], w: document.getElementById("fw").files[0] };
+  if (!files.c || !files.w) { log("חסר קובץ מקור.", "bad"); return; }
+  if (pw.length < 12) { log("הסיסמה קצרה מ-12 תווים.", "bad"); return; }
+  let allOk = true;
+  for (const k of ["c", "w"]) {
+    try {
+      const src = new Uint8Array(await files[k].arrayBuffer());
+      const text = new TextDecoder().decode(src);
+      if (!/<html/i.test(text)) { log(k + ": הקובץ אינו HTML.", "bad"); allOk = false; continue; }
+      const oldHtml = await fetchLive(PAGES[k]);
+      const oldPayload = payloadOf(oldHtml);
+      if (!oldHtml.includes('autocomplete="current-password"') || !oldHtml.includes('name="password"')) {
+        log(PAGES[k] + ": תיקון המילוי האוטומטי לא נמצא בדף החי - עצירה.", "bad"); allOk = false; continue;
+      }
+      const salt = crypto.getRandomValues(new Uint8Array(16));
+      const iv = crypto.getRandomValues(new Uint8Array(12));
+      const key = await keyFor(pw, salt, "encrypt");
+      const ct = new Uint8Array(await crypto.subtle.encrypt({ name: "AES-GCM", iv }, key, src));
+      const payload = { salt: b64(salt), iv: b64(iv), ciphertext: b64(ct) };
+      const line = "const PAYLOAD = " + JSON.stringify(payload).replace(/","/g, '", "').replace(/":"/g, '": "') + ";";
+      const newHtml = oldHtml.replace(PAYLOAD_RE, () => line);
+      // בדיקות
+      const back = await tryOpen(pw, payloadOf(newHtml));
+      const t1 = back && (await sha(back)) === (await sha(src));
+      const t2 = (await tryOpen(pw, oldPayload)) === null;
+      const t3 = newHtml.replace(PAYLOAD_RE, "") === oldHtml.replace(PAYLOAD_RE, "");
+      srcHash[k] = await sha(src);
+      log(PAGES[k] + " (" + files[k].name + ", " + src.length + " בתים)");
+      log("  הסיסמה החדשה פותחת את הגרסה החדשה: " + (t1 ? "עבר" : "נכשל"), t1 ? "ok" : "bad");
+      log("  הגרסה הקודמת לא נפתחת בסיסמה החדשה (הסיסמאות שונות): " + (t2 ? "עבר" : "נכשל"), t2 ? "ok" : "bad");
+      log("  התבנית ותיקון המילוי האוטומטי נשמרו ללא שינוי: " + (t3 ? "עבר" : "נכשל"), t3 ? "ok" : "bad");
+      if (t1 && t2 && t3) { out[k] = newHtml; document.getElementById("dl" + k).disabled = false; } else allOk = false;
+    } catch (e) { log(k + ": שגיאה - " + e.message, "bad"); allOk = false; }
+  }
+  log(allOk ? "הכל עבר. הורד את שני הקבצים." : "יש כשל - אל תעלה.", allOk ? "ok" : "bad");
+});
+
+document.getElementById("dlc").addEventListener("click", () => download(PAGES.c, out.c));
+document.getElementById("dlw").addEventListener("click", () => download(PAGES.w, out.w));
+
+document.getElementById("live").addEventListener("click", async () => {
+  const pw = document.getElementById("pw").value;
+  logEl.textContent = ""; logEl.classList.add("muted");
+  for (const k of ["c", "w"]) {
+    try {
+      const html = await fetchLive(PAGES[k]);
+      const p = payloadOf(html);
+      const replaced = p.salt !== OLD_SALTS[k];
+      const opened = pw ? await tryOpen(pw, p) : null;
+      const same = opened && srcHash[k] ? (await sha(opened)) === srcHash[k] : null;
+      const af = html.includes('autocomplete="current-password"') && html.includes('name="password"');
+      log(PAGES[k]);
+      log("  הגרסה הישנה הוחלפה בדף החי: " + (replaced ? "כן" : "עדיין לא (המתן דקה ונסה שוב)"), replaced ? "ok" : "bad");
+      log("  נפתח בסיסמה החדשה: " + (opened ? "כן" : "לא"), opened ? "ok" : "bad");
+      if (same !== null) log("  התוכן זהה למקור שנבחר: " + (same ? "כן" : "לא"), same ? "ok" : "bad");
+      log("  תיקון המילוי האוטומטי קיים: " + (af ? "כן" : "לא"), af ? "ok" : "bad");
+    } catch (e) { log(k + ": שגיאה - " + e.message, "bad"); }
+  }
+});
+</script>
+</body>
+</html>
