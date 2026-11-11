@@ -68,6 +68,7 @@
   }
   .help-top { display: flex; justify-content: space-between; align-items: center; gap: 12px; }
   .help-card h2 { margin: 0; font-size: 1.35rem; }
+  #help-title:focus { outline: none; }
   .help-body { display: flex; flex-direction: column; gap: 10px; min-height: 190px; }
   .help-body p { margin: 0; }
   .help-body ol { margin: 0; padding-inline-start: 24px; display: flex; flex-direction: column; gap: 6px; }
@@ -87,6 +88,12 @@
     </div>
     <button class="btn ghost" id="help-open" type="button" aria-haspopup="dialog">מדריך למשתמש (F1)</button>
   </header>
+  <div class="card" style="margin-top:16px">
+    <div class="row">
+      <span>זה דף לקריאה בלבד. לחיפוש, להוספה למעקב ולרישום קניות עוברים למסך הראשי.</span>
+      <a class="btn" style="text-decoration:none;display:inline-flex;align-items:center" href="https://claude.ai/artifact/FjqXeeUUoZDJkq6edMQ8sB" target="_blank" rel="noopener noreferrer">למסך הראשי</a>
+    </div>
+  </div>
 
   <h2>מעקב מחירים</h2>
   <div id="watch"></div>
