@@ -1,0 +1,1114 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>חוסך חכם – תמונת מצב יומית</title>
+<style>
+  :root {
+    --bg: #f6f4ee; --card: #ffffff; --ink: #1d2a26; --muted: #5d6b66;
+    --line: #e2ded2; --accent: #0f6b52; --accent-soft: #e3f1ec; --star: #c98a00;
+    --warn: #8a5a00;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #121815; --card: #1b2420; --ink: #e9efec; --muted: #9db0a9;
+      --line: #2c3a34; --accent: #5fd0ae; --accent-soft: #1f3a32; --star: #f0b83a;
+      --warn: #f0b83a;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; background: var(--bg); color: var(--ink);
+    font-family: "Segoe UI", "Arial Hebrew", Arial, sans-serif; line-height: 1.55;
+  }
+  .wrap { max-width: 860px; margin: 0 auto; padding: 20px 16px 48px; }
+  header h1 { margin: 0 0 4px; font-size: 1.7rem; }
+  header p { margin: 0; color: var(--muted); }
+  h2 { font-size: 1.2rem; margin: 30px 0 12px; }
+  .card {
+    background: var(--card); border: 1px solid var(--line); border-radius: 12px;
+    padding: 14px 16px; margin-bottom: 12px;
+  }
+  .row { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; }
+  .name { font-weight: 600; }
+  .price { font-weight: 700; color: var(--accent); white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .meta { color: var(--muted); font-size: .92rem; margin-top: 4px; overflow-wrap: anywhere; }
+  .stars { color: var(--star); letter-spacing: 1px; white-space: nowrap; }
+  .code {
+    display: inline-block; direction: ltr; font-family: Consolas, monospace;
+    background: var(--accent-soft); color: var(--accent); border-radius: 6px; padding: 1px 8px;
+  }
+  .tag { display: inline-block; font-size: .8rem; color: var(--muted); border: 1px solid var(--line); border-radius: 999px; padding: 0 8px; }
+  .unverified { color: var(--warn); font-size: .85rem; }
+  a { color: var(--accent); }
+  details { margin-top: 8px; }
+  summary { cursor: pointer; color: var(--muted); font-size: .92rem; }
+  .opt { border-top: 1px dashed var(--line); padding-top: 8px; margin-top: 8px; }
+  footer { margin-top: 32px; color: var(--muted); font-size: .88rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>חוסך חכם</h1>
+    <p id="updated"></p>
+  </header>
+
+  <h2>מעקב מחירים</h2>
+  <div id="watch"></div>
+
+  <h2>דילים וקופונים</h2>
+  <div id="deals"></div>
+
+  <h2>מבצעים קרובים</h2>
+  <div id="events"></div>
+
+  <footer>
+    דף לקריאה בלבד, מתעדכן פעם ביום. הכוכבים הם הערכת כדאיות: איכות המוצר והמוכר מול המחיר הסופי.
+    המחירים נקראו ביום העדכון ועשויים להשתנות; יש לבדוק את המחיר הסופי בחנות לפני קנייה.
+  </footer>
+</div>
+
+<script>
+const DATA = {"watch":[{
+  "added": "2026-11-11",
+  "best_price": 166,
+  "best_store": "KSP",
+  "best_url": "https://ksp.co.il/web/item/59241",
+  "checked_at": "11.11.2026",
+  "kind": "product",
+  "name": "מתג Wi-Fi חכם לדוד חשמל",
+  "note": "Switcher Touch עם תו תקן ישראלי ואחריות יבואן לשנה, 166 ₪ באיסוף מסניף (משלוח לבית 30 ₪); מתאים לקופסת 3 מודולים, ולקופסה מלבנית או עגולה יש את Switcher Long V4 ב-179 ₪. ההתקנה מחייבת חשמלאי מוסמך.",
+  "options": [
+    {
+      "name": "Switcher Touch, זכוכית לבנה (לקופסת 3 מודולים)",
+      "orders": null,
+      "price": 166,
+      "pros": "מותג ישראלי עם תו תקן, מדידת צריכה, תזמונים שעובדים גם בלי אינטרנט, אחריות יבואן. בזאפ הדגם הקודם Touch V3 מדורג 3.5 מתוך 5 (16 ביקורות).",
+      "rating": null,
+      "reliable": true,
+      "store": "KSP",
+      "url": "https://ksp.co.il/web/item/59241",
+      "value": 4
+    },
+    {
+      "name": "Switcher Long V4 (לקופסה מלבנית, עגולה 55 מ\"מ, 3 או 4 מודולים)",
+      "orders": null,
+      "price": 179,
+      "pros": "מתאים לרוב סוגי הקופסאות, תו תקן ישראלי. דירוג הגולשים בזאפ חלש: 2.4 מתוך 5 (17 ביקורות).",
+      "rating": null,
+      "reliable": true,
+      "store": "KSP",
+      "url": "https://ksp.co.il/web/item/134845",
+      "value": 3
+    },
+    {
+      "name": "Switcher Mini (לקופסה עגולה 55 מ\"מ), עד 16 אמפר",
+      "orders": 2,
+      "price": 159,
+      "pros": "הזול מבין דגמי Switcher, משלוח חינם, תו תקן. רק 2 ביקורות, ודירוג החנות בזאפ נמוך (1.86).",
+      "rating": 3,
+      "reliable": false,
+      "store": "באג (דרך זאפ)",
+      "url": "https://www.zap.co.il/model.aspx?modelid=1071339",
+      "value": 3
+    },
+    {
+      "name": "SONOFF TH Elite THR320D, 20 אמפר, עם מסך",
+      "orders": 900,
+      "price": 21.87,
+      "pros": "מותג מוכר, 20 אמפר, משלוח חינם ופטור ממע\"מ. זה ממסר להתקנה בתוך הקו ולא מתג קיר: בלי תו תקן ישראלי, דורש חשמלאי; המחיר מוגבל ליחידה אחת וייתכן שהוא מחיר מבצע זמני.",
+      "rating": 4.9,
+      "reliable": null,
+      "store": "עליאקספרס – החנות הרשמית של SONOFF",
+      "url": "https://he.aliexpress.com/item/1005004377171162.html",
+      "value": 3
+    },
+    {
+      "name": "Shelly 1PM Gen4, ממסר חכם עם מדידת צריכה",
+      "orders": 1000,
+      "price": 70.66,
+      "pros": "מותג איכותי, Wi-Fi ו-Matter, משלוח חינם. מותקן מאחורי המתג הקיים, בלי תו תקן ישראלי, והזרם המרבי לא אומת (10 או 16 אמפר) – לבדוק שמתאים לדוד.",
+      "rating": 5,
+      "reliable": null,
+      "store": "עליאקספרס – החנות הרשמית של Shelly",
+      "url": "https://he.aliexpress.com/item/1005008678939509.html",
+      "value": 3
+    }
+  ],
+  "target": null,
+  "url": ""
+},{
+  "added": "2026-11-11",
+  "best_price": 254,
+  "best_store": "Wizz Air (דרך קאיאק)",
+  "best_url": "https://www.he.kayak.com/flight-routes/Tel-Aviv-Ben-Gurion-Intl-TLV/Larnaca-LCA",
+  "checked_at": "11.11.2026",
+  "kind": "travel",
+  "name": "טיסות לקפריסין",
+  "note": "מחיר 'החל מ' לאדם הלוך-חזור תל אביב–לרנקה בדצמבר (9–16.12 או 21–28.12), כנראה עם תיק יד בלבד; טרולי או מזוודה בתוספת תשלום, והמחיר הסופי נקבע רק בעמוד ההזמנה.",
+  "options": [
+    {
+      "name": "תל אביב–לרנקה, Wizz Air, הלוך-חזור 9–16.12 או 21–28.12",
+      "orders": null,
+      "price": 254,
+      "pros": "הזול ביותר שנמצא; גם מומונדו מציג רמת מחיר דומה (81$). תנאי כבודה לא הופיעו בעמוד.",
+      "rating": null,
+      "reliable": null,
+      "store": "קאיאק (השוואת מחירים)",
+      "url": "https://www.he.kayak.com/flight-routes/Tel-Aviv-Ben-Gurion-Intl-TLV/Larnaca-LCA",
+      "value": 4
+    },
+    {
+      "name": "תל אביב–לרנקה, ישראייר, הלוך-חזור 28.11–2.12",
+      "orders": null,
+      "price": 375,
+      "pros": "118$ לאדם, חברה ישראלית וסוכן מוכר. המחיר המדויק מופיע רק בעמוד ההזמנה.",
+      "rating": null,
+      "reliable": null,
+      "store": "איסתא",
+      "url": "https://www.issta.co.il/flights/cyprus",
+      "value": 4
+    },
+    {
+      "name": "תל אביב–פאפוס, אל על, הלוך-חזור 11–14.12",
+      "orders": null,
+      "price": 391,
+      "pros": "טיסה ישירה של אל על לפאפוס. תנאי כבודה לא הופיעו בעמוד.",
+      "rating": null,
+      "reliable": null,
+      "store": "קאיאק (השוואת מחירים)",
+      "url": "https://www.he.kayak.com/flight-routes/Tel-Aviv-Ben-Gurion-Intl-TLV/Paphos-PFO",
+      "value": 3
+    },
+    {
+      "name": "תל אביב–לרנקה, Cyprus Airways, הלוך-חזור בנובמבר–דצמבר",
+      "orders": null,
+      "price": 426,
+      "pros": "החל מ-121 אירו ישירות מחברת התעופה, מגוון תאריכים מ-16.11.",
+      "rating": null,
+      "reliable": null,
+      "store": "Cyprus Airways (אתר החברה)",
+      "url": "https://www.cyprusairways.com/en/flights-from-tel-aviv-to-cyprus",
+      "value": 3
+    },
+    {
+      "name": "חיפה–לרנקה, אייר חיפה, הלוך-חזור בנובמבר–דצמבר",
+      "orders": null,
+      "price": 486,
+      "pros": "החל מ-138 אירו, יציאה מחיפה בלי נסיעה לנתב\"ג. בלי טרולי ובלי מזוודה, יקר מתל אביב.",
+      "rating": null,
+      "reliable": null,
+      "store": "אייר חיפה (אתר החברה)",
+      "url": "https://flights.airhaifa.com/he/flights-to-larnaca",
+      "value": 3
+    }
+  ],
+  "target": null,
+  "url": ""
+},{
+  "added": "2026-11-11",
+  "best_price": 709,
+  "best_store": "רפאלי (דרך זאפ)",
+  "best_url": "https://www.zap.co.il/model.aspx?modelid=1233832",
+  "checked_at": "11.11.2026",
+  "kind": "product",
+  "name": "אוזניות הולכת עצם לשחייה",
+  "note": "Shokz OpenSwim Pro עם 32GB ובלוטות', 679 ₪ ועוד 30 ₪ משלוח, כולל מע\"מ, מהמוכר היחיד שעומד בכלל המחמיר (4.88, מעל 2,000 ביקורות); לוודא מולו אחריות יבואן רשמי לפני תשלום. בעליאקספרס המחיר לא זול יותר ואין אחריות בארץ.",
+  "options": [
+    {
+      "name": "Shokz OpenSwim Pro (S710), 32GB, בלוטות' 5.4, IP68",
+      "orders": null,
+      "price": 709,
+      "pros": "הדגם המוביל לשחייה, מוכר בדירוג 4.88 עם 2,044 ביקורות, אספקה עד 5 ימים. היבואן לא צוין בשורה בזאפ.",
+      "rating": null,
+      "reliable": true,
+      "store": "רפאלי (דרך זאפ)",
+      "url": "https://www.zap.co.il/model.aspx?modelid=1233832",
+      "value": 4
+    },
+    {
+      "name": "Shokz OpenSwim Pro (S710), 32GB, בלוטות' 5.4, IP68",
+      "orders": null,
+      "price": 679,
+      "pros": "משלוח חינם ומסומן כיבואן רשמי. דירוג המוכר 4.7 עם 1,116 ביקורות, מעט מתחת לכלל המחמיר.",
+      "rating": null,
+      "reliable": false,
+      "store": "חשמל נטו (דרך זאפ)",
+      "url": "https://www.zap.co.il/model.aspx?modelid=1233832",
+      "value": 4
+    },
+    {
+      "name": "Shokz OpenSwim Pro (S710), 32GB, בלוטות' 5.4, IP68",
+      "orders": null,
+      "price": 677,
+      "pros": "משלוח חינם ושנתיים אחריות של בנדא מגנטיק, במקום 799 ₪. המבצע מסומן עד היום 11.11 או גמר המלאי, ודירוג החנות בזאפ נמוך (1.86).",
+      "rating": null,
+      "reliable": false,
+      "store": "באג",
+      "url": "https://www.bug.co.il/brand/shokz/earphones/wireless/openswim/pro/color/grey",
+      "value": 3
+    },
+    {
+      "name": "Shokz OpenSwim Pro (S710), 32GB, בלוטות' 5.4, IP68",
+      "orders": null,
+      "price": 664,
+      "pros": "הזול ברשימה עם משלוח חינם עד 3 ימים. רק 676 ביקורות למוכר, ואין ציון יבואן.",
+      "rating": null,
+      "reliable": false,
+      "store": "שיפשופ (דרך זאפ)",
+      "url": "https://www.zap.co.il/model.aspx?modelid=1233832",
+      "value": 3
+    },
+    {
+      "name": "Shokz OpenSwim (הדגם הישן), 4GB, בלי בלוטות', IP68",
+      "orders": 4,
+      "price": 677,
+      "pros": "יבואן רשמי, אבל באותו מחיר של ה-Pro מקבלים דגם ישן וחלש יותר – לא משתלם.",
+      "rating": 4,
+      "reliable": false,
+      "store": "חשמל נטו (דרך זאפ)",
+      "url": "https://www.zap.co.il/model.aspx?modelid=1154438",
+      "value": 2
+    }
+  ],
+  "target": null,
+  "url": ""
+},{
+  "added": "2026-11-11",
+  "best_price": 4686,
+  "best_store": "אור פי סי (דרך זאפ)",
+  "best_url": "https://www.zap.co.il/model.aspx?modelid=1248448",
+  "checked_at": "11.11.2026",
+  "kind": "product",
+  "name": "מחשב נייד Lenovo ThinkPad לעבודה",
+  "note": "ThinkPad E14 Gen 7 עם Core Ultra 7 255H, 16GB ו-512GB, משלוח חינם ו-3 שנות אחריות באתר הלקוח; מגיע בלי Windows (צריך להוסיף רישיון), והמחיר נקרא בעמוד ההשוואה של זאפ ולא בקופה של החנות.",
+  "options": [
+    {
+      "name": "ThinkPad E14 Gen 7 21SX0055IV – Core Ultra 7 255H, 16GB, 512GB, מסך 14 אינץ', בלי מערכת הפעלה",
+      "orders": null,
+      "price": 4686,
+      "pros": "מעבד חזק מסדרת H, 1.34 ק\"ג, 3 שנות אחריות באתר הלקוח, מסומן במלאי. בלי Windows.",
+      "rating": null,
+      "reliable": null,
+      "store": "אור פי סי (דרך זאפ)",
+      "url": "https://www.zap.co.il/model.aspx?modelid=1248448",
+      "value": 4
+    },
+    {
+      "name": "ThinkPad E16 Gen 3 21SR004FIV – Core Ultra 5 225U, 16GB, 512GB, מסך 16 אינץ', בלי מערכת הפעלה",
+      "orders": 1,
+      "price": 4060,
+      "pros": "הזול ביותר, 3 שנות אחריות יצרן, משלוח חינם. מעבד חלש יותר ובלי Windows; הדירוג מבוסס על ביקורת אחת.",
+      "rating": 5,
+      "reliable": null,
+      "store": "אופיס פרו (דרך זאפ)",
+      "url": "https://www.zap.co.il/model.aspx?modelid=1248443",
+      "value": 4
+    },
+    {
+      "name": "ThinkPad E16 Gen 4 21YC0018IV – Core Ultra 5, 16GB, 512GB, מסך מגע 16 אינץ' 120Hz, Windows 11 Pro",
+      "orders": null,
+      "price": 5578,
+      "pros": "הדור החדש, כולל Windows 11 Pro ומסך מגע. האחריות לא צוינה בחנויות הזולות.",
+      "rating": null,
+      "reliable": null,
+      "store": "אם.די.אס מחשבים (דרך זאפ)",
+      "url": "https://www.zap.co.il/model.aspx?modelid=1269732",
+      "value": 3
+    },
+    {
+      "name": "ThinkPad T14 Gen 6 21QG000XIV – Core Ultra 5 228V, 32GB, 512GB, מסך 14 אינץ', Windows 11 Pro",
+      "orders": null,
+      "price": 6614,
+      "pros": "סדרת T האיכותית, 32GB, Windows 11 Pro ו-3 שנות אחריות. יקר בכ-2,000 ₪ מההמלצה.",
+      "rating": null,
+      "reliable": null,
+      "store": "אופיס פרו (דרך זאפ)",
+      "url": "https://www.zap.co.il/model.aspx?modelid=1263926",
+      "value": 3
+    },
+    {
+      "name": "ThinkPad E14 Gen 7 – Core Ultra 5 226V, 16GB, 512GB, מסך 14 אינץ', בלי מערכת הפעלה",
+      "orders": null,
+      "price": 4495,
+      "pros": "רשת גדולה, משלוח חינם ו-12 תשלומים. שנת אחריות אחת בלבד, ובעמוד מופיע הכיתוב 'מציאון' – לבדוק שהמוצר חדש.",
+      "rating": null,
+      "reliable": true,
+      "store": "אייבורי",
+      "url": "https://www.ivory.co.il/catalog.php?id=171742",
+      "value": 3
+    }
+  ],
+  "target": null,
+  "url": ""
+}],"deals":[{
+  "category": "קופון",
+  "code": "ILAFF16",
+  "details": "קוד לחשבונות ישראל, בדולרים. קוד אחד להזמנה, פעם אחת לחשבון, עד גמר המלאי. לרוב לא חל על Super Deals. קודים חלופיים לאותה מדרגה: IL05, AEIL16, ILAFF16D.",
+  "discount_pct": 18.8,
+  "price_after": "",
+  "price_before": "",
+  "score": 5,
+  "source_url": "https://g-rafa.co.il/aliexpress-coupons-11-11-2026/",
+  "store": "עליאקספרס",
+  "title": "עליאקספרס 11.11 – 16$ הנחה מעל 85$",
+  "url": "https://www.aliexpress.com/",
+  "valid_until": "18.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "ILAFF12",
+  "details": "קוד ישראל בדולרים. הסף נבדק על מחיר המוצרים בלבד, בלי משלוח ואחרי הנחת החנות. חלופות: IL04, AEIL12.",
+  "discount_pct": 18.5,
+  "price_after": "",
+  "price_before": "",
+  "score": 4,
+  "source_url": "https://www.androidpimp.com/best-deals/aliexpress-11-11-sale/",
+  "store": "עליאקספרס",
+  "title": "עליאקספרס 11.11 – 12$ הנחה מעל 65$",
+  "url": "https://www.aliexpress.com/",
+  "valid_until": "18.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "ILAFF08",
+  "details": "קוד אחד להזמנה, פעם אחת לחשבון. חלופות: IL03, AEIL08.",
+  "discount_pct": 17.8,
+  "price_after": "",
+  "price_before": "",
+  "score": 4,
+  "source_url": "https://g-rafa.co.il/aliexpress-coupons-11-11-2026/",
+  "store": "עליאקספרס",
+  "title": "עליאקספרס 11.11 – 8$ הנחה מעל 45$",
+  "url": "https://www.aliexpress.com/",
+  "valid_until": "18.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "ILAFF05",
+  "details": "חלופות: IL02, AEIL05, ILAFFN02.",
+  "discount_pct": 17.2,
+  "price_after": "",
+  "price_before": "",
+  "score": 4,
+  "source_url": "https://g-rafa.co.il/aliexpress-coupons-11-11-2026/",
+  "store": "עליאקספרס",
+  "title": "עליאקספרס 11.11 – 5$ הנחה מעל 29$",
+  "url": "https://www.aliexpress.com/",
+  "valid_until": "18.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "ILAFF20",
+  "details": "שים לב: בהזמנה מעל 75$ עליאקספרס גובה 18% מע\"מ בקופה. חלופות: IL06, AEIL20.",
+  "discount_pct": 16.8,
+  "price_after": "",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://g-rafa.co.il/aliexpress-coupons-11-11-2026/",
+  "store": "עליאקספרס",
+  "title": "עליאקספרס 11.11 – 20$ הנחה מעל 119$",
+  "url": "https://www.aliexpress.com/",
+  "valid_until": "18.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "ILAFF37",
+  "details": "מעל 75$ מתווסף מע\"מ בקופה. חלופות: IL07, ILAFF37D, AEIL37D.",
+  "discount_pct": 17.2,
+  "price_after": "",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://g-rafa.co.il/aliexpress-coupons-11-11-2026/",
+  "store": "עליאקספרס",
+  "title": "עליאקספרס 11.11 – 37$ הנחה מעל 215$",
+  "url": "https://www.aliexpress.com/",
+  "valid_until": "18.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "ILAFF60",
+  "details": "מעל 75$ מתווסף מע\"מ בקופה. חלופות: IL08, ILAFF60D, AEIL60D.",
+  "discount_pct": 17.2,
+  "price_after": "",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://g-rafa.co.il/aliexpress-coupons-11-11-2026/",
+  "store": "עליאקספרס",
+  "title": "עליאקספרס 11.11 – 60$ הנחה מעל 349$",
+  "url": "https://www.aliexpress.com/",
+  "valid_until": "18.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "ILAFF02",
+  "details": "למוצרים קטנים. חלופה: IL01.",
+  "discount_pct": 13.3,
+  "price_after": "",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://g-rafa.co.il/aliexpress-coupons-11-11-2026/",
+  "store": "עליאקספרס",
+  "title": "עליאקספרס 11.11 – 2$ הנחה מעל 15$",
+  "url": "https://www.aliexpress.com/",
+  "valid_until": "18.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "ILAFFN04",
+  "details": "ILAFFN01: 3$ מעל 18$. ILAFFN03: 10$ מעל 55$. ILAFFN04: 17$ מעל 90$. ILAFFN05: 24$ מעל 139$. ILAFFN06: 40$ מעל 229$. ILAFFN07: 55$ מעל 315$. ILAFFN08: 69$ מעל 409$. עד גמר המלאי.",
+  "discount_pct": 18.9,
+  "price_after": "",
+  "price_before": "",
+  "score": 4,
+  "source_url": "https://www.outravel.co.il/chinese-singles-day-deals/",
+  "store": "עליאקספרס",
+  "title": "עליאקספרס – מדרגות ביניים (סדרת ILAFFN)",
+  "url": "https://www.aliexpress.com/",
+  "valid_until": "18.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "IL02",
+  "details": "IL01: 6₪ מעל 45₪. IL02: 16₪ מעל 92₪. IL03: 26₪ מעל 145₪. IL09: 40₪ מעל 225₪. IL11: 51₪ מעל 270₪. IL06: 63₪ מעל 375₪. IL12: 115₪ מעל 675₪. IL13: 190₪ מעל 1,100₪. קוד אחד להזמנה.",
+  "discount_pct": 17.4,
+  "price_after": "",
+  "price_before": "",
+  "score": 4,
+  "source_url": "https://www.poenta.co.il/article/aliexpress-11-11/",
+  "store": "עליאקספרס",
+  "title": "עליאקספרס – קודים למשלמים בשקלים",
+  "url": "https://www.aliexpress.com/",
+  "valid_until": "18.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "SUPERIL2",
+  "details": "SUPERIL1: 110$ מעל 550$. SUPERIL2: 160$ מעל 800$. המקורות סותרים זה את זה לגבי התוקף והסכומים, והמלאי נגמר מהר. לבדוק בקופה לפני שסומכים על זה.",
+  "discount_pct": 20,
+  "price_after": "",
+  "price_before": "",
+  "score": 2,
+  "source_url": "https://g-rafa.co.il/aliexpress-coupons-11-11-2026/",
+  "store": "עליאקספרס",
+  "title": "עליאקספרס – קופוני ענק 110$ מעל 550$ ו-160$ מעל 800$",
+  "url": "https://www.aliexpress.com/",
+  "valid_until": "",
+  "verified": false
+},{
+  "category": "קופון",
+  "code": "ILAFFS01",
+  "details": "ILAFFS01: 79$ מעל 399$. ILAFFS02: 140$ מעל 700$. מופיעים באתרי קופונים ישראליים, לא נוסו בקופה.",
+  "discount_pct": 19.8,
+  "price_after": "",
+  "price_before": "",
+  "score": 2,
+  "source_url": "https://www.outravel.co.il/chinese-singles-day-deals/",
+  "store": "עליאקספרס",
+  "title": "עליאקספרס – 79$ מעל 399$ ו-140$ מעל 700$",
+  "url": "https://www.aliexpress.com/",
+  "valid_until": "18.11.2026",
+  "verified": false
+},{
+  "category": "כללי",
+  "code": "",
+  "details": "אפשר לשלב קופון חנות (אוספים בעמוד המוצר), קוד אחד בקופה, ומטבעות על מוצרים מסומנים. כדאי לשלם בדולרים. פטור ממע\"מ עד 75$, מעל זה 18% נגבה בקופה. מבצע 11.11 נמשך עד 18.11, ואחריו בלאק פריידיי עם קודים אחרים.",
+  "discount_pct": null,
+  "price_after": "",
+  "price_before": "",
+  "score": 4,
+  "source_url": "https://www.buywithus.org/100355/",
+  "store": "עליאקספרס",
+  "title": "איך משלבים הנחות בעליאקספרס",
+  "url": "https://www.buywithus.org/100355/",
+  "valid_until": "18.11.2026",
+  "verified": true
+},{
+  "category": "מוצר",
+  "code": "",
+  "details": "מחיר מבצע 11.11 לפי כתבה מהיום. המחיר הסופי בעמוד המוצר עשוי להיות מעט שונה, ומעל 75$ מתווסף מע\"מ.",
+  "discount_pct": 65,
+  "price_after": "588 ₪",
+  "price_before": "1,673 ₪",
+  "score": 4,
+  "source_url": "https://www.poenta.co.il/article/aliexpress-11-11/",
+  "store": "עליאקספרס",
+  "title": "שואב רובוטי Xiaomi H40",
+  "url": "https://www.poenta.co.il/article/aliexpress-11-11/",
+  "valid_until": "18.11.2026",
+  "verified": true
+},{
+  "category": "מוצר",
+  "code": "",
+  "details": "באותה כתבה גם: מטען נייד Ugreen 20,000mAh 67W ב-133 ₪ (ייתכן שרק למצטרפים חדשים), וצמיד Xiaomi Smart Band 10 Pro ב-197 ₪ במקום 504 ₪.",
+  "discount_pct": 68,
+  "price_after": "104 ₪",
+  "price_before": "324 ₪",
+  "score": 5,
+  "source_url": "https://www.poenta.co.il/article/aliexpress-11-11/",
+  "store": "עליאקספרס",
+  "title": "מטען קיר Ugreen GaN 100W",
+  "url": "https://www.poenta.co.il/article/aliexpress-11-11/",
+  "valid_until": "18.11.2026",
+  "verified": true
+},{
+  "category": "מוצר",
+  "code": "",
+  "details": "מחירים כולל מבצע וקופונים, לפני מע\"מ: C95 Pro ב-169$, X8 ב-258$, X8 Pro ב-364$, X8 Pro Max ב-453$, F9 Ultra ב-754$. הקופונים נאספים בעמודי המוצר. הכתבה היא תוכן שיווקי.",
+  "discount_pct": null,
+  "price_after": "החל מ-169$",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://www.gadgety.co.il/372227/poco-singles-day-2026/",
+  "store": "עליאקספרס",
+  "title": "סמארטפונים POCO במבצע 11.11",
+  "url": "https://www.gadgety.co.il/372227/poco-singles-day-2026/",
+  "valid_until": "13.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "D11MEGA",
+  "details": "לפי הודעה לעיתונות מ-3.11, בתוקף 4–12.11. לא צוין שהקוד חל על ישראל. אתר ישראלי מציג לישראל את הקוד 26DOUBLE11. לבדוק בקופה.",
+  "discount_pct": 26,
+  "price_after": "",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://www.thailand-business-news.com/?p=338282",
+  "store": "iHerb",
+  "title": "iHerb – 26% על כל האתר",
+  "url": "https://il.iherb.com/",
+  "valid_until": "12.11.2026",
+  "verified": false
+},{
+  "category": "משלוח",
+  "code": "GOLDIL",
+  "details": "לפי אתר קופונים ישראלי: משלוח חינם מעל 180 ₪. GOLDIL נותן 10% מעל 400 ₪. NEW20 נותן 20% בהזמנה ראשונה. לא אומת מול אתר iHerb עצמו.",
+  "discount_pct": 10,
+  "price_after": "",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://www.jemix.co.il/iherb-coupon/",
+  "store": "iHerb",
+  "title": "iHerb – משלוח חינם מעל 180 ₪ וקודים קבועים",
+  "url": "https://il.iherb.com/",
+  "valid_until": "",
+  "verified": false
+},{
+  "category": "משלוח",
+  "code": "",
+  "details": "רק על מוצרים שנשלחים על ידי אמזון ומסומנים כזכאים. אספקה של שבועיים עד חודש. לא נמצא מבצע 11.11 ייעודי; בלאק פריידיי ב-27.11. המקור אינו מהחודש הנוכחי.",
+  "discount_pct": null,
+  "price_after": "",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://www.amzfreeil.com/blog/black-friday-prime-day-israel.html",
+  "store": "אמזון",
+  "title": "אמזון – משלוח חינם לישראל מעל 49$",
+  "url": "https://www.amazon.com/",
+  "valid_until": "",
+  "verified": false
+},{
+  "category": "קופון",
+  "code": "SHOPBRANDS20",
+  "details": "לפי אתר מבצעי יום הרווקים הישראלי. מינימום ותקרה לא פורסמו. לא אומת מול איביי.",
+  "discount_pct": 20,
+  "price_after": "",
+  "price_before": "",
+  "score": 2,
+  "source_url": "https://singlesday.org.il/",
+  "store": "איביי",
+  "title": "איביי – 20% על מותגים נבחרים",
+  "url": "https://www.ebay.com/",
+  "valid_until": "15.11.2026",
+  "verified": false
+},{
+  "category": "קופון",
+  "code": "BGACCES5",
+  "details": "במבצע 11.11 יש גם קופונים של 6–15$. לא אומת מול האתר.",
+  "discount_pct": 5,
+  "price_after": "",
+  "price_before": "",
+  "score": 1,
+  "source_url": "https://singlesday.org.il/",
+  "store": "Banggood",
+  "title": "Banggood – 5% על אביזרי אלקטרוניקה",
+  "url": "https://www.banggood.com/",
+  "valid_until": "12.11.2026",
+  "verified": false
+},{
+  "category": "קופון",
+  "code": "SINGLES",
+  "details": "קוד ל-11.11 על מוצרים משתתפים, מזינים בקופה. עד 14.11 או גמר המלאי. הופיע בשני אתרי קופונים, לא נוסה בקופה.",
+  "discount_pct": 10,
+  "fit": "יכול להוזיל את ה-ThinkPad שברשימת המעקב אם הדגם נמכר ב-LastPrice; המחיר שם לא נבדק היום.",
+  "price_after": "",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://coupons-list.com/coupons/singles-day/",
+  "store": "LastPrice",
+  "title": "111 ₪ הנחה בקנייה מעל 1,111 ₪",
+  "url": "https://www.lastprice.co.il",
+  "valid_until": "14.11.2026",
+  "verified": true
+},{
+  "category": "מוצר",
+  "code": "",
+  "details": "היום קונים 2 מוצרים ומקבלים 2 נוספים, הזולים מבין הארבעה. עד 25.11: קונים ב-400 ומשלמים 200, או ב-250 ומשלמים 150. לחברי מועדון.",
+  "discount_pct": 50,
+  "price_after": "200 ₪",
+  "price_before": "400 ₪",
+  "score": 4,
+  "source_url": "https://www.ice.co.il/consumerism/news/article/1137079",
+  "store": "The Body Shop",
+  "title": "2+2 במתנה ביום הרווקים",
+  "url": "https://www.ice.co.il/consumerism/news/article/1137079",
+  "valid_until": "25.11.2026",
+  "verified": true
+},{
+  "category": "מוצר",
+  "code": "",
+  "details": "עד 15.11 בחצות, על פריטים נבחרים. מנגו: קונים ב-350 ומשלמים 250 עד 18.11.",
+  "discount_pct": 80,
+  "price_after": "250 ₪",
+  "price_before": "350 ₪",
+  "score": 3,
+  "source_url": "https://www.poenta.co.il/article/november-sales-2026-calendar/",
+  "store": "Terminal X",
+  "title": "אאוטלט עד 80%, מותגים עד 50%",
+  "url": "https://www.terminalx.com/women",
+  "valid_until": "15.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "SINGLES20",
+  "details": "קוד להיום בלבד על מותגים ופריטים נבחרים. לא כולל בית, תכשיטים, אלקטרוניקה ובשמים. מקור יחיד, לא אומת באתר הרשת.",
+  "discount_pct": 20,
+  "price_after": "",
+  "price_before": "",
+  "score": 2,
+  "source_url": "https://coupons-list.com/coupons/singles-day/",
+  "store": "Terminal X",
+  "title": "20% נוספים על מבצעים קיימים",
+  "url": "https://www.terminalx.com",
+  "valid_until": "11.11.2026",
+  "verified": false
+},{
+  "category": "קופון",
+  "code": "1111",
+  "details": "קוד להיום בלבד על Xiaomi, Dreame, Roborock, Midea, Lenovo, TCL. קופון אחד ללקוח. מקור יחיד, לא אומת באתר הרשת.",
+  "discount_pct": 11,
+  "fit": "הקוד כולל את Lenovo ולכן רלוונטי ל-ThinkPad שברשימת המעקב, אבל הוא לא אומת ותקף להיום בלבד.",
+  "price_after": "",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://coupons-list.com/coupons/singles-day/",
+  "store": "מחסני חשמל",
+  "title": "11% הנחה על מותגים סיניים",
+  "url": "https://www.payngo.co.il",
+  "valid_until": "11.11.2026",
+  "verified": false
+},{
+  "category": "מוצר",
+  "code": "",
+  "details": "ZINVO ב-519 ₪ במקום 1,995. TSAR BOMBA ב-882 ₪ במקום 3,395. בחנויות ובאתר. שים לב: מחיר 'לפני' של יבואן לא תמיד משקף מחיר שוק.",
+  "discount_pct": 74,
+  "price_after": "519 ₪",
+  "price_before": "1,995 ₪",
+  "score": 2,
+  "source_url": "https://www.ice.co.il/consumerism/news/article/1137079",
+  "store": "ג'נטלמן",
+  "title": "שעוני יד עד 74% הנחה",
+  "url": "https://www.ice.co.il/consumerism/news/article/1137079",
+  "valid_until": "26.11.2026",
+  "verified": true
+},{
+  "category": "מוצר",
+  "code": "",
+  "details": "7 דגמים, למשל OLED בגודל 65 אינץ' בכ-4,290 ₪ במקום 6,290. משלוח חינם. המחירים נבדקו במקור ב-8.11.",
+  "discount_pct": 32,
+  "price_after": "4,290 ₪",
+  "price_before": "6,290 ₪",
+  "score": 5,
+  "source_url": "https://www.poenta.co.il/article/november-sales-2026-calendar/",
+  "store": "LastPrice",
+  "title": "טלוויזיות סמסונג עד 2,000 ₪ הנחה",
+  "url": "https://www.lastprice.co.il",
+  "valid_until": "30.11.2026",
+  "verified": true
+},{
+  "category": "מוצר",
+  "code": "",
+  "details": "פריטים מסומנים באתר, למשל שואב אלחוטי Electrolux בכ-200 ₪ במקום 690, ומייבש שיער Dyson Supersonic בכ-1,520 ₪ במקום 2,400. עד גמר המלאי.",
+  "discount_pct": 70,
+  "price_after": "200 ₪",
+  "price_before": "690 ₪",
+  "score": 4,
+  "source_url": "https://www.poenta.co.il/article/november-sales-2026-calendar/",
+  "store": "א.ל.מ",
+  "title": "מוצרי חשמל עד 70%",
+  "url": "https://www.alm.co.il",
+  "valid_until": "30.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "SALE40",
+  "details": "40% על כל הפריטים באתר עם הקוד. כתבה מ-10.11 מאשרת שהמבצע בתוקף עד 19.11.",
+  "discount_pct": 40,
+  "price_after": "",
+  "price_before": "",
+  "score": 2,
+  "source_url": "https://www.ice.co.il/consumerism/news/article/1135976",
+  "store": "NO1BETTER",
+  "title": "40% הנחה על כל האתר",
+  "url": "https://www.ice.co.il/consumerism/news/article/1135976",
+  "valid_until": "19.11.2026",
+  "verified": true
+},{
+  "category": "מוצר",
+  "code": "",
+  "details": "לא כולל מוצרי חשמל, ללא כפל מבצעים.",
+  "discount_pct": 11,
+  "price_after": "",
+  "price_before": "",
+  "score": 2,
+  "source_url": "https://coupons-list.com/coupons/singles-day/",
+  "store": "המשביר לצרכן",
+  "title": "11% נוספים על פריטי סייל",
+  "url": "https://365mashbir.co.il",
+  "valid_until": "12.11.2026",
+  "verified": true
+},{
+  "category": "מוצר",
+  "code": "",
+  "details": "מוצרי טבע ודרמו-קוסמטיקה, בקנייה באתר בלבד, בלי קוד.",
+  "discount_pct": 50,
+  "price_after": "",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://coupons-list.com/coupons/singles-day/",
+  "store": "סופר-פארם",
+  "title": "עד 50% על מוצרים משתתפים באתר",
+  "url": "https://shop.super-pharm.co.il",
+  "valid_until": "14.11.2026",
+  "verified": true
+},{
+  "category": "מוצר",
+  "code": "",
+  "details": "Note 17 בכ-1,220 ₪ עם אוזניות. 17 Pro בכ-1,550 ₪ עם צמיד כושר. 17 Pro Max בכ-2,200 ₪ עם אוזניות. עד גמר המלאי.",
+  "discount_pct": null,
+  "price_after": "1,220 ₪",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://www.poenta.co.il/article/november-sales-2026-calendar/",
+  "store": "באג",
+  "title": "Redmi Note 17 עם מתנה",
+  "url": "https://www.bug.co.il/page/redmi/note/17/pro",
+  "valid_until": "30.11.2026",
+  "verified": true
+},{
+  "category": "מוצר",
+  "code": "",
+  "details": "מטען או אוזניות מקוריות במתנה. אין מחיר 'לפני' ואין תאריך סיום, לכן כדאי להשוות בזאפ. לא נמצא קוד קופון תקף של KSP.",
+  "discount_pct": null,
+  "price_after": "4,250 ₪",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://www.poenta.co.il/article/november-sales-2026-calendar/",
+  "store": "KSP",
+  "title": "iPhone 17 Pro 256GB בכ-4,250 ₪ עם מתנה",
+  "url": "https://ksp.co.il/web/item/411029",
+  "valid_until": "",
+  "verified": true
+},{
+  "category": "מוצר",
+  "code": "",
+  "details": "הנחה בגובה המע\"מ על שואבים אלחוטיים ושוטפים, באתר ובחנויות. לא כולל טלוויזיות, מכונות כביסה ואביזרים.",
+  "discount_pct": 15,
+  "price_after": "",
+  "price_before": "",
+  "score": 4,
+  "source_url": "https://www.ice.co.il/consumerism/news/article/1136214",
+  "store": "Dreame",
+  "title": "מוצרי Dreame ללא מע\"מ",
+  "url": "https://www.ice.co.il/consumerism/news/article/1136214",
+  "valid_until": "30.11.2026",
+  "verified": true
+},{
+  "category": "טיסות",
+  "code": "",
+  "details": "20$ הנחה על טיסות עד 300$, ו-50$ על חבילת טיסה ומלון מעל 500$. שים לב: תוספת מזוודה עולה 100 עד 210$ הלוך-חזור.",
+  "discount_pct": null,
+  "fit": "רלוונטי לטיסות לקפריסין שברשימת המעקב, אך ההנחה קטנה ותוספת המזוודה יקרה.",
+  "price_after": "",
+  "price_before": "",
+  "score": 2,
+  "source_url": "https://www.ynet.co.il/vacation/flights/article/sjqv3mks4agl",
+  "store": "Lastminute",
+  "title": "20$ הנחה על טיסה, 50$ על חבילה",
+  "url": "https://www.lastminute.co.il/november-sale-flights",
+  "valid_until": "26.11.2026",
+  "verified": true
+},{
+  "category": "טיסות",
+  "code": "",
+  "details": "טביליסי 16-19.11 ורומא 20-23.11 ב-189$ לאדם. חבילות: רומא בפברואר, טיסה ומלון 4 כוכבים, מ-309$. ורשה בינואר מ-389$.",
+  "discount_pct": null,
+  "fit": "באיסתא נמצאה היום גם טיסה לקפריסין (ברשימת המעקב) החל מ-118$ הלוך-חזור.",
+  "price_after": "189$",
+  "price_before": "",
+  "score": 4,
+  "source_url": "https://www.maariv.co.il/lifestyle/travel/article-1383844",
+  "store": "איסתא",
+  "title": "טיסות הלוך-חזור ב-189$",
+  "url": "https://www.issta.co.il",
+  "valid_until": "",
+  "verified": true
+},{
+  "category": "נופש",
+  "code": "",
+  "details": "25$ על חבילות וטיולים מאורגנים, 15$ על טיסות מהמלאי של החברה. דוגמה: בטומי 27.11-1.12 עם מלון 4 כוכבים, מזוודה והעברות.",
+  "discount_pct": null,
+  "price_after": "356$",
+  "price_before": "381$",
+  "score": 2,
+  "source_url": "https://www.ynet.co.il/vacation/flights/article/sjqv3mks4agl",
+  "store": "קשרי תעופה",
+  "title": "עד 25$ הנחה לאדם בנובמבר",
+  "url": "https://www.ynet.co.il/vacation/flights/article/sjqv3mks4agl",
+  "valid_until": "30.11.2026",
+  "verified": true
+},{
+  "category": "נופש",
+  "code": "",
+  "details": "הפלגות חורף נבחרות, בהזמנה עד 30.11. בחנוכה: 7 לילות 6-13.12 מ-400$ לאדם בתא פנימי זוגי, כולל דמי שירות ומסי נמל.",
+  "discount_pct": 30,
+  "price_after": "400$",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://www.maariv.co.il/lifestyle/travel/article-1383844",
+  "store": "MSC Cruises",
+  "title": "קרוזים עד 30% הנחה",
+  "url": "https://www.maariv.co.il/lifestyle/travel/article-1383844",
+  "valid_until": "30.11.2026",
+  "verified": true
+},{
+  "category": "נופש",
+  "code": "",
+  "details": "מ-19.11 עד 5.12: 40% בתשלום מראש או 25% במסלול גמיש, לשהייה עד 20.4.27. זוגי עם ארוחת בוקר מ-635 ₪. כבר עכשיו: שוברי מתנה ב-20% הנחה.",
+  "discount_pct": 40,
+  "price_after": "635 ₪",
+  "price_before": "",
+  "score": 4,
+  "source_url": "https://www.ice.co.il/tourism/news/article/1135970",
+  "store": "מלונות אטלס",
+  "title": "מלונות אטלס: 40% בבלאק פריידיי",
+  "url": "https://www.ice.co.il/tourism/news/article/1135970",
+  "valid_until": "05.12.2026",
+  "verified": true
+},{
+  "category": "נופש",
+  "code": "",
+  "details": "עד 25% על מגוון מלונות, ו-10% לחברי המועדון. סבבים הבאים: 24-29.11 עד 30% לשהייה בחורף, ו-26-29.11 עד 50% למרץ לחברי מועדון.",
+  "discount_pct": 25,
+  "price_after": "",
+  "price_before": "",
+  "score": 3,
+  "source_url": "https://www.fattal.co.il/",
+  "store": "פתאל",
+  "title": "מלונות פתאל: עד 25% בנובמבר",
+  "url": "https://www.fattal.co.il",
+  "valid_until": "30.11.2026",
+  "verified": true
+},{
+  "category": "נופש",
+  "code": "",
+  "details": "הצטרפות או חידוש למועדון לאורך נובמבר. לחברים יש מבצעים שבועיים מתחלפים.",
+  "discount_pct": 60,
+  "price_after": "100 ₪",
+  "price_before": "250 ₪",
+  "score": 3,
+  "source_url": "https://www.ice.co.il/tourism/news/article/1135970",
+  "store": "ישרוטל",
+  "title": "מועדון חוג השמש ב-100 ₪ במקום 250",
+  "url": "https://www.isrotel.co.il",
+  "valid_until": "30.11.2026",
+  "verified": true
+},{
+  "category": "כללי",
+  "code": "",
+  "details": "בקניות אונליין במט\"ח ב-150$ ומעלה במצטבר בין 8-30.11. מחייב הרשמה מראש, ל-5,000 הנרשמים הראשונים. מתאים לשילוב עם קופוני עליאקספרס.",
+  "discount_pct": null,
+  "price_after": "",
+  "price_before": "",
+  "score": 4,
+  "source_url": "https://www.ice.co.il/consumerism/news/article/1136221",
+  "store": "כאל",
+  "title": "שובר 50 ₪ על קניות אונליין במט\"ח",
+  "url": "https://www.ice.co.il/consumerism/news/article/1136221",
+  "valid_until": "30.11.2026",
+  "verified": true
+},{
+  "category": "כללי",
+  "code": "",
+  "details": "לכרטיס חוץ-בנקאי, בהרשמה מראש, לאורך נובמבר. אופנה, חשמל, ספורט, פנאי ועיצוב הבית.",
+  "discount_pct": null,
+  "price_after": "",
+  "price_before": "",
+  "score": 4,
+  "source_url": "https://www.ice.co.il/tourism/news/article/1136212",
+  "store": "ישראכרט",
+  "title": "החזר 50 ₪ על קנייה אונליין מ-350 ₪",
+  "url": "https://www.ice.co.il/tourism/news/article/1136212",
+  "valid_until": "30.11.2026",
+  "verified": true
+},{
+  "category": "קופון",
+  "code": "shopil5",
+  "details": "ליעדים נבחרים עם הקוד. פורסם בלי תאריך תוקף, ולא ברור אם עדיין פעיל.",
+  "discount_pct": 5,
+  "price_after": "",
+  "price_before": "",
+  "score": 1,
+  "source_url": "https://www.ynet.co.il/vacation/flights/article/sjqv3mks4agl",
+  "store": "אשת טורס",
+  "title": "5% הנחה על טיולים וחבילות",
+  "url": "https://www.ynet.co.il/vacation/flights/article/sjqv3mks4agl",
+  "valid_until": "",
+  "verified": false
+}],"status":{
+  "events": [
+    {
+      "date": "2026-11-18",
+      "name": "סיום מבצע 11.11 בעליאקספרס"
+    },
+    {
+      "date": "2026-11-27",
+      "name": "בלאק פריידיי"
+    },
+    {
+      "date": "2026-11-30",
+      "name": "סייבר מאנדיי"
+    },
+    {
+      "date": "2026-12-12",
+      "name": "מבצע 12.12 בעליאקספרס"
+    }
+  ],
+  "note": "נבדקו 4 פריטי מעקב ו-45 דילים; לא נמצאו דילים שפג תוקפם",
+  "updated_at": "11.11.2026 16:45"
+}};
+
+const el = (tag, cls, text) => {
+  const node = document.createElement(tag);
+  if (cls) node.className = cls;
+  if (text !== undefined && text !== null) node.textContent = String(text);
+  return node;
+};
+const link = (url, text) => {
+  if (typeof url !== 'string' || !url.startsWith('https://')) return null;
+  const a = el('a', '', text);
+  a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer';
+  return a;
+};
+const stars = n => {
+  const k = Math.max(0, Math.min(5, Math.round(Number(n) || 0)));
+  return '★'.repeat(k) + '☆'.repeat(5 - k);
+};
+const ils = n => typeof n === 'number'
+  ? n.toLocaleString('he-IL', { maximumFractionDigits: 2 }) + ' ₪' : '';
+
+const status = DATA.status || {};
+document.getElementById('updated').textContent =
+  status.updated_at ? 'עודכן: ' + status.updated_at : '';
+
+const watchBox = document.getElementById('watch');
+const watch = DATA.watch || [];
+if (watch.length === 0) watchBox.append(el('p', 'meta', 'אין פריטים במעקב.'));
+for (const item of watch) {
+  const card = el('div', 'card');
+  const row = el('div', 'row');
+  row.append(el('span', 'name', item.name));
+  row.append(el('span', 'price', typeof item.best_price === 'number' ? ils(item.best_price) : 'לא נמצא מחיר'));
+  card.append(row);
+  if (item.best_store) {
+    const meta = el('div', 'meta', item.best_store + ' · ');
+    const a = link(item.best_url, 'לעמוד ההצעה');
+    if (a) meta.append(a);
+    card.append(meta);
+  }
+  if (item.note) card.append(el('div', 'meta', item.note));
+  if (typeof item.target === 'number') card.append(el('div', 'meta', 'מחיר יעד: ' + ils(item.target)));
+  const options = Array.isArray(item.options) ? item.options : [];
+  if (options.length > 0) {
+    const det = el('details');
+    det.append(el('summary', '', options.length + ' חלופות שנבדקו'));
+    for (const o of options) {
+      const box = el('div', 'opt');
+      const r = el('div', 'row');
+      r.append(el('span', 'name', o.name));
+      r.append(el('span', 'price', ils(o.price)));
+      box.append(r);
+      const m = el('div', 'meta');
+      m.append(el('span', 'stars', stars(o.value)));
+      m.append(document.createTextNode(' · ' + (o.store || '')));
+      if (typeof o.rating === 'number') m.append(document.createTextNode(' · דירוג קונים ' + o.rating));
+      const a = link(o.url, 'קישור');
+      if (a) { m.append(document.createTextNode(' · ')); m.append(a); }
+      box.append(m);
+      if (o.pros) box.append(el('div', 'meta', o.pros));
+      det.append(box);
+    }
+    card.append(det);
+  }
+  if (item.checked_at) card.append(el('div', 'meta', 'נבדק: ' + item.checked_at));
+  watchBox.append(card);
+}
+
+const dealsBox = document.getElementById('deals');
+const deals = (DATA.deals || []).slice().sort((a, b) => (b.score || 0) - (a.score || 0));
+if (deals.length === 0) dealsBox.append(el('p', 'meta', 'אין כרגע דילים.'));
+for (const d of deals) {
+  const card = el('div', 'card');
+  const row = el('div', 'row');
+  row.append(el('span', 'name', d.title));
+  row.append(el('span', 'stars', stars(d.score)));
+  card.append(row);
+  const meta = el('div', 'meta');
+  meta.append(document.createTextNode((d.store || '') + ' '));
+  if (d.category) meta.append(el('span', 'tag', d.category));
+  if (d.valid_until) meta.append(document.createTextNode(' · עד ' + d.valid_until));
+  card.append(meta);
+  if (d.price_after) {
+    card.append(el('div', 'meta', 'מחיר: ' + d.price_after + (d.price_before ? ' במקום ' + d.price_before : '')));
+  }
+  if (d.code) {
+    const c = el('div', 'meta', 'קוד קופון: ');
+    c.append(el('span', 'code', d.code));
+    card.append(c);
+  }
+  if (d.details) card.append(el('div', 'meta', d.details));
+  if (d.fit) card.append(el('div', 'meta', 'למה מתאים: ' + d.fit));
+  if (d.verified === false) card.append(el('div', 'unverified', 'לא אומת – לבדוק בקופה'));
+  const a = link(d.url, 'לדיל');
+  if (a) { const l = el('div', 'meta'); l.append(a); card.append(l); }
+  dealsBox.append(card);
+}
+
+const eventsBox = document.getElementById('events');
+const events = Array.isArray(status.events) ? status.events : [];
+if (events.length === 0) eventsBox.append(el('p', 'meta', 'אין אירועים רשומים.'));
+for (const ev of events) {
+  const card = el('div', 'card');
+  const row = el('div', 'row');
+  row.append(el('span', 'name', ev.name));
+  const parts = String(ev.date || '').split('-');
+  row.append(el('span', 'meta', parts.length === 3 ? parts[2] + '.' + parts[1] + '.' + parts[0] : ev.date));
+  card.append(row);
+  eventsBox.append(card);
+}
+</script>
+</body>
+</html>
